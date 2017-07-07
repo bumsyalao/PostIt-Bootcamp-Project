@@ -9,11 +9,13 @@ body {
 }
 */
 .center {
-    margin: right;
-    width: 100%;
+    margin: auto;
+    width: 50%;
     border: 5px black;
     padding: 5px;
 }
+
+
 
 .groupname{
 	color: white;
