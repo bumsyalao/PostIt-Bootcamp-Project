@@ -1,16 +1,33 @@
 module.exports = {
   up: (queryInterface, Sequelize) =>
-  queryInterface.createTable('TodoItems', {
-    id: {
+  queryInterface.createTable('messages', {
+
+    messageId: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
-    content: {
-      type: Sequelize.STRING,
+
+    message: {
       allowNull: false,
+      autoIncrement: false,
+      primaryKey: false,
+      type: Sequelize.STRING,
     },
+    groupId: {
+      allowNull: false,
+      autoIncrement: false,
+      foreignKey: true,
+      type: Sequelize.INTEGER,
+    },
+    messageStatus: {
+      allowNull: false,
+      autoIncrement: false,
+      primaryKey: false,
+      type: Sequelize.BOOLEAN,
+    },
+
     complete: {
       type: Sequelize.BOOLEAN,
       defaultValue: false,
@@ -23,17 +40,11 @@ module.exports = {
       allowNull: false,
       type: Sequelize.DATE,
     },
-    todoId: {
-      type: Sequelize.INTEGER,
-      onDelete: 'CASCADE',
-      references: {
-        model: 'Todos',
-        key: 'id',
-        as: 'todoId',
-      },
-    },
-  }),
+
+    }),
+ 
 
   down: (queryInterface /* , Sequelize */) =>
-  queryInterface.dropTable('TodoItems'),
+  queryInterface.dropTable('messages'),
 };
+
