@@ -1,31 +1,17 @@
 module.exports = {
   up: (queryInterface, Sequelize) =>
-  queryInterface.createTable('messages', {
-
-    messageId: {
+  queryInterface.createTable('Groups', {
+    id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
-
-    message: {
+    groupname: {
       allowNull: false,
       autoIncrement: false,
       primaryKey: false,
       type: Sequelize.STRING,
-    },
-    groupId: {
-      allowNull: false,
-      autoIncrement: false,
-      foreignKey: true,
-      type: Sequelize.INTEGER,
-    },
-    messageStatus: {
-      allowNull: false,
-      autoIncrement: false,
-      primaryKey: false,
-      type: Sequelize.BOOLEAN,
     },
 
     complete: {
@@ -42,9 +28,9 @@ module.exports = {
     },
 
     }),
- 
+  
 
   down: (queryInterface /* , Sequelize */) =>
-  queryInterface.dropTable('messages'),
+  queryInterface.dropTable('Groups'),
 };
 

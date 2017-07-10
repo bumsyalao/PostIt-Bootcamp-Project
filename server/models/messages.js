@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const messages = sequelize.define('messages', {
-    messageId: {
+    id: {
       type: DataTypes.INTEGER,
       allowNull: false,
 
@@ -12,6 +12,11 @@ module.exports = (sequelize, DataTypes) => {
     messages: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'field must not be empty'
+        }
+      },
     },
     messageStatus: {
       type: DataTypes.BOOLEAN,
@@ -24,8 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     classMethods: {
       associate: (models) => {
         groups.hasMany (models.messages, {
-          foreignKey: 'groupId',
-          as: 'messages',
+          foreignKey: 'groupId', 'userId',
         });
       },
     },

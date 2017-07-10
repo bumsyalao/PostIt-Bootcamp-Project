@@ -1,29 +1,30 @@
 module.exports = (sequelize, DataTypes) => {
-  const groups = sequelize.define('groups', {
-    groupId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-
-    },
+  const Groups = sequelize.define('Groups', {
     groupname: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-  }, 
+      validate: {
+        notEmpty: {
+          msg: 'field must not be empty'
+        }
+        unique: {
+          msg: 'Group name must be unique'
+        }
+      },
+  },
 
   {
     classMethods: {
       associate: (models) => {
-        groups.hasMany (models.users, {
-          primarykey: 'groupId',
-          as: 'groups',
+        Groups.hasMany (models.Users, {
+          foreignKey: {
+            name: 'userId',
+            onDelete: 'SET NULL'
+          }
         });
       },
     },
   });
 
-
-
-
-  return groups;
+  return Groups;
 };

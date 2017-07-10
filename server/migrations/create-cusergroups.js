@@ -1,25 +1,31 @@
 module.exports = {
   up: (queryInterface, Sequelize) =>
-  queryInterface.createTable('usergroups', {
+  queryInterface.createTable('Usergroups', {
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: Sequelize.INTEGER,
+    },
 
     userId: {
       allowNull: false,
-      autoIncrement: true,
       foreignKey: true,
       type: Sequelize.INTEGER,
+      references : {
+        model: 'Users',
+        key: 'id'
+      }
     },
 
     groupId: {
       allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
+      foreignKey: true,
       type: Sequelize.INTEGER,
-    },
-    usergroupId: {
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: Sequelize.INTEGER,
+      references : {
+        model: 'Groups',
+        key: 'id'
+      }
     },
 
     createdAt: {
@@ -35,6 +41,6 @@ module.exports = {
   
 
   down: (queryInterface) =>
-  queryInterface.dropTable('usergroups')
+  queryInterface.dropTable('Usergroups')
 };
 

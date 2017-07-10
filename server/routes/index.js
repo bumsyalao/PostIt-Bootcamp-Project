@@ -1,6 +1,6 @@
 // const todosController = require('../controllers').todos;
 const usersController = require('../controllers').Users;
-// const groupsController = require('../controllers').groups;
+const groupsController = require('../controllers').groups;
 const messagesController = require('../controllers').messages;
 
 module.exports =(app) => {
@@ -10,4 +10,9 @@ module.exports =(app) => {
 
 	// app.post('/api/todos', todosController.create);
 	app.post('/api/user/signup', usersController.create);
+	app.post('/api/user/signin', usersController.create);
+	app.post('/api/user/group', usergroupsController.create);
+	app.post('/api/group/<groupid>/user', usergroupsController.create);
+	app.post('/api/group/<goupid>/message', messagesController.create);
+	app.get('/api/group/<groupid>/messages', messagesController.getmessage);
 };
