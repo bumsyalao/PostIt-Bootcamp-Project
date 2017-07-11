@@ -17,21 +17,23 @@ module.exports = {
     .catch(error => res.status(400).send(error));
   },
 
-  sigin(req, res) {
+  signin(req, res) {
     return Users
     .findOne({ where: { username: req.body.username } })
 
     .then((user) => {
       if (user) {
-        if (!bcrypt.compareSync(req.body.password, Users.password)) {
-          res.status(401)
+        if (!bcrypt.compareSync(req.body.password, user.password)) {
+          return res.status(401)
             .send({ success: false, message: 'Incorrect password, please re-enter password.' });
         }
         res.status(200)
           .send({ success: true, message: 'You have logged in succesfully' });
       }
-      res.status(401)
+      if (!user) {
+        res.status(401)
       .send({ success: false, message: 'Incorrect Username' });
+      }
     });
   },
 };
