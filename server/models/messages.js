@@ -1,10 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const messages = sequelize.define('messages', {
-    id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-
-    },
+  const Messages = sequelize.define('Messages', {
     groupId: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -22,21 +17,18 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
-  
-  }, 
+  },
 
-  {
-    classMethods: {
-      associate: (models) => {
-        groups.hasMany (models.messages, {
-          foreignKey: 'groupId', 'userId',
-        });
+    {
+      classMethods: {
+        associate: (models) => {
+          Messages.belongsTo(models.Groups, {
+            foreignKey: 'groupId',
+          });
+        },
       },
-    },
-  });
+    });
 
 
-
-
-  return messages;
+  return Messages;
 };

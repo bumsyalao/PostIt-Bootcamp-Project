@@ -6,7 +6,8 @@
         "node": true,
         "mocha":true
     },
-    "extends": "eslint:recommended",
+
+    "max-len": [1, 80, 2],
     "parserOptions": {"sourceType": "module"},
     "rules": {
     "one-var": 0,

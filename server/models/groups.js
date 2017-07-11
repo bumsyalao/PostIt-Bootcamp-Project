@@ -6,25 +6,23 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           msg: 'field must not be empty'
-        }
+        },
         unique: {
           msg: 'Group name must be unique'
         }
-      },
-  },
-
-  {
+      }
+    },
+  }, {
     classMethods: {
       associate: (models) => {
-        Groups.hasMany (models.Users, {
+        Groups.hasMany(models.Users, {
           foreignKey: {
             name: 'userId',
-            onDelete: 'SET NULL'
+            onDelete: 'CASCADE'
           }
         });
       },
     },
   });
-
   return Groups;
 };

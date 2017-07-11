@@ -1,15 +1,14 @@
-const messages = require('../models').messages;
+const messages = require('../models').Messages;
 
 module.exports = {
-	create(req, res) {
-		return messages
-		.create( {
-			
-			message: req.body.message,
+  create(req, res) {
+    return messages.create({
 
-		})
+      message: req.body.message,
 
-		.then(todo => res.status(200).send(messages))
-		.catch(error => res.status(400).send(error));
-	},
+    })
+
+.then(Messages => res.status(200).send(Messages))
+.catch(error => res.status(400).send(error));
+  },
 };

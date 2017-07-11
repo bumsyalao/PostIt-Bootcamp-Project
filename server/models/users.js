@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+
 module.exports = (sequelize, DataTypes) => {
   const Users = sequelize.define('Users', {
     username: {
@@ -16,13 +17,13 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           msg: 'field must not be empty'
+        },
+        unique: {
+          args: true,
+          msg: 'email already in use'
         }
-      unique: {
-        args: true,
-        msg: 'email already in use'
-      }
+      },
     },
-  }
     password: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -31,9 +32,8 @@ module.exports = (sequelize, DataTypes) => {
           msg: 'field must not be empty'
         }
       },
-    }, 
-
-  {
+    },
+  }, {
     hooks: {
       beforeCreate(user) {
         const salt = bcrypt.genSaltSync();
@@ -48,13 +48,12 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
 
-
     classMethods: {
       associate: (models) => {
         Users.belongsTo(models.usergroups, {
           foreignKey: {
             name: 'groupId',
-            onDelete: 'SET NULL'
+            onDelete: 'CASCADE'
           }
         });
       },
@@ -66,12 +65,6 @@ module.exports = (sequelize, DataTypes) => {
         return bcrypt.compareSync(password, this.password);
       }
     }
-  }
-
   });
-
-
-
-
   return Users;
 };
