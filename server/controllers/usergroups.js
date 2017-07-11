@@ -1,14 +1,14 @@
-const usergroups = require('../models').Usergroups;
+const Usergroups = require('../models').Usergroups;
 
 module.exports = {
   create(req, res) {
-    return usergroups.create({
+    Usergroups.create({
 
       groupname: req.body.groupname,
       username: req.body.username,
 
     })
-.then(Usergroups => res.status(200).send(Usergroups))
+.then(newGroup => res.status(200).send(newGroup))
 .catch(error => res.status(400).send(error));
   },
 };

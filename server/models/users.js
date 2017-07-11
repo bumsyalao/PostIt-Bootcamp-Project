@@ -5,11 +5,15 @@ module.exports = (sequelize, DataTypes) => {
     username: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: {
+        args: true,
+        msg: 'username already in use'
+      },
       validate: {
         notEmpty: {
           msg: 'field must not be empty'
-        }
-      }
+        },
+      },
     },
     email: {
       type: DataTypes.STRING,
@@ -17,10 +21,6 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notEmpty: {
           msg: 'field must not be empty'
-        },
-        unique: {
-          args: true,
-          msg: 'email already in use'
         }
       },
     },

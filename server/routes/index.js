@@ -1,8 +1,8 @@
 // const todosController = require('../controllers').todos;
-const usersController = require('../controllers').Users;
-const groupsController = require('../controllers').groups;
-const messagesController = require('../controllers').messages;
-const usergroupsController = require('../controllers').usergroups;
+const usersController = require('../controllers/users');
+const groupsController = require('../controllers/groups');
+const messagesController = require('../controllers/messages');
+const usergroupsController = require('../controllers/usergroups');
 
 module.exports = (app) => {
   app.get('/api', (req, res) => res.status(200).send({
@@ -10,9 +10,9 @@ module.exports = (app) => {
   }));
 
 //  api route to signup
-  app.post('/api/user/signup', usersController.create);
+  app.post('/api/user/signup', usersController.signup);
 //  api route to signin
-  app.post('/api/user/signin', usersController.create);
+  app.post('/api/user/signin', usersController.signin);
 // api route to create group
   app.post('/api/user/group', groupsController.create);
 //  api route to add users to group
@@ -20,5 +20,5 @@ module.exports = (app) => {
 // api route to post message to group
   app.post('/api/group/<goupid>/message', messagesController.create);
 // api route to get message posted to a group.
-  app.get('/api/group/<groupid>/messages', messagesController.getmessage);
+// app.get('/api/group/<groupid>/messages', messagesController.getmessage);
 };

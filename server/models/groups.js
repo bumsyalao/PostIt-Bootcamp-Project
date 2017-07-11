@@ -7,22 +7,24 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: {
           msg: 'field must not be empty'
         },
-        unique: {
-          msg: 'Group name must be unique'
-        }
-      }
-    },
-  }, {
-    classMethods: {
-      associate: (models) => {
-        Groups.hasMany(models.Users, {
-          foreignKey: {
-            name: 'userId',
-            onDelete: 'CASCADE'
-          }
-        });
       },
-    },
-  });
+      unique: {
+        msg: 'Group name must be unique'
+      },
+
+    }
+  },
+    {
+      classMethods: {
+        associate: (models) => {
+          Groups.hasMany(models.Users, {
+            foreignKey: {
+              name: 'userId',
+              onDelete: 'CASCADE'
+            }
+          });
+        },
+      },
+    });
   return Groups;
 };

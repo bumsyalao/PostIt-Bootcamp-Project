@@ -12,6 +12,7 @@ module.exports = {
       autoIncrement: false,
       primaryKey: false,
       type: Sequelize.STRING,
+      unique: true,
     },
 
     complete: {

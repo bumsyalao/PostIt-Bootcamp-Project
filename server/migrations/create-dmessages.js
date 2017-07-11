@@ -17,7 +17,7 @@ module.exports = {
       allowNull: false,
       foreignKey: true,
       type: Sequelize.INTEGER,
-      references : {
+      references: {
         model: 'Groups',
         key: 'id'
       }
@@ -26,7 +26,7 @@ module.exports = {
       allowNull: false,
       foreignKey: true,
       type: Sequelize.INTEGER,
-      references : {
+      references: {
         model: 'Users',
         key: 'id'
       }
@@ -50,10 +50,10 @@ module.exports = {
       type: Sequelize.DATE,
     },
 
-    }),
- 
+  }),
 
-  down: (queryInterface /* , Sequelize */) =>
+
+  down: queryInterface =>
   queryInterface.dropTable('Messages'),
 };
 
