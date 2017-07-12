@@ -24,7 +24,6 @@ export default {
   signin(req, res) {
     Users.findOne({ where: { username: req.body.username } })
       .then((foundUser) => {
-        console.log('=======================>>>>>>>>>>>>>>>', foundUser, foundUser.verifyPassword);
         if (foundUser && foundUser.verifyPassword(req.body.password)) {
           return res.status(200)
             .send({ success: true, message: 'You have logged in succesfully' });

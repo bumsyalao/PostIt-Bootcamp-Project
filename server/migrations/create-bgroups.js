@@ -9,7 +9,6 @@ module.exports = {
     },
     groupname: {
       allowNull: false,
-      autoIncrement: false,
       primaryKey: false,
       type: Sequelize.STRING,
       unique: true,

@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     messages: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: {
@@ -17,20 +17,21 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
     },
-    messageStatus: {
-      type: DataTypes.BOOLEAN,
+    messagePriority: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
+
   },
 
     {
       classMethods: {
         associate: (models) => {
-          Messages.belongsTo(models.Groups, {
-            foreignKey: 'groupId',
-          });
           Messages.belongsTo(models.Users, {
             foreignKey: 'userId',
+          });
+          Messages.belongsTo(models.Groups, {
+            foreignKey: 'groupId',
           });
         },
       },

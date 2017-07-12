@@ -10,14 +10,19 @@ module.exports = (app) => {
 
 //  api route to signup
   app.post('/api/user/signup', usersController.signup);
+
 //  api route to signin
   app.post('/api/user/signin', usersController.signin);
+
 // api route to create group
   app.post('/api/user/group', groupsController.create);
+
 //  api route to add users to group
   app.post('/api/group/:groupid/user', usergroupsController.create);
+
 // api route to post message to group
-  app.post('/api/group/:goupid/message', messagesController.create);
+  app.post('/api/group/:groupid/message', messagesController.create);
+
 // api route to get message posted to a group.
 // app.get('/api/group/<groupid>/messages', messagesController.getmessage);
 };
