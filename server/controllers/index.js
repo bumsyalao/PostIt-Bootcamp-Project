@@ -3,8 +3,6 @@ const Groups = require('./groups');
 const Usergroups = require('./usergroups');
 const Messages = require('./messages');
 
-
-
 module.exports = {
   Users,
   Groups,

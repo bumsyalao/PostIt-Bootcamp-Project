@@ -1,6 +1,10 @@
+import jwt from 'jsonwebtoken';
 import models from '../models';
 
+require('dotenv').config();
+
 const Users = models.Users;
+const secret = process.env.SECRET;
 
 export default {
 
@@ -12,11 +16,16 @@ export default {
       password: req.body.password,
     })
     .then((newUser) => {
+      const token = jwt.sign({
+        userId: newUser.id,
+        username: newUser.username,
+        email: newUser.email
+      }, secret, { expiresIn: '1 day' });
       const userInfo = {
         username: newUser.username,
         email: newUser.email
       };
-      return res.status(200).send(userInfo);
+      return res.status(200).send({ token, userInfo });
     })
     .catch(error => res.status(400).send(error.message));
   },
