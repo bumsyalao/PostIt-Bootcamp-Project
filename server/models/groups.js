@@ -12,14 +12,20 @@ module.exports = (sequelize, DataTypes) => {
         msg: 'Group name must be unique'
       },
 
-    }
+    },
   },
     {
       classMethods: {
         associate: (models) => {
-          Groups.hasMany(models.Users, {
+          Groups.belongsTo(models.Usergroups, {
             foreignKey: {
-              name: 'userId',
+              name: 'groupId',
+              onDelete: 'CASCADE'
+            }
+          });
+          Groups.belongsTo(models.Messages, {
+            foreignKey: {
+              name: 'groupId',
               onDelete: 'CASCADE'
             }
           });

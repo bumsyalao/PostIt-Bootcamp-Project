@@ -14,11 +14,6 @@ module.exports = {
       type: Sequelize.STRING,
       unique: true,
     },
-
-    complete: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: false,
-    },
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE,
@@ -28,10 +23,10 @@ module.exports = {
       type: Sequelize.DATE,
     },
 
-    }),
-  
+  }),
 
-  down: (queryInterface /* , Sequelize */) =>
+
+  down: queryInterface =>
   queryInterface.dropTable('Groups'),
 };
 

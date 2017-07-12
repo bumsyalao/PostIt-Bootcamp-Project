@@ -4,6 +4,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     messages: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -24,6 +28,9 @@ module.exports = (sequelize, DataTypes) => {
         associate: (models) => {
           Messages.belongsTo(models.Groups, {
             foreignKey: 'groupId',
+          });
+          Messages.belongsTo(models.Users, {
+            foreignKey: 'userId',
           });
         },
       },

@@ -50,19 +50,23 @@ module.exports = (sequelize, DataTypes) => {
 
     classMethods: {
       associate: (models) => {
-        Users.belongsTo(models.usergroups, {
+        Users.belongsTo(models.Usergroups, {
           foreignKey: {
-            name: 'groupId',
+            name: 'userGroupId',
+            onDelete: 'CASCADE'
+          }
+        });
+        Users.belongsTo(models.Messages, {
+          foreignKey: {
+            name: 'userId',
             onDelete: 'CASCADE'
           }
         });
       },
-
     },
-
     instanceMethods: {
-      isPassword(password) {
-        return bcrypt.compareSync(password, this.password);
+      verifyPassword(userPassword) {
+        return bcrypt.compareSync(userPassword, this.password);
       }
     }
   });

@@ -1,39 +1,36 @@
+import models from '../models';
 
-const Users = require('../models').Users;
-const bcrypt = require('bcrypt');
+const Users = models.Users;
 
-const salt = bcrypt.genSaltSync();
-
-module.exports = {
+export default {
 
   signup(req, res) {
-    return Users
+    Users
     .create({
       username: req.body.username,
       email: req.body.email,
-      password: bcrypt.hashSync(req.body.password, salt),
+      password: req.body.password,
     })
-    .then(newUser => res.status(200).send(newUser))
-    .catch(error => res.status(400).send(error));
+    .then((newUser) => {
+      const userInfo = {
+        username: newUser.username,
+        email: newUser.email
+      };
+      return res.status(200).send(userInfo);
+    })
+    .catch(error => res.status(400).send(error.message));
   },
 
   signin(req, res) {
-    return Users
-    .findOne({ where: { username: req.body.username } })
-
-    .then((user) => {
-      if (user) {
-        if (!bcrypt.compareSync(req.body.password, user.password)) {
-          return res.status(401)
-            .send({ success: false, message: 'Incorrect password, please re-enter password.' });
+    Users.findOne({ where: { username: req.body.username } })
+      .then((foundUser) => {
+        console.log('=======================>>>>>>>>>>>>>>>', foundUser, foundUser.verifyPassword);
+        if (foundUser && foundUser.verifyPassword(req.body.password)) {
+          return res.status(200)
+            .send({ success: true, message: 'You have logged in succesfully' });
         }
-        res.status(200)
-          .send({ success: true, message: 'You have logged in succesfully' });
-      }
-      if (!user) {
-        res.status(401)
-      .send({ success: false, message: 'Incorrect Username' });
-      }
-    });
+        return res.status(401)
+          .send({ success: false, message: 'Incorrect username or password' });
+      });
   },
 };

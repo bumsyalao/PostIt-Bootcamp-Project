@@ -9,4 +9,17 @@ describe('User', () => {
     .set('Accept', 'application/json')
     .expect(200, done);
   });
+  it ('should be an object with keys and values', (done) => {
+    api.get('/users/1')
+    .set('Accept', 'application/json')
+    .expect(200)
+    .end((err,res) => {
+      expect(res.body).to.have.property("username");
+      expect(res.body.username).to.not.equal(null);
+      expect(res.body).to.have.property("email");
+      expect(res.body.email).to.not.equal(null);
+      expect(res.body).to.have.property("password");
+      expect(res.body.password).to.not.equal(null);
+      done();
+    });
 });

@@ -8,8 +8,8 @@ module.exports = {
       type: Sequelize.INTEGER,
     },
 
-    userId: {
-      allowNull: false,
+    userGroupId: {
+      allowNull: true,
       foreignKey: true,
       type: Sequelize.INTEGER,
       references: {
@@ -18,8 +18,13 @@ module.exports = {
       }
     },
 
+    groupname: {
+      allowNull: true,
+      type: Sequelize.STRING,
+    },
+
     groupId: {
-      allowNull: false,
+      allowNull: true,
       foreignKey: true,
       type: Sequelize.INTEGER,
       references: {
