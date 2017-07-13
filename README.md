@@ -65,8 +65,8 @@ Sign up User
 - Body `(application/json)`
 ```json
 {
-  "username": "uniqueuser",
-  "email": "Unique@email.com",
+  "username": "bootcampuser",
+  "email": "bootcamp@gmail.com",
   "password": "password"
 }
 ```
@@ -131,7 +131,7 @@ Sign up User
 
 #### Request
 
-- Endpoint: `POST: /group/1/user`
+- Endpoint: `POST: api/group/1/user`
 - Requires: `Authentication`
 - Body `(application/json)`
 
