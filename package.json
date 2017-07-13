@@ -2,7 +2,7 @@
   "name": "PostIt-Bootcamp-Project",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server/routes/index.js",
   "scripts": {
     "start": "nodemon ./bin/www --exec babel-node",
     "test": "mocha babel-core/register test --timeout 10000"
