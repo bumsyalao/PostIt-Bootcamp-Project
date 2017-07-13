@@ -1,9 +1,12 @@
-const Messages = require('../models').Messages;
-const Groups = require('../models').Groups;
+import models from '../models';
 
-module.exports = {
+const Messages = models.Messages;
+const Groups = models.Groups;
+
+export default {
   create(req, res) {
     const groupId = Number(req.params.groupid);
+
     Groups.findById(groupId)
     .then((foundGroup) => {
       if (!foundGroup) {
@@ -26,7 +29,6 @@ module.exports = {
       if (!foundGroup) {
         return res.status(404).send({ message: 'Group Not Found' });
       }
-      console.log(foundGroup);
       Messages.findAll({
         where: {
           $and: {

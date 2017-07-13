@@ -1,7 +1,9 @@
-const Usergroups = require('../models').Usergroups;
-const Groups = require('../models').Groups;
+import models from '../models';
 
-module.exports = {
+const Usergroups = models.Usergroups;
+const Groups = models.Groups;
+
+export default {
   create(req, res) {
     const groupId = Number(req.params.groupid);
     Groups.findById(groupId)

@@ -2,13 +2,13 @@ import chai from 'chai';
 import supertest from 'supertest';
 import app from '../../../server';
 import models from '../../../server/models';
-//import helper from '../testHelper/testData';
+
 
 const should = chai.should();
 const expect = chai.expect;
 const api = supertest('http://localhost:8000');
 
-describe('POST: (/api/user/signup) - LOGIN', () => {
+describe('POST: (/api/user/signup) - Signin', () => {
   it('should return a 200 response', (done) => {
     api.get('/user/1')
     .set('Accept', 'application/json')
@@ -47,7 +47,7 @@ describe('POST: (/api/user/signup) - LOGIN', () => {
   });
 
   it('should not create another user with same email', (done) => {
-    req.post('/users')
+    api.post('/users')
       .send('bunmi')
       .end((err, res) => {
         expect(res.status).to.equal(409);
@@ -80,7 +80,7 @@ describe('POST: (/api/user/signup) - LOGIN', () => {
 describe('POST: (/users/signin) - signin', () => {
   it('should not signin when supplied invalid email or password',
   (done) => {
-    req.post('/users/signin')
+    api.post('/users/signin')
       .send({
         email: 'desolacoker@email.com',
         password: 'password'
@@ -93,7 +93,7 @@ describe('POST: (/users/signin) - signin', () => {
   });
   it('should not signin when supplied invalid password',
   (done) => {
-    req.post('/users/signin')
+    api.post('/users/signin')
       .send({
         username: bunmi.username,
         password: 'isewujfikf'
@@ -106,7 +106,7 @@ describe('POST: (/users/signin) - signin', () => {
   });
   it('should not signin when signin details is incomplete',
   (done) => {
-    request.post('/users/signin')
+    api.post('/users/signin')
       .send({
         username: bunmi.username
       })
@@ -115,5 +115,6 @@ describe('POST: (/users/signin) - signin', () => {
         expect(res.body.message).to.equal('Incomplete Signin Details');
         done();
       });
-  
   });
+});
+

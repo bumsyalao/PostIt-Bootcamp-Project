@@ -34,8 +34,17 @@ export default {
     Users.findOne({ where: { username: req.body.username } })
       .then((foundUser) => {
         if (foundUser && foundUser.verifyPassword(req.body.password)) {
+          const token = jwt.sign({
+            userId: foundUser.id,
+            username: foundUser.username,
+            email: foundUser.email
+          }, secret, { expiresIn: '1 day' });
           return res.status(200)
-            .send({ success: true, message: 'You have logged in succesfully' });
+            .send({
+              token,
+              success: true,
+              message: 'You have logged in succesfully'
+            });
         }
         return res.status(401)
           .send({ success: false, message: 'Incorrect username or password' });

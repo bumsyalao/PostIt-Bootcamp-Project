@@ -1,9 +1,11 @@
-const Users = require('./users');
-const Groups = require('./groups');
-const Usergroups = require('./usergroups');
-const Messages = require('./messages');
+import models from '../models';
 
-module.exports = {
+const Users = models.User;
+const Groups = models.Groups;
+const Usergroups = models.Usergroups;
+const Messages = models.Messages;
+
+export default {
   Users,
   Groups,
   Usergroups,
