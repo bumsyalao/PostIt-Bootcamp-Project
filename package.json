@@ -7,6 +7,7 @@
     "node": "6.10.2",
     "npm": "3.10.10"
   },
+
   "scripts": {
     "start": "nodemon ./bin/www --exec babel-node",
     "test": "mocha babel-core/register test --timeout 10000"
