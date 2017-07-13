@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         msg: 'email already in use'
       },
       validate: {
+        isEmail: true,
         notEmpty: {
           msg: 'field must not be empty'
         }

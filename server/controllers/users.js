@@ -22,6 +22,7 @@ export default {
         email: newUser.email
       }, secret, { expiresIn: '1 day' });
       const userInfo = {
+        userId: newUser.id,
         username: newUser.username,
         email: newUser.email
       };
