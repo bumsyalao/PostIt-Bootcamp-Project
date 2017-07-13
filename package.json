@@ -9,7 +9,7 @@
   },
 
   "scripts": {
-    "start": "nodemon ./bin/www --exec babel-node",
+    "start": "babel-node -- ./bin/www",
     "test": "mocha babel-core/register test --timeout 10000"
   },
   "repository": {
