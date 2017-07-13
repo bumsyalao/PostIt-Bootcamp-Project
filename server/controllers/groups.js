@@ -1,6 +1,8 @@
-const Groups = require('../models').Groups;
+import models from '../models';
 
-module.exports = {
+const Groups = models.Groups;
+
+export default {
   create(req, res) {
     Groups.create({
       groupname: req.body.groupname,
