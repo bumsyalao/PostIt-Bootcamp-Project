@@ -32,9 +32,9 @@ module.exports = {
       }
     },
 
-    messageStatus: {
+    messagePriority: {
       allowNull: true,
-      type: Sequelize.BOOLEAN,
+      type: Sequelize.STRING,
     },
 
     createdAt: {

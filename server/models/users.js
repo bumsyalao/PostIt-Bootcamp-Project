@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: {
+        args: true,
+        msg: 'email already in use'
+      },
       validate: {
         notEmpty: {
           msg: 'field must not be empty'
@@ -50,18 +54,8 @@ module.exports = (sequelize, DataTypes) => {
 
     classMethods: {
       associate: (models) => {
-        Users.belongsTo(models.Usergroups, {
-          foreignKey: {
-            name: 'userGroupId',
-            onDelete: 'CASCADE'
-          }
-        });
-        Users.belongsTo(models.Messages, {
-          foreignKey: {
-            name: 'userId',
-            onDelete: 'CASCADE'
-          }
-        });
+        Users.belongsToMany(models.Groups, { through: 'Usergroups', foreignKey: 'userId' });
+        Users.hasMany(models.Messages, { foreignKey: 'userId' });
       },
     },
     instanceMethods: {

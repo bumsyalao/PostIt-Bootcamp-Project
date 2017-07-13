@@ -17,17 +17,10 @@ module.exports = (sequelize, DataTypes) => {
     {
       classMethods: {
         associate: (models) => {
-          Groups.belongsTo(models.Usergroups, {
-            foreignKey: {
-              name: 'groupId',
-              onDelete: 'CASCADE'
-            }
-          });
-          Groups.belongsTo(models.Messages, {
-            foreignKey: {
-              name: 'groupId',
-              onDelete: 'CASCADE'
-            }
+          Groups.belongsToMany(models.Users, { through: 'Usergroups',
+            foreignKey: 'groupId' });
+          Groups.hasMany(models.Messages, {
+            foreignKey: 'groupId'
           });
         },
       },
