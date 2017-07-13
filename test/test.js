@@ -52,19 +52,18 @@ describe('POST: (/api/user/signup) - Signin', () => {
       .end((err, res) => {
         expect(res.status).to.equal(409);
         expect(res.body.message).to.equal(
-      `Email: ${bunmi.email} is already in use`);
+      `Email: ${bunmi} is already in use`);
         done();
       });
   });
 
   it('should not create another user with same username', (done) => {
-    bunmi.email = 'bunmi@email.com';
     req.post('/users')
       .send(bunmi)
       .end((err, res) => {
         expect(res.status).to.equal(409);
         expect(res.body.message).to.equal(
-      `Username: ${bunmi.username} is already in use`);
+      `Username: ${bunmi} is already in use`);
         done();
       });
   });
@@ -95,7 +94,7 @@ describe('POST: (/users/signin) - signin', () => {
   (done) => {
     api.post('/users/signin')
       .send({
-        username: bunmi.username,
+        username: 'bunmi',
         password: 'isewujfikf'
       })
       .end((err, res) => {
@@ -108,7 +107,7 @@ describe('POST: (/users/signin) - signin', () => {
   (done) => {
     api.post('/users/signin')
       .send({
-        username: bunmi.username
+        username: 'bunmi'
       })
       .end((err, res) => {
         expect(res.status).to.equal(400);
