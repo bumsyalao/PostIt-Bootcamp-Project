@@ -1,11 +1,14 @@
 import chai from 'chai';
 import supertest from 'supertest';
+import app from '../../../server';
+import models from '../../../server/models';
+//import helper from '../testHelper/testData';
 
 const should = chai.should();
 const expect = chai.expect;
 const api = supertest('http://localhost:8000');
 
-describe('User', () => {
+describe('POST: (/api/user/signup) - LOGIN', () => {
   it('should return a 200 response', (done) => {
     api.get('/user/1')
     .set('Accept', 'application/json')
@@ -43,5 +46,74 @@ describe('User', () => {
     });
   });
 
-  it('should not be able to acess other ')
-});
+  it('should not create another user with same email', (done) => {
+    req.post('/users')
+      .send('bunmi')
+      .end((err, res) => {
+        expect(res.status).to.equal(409);
+        expect(res.body.message).to.equal(
+      `Email: ${bunmi.email} is already in use`);
+        done();
+      });
+  });
+
+  it('should not create another user with same username', (done) => {
+    bunmi.email = 'bunmi@email.com';
+    req.post('/users')
+      .send(bunmi)
+      .end((err, res) => {
+        expect(res.status).to.equal(409);
+        expect(res.body.message).to.equal(
+      `Username: ${bunmi.username} is already in use`);
+        done();
+      });
+  });
+
+  it('should throw an error when invalid parameters are passed', (done) => {
+    req.post('/users')
+      .send({ username: 67 })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        done();
+      });
+  });
+describe('POST: (/users/signin) - signin', () => {
+  it('should not signin when supplied invalid email or password',
+  (done) => {
+    req.post('/users/signin')
+      .send({
+        email: 'desolacoker@email.com',
+        password: 'password'
+      })
+      .end((error, response) => {
+        expect(response.status).to.equal(400);
+        expect(response.body.token).to.not.exist;
+        done();
+      });
+  });
+  it('should not signin when supplied invalid password',
+  (done) => {
+    req.post('/users/signin')
+      .send({
+        username: bunmi.username,
+        password: 'isewujfikf'
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(401);
+        expect(res.body.token).to.not.exist;
+        done();
+      });
+  });
+  it('should not signin when signin details is incomplete',
+  (done) => {
+    request.post('/users/signin')
+      .send({
+        username: bunmi.username
+      })
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        expect(res.body.message).to.equal('Incomplete Signin Details');
+        done();
+      });
+  
+  });
