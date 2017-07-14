@@ -19,7 +19,7 @@ module.exports = (app) => {
   app.post('/api/group', groupsController.create);
 
 //  api route to add users to group
-  app.post('/api/group/:groupid/user', usergroupsController.create);
+  app.post('/api/group/:groupid/user', auth.checkToken, usergroupsController.create);
 
 // api route to post message to group
   app.post('/api/group/:groupid/message', auth.checkToken, messagesController.create);

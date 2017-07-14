@@ -15,7 +15,7 @@ export default {
           }
           Usergroups.create({
             groupId: foundGroup.id,
-            userId: req.body.userId,
+            userId: req.decoded.userId,
           })
           .then(newGroup => res.status(200).send(newGroup))
           .catch(error => res.status(400).send(error));
