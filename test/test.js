@@ -17,6 +17,10 @@ const invalidUser = {
   email: 'invalid@test.com',
   password: 'invalid'
 };
+const nullUser = {
+  username: 'desola',
+  password: 'invalid'
+};
 
 describe('ROUTES', () => {
   after((done) => {
@@ -63,9 +67,10 @@ describe('ROUTES', () => {
     it('should not signin when supplied invalid email or password', (done) => {
       api.post('api/user/signin')
         .send({
-          email: 'desolacoker@email.com',
-          password: 'password'
-        })
+          username: 'desola',
+          password: 'null'
+        }
+        )
         .end((err, res) => {
           expect(res.status).to.equal(400);
           done();
