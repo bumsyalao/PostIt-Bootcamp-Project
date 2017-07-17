@@ -4,6 +4,8 @@ A cool App that allows users create groups and post notifications to group.
 
 It provides restful APIs for users to create groups, post messages and retrieve messages based on userId and managing authentication of users with JsonWebToken.
 
+[![Code Climate](https://codeclimate.com/github/bumsyalao/PostIt-Bootcamp-Project/badges/gpa.svg)](https://codeclimate.com/github/bumsyalao/PostIt-Bootcamp-Project)
+
 #### Hosted App on Heroku 
 [Post-it](https://postitnow.herokuapp.com/)
 
@@ -214,7 +216,7 @@ Sign up User
 ### Procedure
 
 - Clone this repository from a terminal `https://github.com/bumsyalao/PostIt-Bootcamp-Project.git`
-- Move into the project directory cd dms
+- Move into the project directory cd PostIt-Bootcamp-Project
 - Install project dependencies npm install
 - Create Postgresql database and run migrations npm undo and npm redo.
 - Start the express server npm start.

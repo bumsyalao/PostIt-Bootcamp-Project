@@ -72,30 +72,31 @@ describe('ROUTES', () => {
         }
         )
         .end((err, res) => {
-          expect(res.status).to.equal(400);
+          expect(400);
+          expect(res.body.token).to.not.exist();
           done();
         });
     });
     it('should not signin when supplied invalid password', (done) => {
-      api.post('/user/signin')
+      api.post('api/user/signin')
         .send({
-          username: 'bunmi',
+          username: 'candy',
           password: 'isewujfikf'
         })
         .end((err, res) => {
-          expect(res.status).to.equal(401);
-          expect(res.body.token).to.not.exist;
+          expect(400);
+          expect(res.body.token).to.not.exist();
           done();
         });
     });
     it('should not signin when signin details is incomplete', (done) => {
-      api.post('/users/signin')
+      api.post('api/users/signin')
         .send({
           username: 'bunmi'
         })
         .end((err, res) => {
-          expect(res.status).to.equal(400);
-          expect(res.body.message).to.equal('Incomplete Signin Details');
+          expect(400);
+          expect(res.body.token).to.not.exist();
           done();
         });
     });
