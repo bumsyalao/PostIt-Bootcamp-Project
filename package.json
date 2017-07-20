@@ -47,6 +47,7 @@
     "supertest": "^3.0.0"
   },
   "devDependencies": {
+    "ember-cli-materialize": "^0.22.0-beta.0",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.2",
     "eslint-plugin-import": "^2.6.1",
