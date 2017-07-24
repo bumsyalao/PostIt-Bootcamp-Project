@@ -1,0 +1,148 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files\\nodejs\\node.exe',
+1 verbose cli   'C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'webpack',
+1 verbose cli   'webpack-dev-server',
+1 verbose cli   'path' ]
+2 info using npm@3.10.10
+3 info using node@v6.11.0
+4 silly loadCurrentTree Starting
+5 silly install loadCurrentTree
+6 silly install readLocalPackageData
+7 silly fetchPackageMetaData webpack
+8 silly fetchPackageMetaData webpack-dev-server
+9 silly fetchPackageMetaData path
+10 silly fetchNamedPackageData webpack
+11 silly mapToRegistry name webpack
+12 silly mapToRegistry using default registry
+13 silly mapToRegistry registry https://registry.npmjs.org/
+14 silly mapToRegistry data Result {
+14 silly mapToRegistry   raw: 'webpack',
+14 silly mapToRegistry   scope: null,
+14 silly mapToRegistry   escapedName: 'webpack',
+14 silly mapToRegistry   name: 'webpack',
+14 silly mapToRegistry   rawSpec: '',
+14 silly mapToRegistry   spec: 'latest',
+14 silly mapToRegistry   type: 'tag' }
+15 silly mapToRegistry uri https://registry.npmjs.org/webpack
+16 silly fetchNamedPackageData webpack-dev-server
+17 silly mapToRegistry name webpack-dev-server
+18 silly mapToRegistry using default registry
+19 silly mapToRegistry registry https://registry.npmjs.org/
+20 silly mapToRegistry data Result {
+20 silly mapToRegistry   raw: 'webpack-dev-server',
+20 silly mapToRegistry   scope: null,
+20 silly mapToRegistry   escapedName: 'webpack-dev-server',
+20 silly mapToRegistry   name: 'webpack-dev-server',
+20 silly mapToRegistry   rawSpec: '',
+20 silly mapToRegistry   spec: 'latest',
+20 silly mapToRegistry   type: 'tag' }
+21 silly mapToRegistry uri https://registry.npmjs.org/webpack-dev-server
+22 silly fetchNamedPackageData path
+23 silly mapToRegistry name path
+24 silly mapToRegistry using default registry
+25 silly mapToRegistry registry https://registry.npmjs.org/
+26 silly mapToRegistry data Result {
+26 silly mapToRegistry   raw: 'path',
+26 silly mapToRegistry   scope: null,
+26 silly mapToRegistry   escapedName: 'path',
+26 silly mapToRegistry   name: 'path',
+26 silly mapToRegistry   rawSpec: '',
+26 silly mapToRegistry   spec: 'latest',
+26 silly mapToRegistry   type: 'tag' }
+27 silly mapToRegistry uri https://registry.npmjs.org/path
+28 verbose request uri https://registry.npmjs.org/webpack
+29 verbose request no auth needed
+30 info attempt registry request try #1 at 2:00:36 PM
+31 verbose request id 29f51db796557d1a
+32 http request GET https://registry.npmjs.org/webpack
+33 verbose request uri https://registry.npmjs.org/webpack-dev-server
+34 verbose request no auth needed
+35 info attempt registry request try #1 at 2:00:36 PM
+36 http request GET https://registry.npmjs.org/webpack-dev-server
+37 verbose request uri https://registry.npmjs.org/path
+38 verbose request no auth needed
+39 info attempt registry request try #1 at 2:00:36 PM
+40 http request GET https://registry.npmjs.org/path
+41 info retry will retry, error on last attempt: Error: connect ETIMEDOUT 151.101.0.162:443
+42 info retry will retry, error on last attempt: Error: connect ETIMEDOUT 151.101.0.162:443
+43 info retry will retry, error on last attempt: Error: connect ETIMEDOUT 151.101.0.162:443
+44 info attempt registry request try #2 at 2:01:08 PM
+45 http request GET https://registry.npmjs.org/webpack-dev-server
+46 info attempt registry request try #2 at 2:01:08 PM
+47 http request GET https://registry.npmjs.org/path
+48 info attempt registry request try #2 at 2:01:08 PM
+49 http request GET https://registry.npmjs.org/webpack
+50 info retry will retry, error on last attempt: Error: connect ETIMEDOUT 151.101.0.162:443
+51 info retry will retry, error on last attempt: Error: connect ETIMEDOUT 151.101.0.162:443
+52 info retry will retry, error on last attempt: Error: connect ETIMEDOUT 151.101.0.162:443
+53 info attempt registry request try #3 at 2:02:29 PM
+54 http request GET https://registry.npmjs.org/webpack-dev-server
+55 info attempt registry request try #3 at 2:02:29 PM
+56 http request GET https://registry.npmjs.org/path
+57 info attempt registry request try #3 at 2:02:29 PM
+58 http request GET https://registry.npmjs.org/webpack
+59 silly fetchPackageMetaData Error: connect ETIMEDOUT 151.101.0.162:443
+59 silly fetchPackageMetaData     at Object.exports._errnoException (util.js:1018:11)
+59 silly fetchPackageMetaData     at exports._exceptionWithHostPort (util.js:1041:20)
+59 silly fetchPackageMetaData     at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1086:14)
+59 silly fetchPackageMetaData  error for path { Error: connect ETIMEDOUT 151.101.0.162:443
+59 silly fetchPackageMetaData     at Object.exports._errnoException (util.js:1018:11)
+59 silly fetchPackageMetaData     at exports._exceptionWithHostPort (util.js:1041:20)
+59 silly fetchPackageMetaData     at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1086:14)
+59 silly fetchPackageMetaData   code: 'ETIMEDOUT',
+59 silly fetchPackageMetaData   errno: 'ETIMEDOUT',
+59 silly fetchPackageMetaData   syscall: 'connect',
+59 silly fetchPackageMetaData   address: '151.101.0.162',
+59 silly fetchPackageMetaData   port: 443 }
+60 silly fetchPackageMetaData Error: connect ETIMEDOUT 151.101.0.162:443
+60 silly fetchPackageMetaData     at Object.exports._errnoException (util.js:1018:11)
+60 silly fetchPackageMetaData     at exports._exceptionWithHostPort (util.js:1041:20)
+60 silly fetchPackageMetaData     at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1086:14)
+60 silly fetchPackageMetaData  error for webpack-dev-server { Error: connect ETIMEDOUT 151.101.0.162:443
+60 silly fetchPackageMetaData     at Object.exports._errnoException (util.js:1018:11)
+60 silly fetchPackageMetaData     at exports._exceptionWithHostPort (util.js:1041:20)
+60 silly fetchPackageMetaData     at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1086:14)
+60 silly fetchPackageMetaData   code: 'ETIMEDOUT',
+60 silly fetchPackageMetaData   errno: 'ETIMEDOUT',
+60 silly fetchPackageMetaData   syscall: 'connect',
+60 silly fetchPackageMetaData   address: '151.101.0.162',
+60 silly fetchPackageMetaData   port: 443 }
+61 silly fetchPackageMetaData Error: connect ETIMEDOUT 151.101.0.162:443
+61 silly fetchPackageMetaData     at Object.exports._errnoException (util.js:1018:11)
+61 silly fetchPackageMetaData     at exports._exceptionWithHostPort (util.js:1041:20)
+61 silly fetchPackageMetaData     at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1086:14)
+61 silly fetchPackageMetaData  error for webpack { Error: connect ETIMEDOUT 151.101.0.162:443
+61 silly fetchPackageMetaData     at Object.exports._errnoException (util.js:1018:11)
+61 silly fetchPackageMetaData     at exports._exceptionWithHostPort (util.js:1041:20)
+61 silly fetchPackageMetaData     at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1086:14)
+61 silly fetchPackageMetaData   code: 'ETIMEDOUT',
+61 silly fetchPackageMetaData   errno: 'ETIMEDOUT',
+61 silly fetchPackageMetaData   syscall: 'connect',
+61 silly fetchPackageMetaData   address: '151.101.0.162',
+61 silly fetchPackageMetaData   port: 443 }
+62 silly rollbackFailedOptional Starting
+63 silly rollbackFailedOptional Finishing
+64 silly runTopLevelLifecycles Finishing
+65 silly install printInstalled
+66 verbose stack Error: connect ETIMEDOUT 151.101.0.162:443
+66 verbose stack     at Object.exports._errnoException (util.js:1018:11)
+66 verbose stack     at exports._exceptionWithHostPort (util.js:1041:20)
+66 verbose stack     at TCPConnectWrap.afterConnect [as oncomplete] (net.js:1086:14)
+67 verbose cwd C:\Users\olubunmi.alao\Desktop\PostIt-Bootcamp-Project
+68 error Windows_NT 6.3.9600
+69 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "webpack" "webpack-dev-server" "path"
+70 error node v6.11.0
+71 error npm  v3.10.10
+72 error code ETIMEDOUT
+73 error errno ETIMEDOUT
+74 error syscall connect
+75 error network connect ETIMEDOUT 151.101.0.162:443
+76 error network This is most likely not a problem with npm itself
+76 error network and is related to network connectivity.
+76 error network In most cases you are behind a proxy or have bad network settings.
+76 error network
+76 error network If you are behind a proxy, please make sure that the
+76 error network 'proxy' config is set properly.  See: 'npm help config'
+77 verbose exit [ 1, true ]

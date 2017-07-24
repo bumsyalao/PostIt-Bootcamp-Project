@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "nodemon --exec babel-node -- app.js",
-    "test": "mocha --compilers js:babel-core/register test/test.js --timeout 20000"
+    "test": "mocha --compilers js:babel-core/register \"tests/**/*.test.js\" --timeout 20000"
   },
   "repository": {
     "type": "git",
