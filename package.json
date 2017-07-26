@@ -8,7 +8,7 @@
     "npm": "3.10.10"
   },
   "scripts": {
-    "start": "nodemon --exec babel-node -- app.js",
+    "start": "webpack-dev-server",
     "test": "mocha --compilers js:babel-core/register \"tests/**/*.test.js\" --timeout 20000"
   },
   "repository": {
@@ -35,6 +35,7 @@
     "chai-http": "^3.0.0",
     "dotenv": "^4.0.0",
     "express": "^4.15.3",
+    "html-webpack-plugin": "^2.29.0",
     "i": "^0.3.5",
     "jsonwebtoken": "^7.4.1",
     "mocha": "^3.4.2",
