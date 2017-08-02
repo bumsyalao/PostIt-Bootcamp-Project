@@ -19,7 +19,7 @@ const existingUsername = {
 };
 
 const invalidEmail = {
-  username: 'username',
+  username: 'userssname',
   email: 'chopper@anime.com',
   password: 'invalid'
 };
@@ -56,7 +56,7 @@ describe('ROUTES', () => {
         .send(existingUsername)
         .end((err, res) => {
           expect(res.status).to.equal(400);
-          expect(res.error.text).to.equal('username already in use');
+          expect(res.error.text).to.equal('{"message":"username already in use"}');
           done();
         });
     });
@@ -65,7 +65,7 @@ describe('ROUTES', () => {
         .send(invalidEmail)
         .end((err, res) => {
           expect(res.status).to.equal(400);
-          expect(res.error.text).to.equal('email already in use');
+          expect(res.error.text).to.equal('{"message":"email already in use"}');
           done();
         });
     });
@@ -76,7 +76,7 @@ describe('ROUTES', () => {
         .send(nullPassword)
         .end((err, res) => {
           expect(res.body.token).to.not.exist;
-          expect(res.body.message).to.equal('Incomplete login parameters');
+          expect(res.body.message).to.equal('Incomplete login details');
           done();
         });
     });

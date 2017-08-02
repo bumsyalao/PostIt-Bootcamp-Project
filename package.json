@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "webpack-dev-server",
-    "test": "mocha --compilers js:babel-core/register \"tests/**/*.test.js\" --timeout 20000"
+    "test": "cross-env NODE_ENV=test mocha --compilers js:babel-core/register \"test/**/*.test.js\" --timeout 20000"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/bumsyalao/PostIt-Bootcamp-Project#readme",
   "dependencies": {
+    "axios": "^0.16.2",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",
     "babel-polyfill": "^6.23.0",
