@@ -6,6 +6,7 @@ It provides restful APIs for users to create groups, post messages and retrieve 
 
 [![Build Status](https://travis-ci.org/bumsyalao/PostIt-Bootcamp-Project.svg?branch=master)](https://travis-ci.org/bumsyalao/PostIt-Bootcamp-Project)
 
+[![Code Climate](https://codeclimate.com/github/bumsyalao/PostIt-Bootcamp-Project/badges/gpa.svg)](https://codeclimate.com/github/bumsyalao/PostIt-Bootcamp-Project)
 
 #### Hosted App on Heroku 
 [Post-it](https://postitnow.herokuapp.com/)
