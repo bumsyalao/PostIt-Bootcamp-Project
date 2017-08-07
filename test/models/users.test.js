@@ -17,7 +17,7 @@ const requiredFields = [
 const uniqueFields = ['email', 'username'];
 
 
-describe('User model validation:', () => {
+describe('Users model validation:', () => {
   after((done) => {
     Users.destroy({ where: { username: 'zack' } }).then(() => done());
   });
