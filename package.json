@@ -47,6 +47,7 @@
     "pg-hstore": "^2.3.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-router": "^4.1.2",
     "sequelize": "^3.30.4",
     "supertest": "^3.0.0",
     "webpack": "^3.5.2",

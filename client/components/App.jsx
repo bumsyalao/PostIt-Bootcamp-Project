@@ -1,12 +1,15 @@
  /*./client/components/App.js */
 
 import React from 'react';
+import NavigationBar from './NavigationBar';
 
 class App extends React.Component{
   render() {
     return (
-      <div style ={{textAlign: 'center'}}>
-        <h1>Welcome to Post-It</h1>
-      </div>);
+      <div classname ="container">
+        <NavigationBar />
+        {this.props.children}
+ </div> 
+    );
   }
 }
