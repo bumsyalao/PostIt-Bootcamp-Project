@@ -1,3 +1,4 @@
+/* global localStorage */
 import axios from 'axios';
 import attachAuthorizationToken from '../utils/attachToken';
 import { SET_CURRENT_USER } from './types';

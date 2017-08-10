@@ -1,25 +1,27 @@
-import webpack from 'webpack';
-import path from 'path';
+const webpack = require('webpack');
+const path = require('path');
 
-export default {
-  devtool: 'cheap-module-eval-source-map',
+module.exports = {
+  devtool: 'inline-source-map',
   entry: [
     'webpack-hot-middleware/client',
     path.join(__dirname, '/client/index.js'),
   ],
+  target: 'web',
   output: {
-    path:'/',
-    publicPath: '/'
+    path: `${__dirname}/client`,
+    publicPath: '/',
+    filename: 'bundle.js'
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin()
-],
+  ],
   module: {
     loaders: [
       {
-        test:/\.(js|jsx)$/,
+        test: /\.(js|jsx)$/,
         include: path.join(__dirname, 'client'),
         loaders: ['react-hot-loader', 'babel-loader']
       }
@@ -28,4 +30,4 @@ export default {
   resolve: {
     extensions: ['.jsx', '.js']
   }
-} 
+};

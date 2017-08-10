@@ -9,7 +9,8 @@
   },
   "scripts": {
     "start": "nodemon --watch server --exec babel-node -- server.js",
-    "test": "NODE_ENV=test sequelize db:migrate && mocha --compilers js:babel-core/register \"test/**/*.test.js\" --timeout 20000"
+    "test": "NODE_ENV=test sequelize db:migrate && mocha --compilers js:babel-core/register \"test/**/*.test.js\" --timeout 20000",
+    "build": "webpack --config ./webpack.config.dev.js --progress --colors --watch"
   },
   "repository": {
     "type": "git",
@@ -37,6 +38,7 @@
     "cross-env": "^5.0.2",
     "dotenv": "^4.0.0",
     "express": "^4.15.4",
+    "extract-text-webpack-plugin": "^3.0.0",
     "html-webpack-plugin": "^2.29.0",
     "i": "^0.3.5",
     "jsonwebtoken": "^7.4.1",
@@ -45,6 +47,7 @@
     "mysql": "^2.13.0",
     "pg": "^6.1.5",
     "pg-hstore": "^2.3.2",
+    "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.6",
@@ -54,7 +57,8 @@
     "sequelize": "^3.30.4",
     "supertest": "^3.0.0",
     "webpack": "^3.5.2",
-    "webpack-dev-middleware": "^1.12.0"
+    "webpack-dev-middleware": "^1.12.0",
+    "webpack-hot-middleware": "^2.18.2"
   },
   "devDependencies": {
     "babel-loader": "^7.1.1",
