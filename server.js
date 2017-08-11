@@ -7,8 +7,6 @@ import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from './webpack.config.dev';
 
-import app from './server/routes/index';
-
 
 const app = express();
 app.use(bodyParser.json());
