@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, compose } from 'redux';
 import rootReducer from './reducers/rootReducer';
-
+import SignupPage from './components/Signup/SignupPage';
 import routes from './Routes';
 
 const store = createStore(
@@ -18,5 +18,5 @@ const store = createStore(
 
 render(
   <Provider store={store}>
-      <Router routes={routes} />
+      <SignupPage />
 </Provider>, document.getElementById("app"));

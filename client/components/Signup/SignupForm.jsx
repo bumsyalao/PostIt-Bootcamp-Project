@@ -69,7 +69,7 @@ class SignupForm extends React.Component {
               <input 
               value={this.state.confirmPassword}
               onChange={this.onChange} 
-              name="password" 
+              name="confirmPassword" 
               type="password" 
               className="validate"/>
               <label className="active" htmlFor="password">confirm password</label>

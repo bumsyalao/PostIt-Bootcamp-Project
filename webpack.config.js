@@ -1,17 +1,18 @@
 const webpack = require('webpack');
 const path = require('path');
 
-module.exports = {
+const config = {
   devtool: 'inline-source-map',
-  entry: [
-    'webpack-hot-middleware/client',
-    path.join(__dirname, '/client/Index.jsx'),
-  ],
-  target: 'web',
+  entry: './client/Index.jsx',
   output: {
     path: `${__dirname}/client`,
-    publicPath: '/',
     filename: 'bundle.js'
+  },
+  resolve: {
+    extensions: ['.jsx', '.js']
+  },
+  devServer: {
+    historyApiFallback: true,
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
@@ -19,15 +20,15 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin()
   ],
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.(js|jsx)$/,
         include: path.join(__dirname, 'client'),
-        loaders: ['react-hot-loader', 'babel-loader']
+        use: {
+          loader: 'babel-loader'
+        }
       }
     ]
   },
-  resolve: {
-    extensions: ['.jsx', '.js']
-  }
 };
+module.exports = config;

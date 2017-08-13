@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import http from 'http';
 import routes from './server/routes/index';
 
-const port = parseInt(process.env.PORT, 10) || 8000;
+const port = parseInt(process.env.PORT, 10) || 3000;
 // Set up the express app
 const app = express();
 
