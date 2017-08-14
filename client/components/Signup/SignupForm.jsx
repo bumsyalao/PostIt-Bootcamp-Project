@@ -12,6 +12,7 @@ class SignupForm extends React.Component {
       password:'',
       confirmPassword:''
     }
+    this.state = { loggedIn: false };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -25,13 +26,18 @@ class SignupForm extends React.Component {
         this.setState({ loggedIn: true });
         this.props.addFlashMessage({
           type: 'success',
-          text:'Sign up Successful! Wlcome'
+          text:'Sign up Successful! Welcome'
         })
       }).catch((err) => {
         Materialize.toast(err, 3000, 'red');
       });
   }
     render() {
+      const { loggedIn } = this.state;
+      if (loggedIn) {
+        return (
+        <Redirect to="/dashboard" />
+      );
       return (
         <form onSubmit={this.onSubmit} class="col s12">
           <div className="input-field col s6">
@@ -77,9 +83,9 @@ class SignupForm extends React.Component {
           <button className="btn waves-effect waves-light col s6 red lighten-2" type="submit" name="action">Register
             <i className="material-icons right">send</i>
           </button>
-          
         </form>
       );
+    }
     }
 }
 

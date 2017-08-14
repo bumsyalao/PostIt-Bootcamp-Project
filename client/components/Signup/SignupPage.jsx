@@ -5,6 +5,9 @@ import { userSignupRequest } from '../../actions/signupAction';
 import { addFlashMessage } from '../../actions/flashMessages';
 
 class SignupPage extends React.Component {
+  constructor(props){
+    super(props)
+  }
     render() {
         const { userSignupRequest, addFlashMessage } = this.props;
         return (
