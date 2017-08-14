@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
+import NavigationBar from '../NavigationBar';
 
  
 
@@ -23,17 +25,20 @@ class SignupForm extends React.Component {
     this.props.userSignupRequest(this.state)
       .then(() => {
         this.setState({ loggedIn: true });
-        this.props.addFlashMessage({
-          type: 'success',
-          text:'Sign up Successful! Wlcome'
-        })
+
       }).catch((err) => {
         Materialize.toast(err, 3000, 'red');
       });
   }
     render() {
+      const { loggedIn } = this.state;
+      if (loggedIn) {
+        return (
+        <Redirect to="/NavigationBar" />
+        );
+      }
       return (
-        <form onSubmit={this.onSubmit} class="col s12">
+        <form onSubmit={this.onSubmit} className="col s12">
           <div className="input-field col s6">
               <i className="material-icons prefix">account_circle</i>
               <input 
@@ -41,7 +46,7 @@ class SignupForm extends React.Component {
               onChange={this.onChange} 
               name="username"  
               type="text" 
-              className="validate"/>
+              className="validate" required/>
               <label className="active" htmlFor="username">username</label>
             </div>
             <div className="input-field col s6">
@@ -51,7 +56,7 @@ class SignupForm extends React.Component {
               onChange={this.onChange} 
               name="email" 
               type="email" 
-              className="validate"/>
+              className="validate" required/>
               <label className="active" htmlFor="email">email</label>
             </div>
             <div className="input-field col s6">
@@ -85,7 +90,7 @@ class SignupForm extends React.Component {
 
 SignupForm.propTypes = {
   userSignupRequest: React.PropTypes.func.isRequired,
-  addFlashMessage: React.PropTypes.func.isRequired
+
 }
 
 export default SignupForm;

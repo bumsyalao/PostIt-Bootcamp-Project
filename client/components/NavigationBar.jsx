@@ -4,20 +4,20 @@ import { Link } from 'react-router';
 export default () => {
     return(
       <nav>
-          <div class="nav-wrapper container">
+          <div className="nav-wrapper container">
               <link to="/">
-              <a id="logo-container" class="brand-logo">POST-IT</a>
+              <a id="logo-container" className="brand-logo">POST-IT</a>
               </link>
-            <ul class="right">
+            <ul className="right">
               <li><a href="login.html">Login</a></li>
             </ul>
-            <ul class="right">
+            <ul className="right">
               <li><link to="/signup">Register</link></li>
             </ul>
-            <ul id="nav-mobile" class="side-nav">
+            <ul id="nav-mobile" className="side-nav">
               <li><a href="#">Navbar Link</a></li>
             </ul>
-            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+            <a href="#" data-activates="nav-mobile" className="button-collapse"><i className="mdi-navigation-menu"></i></a>
           </div>
         </nav>
 

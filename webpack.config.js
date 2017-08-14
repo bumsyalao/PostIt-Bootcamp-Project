@@ -6,6 +6,7 @@ const config = {
   entry: './client/Index.jsx',
   output: {
     path: `${__dirname}/client`,
+    publicPath: '/',
     filename: 'bundle.js'
   },
   resolve: {

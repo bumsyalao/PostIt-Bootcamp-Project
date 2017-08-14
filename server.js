@@ -5,10 +5,8 @@ import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import config from './webpack.config';
+import app from './app';
 
-
-const app = express();
-app.use(bodyParser.json());
 const compiler = webpack(config);
 
 const port = process.env.PORT || 3000;
@@ -23,6 +21,9 @@ if (env === 'development') {
   app.use(webpackHotMiddleware(compiler));
 }
 
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, './client', 'index.html'));
+});
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, './client', 'index.html'));
 });
