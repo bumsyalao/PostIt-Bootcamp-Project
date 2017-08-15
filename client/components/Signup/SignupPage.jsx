@@ -13,17 +13,20 @@ class SignupPage extends React.Component {
         return (
             <div className="row">
                <div className="col-md-4 col-md-offset-4">
-                   <SignupForm userSignupRequest={userSignupRequest} addFlashMessage ={addFlashMessage}/>
+                   <SignupForm userSignupRequest={userSignupRequest} />
                 </div>
             </div> 
         );
     }
 }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    userSignupRequest:(user) => dispatch(userSignupRequest(user))
+  }
+};
 
 SignupPage.propTypes = {
   userSignupRequest: React.PropTypes.func.isRequired,
-  addFlashMessage: React.PropTypes.func.isRequired
 }
 
-
-export default connect(null, {userSignupRequest}) (SignupPage);
+export default connect(null, mapDispatchToProps)(SignupPage);

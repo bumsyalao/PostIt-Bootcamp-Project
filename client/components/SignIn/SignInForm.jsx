@@ -2,7 +2,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import isEmail from '../../utils/helper';
+
+import { connect } from 'react-redux';
+import { userSignInRequest } from '../../actions/SignInAction';
+
+
 
 
 
@@ -21,18 +27,22 @@ class SignInForm extends React.Component {
   onSubmit(event) {
     event.preventDefault();
     const data = {};
-    if (isEmail(this.state.credential)) {
-      data.email = this.state.credential;
+    if (this.state.username) {
+      data.username = this.state.username;
       data.password = this.state.password;
     } else {
-      data.userName = this.state.credential;
+      data.username = this.state.username;
       data.password = this.state.password;
     }
     this.props.userSignInRequest(data)
       .then(() => {
+        debugger;
         this.setState({ loggedIn: true });
-      }).catch((error) => {
-        Materialize.toast(error, 3000, 'red');
+        this.props.history.push('/');
+        console.log(this.props.access);
+      }).catch(() => {
+        debugger;
+        Materialize.toast('failure', 3000, 'red');
       });
   }
 
@@ -40,50 +50,45 @@ class SignInForm extends React.Component {
     const { loggedIn } = this.state;
     if (loggedIn) {
       return (
-        <Redirect to="/dashboard" />
+        <Redirect to="/" />
       );
     }
     return (
-      <div>
-        <div className="col s12 m12 l6">
-          <div className="card-panel">
-            <h4 className="center">Sign In</h4>
-            <p className="center">Welcome Back!</p>
-            <div className="row">
-              <form className="col s12" onSubmit={this.onSubmit}>
-                <div className="row">
-                  <div className="input-field col s12">
-                    <i className="material-icons prefix">input</i>
-                    <input id="credential" type="text" className="validate" required onChange={this.onChange} />
-                    <label className="active" htmlFor="credentiall">username or email</label>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="input-field col s12">
-                    <i className="material-icons prefix">lock</i>
-                    <input id="password" type="password" className="validate" required onChange={this.onChange} />
-                    <label className="active" htmlFor="password">password</label>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="input-field col s12">
-                    <button id="signInButton" className="btn waves-effect waves-light" type="submit" name="action">Login
-                      <i className="mdi-content-send right" />
-                    </button>
-                  </div>
-                </div>
-              </form>
+      <div className="form-margin">
+        <form className="col s12 container">
+          <div className="input-field col s6 offset-s3">
+              <i className="material-icons prefix">account_circle</i>
+              <input id ="username" value={this.state.username} onChange={this.onChange} name="username"  type="text" 
+              className="validate" required/>
+              <label className="active" htmlFor="credential">username</label>
             </div>
-          </div>
-        </div>
+            <div className="input-field col s6 offset-s3">
+              <i className="material-icons prefix">lock</i>
+              <input id="password" value={this.state.password} onChange={this.onChange} name="password"type="password" 
+              className="validate" required/>
+              <label className="active" htmlFor="password">password</label>
+            </div>
+          <button onClick={this.onSubmit} disabled={this.state.invalid} className="btn waves-effect waves-light col s6 offset-s3 red lighten-2" type="submit" name="action">Login
+            <i className="material-icons right">send</i>
+          </button>
+        </form>
+       <div className="col s6 offset-s3"> <a href="forgot.html">Forgot Password?</a> </div>
       </div>
     );
   }
 }
 
+
+const mapPropsToState = state => (
+  {
+    access: state.access
+  }
+);
+
 SignInForm.propTypes = {
-  userSignInRequest: PropTypes.func.isRequired
+  userSignInRequest: PropTypes.func.isRequired,
+  signin: PropTypes.func.isRequired
 };
 
 
-export default SignInForm;
+export default connect(mapPropsToState , {userSignInRequest})(withRouter(SignInForm));

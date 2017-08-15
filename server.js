@@ -1,27 +1,31 @@
 import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
-
 import webpack from 'webpack';
 import webpackMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
-import webpackConfig from './webpack.config.dev';
+import config from './webpack.config';
+import app from './app';
 
+const compiler = webpack(config);
 
-const app = express();
-app.use(bodyParser.json());
-const compiler = webpack(webpackConfig);
+const port = process.env.PORT || 3000;
+const env = process.env.NODE_ENV || 'development';
 
-app.use(webpackMiddleware(compiler, {
-  hot: true,
-  publicPath: webpackConfig.output.publicPath,
-  noInfo: true
-}));
+if (env === 'development') {
+  app.use(webpackMiddleware(compiler, {
+    hot: true,
+    publicPath: config.output.publicPath,
+    noInfo: true
+  }));
+  app.use(webpackHotMiddleware(compiler));
+}
 
-app.use(webpackHotMiddleware(compiler));
-
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, './client/index.html'));
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, './client', 'index.html'));
+});
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './client', 'index.html'));
 });
 
-app.listen(3000, () => console.log('Running server on localhost:3000'));
+app.listen(port, () => console.log(`Running server on port ${port}`));

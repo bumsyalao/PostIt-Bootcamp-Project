@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
-
- 
+import { Redirect } from 'react-router';
+import { withRouter } from 'react-router-dom';
 
 class SignupForm extends React.Component {
   constructor(props) {
@@ -11,7 +10,8 @@ class SignupForm extends React.Component {
       username: '',
       email: '',
       password:'',
-      confirmPassword:''
+      confirmPassword:'',
+      invalid: false
     }
     this.state = { loggedIn: false};
     this.onChange = this.onChange.bind(this);
@@ -25,44 +25,42 @@ class SignupForm extends React.Component {
     this.props.userSignupRequest(this.state)
       .then(() => {
         this.setState({ loggedIn: true });
-        this.props.addFlashMessage({
-          type: 'success',
-          text:'Sign up Successful! Welcome'
-        })
+        this.props.history.push('/');
       }).catch((err) => {
-        Materialize.toast(err, 3000, 'red');
+        Materialize.toast(err, 5000, 'red');
+        
       });
   }
     render() {
-      {this.state.loggedIn && <Redirect to="/dashboard" />}
+      {this.state.loggedIn && <Redirect to="/" />}
       return (
         <div className="form-margin">
-        <form onSubmit={this.onSubmit} className="col s12 container">
+        <form className="col s12 container">
           <div className="input-field col s6 offset-s3">
               <i className="material-icons prefix">account_circle</i>
               <input value={this.state.username} onChange={this.onChange} name="username"  type="text" 
-              className="validate"/>
+              className="validate" required/>
               <label className="active" htmlFor="username">username</label>
             </div>
             <div className="input-field col s6 offset-s3">
               <i className="material-icons prefix">email</i>
               <input value={this.state.email} onChange={this.onChange} name="email" type="email" 
-              className="validate"/>
+              className="validate" required/>
               <label className="active" htmlFor="email">email</label>
             </div>
             <div className="input-field col s6 offset-s3">
-              <i className="material-icons prefix">vpn_key</i>
+              <i className="material-icons prefix">lock</i>
               <input value={this.state.password} onChange={this.onChange} name="password"type="password" 
-              className="validate"/>
+              className="validate" required/>
               <label className="active" htmlFor="password">password</label>
             </div>
             <div className="input-field col s6 offset-s3">
-              <i className="material-icons prefix">vpn_key</i>
-              <input value={this.state.confirmPassword} onChange={this.onChange} name="password" type="password" 
-              className="validate"/>
-              <label className="active" htmlFor="password">confirm password</label>
+              <i className="material-icons prefix">lock</i>
+              <input value={this.state.confirmPassword} onChange={this.onChange} name="confirmPassword" type="password" 
+              className="validate" required/>
+              <label className="active" htmlFor="confirmPassword">confirm password</label>
             </div>
-          <button className="btn waves-effect waves-light col s6 offset-s3 red lighten-2" type="submit" name="action">Register
+          <button onClick={this.onSubmit} disabled={this.state.invalid} className="btn waves-effect waves-light col s6 offset-s3 red lighten-2" type="submit" name="action">Register
             <i className="material-icons right">send</i>
           </button>
         </form>
@@ -74,7 +72,6 @@ class SignupForm extends React.Component {
 
 SignupForm.propTypes = {
   userSignupRequest: React.PropTypes.func.isRequired,
-  addFlashMessage: React.PropTypes.func.isRequired
 }
 
-export default SignupForm;
+export default withRouter(SignupForm);

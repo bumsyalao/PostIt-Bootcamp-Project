@@ -5,17 +5,19 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { createStore, applyMiddleware, compose } from 'redux';
 import rootReducer from './reducers/rootReducer';
-import SignupPage from './components/Signup/SignupPage';
+import attachAuthorizationToken from "../client/utils/attachToken";
+import store from '../client/store/configureStore';
+import { setCurrentUser } from './actions/SignInAction';
+// import './css/style.css'
 
 import Routes from './Routes';
+import { ConnectedRouter } from 'react-router-redux';
 
-const store = createStore(
-  rootReducer,
-  compose(
-    applyMiddleware(thunk),
-    window.devToolsExtension ? window.devToolsExtension() : f => f
-  )
-);
+if (localStorage.token) {
+  attachAuthorizationToken(
+  localStorage.token
+  );
+}
 
 render(
   <Provider store={store}>

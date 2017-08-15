@@ -8,7 +8,7 @@ const NavigationBar = () => (
               <a id="logo-container" className="brand-logo">POST-IT</a>
               </Link>
             <ul className="right">
-              <li><a href="login.html">Login</a></li>
+              <li><Link to="/signin">Login</Link></li>
             </ul>
             <ul className="right">
               <li><Link to="/signup">Register</Link></li>

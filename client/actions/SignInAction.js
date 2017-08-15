@@ -9,7 +9,7 @@ export const setCurrentUser = userInfo => ({
 });
 
 export const userSignInRequest = userData =>
-  dispatch => axios.post('/users/login', userData)
+  dispatch => axios.post('/api/user/signin', userData)
     .then((success) => {
       localStorage.setItem('token', success.data.token);
       dispatch(setCurrentUser(success.data.existingUser));
