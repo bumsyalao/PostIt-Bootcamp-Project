@@ -8,7 +8,8 @@ import rootReducer from './reducers/rootReducer';
 import attachAuthorizationToken from "../client/utils/attachToken";
 import store from '../client/store/configureStore';
 import { setCurrentUser } from './actions/SignInAction';
-// import './css/style.css'
+import './scss/style.scss'
+
 
 import Routes from './Routes';
 import { ConnectedRouter } from 'react-router-redux';

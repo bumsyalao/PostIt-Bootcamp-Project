@@ -53,7 +53,7 @@ describe('USERGROUP ROUTES', () => {
       api.post('/api/group/4/user')
         .set({ jwt: validToken })
         .end((err, res) => {
-          expect(res.status).to.equal(400);
+          expect(res.status).to.equal(409);
           expect(res.body.message).to.equal('User already in group');
           done();
         });

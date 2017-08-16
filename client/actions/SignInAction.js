@@ -1,4 +1,5 @@
 /* global localStorage */
+/* global Materialize */
 import axios from 'axios';
 import attachAuthorizationToken from '../utils/attachToken';
 import { SET_CURRENT_USER } from './types';
@@ -8,6 +9,13 @@ export const setCurrentUser = userInfo => ({
   userInfo
 });
 
+export const logout = () =>
+  (dispatch) => {
+    localStorage.removeItem('token');
+    attachAuthorizationToken(false);
+    dispatch((setCurrentUser({})));
+  };
+
 export const userSignInRequest = userData =>
   dispatch => axios.post('/api/user/signin', userData)
     .then((success) => {
@@ -16,6 +24,7 @@ export const userSignInRequest = userData =>
       attachAuthorizationToken(
         success.data.token
         );
+      Materialize.toast('Login Succesful', 5000, 'green');
     })
     .catch((error) => {
       throw error.response.data.message;

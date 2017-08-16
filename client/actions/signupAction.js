@@ -1,16 +1,24 @@
+/* global localStorage */
+/* global Materialize */
 import axios from 'axios';
+import attachAuthorizationToken from '../utils/attachToken';
+import { SET_CURRENT_USER } from './types';
 
-const userSignupRequest = (userData) => {
-  return (dispatch) => {
-    return axios.post('/api/user/signup', userData)
-    .then((response) => {
-      Materialize.toast('Your account has been created', 10000, 'red');
+export const setCurrentUser = userInfo => ({
+  type: SET_CURRENT_USER,
+  userInfo
+});
+
+export const userSignupRequest = userData =>
+  dispatch => axios.post('/api/user/signup', userData)
+    .then((success) => {
+      localStorage.setItem('token', success.data.token);
+      dispatch(setCurrentUser(success.data.existingUser));
+      attachAuthorizationToken(
+        success.data.token
+        );
+      Materialize.toast('Your account has been created', 5000, 'green');
     })
-    .catch((err) => {
-      Materialize.toast(err.response.data.message, 10000, 'red');
-
+    .catch((error) => {
+      throw error.response.data.message;
     });
-  };
-};
-
-export { userSignupRequest };

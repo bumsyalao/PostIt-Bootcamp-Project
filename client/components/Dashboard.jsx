@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import NavigationBar from './NavigationBar';
 
 const Dashboard = () => (
+      <div>
+        <NavigationBar />
         <div className="section no-pad-bot" id="index-banner">
           <div className="container">
             <br></br>
@@ -19,6 +22,8 @@ const Dashboard = () => (
 
           </div>
         </div>
+        </div>
+        
     );
 
 export default Dashboard;

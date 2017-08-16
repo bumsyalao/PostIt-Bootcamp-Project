@@ -36,24 +36,23 @@ class SignInForm extends React.Component {
     }
     this.props.userSignInRequest(data)
       .then(() => {
-        debugger;
         this.setState({ loggedIn: true });
-        this.props.history.push('/');
+        this.props.history.push('/creategroup');
         console.log(this.props.access);
       }).catch(() => {
-        debugger;
         Materialize.toast('failure', 3000, 'red');
       });
   }
 
   render() {
-    const { loggedIn } = this.state;
-    if (loggedIn) {
-      return (
-        <Redirect to="/" />
-      );
-    }
+    // const { loggedIn } = this.state;
+    // if (loggedIn) {
+    //   return (
+    //     <Redirect to="/" />
+    //   );
+   //}
     return (
+
       <div className="form-margin">
         <form className="col s12 container">
           <div className="input-field col s6 offset-s3">
@@ -79,7 +78,7 @@ class SignInForm extends React.Component {
 }
 
 
-const mapPropsToState = state => (
+const mapStateToProps = state => (
   {
     access: state.access
   }
@@ -91,4 +90,4 @@ SignInForm.propTypes = {
 };
 
 
-export default connect(mapPropsToState , {userSignInRequest})(withRouter(SignInForm));
+export default connect(mapStateToProps , {userSignInRequest})(withRouter(SignInForm));
