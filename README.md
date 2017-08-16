@@ -4,9 +4,7 @@ A cool App that allows users create groups and post notifications to group.
 
 It provides restful APIs for users to create groups, post messages and retrieve messages based on userId and managing authentication of users with JsonWebToken.
 
-[![Build Status](https://travis-ci.org/bumsyalao/PostIt-Bootcamp-Project.svg?branch=master)](https://travis-ci.org/bumsyalao/PostIt-Bootcamp-Project)
-
-[![Code Climate](https://codeclimate.com/github/bumsyalao/PostIt-Bootcamp-Project/badges/gpa.svg)](https://codeclimate.com/github/bumsyalao/PostIt-Bootcamp-Project)
+[![Build Status](https://travis-ci.org/bumsyalao/PostIt-Bootcamp-Project.svg?branch=master)](https://travis-ci.org/bumsyalao/PostIt-Bootcamp-Project) [![Coverage Status](https://coveralls.io/repos/github/bumsyalao/PostIt-Bootcamp-Project/badge.svg?branch=master)](https://coveralls.io/github/bumsyalao/PostIt-Bootcamp-Project?branch=master) [![Code Climate](https://codeclimate.com/github/bumsyalao/PostIt-Bootcamp-Project/badges/gpa.svg)](https://codeclimate.com/github/bumsyalao/PostIt-Bootcamp-Project)
 
 #### Hosted App on Heroku 
 [Post-it](https://postitnow.herokuapp.com/)
