@@ -32,9 +32,9 @@ class ListGroup extends React.Component {
         this.props.history.push('/homepage/view-group')
       })
   }
-  joinGroup (event) {
-    event.preventDefault();
-    const id = event.target.data-id;
+  joinGroup (id) {
+    // event.preventDefault();
+    // const id = event.target.data-id;
     console.log("something", id);
     // this.props.getMessages(id).then((err, res) => {
     //   if(!err) {
