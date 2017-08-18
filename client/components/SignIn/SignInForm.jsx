@@ -1,9 +1,7 @@
 /* global Materialize */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
-import { withRouter } from 'react-router-dom';
-import isEmail from '../../utils/helper';
+import { withRouter, Redirect } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { userSignInRequest } from '../../actions/SignInAction';
@@ -24,37 +22,25 @@ class SignInForm extends React.Component {
   onChange(event) {
     this.setState({ [event.target.id]: event.target.value });
   }
-  onSubmit(event) {
-    event.preventDefault();
-    const data = {};
-    if (this.state.username) {
-      data.username = this.state.username;
-      data.password = this.state.password;
-    } else {
-      data.username = this.state.username;
-      data.password = this.state.password;
-    }
+  onSubmit() {
+    const data = {
+      username: this.state.username,
+      password: this.state.password
+    };
     this.props.userSignInRequest(data)
       .then(() => {
         this.setState({ loggedIn: true });
-        this.props.history.push('/creategroup');
+        this.props.history.push('/homepage');
+        Materialize.toast('Login Succesful', 5000, 'green');
         console.log(this.props.access);
-      }).catch(() => {
-        Materialize.toast('failure', 3000, 'red');
-      });
+      })
   }
 
   render() {
-    // const { loggedIn } = this.state;
-    // if (loggedIn) {
-    //   return (
-    //     <Redirect to="/" />
-    //   );
-   //}
+    console.log(this.props);
     return (
-
       <div className="form-margin">
-        <form className="col s12 container">
+        <div className="col s12 container">
           <div className="input-field col s6 offset-s3">
               <i className="material-icons prefix">account_circle</i>
               <input id ="username" value={this.state.username} onChange={this.onChange} name="username"  type="text" 
@@ -67,10 +53,13 @@ class SignInForm extends React.Component {
               className="validate" required/>
               <label className="active" htmlFor="password">password</label>
             </div>
-          <button onClick={this.onSubmit} disabled={this.state.invalid} className="btn waves-effect waves-light col s6 offset-s3 red lighten-2" type="submit" name="action">Login
+          <button 
+            onClick={this.onSubmit}
+            className="btn waves-effect waves-light col s6 offset-s3 red lighten-2"
+            name="action">Login
             <i className="material-icons right">send</i>
           </button>
-        </form>
+        </div>
        <div className="col s6 offset-s3"> <a href="forgot.html">Forgot Password?</a> </div>
       </div>
     );
@@ -85,8 +74,7 @@ const mapStateToProps = state => (
 );
 
 SignInForm.propTypes = {
-  userSignInRequest: PropTypes.func.isRequired,
-  signin: PropTypes.func.isRequired
+  userSignInRequest: PropTypes.func.isRequired
 };
 
 

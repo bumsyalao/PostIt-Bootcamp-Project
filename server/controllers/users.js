@@ -49,7 +49,7 @@ export default {
             return res.status(200)
               .send({
                 token,
-                success: true,
+                foundUser,
                 message: 'You have logged in succesfully'
               });
           }

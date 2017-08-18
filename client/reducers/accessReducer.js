@@ -1,14 +1,15 @@
 import * as types from '../actions/types';
 
-export default (state = { user: {} }, action = {}) => {
+export default (state = { user: {} }, action) => {
   switch (action.type) {
-    case types.SET_CURRENT_USER:
-      return [
+    case types.SIGN_UP_USER:
+    case types.SIGN_IN_USER:
+    case types.SIGN_OUT_USER:
+    case 'LOGGEDIN_USER':
+      return {
         ...state,
-        {
-          user: action.userInfo
-        }
-      ];
+        user: action.userInfo
+      };
     default: return state;
   }
 };

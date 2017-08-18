@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
-import flashMessages from './flashMessages';
 import access from './accessReducer';
+import group from './groupsReducer';
 
 export default combineReducers({
-  flashMessages,
-  access
+  access,
+  group
 });

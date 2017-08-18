@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import NavigationBar from './NavigationBar';
 
-const Dashboard = () => (
+const Dashboard = ({ match }) => (
       <div>
-        <NavigationBar />
+        <NavigationBar match={match}/>
         <div className="section no-pad-bot" id="index-banner">
           <div className="container">
             <br></br>

@@ -25,11 +25,8 @@ class SignupForm extends React.Component {
     this.props.userSignupRequest(this.state)
       .then(() => {
         this.setState({ loggedIn: true });
-        this.props.history.push('/Sidebar');
-      }).catch((err) => {
-        Materialize.toast(err, 5000, 'red');
-        
-      });
+        this.props.history.push('/homepage');
+      })
   }
     render() {
       {this.state.loggedIn && <Redirect to="/" />}

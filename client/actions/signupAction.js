@@ -2,18 +2,14 @@
 /* global Materialize */
 import axios from 'axios';
 import attachAuthorizationToken from '../utils/attachToken';
-import { SET_CURRENT_USER } from './types';
+import { SIGN_UP_USER, setCurrentUser } from './types';
 
-export const setCurrentUser = userInfo => ({
-  type: SET_CURRENT_USER,
-  userInfo
-});
 
-export const userSignupRequest = userData =>
+const userSignupRequest = userData =>
   dispatch => axios.post('/api/user/signup', userData)
     .then((success) => {
       localStorage.setItem('token', success.data.token);
-      dispatch(setCurrentUser(success.data.existingUser));
+      dispatch(setCurrentUser(success.data.existingUser, SIGN_UP_USER));
       attachAuthorizationToken(
         success.data.token
         );
@@ -22,3 +18,5 @@ export const userSignupRequest = userData =>
     .catch((error) => {
       throw error.response.data.message;
     });
+
+export default userSignupRequest;

@@ -2,27 +2,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import SignInForm from './signInForm';
-import { userSignInRequest } from '../../actions/SignInAction';
+// import { userSignInRequest } from '../../actions/SignInAction';
 import NavigationBar from '../NavigationBar';
 
 class SignInPage extends React.Component {
+  constructor(props){
+    super(props)
+  }
   render() {
-    const userSignIn = this.props.userSignInRequest;
+    // const userSignIn = this.props.userSignInRequest;
     return (
     <div>
-      <NavigationBar />
+      <NavigationBar match={this.props.match}/>
     <div className="row">
       <div className="col-md-4 col-md-offset-4">
-        <SignInForm userSignInRequest={userSignIn} />
+        <SignInForm />
       </div>
     </div>
     </div>
     );
   }
 }
-
-SignInPage.propTypes = {
-  userSignInRequest: PropTypes.func.isRequired
-};
 
 export default SignInPage;

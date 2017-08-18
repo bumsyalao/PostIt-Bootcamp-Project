@@ -4,7 +4,9 @@ const secret = process.env.SECRET;
 
 export default {
   checkToken(req, res, next) {
-    const token = req.headers.authorization || req.headers.jwt;
+    const token = req.body.token
+      || req.query.token
+      || req.headers['x-access-token'];
     if (!token) {
       return res.status(401).send({ message: 'User not authorized' });
     }

@@ -2,7 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CreateGroup from './Group/CreateGroup';
-import './images/LogoSample_ByTailorBrands.jpeg';
+import ListGroup from './Group/ListGroup';
+
 
 const SideBar=() => (
   <ul id="slide-out" className="side-nav fixed ">
@@ -10,7 +11,7 @@ const SideBar=() => (
       <div className="side-logo center">
         
           <img
-            src="./images/welcome-image.jpg" height="100px" width="100px"/>
+            src="http://static.tumblr.com/0e253446f8ef0a405620062accb883fc/ioj3c8n/0U2oat2va/tumblr_static_3dms3857o7wgk0k00kckow4go.png" width="100%" height ="100%"/>
       </div>
     </div></li>
     <ul className="collapsible" data-collapsible="accordion">
@@ -19,11 +20,11 @@ const SideBar=() => (
           <i className="material-icons">group</i>Groups</div>
         <div className="collapsible-body" id="groups">
           <ul>
-            <li><Link to='/creategroup' id="create-group">
+            <li><Link to='/homepage/create/group' id="create-group">
               <i className="material-icons">group_add</i>
               Create Group</Link>
             </li>
-            <li><Link to='/all-groups' >
+            <li><Link to='/homepage/groups' >
               <i className="material-icons">groups</i>
               All Groups</Link></li>
           </ul>
@@ -45,7 +46,7 @@ const SideBar=() => (
         </div>
       </li>
     </ul>
-    <div className="col s9"> <img src="https://goo.gl/photos/UpxDhKEHMoz8Fadu8"/>" </div>
+    <div className="col s9"> <img src="https://goo.gl/photos/UpxDhKEHMoz8Fadu8"/> </div>
   </ul>
 
 )

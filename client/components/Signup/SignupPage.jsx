@@ -13,7 +13,7 @@ class SignupPage extends React.Component {
         const { userSignupRequest, addFlashMessage } = this.props;
         return (
           <div>
-            <NavigationBar />
+            <NavigationBar match={this.props.match}/>
             <div className="row">
                <div className="col-md-4 col-md-offset-4">
                    <SignupForm userSignupRequest={userSignupRequest} />

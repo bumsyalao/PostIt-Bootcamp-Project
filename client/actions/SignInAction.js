@@ -1,31 +1,23 @@
 /* global localStorage */
-/* global Materialize */
 import axios from 'axios';
 import attachAuthorizationToken from '../utils/attachToken';
-import { SET_CURRENT_USER } from './types';
+import { SIGN_IN_USER, SIGN_OUT_USER, setCurrentUser } from './types';
 
-export const setCurrentUser = userInfo => ({
-  type: SET_CURRENT_USER,
-  userInfo
-});
 
 export const logout = () =>
   (dispatch) => {
     localStorage.removeItem('token');
     attachAuthorizationToken(false);
-    dispatch((setCurrentUser({})));
+    dispatch(setCurrentUser({}, SIGN_OUT_USER));
   };
 
 export const userSignInRequest = userData =>
-  dispatch => axios.post('/api/user/signin', userData)
-    .then((success) => {
-      localStorage.setItem('token', success.data.token);
-      dispatch(setCurrentUser(success.data.existingUser));
-      attachAuthorizationToken(
-        success.data.token
-        );
-      Materialize.toast('Login Succesful', 5000, 'green');
-    })
-    .catch((error) => {
-      throw error.response.data.message;
-    });
+    dispatch => axios.post('/api/user/signin', userData)
+      .then((success) => {
+        localStorage.setItem('token', success.data.token);
+        attachAuthorizationToken(success.data.token);
+        return dispatch(setCurrentUser(success.data.foundUser, SIGN_IN_USER));
+      })
+      .catch((error) => {
+        console.log(error.response.data.message);
+      });
