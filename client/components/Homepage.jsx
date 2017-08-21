@@ -4,6 +4,7 @@ import NavigationBar from './NavigationBar';
 import Sidebar from './Sidebar';
 import CreateGroup from './Group/CreateGroup';
 import ListGroup from './Group/ListGroup';
+import GroupChat from './Group/GroupChat';
 
 
 
@@ -12,6 +13,7 @@ export default class Homepage extends React.Component {
     super(props)
   }
   render() {
+
     return(
       <div>
         <Sidebar />
@@ -20,9 +22,11 @@ export default class Homepage extends React.Component {
           <Switch>
             <Route path={`${this.props.match.url}/create/group`} component={CreateGroup} />
             <Route path={`${this.props.match.url}/groups`} component={ListGroup} />
+            <Route path={`${this.props.match.url}/view-group`} component={GroupChat} />
           </Switch>
         </div>
       </div>
     )
   }
+  
 }

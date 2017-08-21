@@ -10,6 +10,7 @@ class SignupForm extends React.Component {
       username: '',
       email: '',
       password:'',
+      phonenumber:'',
       confirmPassword:'',
       invalid: false
     }
@@ -44,6 +45,11 @@ class SignupForm extends React.Component {
               <input value={this.state.email} onChange={this.onChange} name="email" type="email" 
               className="validate" required/>
               <label className="active" htmlFor="email">email</label>
+            </div>
+            <div className="input-field col s6 offset-s3">
+              <i className="material-icons prefix">phone</i>
+              <input value={this.state.phonenumber} onChange={this.onChange} name="phonenumber"type="tel" class="validate" required/>
+              <label className="active" htmlFor="icon_telephone">phone number</label>
             </div>
             <div className="input-field col s6 offset-s3">
               <i className="material-icons prefix">lock</i>

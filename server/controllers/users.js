@@ -14,17 +14,20 @@ export default {
         .create({
           username: req.body.username,
           email: req.body.email,
+          phonenumber: req.body.phonenumber,
           password: req.body.password,
         })
         .then((newUser) => {
           const token = jwt.sign({
             userId: newUser.id,
             username: newUser.username,
+            phonenumber: newUser.phonenumber,
             email: newUser.email
           }, secret, { expiresIn: '1 day' });
           const userInfo = {
             userId: newUser.id,
             username: newUser.username,
+            phonenumber: newUser.phonenumber,
             email: newUser.email
           };
           return res.status(200).send({ token, userInfo });

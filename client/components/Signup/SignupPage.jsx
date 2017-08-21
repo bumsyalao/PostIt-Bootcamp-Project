@@ -10,7 +10,7 @@ class SignupPage extends React.Component {
     super(props)
   }
     render() {
-        const { userSignupRequest, addFlashMessage } = this.props;
+        const { userSignupRequest} = this.props;
         return (
           <div>
             <NavigationBar match={this.props.match}/>

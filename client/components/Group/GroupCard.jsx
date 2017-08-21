@@ -18,12 +18,12 @@ class GroupCard extends Component {
             <a name={id} onClick={onClick} href="#!" className="card-title">{groupname}</a>
           </div>
           <div className="card-action">
+            <i className="material-icons prefix">add</i>
             <button
               className="linkcolor"
               data-id={id}
               onClick={this.joinGroup}
-            >
-              This is a link
+            > JOIN GROUP
             </button>
           </div>
         </div>

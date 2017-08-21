@@ -50,7 +50,7 @@ class NavigationBar extends React.Component {
               <li><Link to="/signup">Register</Link></li>
             </ul>}
             {this.props.match.url === '/homepage' && <ul className="right">
-              <li><a href="#" onClick={this.logout}>LOG OUT</a></li>
+              <li><a onClick={this.logout}>LOG OUT</a></li>
             </ul>}
             <a href="#" data-activates="nav-mobile" className="button-collapse"><i className="mdi-navigation-menu"></i></a>
           </div>

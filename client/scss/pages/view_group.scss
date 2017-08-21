@@ -1,0 +1,50 @@
+.message-card {
+  max-width: 600px;
+  margin: 0 auto;
+  border: 1px solid $light-gray;
+  padding: 10px;
+
+  .message-head {
+    display: flex;
+    padding: 20px 10px;
+    border-bottom: 1px solid $light-gray;
+    margin-bottom: 10px;
+
+    .sender,
+    .priority {
+      flex: 1;
+    }
+  }
+
+  .message-body {
+    font-size: 14px;
+    padding: 10px;
+    line-height: 25px;
+  }
+}
+
+.message-card2 {
+  margin-top:10% !important;
+  max-width: 600px;
+  margin: 0 auto;
+  border: 1px solid $light-gray;
+  padding: 10px;
+
+  .message-head {
+    display: flex;
+    padding: 20px 10px;
+    border-bottom: 1px solid $light-gray;
+    margin-bottom: 10px;
+
+    .sender,
+    .priority {
+      flex: 1;
+    }
+  }
+
+  .message-body {
+    font-size: 14px;
+    padding: 10px;
+    line-height: 25px;
+  }
+}

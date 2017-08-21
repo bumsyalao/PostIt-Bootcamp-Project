@@ -32,6 +32,15 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
     },
+    phonenumber: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notEmpty: {
+          msg: 'field must not be empty'
+        }
+      },
+    },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
