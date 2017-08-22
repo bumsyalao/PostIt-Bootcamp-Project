@@ -19,11 +19,7 @@ class ListGroup extends React.Component {
   }
 
   onClick(id){
-    this.props.getMessages(id)
-      .then(()=> {
-        console.log('Found messages', this.props.groupMessages)
         this.props.history.push(`/homepage/view-group/${id}`)
-      })
   }
   joinGroup (id) {
     // event.preventDefault();
@@ -42,12 +38,14 @@ class ListGroup extends React.Component {
       <div>
         <div className="row">
           <div className="col s12 m5 l5">
-             {this.props.groupList.map((group) => <GroupCard key={group.id} id={group.id} onClick={() => this.onClick(group.id)} joinGroup={this.joinGroup} {...group} />)}
+             {this.props.groupList.map((group) => 
+             <GroupCard key={group.id} id={group.id} onClick={() => 
+               this.onClick(group.id)} joinGroup={this.joinGroup} {...group} />)}
           </div>
           <div className="col s12 m6 l6">
-            <Switch>
+            {/* <Switch>
               <Route path='/homepage/view-group' component={GroupChat}/> 
-            </Switch> 
+            </Switch>  */}
           </div>
         </div>
       </div>

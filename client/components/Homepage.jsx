@@ -26,7 +26,7 @@ export default class Homepage extends React.Component {
           <Switch>
             <Route path={`${this.props.match.url}/create/group`} component={CreateGroup} />
             <Route path={`${this.props.match.url}/groups`} component={ListGroup} />
-            <Route path={`${this.props.match.url}/view-group`} component={GroupChat} />
+            <Route path={`${this.props.match.url}/view-group/:groupId`} component={GroupChat} />
           </Switch>
         </div>
       </div>

@@ -2,6 +2,7 @@ import models from '../models';
 
 const Messages = models.Messages;
 const Groups = models.Groups;
+const Users = models.Users;
 
 export default {
   create(req, res) {
@@ -35,7 +36,11 @@ export default {
             groupId,
             userId: req.decoded.userId
           }
-        }
+        },
+        include: [{
+          model: Users,
+          attributes: ['username']
+        }]
       })
       .then(messages => res.status(200).send(messages))
       .catch(error => res.status(400).send(error));
