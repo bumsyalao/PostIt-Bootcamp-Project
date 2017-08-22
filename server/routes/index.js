@@ -16,7 +16,7 @@ module.exports = (app) => {
   app.post('/api/user/signin', usersController.signin);
 
 // api route to create group
-  app.post('/api/group', groupsController.create);
+  app.post('/api/group', auth.checkToken, groupsController.create);
 
 // api route to get all groups
   app.get('/api/groups', groupsController.retrieve);

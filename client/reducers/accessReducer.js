@@ -5,7 +5,7 @@ export default (state = { user: {} }, action) => {
     case types.SIGN_UP_USER:
     case types.SIGN_IN_USER:
     case types.SIGN_OUT_USER:
-    case 'LOGGEDIN_USER':
+    case types.LOGGEDIN_USER:
       return {
         ...state,
         user: action.userInfo

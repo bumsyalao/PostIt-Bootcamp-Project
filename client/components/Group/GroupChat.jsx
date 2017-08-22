@@ -1,11 +1,41 @@
 import React from "react";
+import { connect } from 'react-redux';
+import { newMessage } from '../../actions/messages';
 
 class GroupChat extends React.Component {
+  constructor(props){
+    super(props)
+      this.state = {
+        message: '',
+        messagePriority: ''
+      }
+    this.onSubmit = this.onSubmit.bind(this);
+    this.onChange = this.onChange.bind(this);
+  }
   componentDidMount() {
     $('select').material_select();
- 
   }
+
+  onChange(event) {
+    this.setState ({
+      [event.target.name]: event.target.value});
+
+  }
+  optionChange(event) {
+    this.setState ({ messagePriority: event.target.value});
+
+  }
+  onSubmit() {
+    const { message, messagePriority } = this.state;
+    console.log(this.state, '----->>')
+    this.props.newMessage({ message, messagePriority })
+      .then(() => {
+        console.log(this.message);
+      })
+  }
+
   render() {
+    console.log(this.props.messages, this.props)
     return (
       <div className="row">
         <div className="col s12 container form-margin">
@@ -31,19 +61,19 @@ class GroupChat extends React.Component {
 
           <div className="message-card2 ">
             <label for="textarea">Enter Message Here</label>
-            <textarea id="textarea"> </textarea>
+            <textarea value={this.message} name="message" id="textarea" onChange={this.onChange} />
 
             
             <label>Priority</label>
-            <select class="browser-default col s12 m6">
+            <select name="messagePriority" onChange={this.onChange} className=" col s12 m6">
               <option value="" disabled selected>
                 Choose your option
               </option>
-              <option value="1">Normal</option>
-              <option value="2">Urgent</option>
-              <option value="3">Critical</option>
+              <option value="normal">Normal</option>
+              <option value="urgent">Urgent</option>
+              <option value="critical">Critical</option>
             </select>
-            <button> Send </button>
+            <button onClick={this.onSubmit}> Send </button>
           </div>
         </div>
       </div>
@@ -51,4 +81,10 @@ class GroupChat extends React.Component {
   }
 }
 
-export default GroupChat;
+const mapStateToProps = (state) => {
+  console.log(state);
+  return { messages: state.messages }
+}
+
+export default connect(mapStateToProps, {newMessage})(GroupChat);
+

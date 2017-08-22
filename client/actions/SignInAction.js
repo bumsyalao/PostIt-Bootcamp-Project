@@ -1,7 +1,8 @@
 /* global localStorage */
 import axios from 'axios';
 import attachAuthorizationToken from '../utils/attachToken';
-import { SIGN_IN_USER, SIGN_OUT_USER, setCurrentUser } from './types';
+import { SIGN_IN_USER, SIGN_OUT_USER } from './types';
+import { setCurrentUser } from './users';
 
 
 export const logout = () =>

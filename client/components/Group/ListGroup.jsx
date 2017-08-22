@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
-import { groupsRequest, getMessages }from '../../actions/createGroupRequest';
+import { groupsRequest } from '../../actions/createGroupRequest';
+import { getMessages } from '../../actions/messages';
+import { getGroups } from '../../actions/groups';
 import GroupCard from './GroupCard';
 import GroupChat from './GroupChat';
 
@@ -9,27 +11,18 @@ import GroupChat from './GroupChat';
 class ListGroup extends React.Component {
   constructor(props){
     super(props)
-    this.state = {
-      groupList: []
-    }
     this.onClick = this.onClick.bind(this);
     this.joinGroup = this.joinGroup.bind(this);
   }
   componentDidMount(){
-    this.props.groupsRequest()
-      .then(() => {
-        console.log(this.props)
-        this.setState({
-          groupList: this.props.groupList
-        })
-      })
+    this.props.getGroups();
   }
 
-  onClick(event){
-    this.props.getMessages(event.target.name)
+  onClick(id){
+    this.props.getMessages(id)
       .then(()=> {
         console.log('Found messages', this.props.groupMessages)
-        this.props.history.push('/homepage/view-group')
+        this.props.history.push(`/homepage/view-group/${id}`)
       })
   }
   joinGroup (id) {
@@ -49,7 +42,7 @@ class ListGroup extends React.Component {
       <div>
         <div className="row">
           <div className="col s12 m5 l5">
-             {this.state.groupList.map((group) => <GroupCard key={group.id} id={group.id} onClick={this.onClick} joinGroup={this.joinGroup} {...group} />)}
+             {this.props.groupList.map((group) => <GroupCard key={group.id} id={group.id} onClick={() => this.onClick(group.id)} joinGroup={this.joinGroup} {...group} />)}
           </div>
           <div className="col s12 m6 l6">
             <Switch>
@@ -69,4 +62,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default connect(mapStateToProps, {groupsRequest, getMessages})(withRouter(ListGroup));
+export default connect(mapStateToProps, {getGroups, groupsRequest, getMessages})(withRouter(ListGroup));

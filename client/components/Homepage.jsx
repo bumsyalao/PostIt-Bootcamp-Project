@@ -12,6 +12,10 @@ export default class Homepage extends React.Component {
   constructor(props){
     super(props)
   }
+
+  componentDidMount() {
+    $('.collapsible').collapsible();
+  }
   render() {
 
     return(
