@@ -14,6 +14,7 @@ class ListGroup extends React.Component {
     this.onClick = this.onClick.bind(this);
     this.joinGroup = this.joinGroup.bind(this);
   }
+  
   componentDidMount(){
     this.props.getGroups();
   }
@@ -21,6 +22,7 @@ class ListGroup extends React.Component {
   onClick(id){
         this.props.history.push(`/homepage/view-group/${id}`)
   }
+
   joinGroup (id) {
     // event.preventDefault();
     // const id = event.target.data-id;

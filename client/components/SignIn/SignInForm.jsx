@@ -22,6 +22,7 @@ class SignInForm extends React.Component {
   onChange(event) {
     this.setState({ [event.target.id]: event.target.value });
   }
+
   onSubmit() {
     const data = {
       username: this.state.username,
@@ -34,6 +35,7 @@ class SignInForm extends React.Component {
         Materialize.toast('Login Succesful', 5000, 'green');
         console.log(this.props.access);
       })
+      .catch(err => Materialize.toast(err.response.data.message, 5000, 'red'))
   }
 
   render() {

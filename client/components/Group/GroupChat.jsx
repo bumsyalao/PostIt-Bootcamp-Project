@@ -51,10 +51,10 @@ class GroupChat extends React.Component {
             <label for="textarea">Enter Message Here</label>
             <textarea value={this.message} name="message" id="textarea" onChange={this.onChange} />
             <label>Priority</label>
-            <select name="messagePriority" onChange={this.onChange} className="col s12 m6">
-              <option value="" disabled selected>
-                Choose your option
-              </option>
+            <select
+              name="messagePriority"
+              className="browser-default input-field select" onChange={this.onChange}>
+              <option value="">Choose Message Priority</option>
               <option value="normal">Normal</option>
               <option value="urgent">Urgent</option>
               <option value="critical">Critical</option>

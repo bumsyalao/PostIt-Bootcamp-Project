@@ -1,7 +1,7 @@
 import React from 'react';
 import SignupForm from './SignupForm';
 import { connect } from 'react-redux';
-import { userSignupRequest } from '../../actions/signupAction';
+import userSignupRequest from '../../actions/signupAction';
 import NavigationBar from '../NavigationBar';
 
 
@@ -33,4 +33,4 @@ SignupPage.propTypes = {
   userSignupRequest: React.PropTypes.func.isRequired,
 }
 
-export default connect(null, mapDispatchToProps)(SignupPage);
+export default connect(null, {userSignupRequest})(SignupPage);

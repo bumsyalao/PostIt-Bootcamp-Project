@@ -56,6 +56,7 @@ export default {
                 message: 'You have logged in succesfully'
               });
           }
+          console.log('Igot here');
           return res.status(401)
             .send({ success: false, message: 'Incorrect username or password' });
         })

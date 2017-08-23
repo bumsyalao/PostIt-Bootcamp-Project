@@ -9,7 +9,7 @@ export const logout = () =>
   (dispatch) => {
     localStorage.removeItem('token');
     attachAuthorizationToken(false);
-    dispatch(setCurrentUser({}, SIGN_OUT_USER));
+    return dispatch(setCurrentUser({}, SIGN_OUT_USER));
   };
 
 export const userSignInRequest = userData =>
@@ -21,4 +21,5 @@ export const userSignInRequest = userData =>
       })
       .catch((error) => {
         console.log(error.response.data.message);
+        throw error;
       });

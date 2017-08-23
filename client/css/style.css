@@ -5,7 +5,7 @@
   padding: 10px; }
   .message-card .message-head {
     display: flex;
-    padding: 20px 10px;
+    padding: 5px 10px;
     border-bottom: 1px solid #aaa;
     margin-bottom: 10px; }
     .message-card .message-head .sender,
@@ -46,5 +46,3 @@ nav .brand-logo {
 
 nav ul a {
   color: #000; }
-
-/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiIuL2Nzcy9zdHlsZS5jc3MiLCJzb3VyY2VSb290IjoiIn0=*/

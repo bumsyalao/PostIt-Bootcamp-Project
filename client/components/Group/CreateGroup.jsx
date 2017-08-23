@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { createGroupRequest } from '../../actions/createGroupRequest';
+import { addMemberToGroup } from '../../actions/createGroupRequest';
 import { connect } from 'react-redux';
 import Homepage from '../Homepage';
+import { createGroup } from '../../actions/groups';
 
 class CreateGroup extends Component {
     constructor(props) {
     super(props);
     this.state = {
-      id:'',
       groupname: '',
-      description: ''
     }
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -26,9 +25,10 @@ class CreateGroup extends Component {
   
   onSubmit() {
     console.log(this.state.groupname, this.props);
-    this.props.createGroupRequest(this.state.groupname, this.props.user.userId)
+    this.props.createGroup (this.state.groupname)
       .then(() => {
         Materialize.toast('created', 5000, 'green');
+        this.props.history.push('/homepage/groups')
       }).catch((err) => {
         Materialize.toast(err, 5000, 'red');
       });
@@ -36,7 +36,7 @@ class CreateGroup extends Component {
 
 
   render() {
-    const { createGroupRequest } = this.props;
+    // const { addMemberToGroup } = this.props;
     return (
       <div>
         <div className="col s12 container form-margin">
@@ -46,7 +46,9 @@ class CreateGroup extends Component {
             className="validate" required/>
             <label className="active" htmlFor="groupname">Groupname</label>
           </div>
-            <button onClick={this.onSubmit} disabled={this.state.invalid} className="btn waves-effect waves-light col s6 offset-s3 red lighten-2" type="submit" name="action">Enter
+            <button onClick={this.onSubmit} disabled={this.state.invalid} 
+            className="btn waves-effect waves-light col s6 offset-s3 red lighten-2" 
+            type="submit" name="action">Enter
               <i className="material-icons right">send</i>
             </button>
         </div>
@@ -59,8 +61,9 @@ const mapStateToProps = state => ({
   user: state.access.user,
 });
 
-CreateGroup.propTypes = {
-  createGroupRequest: PropTypes.func.isRequired,
+
+createGroup.propTypes = {
+  createGroup: PropTypes.func.isRequired,
 };
 
-export default connect (mapStateToProps, {createGroupRequest})(CreateGroup);
+export default connect (mapStateToProps, { createGroup })(CreateGroup);

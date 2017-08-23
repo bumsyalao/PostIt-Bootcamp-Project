@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import logout from '../actions/SignInAction';
+import { logout } from '../actions/SignInAction';
+import { withRouter } from 'react-router-dom';
 
 class NavigationBar extends React.Component {
   constructor(props) {
@@ -26,6 +27,7 @@ class NavigationBar extends React.Component {
   logout(event) {
     event.preventDefault();
     this.props.logout();
+    this.props.history.push('/');
   }
   render() {
     return (
@@ -68,4 +70,4 @@ const mapStateToProps = (state) => {
     isAuth: state.access.user
   }
 }
-export default connect(mapStateToProps, { logout })(NavigationBar);
+export default connect(mapStateToProps, { logout }) (withRouter(NavigationBar));
