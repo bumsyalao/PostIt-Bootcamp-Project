@@ -2,24 +2,25 @@
 import axios from 'axios';
 import attachAuthorizationToken from '../utils/attachToken';
 import { SIGN_IN_USER, SIGN_OUT_USER } from './types';
-import { setCurrentUser } from './users';
 
 
 export const logout = () =>
   (dispatch) => {
     localStorage.removeItem('token');
     attachAuthorizationToken(false);
-    return dispatch(setCurrentUser({}, SIGN_OUT_USER));
+    return dispatch({ type: SIGN_OUT_USER });
   };
 
 export const userSignInRequest = userData =>
     dispatch => axios.post('/api/user/signin', userData)
       .then((success) => {
         localStorage.setItem('token', success.data.token);
-        attachAuthorizationToken(success.data.token);
-        return dispatch(setCurrentUser(success.data.foundUser, SIGN_IN_USER));
+        return dispatch({
+          userInfo: success.data.foundUser,
+          type: SIGN_IN_USER,
+          message: success.data.message
+        });
       })
-      .catch((error) => {
-        console.log(error.response.data.message);
-        throw error;
+      .catch(() => {
+        console.log('console');
       });

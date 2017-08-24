@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
-import { groupsRequest } from '../../actions/createGroupRequest';
+import addMemberToGroup from '../../actions/createGroupRequest';
 import { getMessages } from '../../actions/messages';
 import { getGroups } from '../../actions/groups';
 import GroupCard from './GroupCard';
@@ -23,16 +23,13 @@ class ListGroup extends React.Component {
         this.props.history.push(`/homepage/view-group/${id}`)
   }
 
-  joinGroup (id) {
-    // event.preventDefault();
-    // const id = event.target.data-id;
-    console.log("something", id);
-    // this.props.getMessages(id).then((err, res) => {
-    //   if(!err) {
-    //     console.log("error when no error");
-    //   }
-    //   console.log("something when error");
-    // });
+  joinGroup (event) {
+    event.preventDefault();
+    console.log("something", event.target.name);
+    const id = event.target.name;
+    this.props.addMemberToGroup(id).then(() => {
+      Materialize.toast('Member successfully added', 5000, 'red');
+    });
   }
 
   render () {
@@ -62,4 +59,4 @@ const mapStateToProps = state => (
   }
 );
 
-export default connect(mapStateToProps, {getGroups, groupsRequest, getMessages})(withRouter(ListGroup));
+export default connect(mapStateToProps, {getGroups, getMessages, addMemberToGroup})(withRouter(ListGroup));

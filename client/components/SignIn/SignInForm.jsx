@@ -30,10 +30,12 @@ class SignInForm extends React.Component {
     };
     this.props.userSignInRequest(data)
       .then(() => {
-        this.setState({ loggedIn: true });
-        this.props.history.push('/homepage');
-        Materialize.toast('Login Succesful', 5000, 'green');
-        console.log(this.props.access);
+        if(this.props.access.message){
+          this.props.history.push('/homepage');
+          Materialize.toast('Login Succesful', 5000, 'green');
+        } else {
+          Materialize.toast('Login Failed', 5000, 'green');
+        }
       })
       .catch(err => Materialize.toast(err.response.data.message, 5000, 'red'))
   }

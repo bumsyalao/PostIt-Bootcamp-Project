@@ -17,7 +17,6 @@ class GroupChat extends React.Component {
     $('select').material_select();
     const { groupId } = this.props.match.params;
     this.props.getMessages(groupId);
-  
   }
 
   onChange(event) {
@@ -48,7 +47,7 @@ class GroupChat extends React.Component {
              <MessageCard key={message.id} {...message} />)
           }
            <div className="message-card2 ">
-            <label for="textarea">Enter Message Here</label>
+            <label htmlFor="textarea">Enter Message Here</label>
             <textarea value={this.message} name="message" id="textarea" onChange={this.onChange} />
             <label>Priority</label>
             <select

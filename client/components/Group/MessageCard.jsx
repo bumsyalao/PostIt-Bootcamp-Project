@@ -14,12 +14,6 @@ const MessageCard = (props) => {
               <div className="time">Tue 12 Jul at 17:55pm</div>
             </div>
             <div className="message-body"> {props.message}
-              {/* For the people saying it doesn't work on a Mac, this looks like a
-              conflict between the shortcut and the OS X text input system for
-              accented characters which depends on your configured locale and
-              keyboard settings:
-              github.com/Microsoft/vscode/issues/8914#issuecomment-2459478‌​44 –
-              Chris Adams Sep 9 '16 at 15:31 */}
             </div>
           </div>
          

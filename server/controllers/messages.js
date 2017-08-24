@@ -32,10 +32,7 @@ export default {
       }
       Messages.findAll({
         where: {
-          $and: {
-            groupId,
-            userId: req.decoded.userId
-          }
+          groupId
         },
         include: [{
           model: Users,
