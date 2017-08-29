@@ -5,9 +5,9 @@ const Messages = models.Messages;
 const Groups = models.Groups;
 const Users = models.Users;
 const nexmo = new Nexmo({
-  apiKey:
-  apiSecret:
-})
+  apiKey: 'df5f955c',
+  apiSecret: 'f7c347a656d80ebe'
+});
 export default {
   create(req, res) {
     const groupId = Number(req.params.groupid);
