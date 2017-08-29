@@ -27,6 +27,18 @@ module.exports = {
       allowNull: false,
       type: Sequelize.STRING,
     },
+    forgotpasswordtoken: {
+      allowNull: true,
+      type: Sequelize.STRING,
+    },
+    expirytime: {
+      allowNull: true,
+      type: Sequelize.STRING,
+    },
+    hash: {
+      allowNull: true,
+      type: Sequelize.STRING,
+    },
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE,

@@ -50,6 +50,19 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
     },
+    forgotpasswordtoken: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    expirytime: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    hash: {
+      allowNull: true,
+      type: DataTypes.STRING,
+      unique: true
+    },
   }, {
     hooks: {
       beforeCreate(user) {
@@ -74,6 +87,10 @@ module.exports = (sequelize, DataTypes) => {
     instanceMethods: {
       verifyPassword(userPassword) {
         return bcrypt.compareSync(userPassword, this.password);
+      },
+      filterUserDetails() {
+        const { password, updatedAt, ...rest } = this.get();
+        return rest;
       }
     }
   });

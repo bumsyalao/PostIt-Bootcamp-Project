@@ -26,6 +26,12 @@ module.exports = {
         key: 'id'
       }
     },
+    username: {
+      allowNull: false,
+      type: Sequelize.STRING,
+      unique: true,
+
+    },
 
     createdAt: {
       allowNull: false,

@@ -29,4 +29,19 @@ module.exports = (app) => {
 
 // api route to get message posted to a group.
   app.get('/api/group/:groupid/messages', auth.checkToken, messagesController.retrieve);
+
+// api route to list all users in a group
+  app.get('/api/group/:groupid/users', auth.checkToken, usergroupsController.listall);
+
+// api route to view a users information
+  app.get('/api/user', auth.checkToken, usersController.viewUser);
+
+// api route to remove a user from a group
+  app.delete('/api/group/:groupid/user', usergroupsController.removeUser);
+
+// api route to send reset password email
+  app.post('/api/user/forgot-password', usersController.sendResetPassword);
+
+// api route to update password
+  app.put('/api/user/update-password', usersController.updatePassword);
 };

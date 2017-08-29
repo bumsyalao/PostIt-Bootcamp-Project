@@ -24,3 +24,18 @@ export const userSignInRequest = userData =>
       .catch(() => {
         console.log('console');
       });
+export const forgotPasswordAction = email =>
+    dispatch => axios.post('/api/user/forgot-password', email)
+      .then((response) => {
+        console.log(response.data);
+      })
+    .catch((error) => { throw error; });
+
+export const resetPasswordAction = password =>
+      dispatch => axios.post('/api/user/update-password', password)
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          throw error;
+        });

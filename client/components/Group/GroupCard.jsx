@@ -6,12 +6,17 @@ const GroupCard = ({ groupname, id, onClick, joinGroup }) => (
       <a name={id} onClick={onClick} href="#!" className="card-title">{groupname}</a>
     </div>
     <div className="card-action">
-      <i className="material-icons prefix">add</i>
+
         <button
+
         className="linkcolor"
         name={id}
         onClick={joinGroup}
-        > JOIN GROUP
+        > <i className="tiny material-icons prefix">add_box</i> JOIN GROUP
+        </button>
+        <button
+        className="linkcolor float-right"
+        ><i className="tiny material-icons prefix">account_circle</i> VIEW USERS
         </button>
     </div>
   </div>

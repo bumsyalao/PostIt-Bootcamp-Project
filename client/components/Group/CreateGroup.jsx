@@ -30,7 +30,7 @@ class CreateGroup extends Component {
         Materialize.toast('created', 5000, 'green');
         this.props.history.push('/homepage/groups')
       }).catch((err) => {
-        Materialize.toast(err, 5000, 'red');
+        Materialize.toast(err.response.data.message, 5000, 'red');
       });
   }
 

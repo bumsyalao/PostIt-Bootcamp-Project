@@ -1,10 +1,11 @@
 /* global Materialize */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter, Redirect, Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { userSignInRequest } from '../../actions/SignInAction';
+import ForgotPassword from './ForgotPassword';
 
 
 
@@ -34,14 +35,14 @@ class SignInForm extends React.Component {
           this.props.history.push('/homepage');
           Materialize.toast('Login Succesful', 5000, 'green');
         } else {
-          Materialize.toast('Login Failed', 5000, 'green');
+          Materialize.toast('Login Failed', 5000, 'red');
         }
       })
       .catch(err => Materialize.toast(err.response.data.message, 5000, 'red'))
   }
 
   render() {
-    console.log(this.props);
+
     return (
       <div className="form-margin">
         <div className="col s12 container">
@@ -64,7 +65,11 @@ class SignInForm extends React.Component {
             <i className="material-icons right">send</i>
           </button>
         </div>
-       <div className="col s6 offset-s3"> <a href="forgot.html">Forgot Password?</a> </div>
+        <div className="col s6 offset-s3"> 
+          <Link to ="/forgot-password"> 
+            Forgot Password
+          </Link>
+        </div>
       </div>
     );
   }

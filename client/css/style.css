@@ -35,6 +35,9 @@
     padding: 10px;
     line-height: 25px; }
 
+.float-right {
+  float: right; }
+
 .form-margin {
   margin-top: 5% !important; }
 
