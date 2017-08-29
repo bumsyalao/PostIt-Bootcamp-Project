@@ -10,7 +10,7 @@ let app = express();
 app.use(compression());
 app.use(express.static('dist'));
 
-app.use(function(req, res) {
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, './dist', 'index.html'));
 });
 

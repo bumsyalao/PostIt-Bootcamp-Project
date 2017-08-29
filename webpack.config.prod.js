@@ -48,9 +48,8 @@ module.exports = {
   },
   plugins: [
     new webpack.LoaderOptionsPlugin({
-      debug: true
+      debug: false
     }),
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin(GLOBALS),
     new webpack.NoEmitOnErrorsPlugin(),
     new ExtractTextPlugin({
