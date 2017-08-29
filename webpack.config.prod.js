@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 process.env.NODE_ENV = 'production';
 const GLOBALS = {
@@ -7,10 +8,10 @@ const GLOBALS = {
 };
 module.exports = {
   devtool: 'source-map',
-  entry: `${__dirname}/client/Index`,
+  entry: `${__dirname}/client/Index.jsx`,
   target: 'web',
   output: {
-    path: `${__dirname}/client`,
+    path: `${__dirname}/dist`,
     publicPath: '/',
     filename: 'bundle.js'
   },
@@ -56,6 +57,9 @@ module.exports = {
       filename: './css/style.css',
       allChunks: true
     }),
+    new CopyWebpackPlugin([
+      { from: './client/index.html' }
+    ])
   ],
   resolve: {
     extensions: ['.js', '.jsx'],
