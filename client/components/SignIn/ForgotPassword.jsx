@@ -21,14 +21,14 @@ class ForgotPassword extends Component {
     const email = this.state.email;
     this.props.forgotPasswordAction({email})
       .then(() => {
-        if(this.props.access.message){
           this.props.history.push('/');
           Materialize.toast('Password Reset Link sent', 5000, 'green');
-        } else {
-          Materialize.toast('Cannot verify Email', 5000, 'red');
-        }
+
       })
-      .catch(err => Materialize.toast(err.response.data.message, 5000, 'red'))
+      .catch(error => {
+        console.log(error);
+        Materialize.toast('Server Error', 5000, 'red');
+      })
   }
   render(){
 

@@ -43,5 +43,5 @@ module.exports = (app) => {
   app.post('/api/user/forgot-password', usersController.sendResetPassword);
 
 // api route to update password
-  app.put('/api/user/update-password', usersController.updatePassword);
+  app.put('/api/user/update-password/:hash', usersController.updatePassword);
 };

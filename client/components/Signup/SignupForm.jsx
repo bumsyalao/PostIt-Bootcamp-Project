@@ -48,7 +48,7 @@ class SignupForm extends React.Component {
             </div>
             <div className="input-field col s6 offset-s3">
               <i className="material-icons prefix">phone</i>
-              <input value={this.state.phonenumber} onChange={this.onChange} name="phonenumber"type="tel" class="validate" required/>
+              <input value={this.state.phonenumber} onChange={this.onChange} name="phonenumber"type="tel" className="validate" required/>
               <label className="active" htmlFor="icon_telephone">phone number</label>
             </div>
             <div className="input-field col s6 offset-s3">

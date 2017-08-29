@@ -33,7 +33,7 @@ module.exports = {
     },
     expirytime: {
       allowNull: true,
-      type: Sequelize.STRING,
+      type: Sequelize.DATE,
     },
     hash: {
       allowNull: true,

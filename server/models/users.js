@@ -55,7 +55,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true,
     },
     expirytime: {
-      type: DataTypes.STRING,
+      type: DataTypes.DATE,
       allowNull: true
     },
     hash: {
@@ -70,6 +70,7 @@ module.exports = (sequelize, DataTypes) => {
         user.password = bcrypt.hashSync(user.password, salt);
       },
       beforeUpdate(user) {
+        console.log(user);
         if (user.password) {
           const salt = bcrypt.genSaltSync();
           user.password = bcrypt.hashSync(user.password, salt);

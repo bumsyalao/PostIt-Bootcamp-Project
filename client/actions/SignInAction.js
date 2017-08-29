@@ -29,13 +29,19 @@ export const forgotPasswordAction = email =>
       .then((response) => {
         console.log(response.data);
       })
-    .catch((error) => { throw error; });
+    .catch((error) => {
+      console.log(error);
+      throw error; 
+    });
 
-export const resetPasswordAction = password =>
-      dispatch => axios.post('/api/user/update-password', password)
+export const resetPasswordAction = data =>
+      (dispatch) => {
+        console.log(window.location.hash);
+        return axios.put(`/api/user/update-password/${data.hash}`, data)
         .then((response) => {
           console.log(response.data);
         })
         .catch((error) => {
           throw error;
         });
+      };

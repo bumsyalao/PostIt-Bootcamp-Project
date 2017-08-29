@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import NavigationBar from '../NavigationBar';
 import { resetPasswordAction } from '../../actions/SignInAction';
 
@@ -20,9 +21,12 @@ class ResetPassword extends Component {
   }
   resetPassword(event)  {
     const password = this.state.password;
-    this.props.resetPasswordAction({password})
+    console.log(this.props);
+    const pathname = this.props.location.pathname;
+    const hash = pathname.replace('/reset-password/', '');
+    this.props.resetPasswordAction({password, hash})
       .then(() => {
-          this.props.history.push('/');
+          this.props.history.push('/homepage');
           Materialize.toast('Password Updated Succesfully', 5000, 'green');
       })
       .catch(err => Materialize.toast(err.response.data.message, 5000, 'red'))
@@ -70,4 +74,4 @@ class ResetPassword extends Component {
     );
   }
 };
-export default connect(null, {resetPasswordAction})(ResetPassword);
+export default withRouter(connect(null, {resetPasswordAction})(ResetPassword));

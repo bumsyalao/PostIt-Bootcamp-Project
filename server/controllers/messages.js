@@ -1,9 +1,13 @@
+import Nexmo from 'nexmo';
 import models from '../models';
 
 const Messages = models.Messages;
 const Groups = models.Groups;
 const Users = models.Users;
-
+const nexmo = new Nexmo({
+  apiKey:
+  apiSecret:
+})
 export default {
   create(req, res) {
     const groupId = Number(req.params.groupid);

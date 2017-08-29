@@ -23,7 +23,7 @@ export default class Routes extends React.Component {
           <Route path="/signin" component={SignInPage} />
           <Route path="/forgot-password" component={ForgotPassword} />
            {/* <Route path="/create/group" component={CreateGroup} />  */}
-           <Route path="/reset-password/:hash" component={ResetPassword} />
+           <Route path="/reset-password" component={ResetPassword} />
           <Route path="/homepage" component={Homepage} />
         </Switch> 
     )

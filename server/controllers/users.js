@@ -92,8 +92,9 @@ export default {
     const salt = bcrypt.genSaltSync(8);
     const hash = bcrypt.hashSync(email, salt);
     const date = new Date();
+    
     date.setHours(date.getHours() + 1);
-    const expirytime = `${date.toString().split(' ')[2]}:${date.toString().split(' ')[4]}`;
+
     if (email === undefined || email.trim() === ' ') {
       res.status(400).send({
         data: { error: { message: 'email is not valid' } }
@@ -126,10 +127,9 @@ export default {
         if (user === null) {
           res.status(404).send({ message: 'User does not exist' });
         } else {
-
           user.update({
             hash,
-            expirytime
+            expirytime: date
           }).then((updatedUser) => {
             transporter.sendMail(mailOptions, (errors, info) => {
               if (errors) {
@@ -150,20 +150,20 @@ export default {
 
   updatePassword(req, res) {
     const newPassword = req.body.password;
+    const hash = req.body.hash;
     Users
         .findOne({
-          where: { hash: req.params.hash }
-        }).then((result) => {
-          const email = result.dataValues.email;
-          const date = new Date();
-          const now = `${date.toString().split(' ')[2]}:${date.toString().split(' ')[4]}`;
-          if (now > result.dataValues.expiresIn) {
-            res.status(200).send({
+          where: { hash }
+        }).then((user) => {
+          const email = user.dataValues.email;
+          const now = new Date();
+
+          if (now > user.dataValues.expiresIn) {
+            return res.status(200).send({
               data: { error: { message: 'Expired or Invalid link' } }
             });
-            return;
           }
-          return Users
+          return user
             .update(
               { password: newPassword },
               { where: { email } }
