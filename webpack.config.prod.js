@@ -5,7 +5,6 @@ process.env.NODE_ENV = 'production';
 const GLOBALS = {
   'process.env.NODE_ENV': JSON.stringify('production')
 };
-
 module.exports = {
   devtool: 'source-map',
   entry: `${__dirname}/client/Index`,
@@ -24,7 +23,6 @@ module.exports = {
         test: /\.(js|jsx)$/,
         include:
         `${__dirname}/client`,
-        exclude: /(node_modules|bower_components)/,
         loaders: 'babel-loader',
         query: {
           presets: ['react', 'es2015', 'stage-0'],

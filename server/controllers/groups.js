@@ -6,7 +6,7 @@ const Usergroups = models.Usergroups;
 export default {
   create(req, res) {
     Groups.create({
-      groupname: req.body.groupname,
+      groupname: req.body.groupname
     })
     .then((newGroup) => {
       Usergroups.create({
