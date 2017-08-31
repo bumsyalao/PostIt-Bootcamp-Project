@@ -12,36 +12,36 @@ export const logout = () =>
   };
 
 export const userSignInRequest = userData =>
-    dispatch => axios.post('/api/user/signin', userData)
-      .then((success) => {
-        localStorage.setItem('token', success.data.token);
-        return dispatch({
-          userInfo: success.data.foundUser,
-          type: SIGN_IN_USER,
-          message: success.data.message
-        });
-      })
-      .catch(() => {
-        console.log('console');
+  dispatch => axios.post('/api/user/signin', userData)
+    .then((success) => {
+      localStorage.setItem('token', success.data.token);
+      return dispatch({
+        userInfo: success.data.foundUser,
+        type: SIGN_IN_USER,
+        message: success.data.message
       });
+    })
+    .catch(() => {
+      console.log('console');
+    });
 export const forgotPasswordAction = email =>
-    dispatch => axios.post('/api/user/forgot-password', email)
-      .then((response) => {
-        console.log(response.data);
-      })
+  dispatch => axios.post('/api/user/forgot-password', email)
+    .then((response) => {
+      console.log(response.data);
+    })
     .catch((error) => {
       console.log(error);
-      throw error; 
+      throw error;
     });
 
 export const resetPasswordAction = data =>
-      (dispatch) => {
-        console.log(window.location.hash);
-        return axios.put(`/api/user/update-password/${data.hash}`, data)
-        .then((response) => {
-          console.log(response.data);
-        })
-        .catch((error) => {
-          throw error;
-        });
-      };
+  (dispatch) => {
+    console.log(window.location.hash);
+    return axios.put(`/api/user/update-password/${data.hash}`, data)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        throw error;
+      });
+  };

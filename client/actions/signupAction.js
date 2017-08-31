@@ -13,11 +13,11 @@ const userSignupRequest = userData =>
       dispatch(setCurrentUser(response.data.existingUser, SIGN_UP_USER));
       attachAuthorizationToken(
         response.data.token
-        );
+      );
       Materialize.toast('Your account has been created', 5000, 'green');
     })
     .catch((error) => {
-      console.log(error)
+      console.log(error);
       throw error.response.data.message;
     });
 
