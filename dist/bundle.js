@@ -47228,12 +47228,14 @@ if (token) {
   (0, _attachToken2.default)(token);
   var decoded = _jsonwebtoken2.default.decode(token);
   console.log(decoded);
-  var userInfo = {
-    userId: decoded.userId,
-    username: decoded.username,
-    email: decoded.email
-  };
-  _configureStore2.default.dispatch({ type: _types.LOGGEDIN_USER, userInfo: userInfo });
+  if (decoded) {
+    var userInfo = {
+      userId: decoded.userId,
+      username: decoded.username,
+      email: decoded.email
+    };
+    _configureStore2.default.dispatch({ type: _types.LOGGEDIN_USER, userInfo: userInfo });
+  }
 }
 
 (0, _reactDom.render)(_react2.default.createElement(

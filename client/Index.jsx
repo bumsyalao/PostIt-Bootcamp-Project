@@ -17,14 +17,16 @@ if (token) {
   attachAuthorizationToken(token);
   const decoded = jwt.decode(token);
   console.log(decoded)
-  const userInfo = {
-    userId: decoded.userId,
-    username: decoded.username,
-    email: decoded.email
-  };
-  store.dispatch(
-    { type: LOGGEDIN_USER, userInfo }
-  );
+  if (decoded) {
+    const userInfo = {
+      userId: decoded.userId,
+      username: decoded.username,
+      email: decoded.email
+    };
+    store.dispatch(
+      { type: LOGGEDIN_USER, userInfo }
+    );
+  }
 }
 
 render(
