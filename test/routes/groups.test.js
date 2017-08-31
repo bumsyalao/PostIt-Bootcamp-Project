@@ -32,7 +32,7 @@ describe('GROUP ROUTES', () => {
       api.post('/api/group')
         .send(group)
         .end((err, res) => {
-          expect(res.status).to.equal(400);
+          expect(res.status).to.equal(401);
           expect(res.error.text).to.equal('Group name must be unique');
           done();
         });

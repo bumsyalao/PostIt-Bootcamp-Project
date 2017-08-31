@@ -3,7 +3,7 @@
 import axios from 'axios';
 import attachAuthorizationToken from '../utils/attachToken';
 import { SIGN_UP_USER } from './types';
-import { setCurrentUser } from './users';
+import setCurrentUser from './users';
 
 
 const userSignupRequest = userData =>
@@ -17,6 +17,7 @@ const userSignupRequest = userData =>
       Materialize.toast('Your account has been created', 5000, 'green');
     })
     .catch((error) => {
+      console.log(error)
       throw error.response.data.message;
     });
 

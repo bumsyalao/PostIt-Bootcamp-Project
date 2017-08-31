@@ -8,8 +8,8 @@
     "npm": "3.10.10"
   },
   "scripts": {
-    "start": "NODE_ENV=production babel-node -- server.js",
-    "start-dev": "npm run build && nodemon --watch server --exec babel-node -- server.js",
+    "start": "babel-node -- server.js",
+    "start-dev": "webpack --config ./webpack.config.js --progress --colors && nodemon --watch server --exec babel-node -- server.js",
     "coverage-report": "cat ./coverage/lcov.info | coveralls",
     "test": "NODE_ENV=test sequelize db:migrate && nyc --reporter=text --reporter=html --reporter=lcov mocha --compilers js:babel-core/register \"test/**/*.test.js\" --timeout 5000 && npm run coverage-report",
     "prebuild": "rm -rf ./dist",

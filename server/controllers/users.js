@@ -30,7 +30,7 @@ export default {
             username: newUser.username,
             phonenumber: newUser.phonenumber,
             email: newUser.email
-          }, secret, { expirytime: '1 day' });
+          }, secret, { expiresIn: '1 day' });
           const userInfo = {
             userId: newUser.id,
             username: newUser.username,

@@ -8,24 +8,27 @@ const api = supertest(app);
 
 const chopper = {
   username: 'candy',
-  email: 'chopper@anime.com',
+  email: 'chopper@email.com',
+  phonenumber: '09087667344',
   password: 'medicine'
 };
 
 const existingUsername = {
   username: 'candy',
   email: 'invalid@test.com',
+  phonenumber: '09087667344',
   password: 'invalid'
 };
 
 const invalidEmail = {
   username: 'userssname',
-  email: 'chopper@anime.com',
+  email: 'chopper@email.com',
+  phonenumber: '09087667344',
   password: 'invalid'
 };
 
 const nullPassword = {
-  username: 'desola',
+  username: 'tester',
   password: null
 };
 
