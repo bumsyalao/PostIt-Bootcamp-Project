@@ -50,12 +50,12 @@ export default {
     if (req.body.username && req.body.password) {
       Users.findOne({ where: { username: req.body.username } })
         .then((foundUser) => {
-          if (foundUser && foundUser.verifyPassword(req.body.password)) {
+          if (foundUser && foundUser.verifyPassword(req.body.password)) {           
             const token = jwt.sign({
               userId: foundUser.id,
               username: foundUser.username,
               email: foundUser.email
-            }, secret, { expirytime: '1 day' });
+            }, secret, { expiresIn: '1 day' });
             return res.status(200)
               .send({
                 token,
