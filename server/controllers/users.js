@@ -47,7 +47,6 @@ module.exports = {
   },
 
   signin(req, res) {
-    console.log('got here')
     if (req.body.username && req.body.password) {
       Users.findOne({ where: { username: req.body.username } })
         .then((foundUser) => {
@@ -57,7 +56,6 @@ module.exports = {
               username: foundUser.username,
               email: foundUser.email
             }, secret, { expiresIn: '1 day' });
-            console.log(foundUser);
             return res.status(200)
               .send({
                 token,
