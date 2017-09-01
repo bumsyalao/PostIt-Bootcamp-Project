@@ -1,7 +1,7 @@
-import express from 'express';
-import logger from 'morgan';
-import bodyParser from 'body-parser';
-import routes from './server/routes/index';
+const express = require('express');
+const logger = require('morgan');
+const bodyParser = require('body-parser');
+const routes = require('./server/routes/index');
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const homepage = `${__dirname}/client/index.html`;

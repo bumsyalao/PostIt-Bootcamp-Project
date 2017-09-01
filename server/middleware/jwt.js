@@ -1,8 +1,8 @@
-import jwt from 'jsonwebtoken';
+const jwt = require('jsonwebtoken');
 
 const secret = process.env.SECRET;
 
-export default {
+module.exports = {
   checkToken(req, res, next) {
     const token = req.body.token
       || req.query.token

@@ -1,8 +1,8 @@
-import usersController from '../controllers/users';
-import groupsController from '../controllers/groups';
-import messagesController from '../controllers/messages';
-import usergroupsController from '../controllers/usergroups';
-import auth from '../middleware/jwt';
+const usersController = require('../controllers/users');
+const groupsController = require('../controllers/groups');
+const messagesController = require('../controllers/messages');
+const usergroupsController = require('../controllers/usergroups');
+const auth = require('../middleware/jwt');
 
 module.exports = (app) => {
   app.get('/api', (req, res) => res.status(200).send({

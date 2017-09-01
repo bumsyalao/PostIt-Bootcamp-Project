@@ -1,9 +1,9 @@
-import models from '../models';
+const models = require('../models');
 
 const Usergroups = models.Usergroups;
 const Groups = models.Groups;
 
-export default {
+module.exports = {
   create(req, res) {
     const groupId = Number(req.params.groupid);
     Groups.findById(groupId)

@@ -1,8 +1,8 @@
-import jwt from 'jsonwebtoken';
-import nodemailer from 'nodemailer';
-import bcrypt from 'bcrypt';
+const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
+const bcrypt = require('bcrypt');
 
-import models from '../models';
+const models = require('../models');
 
 
 require('dotenv').config();
@@ -13,7 +13,7 @@ const useremail = process.env.USEREMAIL;
 const userpass = process.env.USERPASS;
 
 
-export default {
+module.exports = {
 
   signup(req, res) {
     if (req.body.username && req.body.email && req.body.password) {
@@ -47,6 +47,7 @@ export default {
   },
 
   signin(req, res) {
+    console.log('got here')
     if (req.body.username && req.body.password) {
       Users.findOne({ where: { username: req.body.username } })
         .then((foundUser) => {
@@ -56,6 +57,7 @@ export default {
               username: foundUser.username,
               email: foundUser.email
             }, secret, { expiresIn: '1 day' });
+            console.log(foundUser);
             return res.status(200)
               .send({
                 token,
@@ -152,28 +154,27 @@ export default {
     const newPassword = req.body.password;
     const hash = req.body.hash;
     Users
-        .findOne({
-          where: { hash }
-        }).then((user) => {
-          const email = user.dataValues.email;
-          const now = new Date();
+      .findOne({
+        where: { hash }
+      }).then((user) => {
+        const email = user.dataValues.email;
+        const now = new Date();
 
-          if (now > user.dataValues.expiresIn) {
-            return res.status(200).send({
-              data: { error: { message: 'Expired or Invalid link' } }
-            });
-          }
-          return user
-            .update(
-              { password: newPassword },
-              { where: { email } }
-            ).then(() =>
-              res.status(200).send({
-                data: { message: 'Password Reset Successful' }
-              })
-            );
-        });
+        if (now > user.dataValues.expiresIn) {
+          return res.status(200).send({
+            data: { error: { message: 'Expired or Invalid link' } }
+          });
+        }
+        return user
+          .update(
+            { password: newPassword },
+            { where: { email } }
+          ).then(() =>
+            res.status(200).send({
+              data: { message: 'Password Reset Successful' }
+            })
+          );
+      });
   },
-
 };
 
