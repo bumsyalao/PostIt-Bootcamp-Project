@@ -70,7 +70,6 @@ module.exports = (sequelize, DataTypes) => {
         user.password = bcrypt.hashSync(user.password, salt);
       },
       beforeUpdate(user) {
-        console.log(user);
         if (user.password) {
           const salt = bcrypt.genSaltSync();
           user.password = bcrypt.hashSync(user.password, salt);
@@ -90,8 +89,11 @@ module.exports = (sequelize, DataTypes) => {
         return bcrypt.compareSync(userPassword, this.password);
       },
       filterUserDetails() {
-        const { password, updatedAt, ...rest } = this.get();
-        return rest;
+        const details = this.get();
+        delete details.password;
+        delete details.updatedAt;
+
+        return details;
       }
     }
   });
