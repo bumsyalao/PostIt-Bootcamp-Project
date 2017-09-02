@@ -42,12 +42,20 @@
   margin-top: 5% !important; }
 
 .homepage {
-  margin-left: 23%; }
+  margin-left: 300px; }
 
 nav .brand-logo {
   color: #000; }
 
 nav ul a {
   color: #000; }
+
+.options {
+  padding: 10px; }
+
+.linkcolor {
+  margin-bottom: 10px; }
+  .linkcolor:last-child {
+    margin-bottom: 0; }
 
 /*# sourceMappingURL=style.css.map*/
