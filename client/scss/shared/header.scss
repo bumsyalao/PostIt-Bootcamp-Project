@@ -3,13 +3,27 @@
 }
 
 .homepage {
-  margin-left: 23%
+  margin-left: 300px;
 }
 
-nav .brand-logo {
-  color: $black;
+nav {
+  .brand-logo {
+    color: $black;
+  }
+
+  ul a {
+    color: $black;
+  }
 }
 
-nav ul a {
-  color: $black;
+.options {
+  padding: 10px;
+}
+
+.linkcolor {
+  margin-bottom: 10px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 }

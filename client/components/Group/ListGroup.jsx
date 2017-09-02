@@ -31,17 +31,17 @@ class ListGroup extends React.Component {
       Materialize.toast('Member successfully added', 5000, 'red');
     });
   }
-
+  
   render () {
     return (
       <div>
         <div className="row">
-          <div className="col s12 m5 l5">
+          <div className="col s12 m12 l12">
              {this.props.groupList.map((group) => 
              <GroupCard key={group.id} id={group.id} onClick={() => 
                this.onClick(group.id)} joinGroup={this.joinGroup} {...group} />)}
           </div>
-          <div className="col s12 m6 l6">
+          <div className="col s12 m12 l12">
             {/* <Switch>
               <Route path='/homepage/view-group' component={GroupChat}/> 
             </Switch>  */}

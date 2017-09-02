@@ -12,9 +12,12 @@ module.exports = {
       Usergroups.create({
         groupId: newGroup.id,
         userId: req.decoded.userId,
+        username: req.decoded.username
       })
       .then(savedGroup => res.status(200).send(savedGroup))
-      .catch(error => res.status(400).send(error.message));
+      .catch(error => {
+        res.status(400).send(`user groups error: ${error.message}`)
+      });
     })
     .catch(error => res.status(400).send(error.message));
   },

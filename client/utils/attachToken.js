@@ -9,6 +9,8 @@ const attachAuthorizationToken = (token) => {
   } else {
     delete defaultHeaders['x-access-token'];
   }
+
+  return injector;
 };
 
 export default attachAuthorizationToken;

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { LIST_GROUPS } from './types';
+import attachAuthorizationToken from '../utils/attachToken';
 
 export const loadGroups = groups => ({
   type: LIST_GROUPS,
@@ -17,7 +18,7 @@ export const getGroups = () => dispatch =>
     });
 
 export const createGroup = groupname => dispatch =>
-  axios
+  attachAuthorizationToken(localStorage.getItem('token'))
     .post('/api/group', { groupname })
     .then(() => {
       dispatch(getGroups());

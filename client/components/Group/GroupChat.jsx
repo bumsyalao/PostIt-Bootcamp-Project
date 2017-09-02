@@ -13,6 +13,7 @@ class GroupChat extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
   }
+
   componentDidMount() {
     $('select').material_select();
     const { groupId } = this.props.match.params;
@@ -22,12 +23,12 @@ class GroupChat extends React.Component {
   onChange(event) {
     this.setState ({
       [event.target.name]: event.target.value});
-
   }
+
   optionChange(event) {
-    this.setState ({ messagePriority: event.target.value});
-
+    this.setState ({ messagePriority: event.target.value });
   }
+
   onSubmit() {
     const { message, messagePriority } = this.state;
     const { groupId } = this.props.match.params;
@@ -38,11 +39,10 @@ class GroupChat extends React.Component {
   }
 
   render() {
-    console.log(this.props.messages);
     return (
     <div>
       <div className="row">
-        <div className="col s12 m5 l5">
+        <div className="col s12 m12 l12">
           {this.props.messages.map((message) => 
              <MessageCard key={message.id} {...message} />)
           }

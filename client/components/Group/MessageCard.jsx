@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 const MessageCard = (props) => {
+  const date = new Date(props.createdAt);
     return (
       <div className="row">
         <div className="col s12 container form-margin">
@@ -11,7 +12,7 @@ const MessageCard = (props) => {
                 Priority: &nbsp;
                 <span>{props.messagePriority}</span>
               </div>
-              <div className="time">Tue 12 Jul at 17:55pm</div>
+              <div className="time">{`${date.toDateString()} at ${date.getHours()}:${date.getMinutes()}`}</div>
             </div>
             <div className="message-body"> {props.message}
             </div>
@@ -21,5 +22,4 @@ const MessageCard = (props) => {
       </div>
     );
   }
-
 export default MessageCard;
