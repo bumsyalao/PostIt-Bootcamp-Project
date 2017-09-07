@@ -4,3 +4,4 @@ const setCurrentUser = (userInfo, type) => ({
 });
 
 export default setCurrentUser;
+

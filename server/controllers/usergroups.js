@@ -34,7 +34,6 @@ module.exports = {
     const groupId = req.params.groupid;
     Usergroups.findAll({ where: { groupId } })
       .then((users) => {
-        console.log('users: ', users)
         if (users.length === 0) {
           res.status(404).send({ message: 'No Users Found' });
         } else {

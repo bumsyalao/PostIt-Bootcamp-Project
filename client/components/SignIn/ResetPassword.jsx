@@ -21,7 +21,6 @@ class ResetPassword extends Component {
   }
   resetPassword(event)  {
     const password = this.state.password;
-    console.log(this.props);
     const pathname = this.props.location.pathname;
     const hash = pathname.replace('/reset-password/', '');
     this.props.resetPasswordAction({password, hash})

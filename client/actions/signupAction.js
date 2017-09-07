@@ -17,7 +17,6 @@ const userSignupRequest = userData =>
       Materialize.toast('Your account has been created', 5000, 'green');
     })
     .catch((error) => {
-      console.log(error);
       throw error.response.data.message;
     });
 

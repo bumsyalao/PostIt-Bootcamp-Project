@@ -74,7 +74,7 @@ module.exports = {
   },
   viewUser(req, res) {
     const userId = req.body.userId;
-    Users.findAll({ where: { id: userId } })
+    Users.findOne({ where: { id: userId } })
       .then((user) => {
         if (user.length === 0) {
           res.status(404).send({ message: 'No User Found' });
@@ -85,6 +85,22 @@ module.exports = {
         res.status(500).send({
           message: 'There was a server error, please try again' });
       });
+  },
+  viewUsers(req, res) {
+    Users.findAll({
+      attributes: ['username', 'email'],
+      limit: 5,
+      offset: 0
+    }).then((users) => {
+      if (users.length === 0) {
+        res.status(404).send({ message: 'No User Found' });
+      } else {
+        res.status(200).send(users);
+      }
+    }).catch(() => {
+      res.status(500).send({
+        message: 'There was a server error, please try again' });
+    });
   },
   sendResetPassword(req, res) {
     const email = req.body.email;

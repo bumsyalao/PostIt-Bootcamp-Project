@@ -26,7 +26,6 @@ class ListGroup extends React.Component {
 
   joinGroup (event) {
     event.preventDefault();
-    console.log("something", event.target.id);
     const id = event.target.id;
     this.props.addMemberToGroup(id).then(() => {
       Materialize.toast('Member successfully added', 5000, 'green');
@@ -37,9 +36,7 @@ class ListGroup extends React.Component {
 
   listUsers (groupId) {
     if (this.props.users.length > 0) return;
-
-    this.props.listAllUsers(groupId).then(() => {
-      
+    this.props.listAllUsers(groupId).then(() => {  
     }).catch(error => {
       Materialize.toast(`An error occured: ${error.message}`, 5000, 'red')
     });
@@ -80,11 +77,11 @@ const mapStateToProps = state => (
   }
 );
 
-const mapDispatchToProps = () => ({
+const mapDispatchToProps = {
   getGroups, 
   getMessages, 
   addMemberToGroup,
   listAllUsers
-})
+};
 
 export default connect(mapStateToProps, mapDispatchToProps())(withRouter(ListGroup));

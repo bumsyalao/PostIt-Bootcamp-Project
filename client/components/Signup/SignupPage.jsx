@@ -23,12 +23,6 @@ class SignupPage extends React.Component {
         );
     }
 }
-const mapDispatchToProps = (dispatch) => {
-  return {
-    userSignupRequest:(user) => dispatch(userSignupRequest(user))
-  }
-};
-
 SignupPage.propTypes = {
   userSignupRequest: React.PropTypes.func.isRequired,
 }

@@ -26,7 +26,6 @@ class ForgotPassword extends Component {
 
       })
       .catch(error => {
-        console.log(error);
         Materialize.toast('Server Error', 5000, 'red');
       })
   }

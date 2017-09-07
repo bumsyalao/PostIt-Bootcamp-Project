@@ -24,7 +24,6 @@ class CreateGroup extends Component {
   }
   
   onSubmit() {
-    console.log(this.state.groupname, this.props);
     this.props.createGroup (this.state.groupname)
       .then(() => {
         Materialize.toast('created', 5000, 'green');
@@ -36,7 +35,6 @@ class CreateGroup extends Component {
 
 
   render() {
-    // const { addMemberToGroup } = this.props;
     return (
       <div>
         <div className="col s12 container form-margin">
@@ -62,7 +60,7 @@ const mapStateToProps = state => ({
 });
 
 
-createGroup.propTypes = {
+CreateGroup.propTypes = {
   createGroup: PropTypes.func.isRequired,
 };
 

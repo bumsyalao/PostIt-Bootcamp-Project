@@ -1,6 +1,6 @@
 /* global localStorage */
 import axios from 'axios';
-import { LIST_GROUPS, GET_GROUP_USERS } from './types';
+import { LIST_GROUPS, GET_GROUP_USERS, LIST_ALL_USERS } from './types';
 import attachAuthorizationToken from '../utils/attachToken';
 
 export const loadGroups = groups => ({
@@ -14,11 +14,27 @@ export const loadUsers = (users, groupId) => ({
   groupId
 });
 
+export const loadAllUsers = users => ({
+  type: LIST_ALL_USERS,
+  users
+});
+
 export const getGroups = () => dispatch =>
   axios
     .get('/api/groups')
     .then((response) => {
       dispatch(loadGroups(response.data));
+    })
+    .catch((error) => {
+      throw error;
+    });
+
+export const getAllUsers = () => dispatch =>
+axios
+    .get('/api/users')
+    .then((response) => {
+      dispatch(loadAllUsers(response.data));
+      console.log(response.data);
     })
     .catch((error) => {
       throw error;

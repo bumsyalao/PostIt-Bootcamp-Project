@@ -1,17 +1,13 @@
 sudo: required
 dist: trusty
 language: node_js
-
 node_js:
   - 6
-
 services:
   - postgresql
- 
-before_script:
+ before_script:
   - npm install -g sequelize-cli
   - sudo -u postgres createuser bunmialao
   - createdb postit-test
-
 script:
-  - npm run test
+  - npm test

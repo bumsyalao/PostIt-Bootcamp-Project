@@ -2,8 +2,6 @@ import React from 'react';
 import { Route, IndexRoute, Switch } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
 import Sidebar from './components/Sidebar';
-
-
 import App from './components/App';
 import Dashboard from './components/Dashboard';
 import SignupPage from './components/Signup/SignupPage';
@@ -12,9 +10,9 @@ import CreateGroup from './components/Group/CreateGroup';
 import Homepage from './components/Homepage';
 import ForgotPassword from './components/SignIn/ForgotPassword';
 import ResetPassword from './components/SignIn/ResetPassword';
+// import UsersPage from './components/Users/UsersPage';
 
-export default class Routes extends React.Component {
-  render() {
+export const Routes =() => {
     return(
         <Switch>
           <Route exact path="/" component={Dashboard} />
@@ -24,8 +22,8 @@ export default class Routes extends React.Component {
           <Route path="/forgot-password" component={ForgotPassword} />
            {/* <Route path="/create/group" component={CreateGroup} />  */}
            <Route path="/reset-password" component={ResetPassword} />
+
           <Route path="/homepage" component={Homepage} />
         </Switch> 
     )
-  }
 }

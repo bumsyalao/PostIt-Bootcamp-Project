@@ -17,7 +17,6 @@ export const loadMessage = (message, username, groupId) => ({
 export const getMessages = id =>
  dispatch => axios.get(`/api/group/${id}/messages`)
  .then((response) => {
-   console.log(response.data);
    dispatch(loadMessages(response.data, id));
  })
 .catch((error) => { throw error; });

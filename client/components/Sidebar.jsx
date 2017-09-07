@@ -5,7 +5,8 @@ import CreateGroup from './Group/CreateGroup';
 import ListGroup from './Group/ListGroup';
 
 
-const SideBar=() => (
+
+const SideBar = () => (
   <ul id="slide-out" className="side-nav fixed #e57373 red lighten-2">
     <li><div className="user-view">
       <div className="side-logo center">
@@ -27,6 +28,24 @@ const SideBar=() => (
             <li><Link to='/homepage/groups' >
               <i className="material-icons">groups</i>
               All Groups</Link></li>
+          </ul>
+        </div>
+      </li>
+
+    </ul>
+    <ul className="collapsible " data-collapsible="accordion">
+      <li>
+        <div className="collapsible-header" id="document-header">
+          <i className="material-icons">group</i>Users</div>
+        <div className="collapsible-body #ffebee red lighten-5" id="groups">
+          <ul>
+            <li><Link to='/homepage/create/group' id="create-group">
+              <i className="material-icons">group_add</i>
+              Profile</Link>
+            </li>
+            <li><Link to='/homepage/search-users' >
+              <i className="material-icons">search</i>
+              Search User</Link></li>
           </ul>
         </div>
       </li>

@@ -13,3 +13,4 @@ export const GET_ALL_MESSAGES = 'GET_ALL_MESSAGES';
 export const LOAD_MESSAGE = 'LOAD_MESSAGE';
 export const ADD_USER_TO_GROUP = 'ADD_USER_TO_GROUP';
 export const GET_GROUP_USERS = 'GET_GROUP_USERS';
+export const LIST_ALL_USERS = 'LIST_ALL_USERS';

@@ -69,7 +69,6 @@ class GroupChat extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   const { groupId } = ownProps.match.params;
-  console.log(state.messages)
   return {
     username: state.access.user.username,
     messages: state.messages[groupId] || []

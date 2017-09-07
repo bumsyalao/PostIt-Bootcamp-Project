@@ -12,7 +12,7 @@ It provides restful APIs for users to create groups, post messages and retrieve 
 
 ## API Documentation
 -----
-The API has routes, each dedicated to a single task that uses HTTP response codes to indicate API status and errors.
+https://app.apiary.io/postit13/
 
 ### Authentication
 

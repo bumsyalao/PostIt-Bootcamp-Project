@@ -36,6 +36,9 @@ module.exports = (app) => {
 // api route to view a users information
   app.get('/api/user', auth.checkToken, usersController.viewUser);
 
+// api route to view all users
+  app.get('/api/users', auth.checkToken, usersController.viewUsers);
+
 // api route to remove a user from a group
   app.delete('/api/group/:groupid/user', usergroupsController.removeUser);
 
