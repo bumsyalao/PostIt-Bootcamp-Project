@@ -10,4 +10,4 @@ services:
   - sudo -u postgres createuser bunmialao
   - createdb postit-test
 script:
-  - npm test
+  - npm run test
