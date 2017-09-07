@@ -4,7 +4,7 @@ const initialState = {
   group: {},
   groupList: [],
   groupMessages: [],
-  users: []
+
 };
 
 export default (state = initialState, action = {}) => {
@@ -19,11 +19,7 @@ export default (state = initialState, action = {}) => {
         ...state,
         groupList: action.groups
       };
-    case types.LIST_ALL_USERS:
-      return {
-        ...state,
-        users: action.users
-      };
+ 
     case types.LIST_GROUP_MESSAGES:
       return {
         ...state,

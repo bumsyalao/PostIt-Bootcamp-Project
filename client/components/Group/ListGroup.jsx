@@ -9,54 +9,64 @@ import GroupChat from './GroupChat';
 
 
 class ListGroup extends React.Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
     this.onClick = this.onClick.bind(this);
     this.joinGroup = this.joinGroup.bind(this);
     this.listUsers = this.listUsers.bind(this);
   }
-  
-  componentDidMount(){
+
+  componentDidMount() {
     this.props.getGroups();
   }
 
-  onClick(id){
-    this.props.history.push(`/homepage/view-group/${id}`)
+  onClick(id) {
+    this.props.history.push(`/homepage/view-group/${id}`);
   }
 
-  joinGroup (event) {
+  joinGroup(event) {
     event.preventDefault();
     const id = event.target.id;
-    this.props.addMemberToGroup(id).then(() => {
-      Materialize.toast('Member successfully added', 5000, 'green');
-    }).catch(({response}) => {
-      Materialize.toast(`An error occured: ${response.data.message}`, 5000, 'red')
-    });
+    this.props
+      .addMemberToGroup(id)
+      .then(() => {
+        Materialize.toast('Member successfully added', 5000, 'green');
+      })
+      .catch(({ response }) => {
+        Materialize.toast(
+          `An error occured: ${response.data.message}`,
+          5000,
+          'red'
+        );
+      });
   }
 
-  listUsers (groupId) {
+  listUsers(groupId) {
     if (this.props.users.length > 0) return;
-    this.props.listAllUsers(groupId).then(() => {  
-    }).catch(error => {
-      Materialize.toast(`An error occured: ${error.message}`, 5000, 'red')
-    });
-    
+    this.props
+      .listAllUsers(groupId)
+      .then(() => {})
+      .catch((error) => {
+        Materialize.toast(`An error occured: ${error.message}`, 5000, 'red');
+      });
   }
-  
-  render () {
+
+  render() {
     return (
       <div>
         <div className="row form-margin">
           <div className="col s12 m12 l12">
-             {this.props.groupList.map((group) => 
-                <GroupCard key={group.id} 
-                            id={group.id} 
-                            onClick={() => 
-                              this.onClick(group.id)} 
-                            joinGroup={this.joinGroup} 
-                            {...group} 
-                            users={group.users}
-                            listUsers={this.listUsers}/>)}
+            {this.props.groupList.map(group => (
+              <GroupCard
+                key={group.id}
+                id={group.id}
+                onClick={() => this.onClick(group.id)}
+                joinGroup={this.joinGroup}
+                {...group}
+                users={group.users}
+                listUsers={this.listUsers}
+              />
+            ))}
           </div>
           <div className="col s12 m12 l12">
             {/* <Switch>
@@ -65,23 +75,22 @@ class ListGroup extends React.Component {
           </div>
         </div>
       </div>
-    )}
+    );
+  }
 }
 
-const mapStateToProps = state => (
-  {
-    group: state.group.group,
-    groupList: state.group.groupList,
-    messages: state.group.groupMessages,
-    users: state.group.users
-  }
-);
+const mapStateToProps = state => ({
+  group: state.group.group,
+  groupList: state.group.groupList,
+  messages: state.group.groupMessages,
+  users: state.group.users
+});
 
-const mapDispatchToProps = {
-  getGroups, 
-  getMessages, 
+const actions = {
+  getGroups,
+  getMessages,
   addMemberToGroup,
   listAllUsers
 };
 
-export default connect(mapStateToProps, mapDispatchToProps())(withRouter(ListGroup));
+export default connect(mapStateToProps, actions)(ListGroup);

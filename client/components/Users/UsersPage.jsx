@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { getAllUsers } from '../../actions/groups';
 
 class UsersPage extends Component {
   componentDidMount(){
-    getAllUsers();
+    this.props.getAllUsers();
   }
   render() {
     return (
@@ -44,5 +45,9 @@ class UsersPage extends Component {
     )
   }
 }
+const mapStateToProps = state => ({
+  users: state.users
+});
 
-export default UsersPage;
+
+export default connect(mapStateToProps, { getAllUsers })(UsersPage);

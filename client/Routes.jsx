@@ -11,8 +11,7 @@ import Homepage from './components/Homepage';
 import ForgotPassword from './components/SignIn/ForgotPassword';
 import ResetPassword from './components/SignIn/ResetPassword';
 // import UsersPage from './components/Users/UsersPage';
-
-export const Routes =() => {
+const Routes = () => {
     return(
         <Switch>
           <Route exact path="/" component={Dashboard} />
@@ -27,3 +26,5 @@ export const Routes =() => {
         </Switch> 
     )
 }
+
+export default Routes;

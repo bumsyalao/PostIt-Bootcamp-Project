@@ -9,20 +9,20 @@ class NavigationBar extends React.Component {
     super(props);
     this.state = {
       user: {}
-    }
+    };
     this.logout = this.logout.bind(this);
   }
-  componentWillReceiveProps(nextProps){
-    if(this.props !== nextProps){
+  componentWillReceiveProps(nextProps) {
+    if (this.props !== nextProps) {
       this.setState({
         user: this.props.isAuth
-      })
+      });
     }
   }
   componentDidMount() {
     this.setState({
       user: this.props.isAuth
-    })
+    });
   }
   logout(event) {
     event.preventDefault();
@@ -32,42 +32,63 @@ class NavigationBar extends React.Component {
   render() {
     return (
       <div>
-      <nav>
+        <nav>
           <div className="nav-wrapper container">
-              <Link to="/">
-              <a id="logo-container" className="brand-logo">POST-IT</a>
-              </Link>
-            { (this.props.match.url === ('/')) && <ul className="right">
-              <li><Link to="/signin">Login</Link></li>
-            </ul>}
-            { (this.props.match.url === ('/signup')) && <ul className="right">
-              <li><Link to="/signin">Login</Link></li>
-            </ul>}
-            { (this.props.match.url === ('/')) && 
-            <ul className="right">
-              <li><Link to="/signup">Register</Link></li>
-            </ul>}
-            { (this.props.match.url === ('/signin')) && 
-            <ul className="right">
-              <li><Link to="/signup">Register</Link></li>
-            </ul>}
-            {this.props.match.url === '/homepage' && <ul className="right">
-              <li><a onClick={this.logout}>LOG OUT</a></li>
-            </ul>}
-            <a href="#" data-activates="nav-mobile" className="button-collapse"><i className="mdi-navigation-menu"></i></a>
+            <Link to="/">
+              <a id="logo-container" className="brand-logo">
+                POST-IT
+              </a>
+            </Link>
+            {this.props.match.url === '/' && (
+              <ul className="right">
+                <li>
+                  <Link to="/signin">Login</Link>
+                </li>
+              </ul>
+            )}
+            {this.props.match.url === '/signup' && (
+              <ul className="right">
+                <li>
+                  <Link to="/signin">Login</Link>
+                </li>
+              </ul>
+            )}
+            {this.props.match.url === '/' && (
+              <ul className="right">
+                <li>
+                  <Link to="/signup">Register</Link>
+                </li>
+              </ul>
+            )}
+            {this.props.match.url === '/signin' && (
+              <ul className="right">
+                <li>
+                  <Link to="/signup">Register</Link>
+                </li>
+              </ul>
+            )}
+            {this.props.match.url === '/homepage' && (
+              <ul className="right">
+                <li>
+                  <a onClick={this.logout}>LOG OUT</a>
+                </li>
+              </ul>
+            )}
+            <a href="#" data-activates="nav-mobile" className="button-collapse">
+              <i className="mdi-navigation-menu" />
+            </a>
           </div>
         </nav>
-        </div>
-    )
+      </div>
+    );
   }
-  
 }
 NavigationBar.propTypes = {
   logout: React.PropTypes.func.isRequired
-}
-const mapStateToProps = (state) => {
+};
+const mapStateToProps = state => {
   return {
     isAuth: state.access.user
-  }
-}
-export default connect(mapStateToProps, { logout }) (withRouter(NavigationBar));
+  };
+};
+export default connect(mapStateToProps, { logout })(withRouter(NavigationBar));
