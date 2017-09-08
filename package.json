@@ -8,6 +8,7 @@
     "npm": "3.10.10"
   },
   "scripts": {
+    "client-test": "jest",
     "start": "babel-node -- server.js",
     "start-dev": "webpack --config ./webpack.config.js --progress --colors && nodemon --watch server --exec babel-node -- server.js",
     "coverage-report": "cat ./coverage/lcov.info | coveralls",
@@ -79,6 +80,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
+    "babel-jest": "^21.0.0",
     "babel-loader": "^7.1.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
@@ -91,9 +93,11 @@
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.3.0",
     "file-loader": "^0.11.2",
+    "jest": "^21.0.1",
     "nodemon": "^1.11.0",
     "nyc": "^11.1.0",
     "react-hot-loader": "^1.3.1",
+    "regenerator-runtime": "^0.11.0",
     "url-loader": "^0.5.9",
     "webpack-hot-middleware": "^2.18.2"
   }
