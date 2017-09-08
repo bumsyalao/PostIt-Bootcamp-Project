@@ -87,16 +87,19 @@ module.exports = {
       });
   },
   viewUsers(req, res) {
+    const { limit, offset, searchParam } = req.query;
+    const search = `${searchParam}%`;
     Users.findAll({
       attributes: ['username', 'email'],
-      limit: 5,
-      offset: 0
-    }).then((users) => {
-      if (users.length === 0) {
-        res.status(404).send({ message: 'No User Found' });
-      } else {
-        res.status(200).send(users);
+      limit: limit || 5,
+      offset: offset || 0,
+      where: {
+        username: {
+          $like: `${search || '%'}`
+        }
       }
+    }).then((users) => {
+      res.status(200).send(users);
     }).catch(() => {
       res.status(500).send({
         message: 'There was a server error, please try again' });

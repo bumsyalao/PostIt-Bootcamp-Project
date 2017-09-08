@@ -3,7 +3,7 @@
 import axios from 'axios';
 import attachAuthorizationToken from '../utils/attachToken';
 import { SIGN_UP_USER } from './types';
-import setCurrentUser from './users';
+import setCurrentUser from './authAction';
 
 
 const userSignupRequest = userData =>

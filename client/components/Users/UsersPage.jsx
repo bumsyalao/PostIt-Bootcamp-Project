@@ -1,15 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getAllUsers } from '../../actions/groups';
+import { getAllUsers } from '../../actions/users';
 
 class UsersPage extends Component {
   constructor() {
     super();
-    this.state = { users: [] };     
+    this.state = {
+      users: [],
+      offset: 0,
+      limit: 5,
+      searchParam: ''
+    };
   }
 
   componentWillMount() {
-    this.props.getAllUsers();
+    this.getUsers();
+  }
+
+  getUsers(offset, limit) {
+    this.props.getAllUsers(offset, limit, this.state.searchParam);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -17,8 +26,29 @@ class UsersPage extends Component {
   }
 
   searchUsers = (e) => {
-    let filteredUsers = this.props.users.users.filter(({ username }) => username.indexOf(e.target.value) !== -1);
-    this.setState({ users: filteredUsers });
+    // const filteredUsers = this.props.users.users.filter(({ username }) => username.indexOf(e.target.value) !== -1);
+    this.setState({ searchParam: e.target.value, offset: 0, limit: 5 });
+  }
+
+  onSearch = () => {
+    const limit = 5, offset = 0;
+    if (!this.state.searchParam) return;
+    this.getUsers(offset, limit);
+  }
+
+  showPrevious = () => {
+    const { offset, limit } = this.state;
+    const newOffset = offset === 0 ? offset : offset - limit;
+    this.setState({ offset: newOffset }, () => {
+      this.getUsers(this.state.offset, limit);
+    });
+  }
+
+  showNext = () => {
+    const { offset, limit } = this.state;
+    this.setState({ offset: offset + limit }, () => {
+      this.getUsers(this.state.offset, limit);
+    });
   }
 
   render() {
@@ -37,6 +67,10 @@ class UsersPage extends Component {
                           onChange={this.searchUsers}
                           className="validate" />
                     <label htmlFor="icon_prefix">Enter username</label>
+                    <a className="waves-effect waves-light red lighten-2 btn"
+                        onClick={this.onSearch}>
+                        Search
+                    </a>
                   </div>
                 </div>
               </form>
@@ -61,6 +95,10 @@ class UsersPage extends Component {
               )}
             </tbody>
           </table>
+        </div>
+        <div className="container page-button">
+          <a className="waves-effect waves-light red lighten-2 btn" onClick={this.showPrevious}>Previous</a>
+          <a className="waves-effect waves-light red lighten-2 btn" onClick={this.showNext}>Next</a>
         </div>
       </div>
     );

@@ -29,9 +29,9 @@ export const getGroups = () => dispatch =>
       throw error;
     });
 
-export const getAllUsers = () => dispatch =>
+export const getAllUsers = (offset, limit = 5) => dispatch =>
 axios
-    .get('/api/users')
+    .get(`/api/users?limit=${limit}&offset=${offset}`)
     .then((response) => {
       dispatch(loadAllUsers(response.data));
     })
