@@ -3,10 +3,26 @@ import { connect } from 'react-redux';
 import { getAllUsers } from '../../actions/groups';
 
 class UsersPage extends Component {
-  componentDidMount(){
+  constructor() {
+    super();
+    this.state = { users: [] };     
+  }
+
+  componentWillMount() {
     this.props.getAllUsers();
   }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({ users: nextProps.users.users });
+  }
+
+  searchUsers = (e) => {
+    let filteredUsers = this.props.users.users.filter(({ username }) => username.indexOf(e.target.value) !== -1);
+    this.setState({ users: filteredUsers });
+  }
+
   render() {
+    const { users } = this.state;
     return (
       <div className="row">
         <div className="container form-margin">
@@ -16,7 +32,10 @@ class UsersPage extends Component {
                 <div className="row">
                   <div className="input-field col s12">
                     <i className="material-icons prefix">search</i>
-                    <input id="icon_prefix" type="text" className="validate" />
+                    <input id="icon_prefix"
+                          type="text"
+                          onChange={this.searchUsers}
+                          className="validate" />
                     <label htmlFor="icon_prefix">Enter username</label>
                   </div>
                 </div>
@@ -34,15 +53,17 @@ class UsersPage extends Component {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>Alvin</td>
-                <td>Eclair</td>
-              </tr>
+                {users && users.map(({ email, username }) =>
+                  <tr>
+                    <td>{username}</td>
+                    <td>{email}</td>
+                  </tr>
+              )}
             </tbody>
           </table>
         </div>
       </div>
-    )
+    );
   }
 }
 const mapStateToProps = state => ({

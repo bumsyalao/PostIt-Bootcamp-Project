@@ -2,21 +2,21 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class GroupCard extends Component {
-  
+
   componentDidMount() {
     $('.collapsible').collapsible();
   }
-  
+
   render() {
-    const { 
+    const {
       groupname,
       id,
       onClick,
       joinGroup,
       listUsers,
-      users 
+      users
     } = this.props;
-    
+
     return (
       <div className="row">
         <div className="col s12 container">
@@ -27,7 +27,7 @@ class GroupCard extends Component {
 
             <li>
               <div className="collapsible-header group-header" id="document-header">
-                <Link to={`/homepage/view-group/${id}`} 
+                <Link to={`/homepage/view-group/${id}`}
                       className="card-title">
                   {groupname}
                 </Link>
@@ -37,7 +37,7 @@ class GroupCard extends Component {
                 <ul className="collapsible group-options" data-collapsible="accordion">
                   <li>
                     <i className="material-icons tiny">games</i>
-                    <div onClick={joinGroup} 
+                    <div onClick={joinGroup}
                           id={id}
                           className="card-title">
                       Join group
@@ -57,7 +57,7 @@ class GroupCard extends Component {
                       <ul className="collapsible group-options" data-collapsible="accordion">
                         <li>
                          <div className="users-list">
-                          {users && users.map(({username}) => 
+                          {users && users.map(({ username }) =>
                             <div id={id}
                                 className="card-title">
                             {username}
@@ -70,7 +70,7 @@ class GroupCard extends Component {
 
                   <li>
                     <i className="material-icons tiny">cancel</i>
-                    <div onClick={joinGroup} 
+                    <div onClick={joinGroup}
                           id={id}
                           className="card-title">
                       Delete group
@@ -84,7 +84,7 @@ class GroupCard extends Component {
         </div>
       </div>
     </div>
-    )
+    );
   }
 }
 export default GroupCard;

@@ -34,7 +34,6 @@ axios
     .get('/api/users')
     .then((response) => {
       dispatch(loadAllUsers(response.data));
-      console.log(response.data);
     })
     .catch((error) => {
       throw error;
