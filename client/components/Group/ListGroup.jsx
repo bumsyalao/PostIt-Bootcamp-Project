@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import addMemberToGroup from '../../actions/createGroupRequest';
 import { getMessages } from '../../actions/messages';
-import { getGroups, listAllUsers } from '../../actions/groups';
+import { getGroups, listAllUsers, removeGroup } from '../../actions/groups';
 import GroupCard from './GroupCard';
 import GroupChat from './GroupChat';
 
@@ -14,6 +14,7 @@ class ListGroup extends React.Component {
     this.onClick = this.onClick.bind(this);
     this.joinGroup = this.joinGroup.bind(this);
     this.listUsers = this.listUsers.bind(this);
+    this.deleteGroup = this.deleteGroup.bind(this);
   }
 
   componentDidMount() {
@@ -42,12 +43,21 @@ class ListGroup extends React.Component {
   }
 
   listUsers(groupId) {
-    if (this.props.users.length > 0) return;
+    const { users } = this.props;
+    if (users && users.length > 0) return;
+    console.log(this.props.users);
     this.props
       .listAllUsers(groupId)
       .then(() => {})
       .catch((error) => {
         Materialize.toast(`An error occured: ${error.message}`, 5000, 'red');
+      });
+  }
+
+  deleteGroup(event) {
+    this.props.removeGroup(event.target.id)
+      .then(() => {
+        console.log('HI');
       });
   }
 
@@ -65,13 +75,11 @@ class ListGroup extends React.Component {
                 {...group}
                 users={group.users}
                 listUsers={this.listUsers}
+                deleteGroup={this.deleteGroup}
               />
             ))}
           </div>
           <div className="col s12 m12 l12">
-            {/* <Switch>
-              <Route path='/homepage/view-group' component={GroupChat}/> 
-            </Switch>  */}
           </div>
         </div>
       </div>
@@ -90,7 +98,8 @@ const actions = {
   getGroups,
   getMessages,
   addMemberToGroup,
-  listAllUsers
+  listAllUsers,
+  removeGroup
 };
 
 export default connect(mapStateToProps, actions)(ListGroup);

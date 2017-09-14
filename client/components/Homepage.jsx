@@ -6,6 +6,7 @@ import CreateGroup from './Group/CreateGroup';
 import ListGroup from './Group/ListGroup';
 import GroupChat from './Group/GroupChat';
 import UsersPage from '../components/Users/UsersPage';
+import welcome from '../images/welcome.png'
 
 export default class Homepage extends React.Component {
   componentDidMount() {
@@ -36,6 +37,8 @@ export default class Homepage extends React.Component {
             />
           </Switch>
         </div>
+        <div>
+          </div>
       </div>
     );
   }

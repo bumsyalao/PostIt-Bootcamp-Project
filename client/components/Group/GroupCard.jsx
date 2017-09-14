@@ -14,7 +14,8 @@ class GroupCard extends Component {
       onClick,
       joinGroup,
       listUsers,
-      users
+      users,
+      deleteGroup
     } = this.props;
 
     return (
@@ -70,7 +71,7 @@ class GroupCard extends Component {
 
                   <li>
                     <i className="material-icons tiny">cancel</i>
-                    <div onClick={joinGroup}
+                    <div onClick={deleteGroup}
                           id={id}
                           className="card-title">
                       Delete group

@@ -32,6 +32,7 @@ module.exports = (sequelize, DataTypes) => {
           });
           Messages.belongsTo(models.Groups, {
             foreignKey: 'groupId',
+            onDelete: 'CASCADE'
           });
         },
       },

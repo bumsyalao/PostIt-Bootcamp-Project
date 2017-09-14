@@ -58,3 +58,12 @@ export const listAllUsers = groupId => dispatch =>
     .catch((error) => {
       throw error;
     });
+
+export const removeGroup = groupId => dispatch =>
+  axios.delete(`/api/group/${groupId}`)
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      throw error;
+    });
