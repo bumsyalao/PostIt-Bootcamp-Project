@@ -1,8 +1,24 @@
+body {
+  font-family: 'Open Sans', sans-serif; }
+
+a {
+  color: #000; }
+
+nav ul a {
+  font-weight: bolder; }
+
 .message-card {
   max-width: 600px;
   margin: 0 auto;
   border: 1px solid #aaa;
   padding: 10px; }
+  .message-card.group {
+    padding: 0;
+    border: 0; }
+    .message-card.group .group-header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between; }
   .message-card .message-head {
     display: flex;
     padding: 5px 10px;
@@ -37,6 +53,43 @@
 
 .float-right {
   float: right; }
+
+.group-options {
+  border: none;
+  box-shadow: 1px 2px transparent;
+  margin: 0; }
+  .group-options > li {
+    margin: 0 10px;
+    padding: 10px;
+    display: flex;
+    cursor: pointer;
+    line-height: 16px;
+    color: #8e8c8c; }
+    .group-options > li > i {
+      margin-right: 10px; }
+    .group-options > li > .users-list {
+      flex-direction: column; }
+    .group-options > li:hover {
+      background: rgba(229, 115, 115, 0.08); }
+  .group-options .user-list {
+    display: flex;
+    flex-direction: column; }
+    .group-options .user-list .menu-item {
+      justify-content: flex-start; }
+  .group-options .menu-item {
+    padding: 0;
+    background-color: transparent;
+    border-bottom: none;
+    line-height: 17px; }
+    .group-options .menu-item > i {
+      font-size: 1.1rem;
+      margin-right: 10px;
+      width: auto; }
+
+.page-button {
+  margin-top: 50px; }
+  .page-button a {
+    margin-right: 30px; }
 
 .form-margin {
   margin-top: 5% !important; }
