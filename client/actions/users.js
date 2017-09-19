@@ -9,15 +9,20 @@ export const loadUsers = (users, groupId) => ({
   groupId
 });
 
-export const loadAllUsers = users => ({
+export const loadAllUsers = ({ users, metaData }) => ({
   type: LIST_ALL_USERS,
-  users
+  users,
+  metaData
 });
 
 export const getAllUsers = (offset = 0, limit = 5, searchParam = '') => dispatch =>
   axios
-    .get(`/api/users?limit=${limit}&offset=${offset}&searchParam=${searchParam}`)
+    .get(`/api/v1/users?limit=${limit}&offset=${offset}&searchParam=${searchParam}`)
     .then((response) => {
+      console.log(response.data);
+      if (!response.data.users.length > 0) {
+        Materialize.toast('User not found', 5000, 'red');
+      }
       dispatch(loadAllUsers(response.data));
     })
     .catch((error) => {
@@ -26,7 +31,7 @@ export const getAllUsers = (offset = 0, limit = 5, searchParam = '') => dispatch
 
 export const listAllUsers = groupId => dispatch =>
     axios
-    .get(`/api/group/${groupId}/users`)
+    .get(`/api/v1/group/${groupId}/users`)
     .then((response) => {
       dispatch(loadUsers(response.data.users, groupId));
     })

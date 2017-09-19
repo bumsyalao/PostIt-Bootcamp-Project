@@ -4,6 +4,19 @@ const bcrypt = require('bcrypt');
 
 const models = require('../models');
 
+const paginate = (count, limit, offset) => {
+  const page = Math.floor(offset / limit) + 1;
+  const pageCount = Math.ceil(count / limit);
+  const pageSize = (count - offset) > limit ? limit : (count - offset);
+
+  return {
+    page,
+    pageCount,
+    pageSize,
+    count
+  };
+};
+
 
 require('dotenv').config();
 
@@ -89,7 +102,7 @@ module.exports = {
   viewUsers(req, res) {
     const { limit, offset, searchParam } = req.query;
     const search = `${searchParam}%`;
-    Users.findAll({
+    Users.findAndCount({
       attributes: ['username', 'email'],
       limit: limit || 5,
       offset: offset || 0,
@@ -98,8 +111,12 @@ module.exports = {
           $like: `${search || '%'}`
         }
       }
-    }).then((users) => {
-      res.status(200).send(users);
+    }).then(({ rows: users, count }) => {
+      res.status(200).send({
+        message: 'Users found',
+        users,
+        metaData: paginate(count, limit, offset)
+      });
     }).catch(() => {
       res.status(500).send({
         message: 'There was a server error, please try again' });

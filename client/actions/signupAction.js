@@ -7,7 +7,7 @@ import setCurrentUser from './authAction';
 
 
 const userSignupRequest = userData =>
-  dispatch => axios.post('/api/user/signup', userData)
+  dispatch => axios.post('/api/v1/user/signup', userData)
     .then((response) => {
       localStorage.setItem('token', response.data.token);
       dispatch(setCurrentUser(response.data.existingUser, SIGN_UP_USER));
@@ -17,7 +17,7 @@ const userSignupRequest = userData =>
       Materialize.toast('Your account has been created', 5000, 'green');
     })
     .catch((error) => {
-      throw error.response.data.message;
+      throw error;
     });
 
 export default userSignupRequest;

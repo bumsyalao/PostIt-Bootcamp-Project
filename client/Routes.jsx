@@ -10,21 +10,21 @@ import CreateGroup from './components/Group/CreateGroup';
 import Homepage from './components/Homepage';
 import ForgotPassword from './components/SignIn/ForgotPassword';
 import ResetPassword from './components/SignIn/ResetPassword';
+import ErrorPage from './components/ErrorPage';
 // import UsersPage from './components/Users/UsersPage';
-const Routes = () => {
-    return(
-        <Switch>
-          <Route exact path="/" component={Dashboard} />
-          <Route path="/Sidebar" component={Sidebar}/>
-          <Route path="/signup" component={SignupPage} />
-          <Route path="/signin" component={SignInPage} />
-          <Route path="/forgot-password" component={ForgotPassword} />
-           {/* <Route path="/create/group" component={CreateGroup} />  */}
-           <Route path="/reset-password" component={ResetPassword} />
+const Routes = () => (
+      <Switch>
+        <Route exact path="/" component={Dashboard} />
+        <Route path="/Sidebar" component={Sidebar}/>
+        <Route path="/signup" component={SignupPage} />
+        <Route path="/signin" component={SignInPage} />
+        <Route path="/forgot-password" component={ForgotPassword} />
+          {/* <Route path="/create/group" component={CreateGroup} />  */}
+          <Route path="/reset-password" component={ResetPassword} />
 
-          <Route path="/homepage" component={Homepage} />
-        </Switch> 
-    )
-}
+        <Route path="/homepage" component={Homepage} />
+        <Route component={ErrorPage}/>
+      </Switch>
+  );
 
 export default Routes;

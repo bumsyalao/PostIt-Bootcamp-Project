@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import ReactPaginate from 'react-paginate';
 import { getAllUsers } from '../../actions/users';
 
 class UsersPage extends Component {
@@ -8,9 +9,11 @@ class UsersPage extends Component {
     this.state = {
       users: [],
       offset: 0,
+      pageCount: 0,
       limit: 5,
       searchParam: ''
     };
+    this.handlePageClick = this.handlePageClick.bind(this);
   }
 
   componentWillMount() {
@@ -22,11 +25,13 @@ class UsersPage extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ users: nextProps.users.users });
+    this.setState({
+      users: nextProps.users.users,
+      pageCount: nextProps.pagination.pageCount,
+      count: nextProps.pagination.count });
   }
 
   searchUsers = (e) => {
-    // const filteredUsers = this.props.users.users.filter(({ username }) => username.indexOf(e.target.value) !== -1);
     this.setState({ searchParam: e.target.value, offset: 0, limit: 5 });
   }
 
@@ -35,19 +40,15 @@ class UsersPage extends Component {
     if (!this.state.searchParam) return;
     this.getUsers(offset, limit);
   }
-
-  showPrevious = () => {
-    const { offset, limit } = this.state;
-    const newOffset = offset === 0 ? offset : offset - limit;
-    this.setState({ offset: newOffset }, () => {
-      this.getUsers(this.state.offset, limit);
-    });
-  }
-
-  showNext = () => {
-    const { offset, limit } = this.state;
-    this.setState({ offset: offset + limit }, () => {
-      this.getUsers(this.state.offset, limit);
+  handlePageClick(data) {
+    const selected = data.selected;
+    const limit = 5;
+    const offset = Math.ceil(selected * limit);
+    this.setState({ offset });
+    this.getUsers(offset, limit).then(() => {
+      this.setState({
+        users: this.props.users.users
+      });
     });
   }
 
@@ -95,17 +96,25 @@ class UsersPage extends Component {
               )}
             </tbody>
           </table>
-        </div>
-        <div className="container page-button">
-          <a className="waves-effect waves-light red lighten-2 btn" onClick={this.showPrevious}>Previous</a>
-          <a className="waves-effect waves-light red lighten-2 btn" onClick={this.showNext}>Next</a>
+        {(this.state.count > 5) && <ReactPaginate
+                      previousLabel={'previous'}
+                      nextLabel={'next'}
+                      pageCount={this.state.pageCount}
+                      marginPagesDisplayed={1}
+                      pageRangeDisplayed={3}
+                      onPageChange={this.handlePageClick}
+                      containerClassName={'pagination'}
+                      subContainerClassName={'pages pagination'}
+                      activeClassName={'active'}
+                    />}
         </div>
       </div>
     );
   }
 }
 const mapStateToProps = state => ({
-  users: state.users
+  users: state.users,
+  pagination: state.users.pagination
 });
 
 

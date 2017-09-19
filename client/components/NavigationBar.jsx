@@ -12,6 +12,10 @@ class NavigationBar extends React.Component {
     };
     this.logout = this.logout.bind(this);
   }
+  /**
+   * 
+   * @param {object} nextProps
+   */
   componentWillReceiveProps(nextProps) {
     if (this.props !== nextProps) {
       this.setState({
@@ -19,6 +23,7 @@ class NavigationBar extends React.Component {
       });
     }
   }
+
   componentDidMount() {
     this.setState({
       user: this.props.isAuth
@@ -29,6 +34,9 @@ class NavigationBar extends React.Component {
     this.props.logout();
     this.props.history.push('/');
   }
+  /**
+   * c
+   */
   render() {
     return (
       <div>

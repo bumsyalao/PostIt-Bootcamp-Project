@@ -2,8 +2,10 @@
   margin-top: 5% !important;
 }
 
-.homepage {
-  margin-left: 300px;
+@media only screen and (min-width: 769px) {
+  .homepage {
+    margin-left: 300px;
+  }
 }
 
 nav {
@@ -26,4 +28,14 @@ nav {
   &:last-child {
     margin-bottom: 0;
   }
+}
+.error-page {
+  text-align: center;
+  margin-top: 100px;
+}
+.pagination {
+  cursor: pointer;
+}
+.img-style {
+  display: flex;
 }

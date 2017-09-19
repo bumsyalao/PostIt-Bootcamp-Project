@@ -10,44 +10,47 @@ module.exports = (app) => {
   }));
 
 //  api route to signup
-  app.post('/api/user/signup', usersController.signup);
+  app.post('/api/v1/user/signup', usersController.signup);
 
 //  api route to signin
-  app.post('/api/user/signin', usersController.signin);
+  app.post('/api/v1/user/signin', usersController.signin);
 
 // api route to create group
-  app.post('/api/group', auth.checkToken, groupsController.create);
+  app.post('/api/v1/group', auth.checkToken, groupsController.create);
 
 // api route to get all groups
-  app.get('/api/groups', groupsController.retrieve);
+  app.get('/api/v1/groups', groupsController.retrieve);
+
+// api route to get a group a group
+  app.get('/api/v1/group/:groupid', groupsController.retrieveGroup);
 
 // api route to remove a group a group
-  app.delete('/api/group/:groupid', groupsController.removeGroup);
+  app.delete('/api/v1/group/:groupid', groupsController.removeGroup);
 
 //  api route to add users to group
-  app.post('/api/group/:groupid/user', auth.checkToken, usergroupsController.create);
+  app.post('/api/v1/group/:groupid/user', auth.checkToken, usergroupsController.create);
 
 // api route to post message to group
-  app.post('/api/group/:groupid/message', auth.checkToken, messagesController.create);
+  app.post('/api/v1/group/:groupid/message', auth.checkToken, messagesController.create);
 
 // api route to get message posted to a group.
-  app.get('/api/group/:groupid/messages', auth.checkToken, messagesController.retrieve);
+  app.get('/api/v1/group/:groupid/messages', auth.checkToken, messagesController.retrieve);
 
 // api route to list all users in a group
-  app.get('/api/group/:groupid/users', auth.checkToken, usergroupsController.listall);
+  app.get('/api/v1/group/:groupid/users', auth.checkToken, usergroupsController.listall);
 
 // api route to view a users information
-  app.get('/api/user', auth.checkToken, usersController.viewUser);
+  app.get('/api/v1/user', auth.checkToken, usersController.viewUser);
 
 // api route to view all users
-  app.get('/api/users', auth.checkToken, usersController.viewUsers);
+  app.get('/api/v1/users', auth.checkToken, usersController.viewUsers);
 
 // api route to remove a user from a group
-  app.delete('/api/group/:groupid/user', usergroupsController.removeUser);
+  app.delete('/api/v1/group/:groupid/user', usergroupsController.removeUser);
 
 // api route to send reset password email
-  app.post('/api/user/forgot-password', usersController.sendResetPassword);
+  app.post('/api/v1/user/forgot-password', usersController.sendResetPassword);
 
 // api route to update password
-  app.put('/api/user/update-password/:hash', usersController.updatePassword);
+  app.put('/api/v1/user/update-password/:hash', usersController.updatePassword);
 };

@@ -65,9 +65,9 @@ class SignInForm extends React.Component {
             <i className="material-icons right">send</i>
           </button>
         </div>
-        <div className="col s6 offset-s3"> 
-          <Link to ="/forgot-password"> 
-            Forgot Password
+        <div className="col s6 offset-s3 forgot-password">
+          <Link to ="/forgot-password">
+            Forgot Password?
           </Link>
         </div>
       </div>

@@ -21,7 +21,7 @@ describe('USERGROUP ROUTES', () => {
   before((done) => {
     Groups.create({ id: 4, groupname: 'Route Usergroup' });
     Users.create(userInfo).then(() => {
-      api.post('/api/user/signin')
+      api.post('/api/v1/user/signin')
       .send(userInfo)
       .end((err, res) => {
         validToken = res.body.token;
@@ -34,9 +34,9 @@ describe('USERGROUP ROUTES', () => {
     Users.destroy({ where: { id: 4 } });
     Groups.destroy({ where: { id: 4 } }).then(() => done());
   });
-  describe('POST: (/api/group/:groupid/user) - Create', () => {
+  describe('POST: (/api/v1/group/:groupid/user) - Create', () => {
     it('should be an object with keys and values', (done) => {
-      api.post('/api/group/4/user')
+      api.post('/api/v1/group/4/user')
       .set({ jwt: validToken })
       .expect(200)
       .end((err, res) => {
@@ -50,7 +50,7 @@ describe('USERGROUP ROUTES', () => {
       });
     });
     it('should not add user to group which user is already in', (done) => {
-      api.post('/api/group/4/user')
+      api.post('/api/v1/group/4/user')
         .set({ jwt: validToken })
         .end((err, res) => {
           expect(res.status).to.equal(409);

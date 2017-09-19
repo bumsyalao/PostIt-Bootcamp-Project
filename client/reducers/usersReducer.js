@@ -8,7 +8,8 @@ export default (state = initialState, action = {}) => {
   switch (action.type) {
     case types.LIST_ALL_USERS:
       return {
-        users: action.users
+        users: action.users,
+        pagination: action.metaData
       };
     default: return state;
   }

@@ -1,8 +1,12 @@
 /* global localStorage */
 import axios from 'axios';
-import { LIST_GROUPS, GET_GROUP_USERS, LIST_ALL_USERS } from './types';
+import { LIST_GROUPS, GET_GROUP_USERS, LIST_ALL_USERS, LIST_GROUP } from './types';
 import attachAuthorizationToken from '../utils/attachToken';
 
+export const loadGroup = group => ({
+  type: LIST_GROUP,
+  group
+});
 export const loadGroups = groups => ({
   type: LIST_GROUPS,
   groups
@@ -21,17 +25,23 @@ export const loadAllUsers = users => ({
 
 export const getGroups = () => dispatch =>
   axios
-    .get('/api/groups')
+    .get('/api/v1/groups')
     .then((response) => {
       dispatch(loadGroups(response.data));
     })
     .catch((error) => {
       throw error;
     });
+export const getGroup = groupid => dispatch =>
+    axios
+      .get(`/api/v1/group/${groupid}`)
+      .then((response) => {
+        dispatch(loadGroup(response.data));
+      });
 
 export const getAllUsers = (offset, limit = 5) => dispatch =>
 axios
-    .get(`/api/users?limit=${limit}&offset=${offset}`)
+    .get(`/api/v1/users?limit=${limit}&offset=${offset}`)
     .then((response) => {
       dispatch(loadAllUsers(response.data));
     })
@@ -41,7 +51,7 @@ axios
 
 export const createGroup = groupname => dispatch =>
   attachAuthorizationToken(localStorage.getItem('token'))
-    .post('/api/group', { groupname })
+    .post('/api/v1/group', { groupname })
     .then(() => {
       dispatch(getGroups());
     })
@@ -51,7 +61,7 @@ export const createGroup = groupname => dispatch =>
 
 export const listAllUsers = groupId => dispatch =>
     axios
-    .get(`/api/group/${groupId}/users`)
+    .get(`/api/v1/group/${groupId}/users`)
     .then((response) => {
       dispatch(loadUsers(response.data.users, groupId));
     })
@@ -60,7 +70,7 @@ export const listAllUsers = groupId => dispatch =>
     });
 
 export const removeGroup = groupId => dispatch =>
-  axios.delete(`/api/group/${groupId}`)
+  axios.delete(`/api/v1/group/${groupId}`)
     .then((response) => {
       console.log(response.data);
     })

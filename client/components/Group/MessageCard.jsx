@@ -4,7 +4,7 @@ const MessageCard = (props) => {
   const date = new Date(props.createdAt);
     return (
       <div className="row">
-        <div className="col s12 container form-margin">
+        <div className="col s12 container">
           <div className="message-card">
             <div className="message-head">
               <div className="sender">{props.username || props.User.username}</div>

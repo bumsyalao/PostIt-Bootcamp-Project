@@ -12,7 +12,7 @@ export const logout = () =>
   };
 
 export const userSignInRequest = userData =>
-  dispatch => axios.post('/api/user/signin', userData)
+  dispatch => axios.post('/api/v1/user/signin', userData)
     .then((response) => {
       localStorage.setItem('token', response.data.token);
       return dispatch({
@@ -25,7 +25,7 @@ export const userSignInRequest = userData =>
       throw error;
     });
 export const forgotPasswordAction = email =>
-  dispatch => axios.post('/api/user/forgot-password', email)
+  dispatch => axios.post('/api/v1/user/forgot-password', email)
     .then((response) => {
       console.log(response.data);
     })
@@ -34,7 +34,7 @@ export const forgotPasswordAction = email =>
     });
 
 export const resetPasswordAction = data =>
-  (dispatch) => axios.put(`/api/user/update-password/${data.hash}`, data)
+  (dispatch) => axios.put(`/api/v1/user/update-password/${data.hash}`, data)
       .then((response) => {
         console.log(response.data);
       });

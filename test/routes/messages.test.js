@@ -21,7 +21,7 @@ describe('MESSAGES ROUTES', () => {
   before((done) => {
     Groups.create({ id: 5, groupname: 'Route Messages' });
     Users.create(userInfo).then(() => {
-      api.post('/api/user/signin')
+      api.post('/api/v1/user/signin')
       .send(userInfo)
       .end((err, res) => {
         validToken = res.body.token;
@@ -34,9 +34,9 @@ describe('MESSAGES ROUTES', () => {
     Users.destroy({ where: { id: 5 } });
     Groups.destroy({ where: { id: 5 } }).then(() => done());
   });
-  describe('POST: (/api/group/:groupid/message) - Create', () => {
+  describe('POST: (/api/v1/group/:groupid/message) - Create', () => {
     it('should be an object with keys and values', (done) => {
-      api.post('/api/group/5/message')
+      api.post('/api/v1/group/5/message')
       .set({ jwt: validToken })
       .send({ message: 'Test message', messagePriority: 'Urgent' })
       .expect(200)
@@ -55,7 +55,7 @@ describe('MESSAGES ROUTES', () => {
       });
     });
     it('should not create message when group is not found', (done) => {
-      api.post('/api/group/7/message')
+      api.post('/api/v1/group/7/message')
         .set({ jwt: validToken })
         .end((err, res) => {
           expect(res.status).to.equal(404);
@@ -64,9 +64,9 @@ describe('MESSAGES ROUTES', () => {
         });
     });
   });
-  describe('POST: (/api/group/:groupid/messages) - Retrieve', () => {
+  describe('POST: (/api/v1/group/:groupid/messages) - Retrieve', () => {
     it('should be an object with keys and values', (done) => {
-      api.get('/api/group/5/messages')
+      api.get('/api/v1/group/5/messages')
       .set({ jwt: validToken })
       .expect(200)
       .end((err, res) => {
@@ -79,7 +79,7 @@ describe('MESSAGES ROUTES', () => {
       });
     });
     it('should not retrieve any message when group is not found', (done) => {
-      api.get('/api/group/7/messages')
+      api.get('/api/v1/group/7/messages')
         .set({ jwt: validToken })
         .end((err, res) => {
           expect(res.status).to.equal(404);

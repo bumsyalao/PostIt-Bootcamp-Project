@@ -9,7 +9,7 @@ const addUser = newGroup => ({
 
 
 const addMemberToGroup = groupId =>
-  dispatch => axios.post(`/api/group/${groupId}/user`)
+  dispatch => axios.post(`/api/v1/group/${groupId}/user`)
   .then((response) => {
     dispatch(addUser(response.data.newGroup));
   }).catch((error) => {

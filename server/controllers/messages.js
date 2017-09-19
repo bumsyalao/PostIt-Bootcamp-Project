@@ -1,13 +1,10 @@
-const Nexmo = require('nexmo');
+
 const models = require('../models');
 
 const Messages = models.Messages;
 const Groups = models.Groups;
 const Users = models.Users;
-const nexmo = new Nexmo({
-  apiKey: 'df5f955c',
-  apiSecret: 'f7c347a656d80ebe'
-});
+
 module.exports = {
   create(req, res) {
     const groupId = Number(req.params.groupid);

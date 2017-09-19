@@ -19,13 +19,16 @@ export default (state = initialState, action = {}) => {
         ...state,
         groupList: action.groups
       };
- 
+    case types.LIST_GROUP:
+      return {
+        ...state,
+        [action.group.id]: action.group
+      };
     case types.LIST_GROUP_MESSAGES:
       return {
         ...state,
         groupMessages: action.groups
       };
-    default: return state;
 
     case types.LOAD_MESSAGE:
       return {
@@ -36,12 +39,12 @@ export default (state = initialState, action = {}) => {
       const groupList = state.groupList;
       const group = groupList.filter(grp => grp.id === action.groupId)[0];
       group.users = action.users;
-      // remove the exustubg
       const allGroups = groupList.filter(group => group.id !== action.groupId);
 
       return {
         ...state,
         groupList: [...allGroups, group]
       };
+    default: return state;
   }
 };

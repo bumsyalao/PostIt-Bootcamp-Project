@@ -9,7 +9,11 @@ a {
 nav ul a {
   font-weight: bolder;
 }
-
+.message-form {
+    height: 100%;
+    position: fixed;
+    width: calc(100% - 300px) !important ;
+}
 .message-card {
   max-width: 600px;
   margin: 0 auto;
@@ -45,11 +49,21 @@ nav ul a {
     line-height: 25px;
   }
 }
-
+.message-box {
+    max-width: 650px;
+    margin: 0 auto;
+    max-height: calc(100% - 340px);
+    overflow: scroll;
+    border: none;    
+    
+    > h5 {
+    margin: 25px;
+    font-weight: bolder;
+    }
+}
 .message-card2 {
-  margin-top:10% !important;
+  margin: 20px auto;
   max-width: 600px;
-  margin: 0 auto;
   border: 1px solid $light-gray;
   padding: 10px;
 
@@ -70,6 +84,18 @@ nav ul a {
     padding: 10px;
     line-height: 25px;
   }
+}
+
+.message-holder{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    margin: 0 auto 30px auto;
+    background: #fff;
+    width: calc(100% - 300px);
+    margin-top: 0;
+    border-top: 1px solid #aaa;
+    height: 210px;
 }
 
 .float-right {
@@ -129,4 +155,7 @@ nav ul a {
       a {
         margin-right: 30px;
       }
+}
+.forgot-password {
+  margin-top: 20px;
 }

@@ -36,14 +36,14 @@ describe('ROUTES', () => {
   after((done) => {
     models.Users.destroy({ where: { username: 'candy' } }).then(() => done());
   });
-  describe('POST: (/api/user/signup) - Signup', () => {
+  describe('POST: (/api/v1/user/signup) - Signup', () => {
     it('should return a 200 response', (done) => {
       api.get('/api')
       .set('Accept', 'application/json')
       .expect(200, done);
     });
     it('should be an object with keys and values', (done) => {
-      api.post('/api/user/signup')
+      api.post('/api/v1/user/signup')
       .send(chopper)
       .expect(200)
       .end((err, res) => {
@@ -55,7 +55,7 @@ describe('ROUTES', () => {
       });
     });
     it('should not create another user with same username', (done) => {
-      api.post('/api/user/signup')
+      api.post('/api/v1/user/signup')
         .send(existingUsername)
         .end((err, res) => {
           expect(res.status).to.equal(400);
@@ -64,7 +64,7 @@ describe('ROUTES', () => {
         });
     });
     it('should not create another user with same email', (done) => {
-      api.post('/api/user/signup')
+      api.post('/api/v1/user/signup')
         .send(invalidEmail)
         .end((err, res) => {
           expect(res.status).to.equal(400);
@@ -73,9 +73,9 @@ describe('ROUTES', () => {
         });
     });
   });
-  describe('POST: (/api/user/signin) - signin', () => {
+  describe('POST: (/api/v1/user/signin) - signin', () => {
     it('should not signin when password is null', (done) => {
-      api.post('/api/user/signin')
+      api.post('/api/v1/user/signin')
         .send(nullPassword)
         .end((err, res) => {
           expect(res.body.token).to.not.exist;
@@ -84,7 +84,7 @@ describe('ROUTES', () => {
         });
     });
     it('should not signin when supplied invalid password', (done) => {
-      api.post('/api/user/signin')
+      api.post('/api/v1/user/signin')
         .send({
           username: 'candy',
           password: 'isewujfikf'
@@ -96,7 +96,7 @@ describe('ROUTES', () => {
         });
     });
     it('should not signin username is not supplied', (done) => {
-      api.post('/api/users/signin')
+      api.post('/api/v1/users/signin')
         .send({
           password: 'medicine'
         })
@@ -107,7 +107,7 @@ describe('ROUTES', () => {
         });
     });
     it('should signin when supplied valid details', (done) => {
-      api.post('/api/user/signin')
+      api.post('/api/v1/user/signin')
         .send({
           username: 'candy',
           password: 'medicine'

@@ -26,6 +26,7 @@ const Dashboard = () => (
         <br />
       </div>
     </div>
+    
   </div>
 );
 

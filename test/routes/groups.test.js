@@ -16,9 +16,9 @@ describe('GROUP ROUTES', () => {
   after((done) => {
     Groups.destroy({ where: { groupname: 'People' } }).then(() => done());
   });
-  describe('POST: (/api/group) - Create', () => {
+  describe('POST: (/api/v1/group) - Create', () => {
     it('should be an object with keys and values', (done) => {
-      api.post('/api/group')
+      api.post('/api/v1/group')
       .send(group)
       .expect(200)
       .end((err, res) => {
@@ -29,7 +29,7 @@ describe('GROUP ROUTES', () => {
       });
     });
     it('should not create another group with same groupname', (done) => {
-      api.post('/api/group')
+      api.post('/api/v1/group')
         .send(group)
         .end((err, res) => {
           expect(res.status).to.equal(401);

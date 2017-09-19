@@ -29,7 +29,11 @@ module.exports = {
     .then(allGroups => res.status(200).send(allGroups))
     .catch(error => res.status(400).send(error));
   },
-
+  retrieveGroup(req, res) {
+    Groups.findById(req.params.groupid)
+    .then(group => res.status(200).send(group))
+    .catch(error => res.status(400).send(error));
+  },
   removeGroup(req, res) {
     const groupId = req.params.groupid;
     Groups.findById(groupId)
