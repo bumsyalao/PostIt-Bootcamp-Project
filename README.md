@@ -25,7 +25,7 @@ A user can perform the following:
 In addition to the general user functions:
 - User can send email messages to memebers in groups.
 
-##### Authentication: Users are authenticated and validated using Firebase Authentication service.
+##### Authentication: Users are authenticated and validated using JsonWebToken.
 
 ### Development
 
