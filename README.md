@@ -36,8 +36,8 @@ The frontend was built with the react and redux framework.
 ### Installation
 
 - Clone the project repository.
-- Run git clone https://github.com/andela-cofor/postit.git. 
-more info - (https://help.github.com/articles/cloning-a-repository/)
+- Run git clone (https://github.com/bumsyalao/PostIt-Bootcamp-Project) 
+more info: (https://help.github.com/articles/cloning-a-repository/)
 - Run ``` npm install ``` to install the dependencies in the package.json file.
 - Create Postgresql database and run ```sequelize dbmigrate npm undo and npm redo ```(https://www.postgresql.org/)
 
