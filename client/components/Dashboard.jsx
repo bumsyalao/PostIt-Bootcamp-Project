@@ -16,7 +16,6 @@ const Dashboard = () => (
         </div>
         <div className="row center">
           <a
-            href="register1.html"
             id="download-button"
             className="btn-large waves-effect waves-light red lighten-2"
           >

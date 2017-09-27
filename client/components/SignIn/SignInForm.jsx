@@ -32,7 +32,7 @@ class SignInForm extends React.Component {
     this.props.userSignInRequest(data)
       .then(() => {
         if(this.props.access.message){
-          this.props.history.push('/homepage/groups');
+          this.props.history.push('/homepage/welcome-page');
           Materialize.toast('Login Succesful', 5000, 'green');
         } else {
           Materialize.toast('Login Failed', 5000, 'red');

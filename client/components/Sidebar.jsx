@@ -21,7 +21,7 @@ const SideBar = () => (
           <i className="material-icons">group</i>Groups</div>
         <div className="collapsible-body #ffebee red lighten-5" id="groups">
           <ul>
-            <li><Link to='/homepage/create/group' id="create-group">
+            <li><Link to='/homepage/create-group' id="create-group">
               <i className="material-icons">group_add</i>
               Create Group</Link>
             </li>
@@ -39,7 +39,7 @@ const SideBar = () => (
           <i className="material-icons">person</i>Users</div>
         <div className="collapsible-body #ffebee red lighten-5" id="groups">
           <ul>
-            <li><Link to='/homepage/create/group' id="create-group">
+            <li><Link to='/homepage/create-group' id="create-group">
               <i className="material-icons">face</i>
               Profile</Link>
             </li>

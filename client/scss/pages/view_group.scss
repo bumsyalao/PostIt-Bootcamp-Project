@@ -95,7 +95,7 @@ nav ul a {
     width: calc(100% - 300px);
     margin-top: 0;
     border-top: 1px solid #aaa;
-    height: 210px;
+    height: 200px;
 }
 
 .float-right {
@@ -114,6 +114,7 @@ nav ul a {
     cursor: pointer;
     line-height: 16px;
     color: #8e8c8c;
+    overflow: scroll;
     // flex-direction: column;
 
     > i {
@@ -158,4 +159,21 @@ nav ul a {
 }
 .forgot-password {
   margin-top: 20px;
+}
+
+.normal-color {
+  color: #00c853;
+}
+.urgent-color {
+  color: #ff6d00;
+}
+.critical-color {
+  color: #d50000;
+}
+
+.welcome-image {
+  margin-top: 10%;
+}
+.collection {
+  margin-bottom: 100px !important; 
 }

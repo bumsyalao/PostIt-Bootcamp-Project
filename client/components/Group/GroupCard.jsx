@@ -68,15 +68,6 @@ class GroupCard extends Component {
                       </ul>
                     </div>
                   </li>
-
-                  <li>
-                    <i className="material-icons tiny">cancel</i>
-                    <div onClick={deleteGroup}
-                          id={id}
-                          className="card-title">
-                      Delete group
-                    </div>
-                  </li>
                 </ul>
               </div>
             </li>

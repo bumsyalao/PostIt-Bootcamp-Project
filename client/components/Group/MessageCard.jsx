@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 
 const MessageCard = (props) => {
   const date = new Date(props.createdAt);
-    return (
+  return (
+      <li className="collection-item">
       <div className="row">
         <div className="col s12 container">
           <div className="message-card">
             <div className="message-head">
-              <div className="sender">{props.username || props.User.username}</div>
+              <div className="sender"><h6>{(props.username || props.User.username).toUpperCase()}</h6></div>
               <div className="priority">
                 Priority: &nbsp;
                 <span>{props.messagePriority}</span>
@@ -17,9 +18,9 @@ const MessageCard = (props) => {
             <div className="message-body"> {props.message}
             </div>
           </div>
-         
         </div>
       </div>
-    );
-  }
+      </li>
+  );
+};
 export default MessageCard;

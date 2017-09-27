@@ -26,7 +26,7 @@ class SignupForm extends React.Component {
     this.props.userSignupRequest(this.state)
       .then(() => {
         this.setState({ loggedIn: true });
-        this.props.history.push('/homepage/groups');
+        this.props.history.push('/homepage/welcome-page');
       })
       .catch((error) => {
         Materialize.toast(error.response.data.message, 5000, 'red');

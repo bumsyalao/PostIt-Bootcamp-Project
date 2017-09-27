@@ -8,6 +8,7 @@ import ListGroup from './Group/ListGroup';
 import GroupChat from './Group/GroupChat';
 import UsersPage from '../components/Users/UsersPage';
 import welcome from '../images/welcome.png';
+import Welcomepage from './Welcomepage';
 
 class Homepage extends React.Component {
   componentDidMount() {
@@ -25,7 +26,11 @@ class Homepage extends React.Component {
           <NavigationBar match={this.props.match} />
           <Switch>
             <Route
-              path={`${this.props.match.url}/create/group`}
+              path={`${this.props.match.url}/welcome-page`}
+              component={Welcomepage}
+            />
+            <Route
+              path={`${this.props.match.url}/create-group`}
               component={CreateGroup}
             />
             <Route
@@ -42,12 +47,6 @@ class Homepage extends React.Component {
             />
           </Switch>
         </div>
-        <div className="center">
-        <img
-          src="http://25.media.tumblr.com/2eec31196ac2c821109a74bd74756eb1/tumblr_mxkc6hIQ9S1sy7jhao1_500.gif" />
-        <div>
-        </div>
-          </div>
       </div>
     );
   }

@@ -6,228 +6,68 @@ It provides restful APIs for users to create groups, post messages and retrieve 
 
 [![Build Status](https://travis-ci.org/bumsyalao/PostIt-Bootcamp-Project.svg?branch=master)](https://travis-ci.org/bumsyalao/PostIt-Bootcamp-Project) [![Coverage Status](https://coveralls.io/repos/github/bumsyalao/PostIt-Bootcamp-Project/badge.svg?branch=master)](https://coveralls.io/github/bumsyalao/PostIt-Bootcamp-Project?branch=master) [![Code Climate](https://codeclimate.com/github/bumsyalao/PostIt-Bootcamp-Project/badges/gpa.svg)](https://codeclimate.com/github/bumsyalao/PostIt-Bootcamp-Project)
 
-#### Hosted App on Heroku 
+##### Hosted App on Heroku 
 [Post-it](https://postit-now.herokuapp.com/)
 
+[Api Documentation](https://app.apiary.io/postit13/)
 
-## API Documentation
------
-https://app.apiary.io/postit13/
+### Key Application Features
 
-### Authentication
+A user can perform the following: 
+- Create an account 
+- Login to account 
+- User can create groups of friends 
+- User can join any group of choice. 
+- Users can send messages to all their friends or to different groups they belong to.
+- Users can search for other users in the app.
+- Logout.
 
-It uses JSON Web Token (JWT) for authentication.
+In addition to the general user functions:
+- User can send email messages to memebers in groups.
 
-It generates a token on successful login or account creation and returns it to the user.
+##### Authentication: Users are authenticated and validated using Firebase Authentication service.
 
-It verifies the token to ensures a user is authenticated to access protected endpoints.
+### Development
 
-### Users
+This application was developed using NodeJs with express for routing. Postgres was used for persisting data.
 
-It allows users to be created.
+The frontend was built with the react and redux framework.
 
-It allows users to login and obtain a token
+### Installation
 
-It allows authenticated users to create groups.
+- Clone the project repository.
+- Run git clone https://github.com/andela-cofor/postit.git. 
+more info - (https://help.github.com/articles/cloning-a-repository/)
+- Run ``` npm install ``` to install the dependencies in the package.json file.
+- Create Postgresql database and run ```sequelize dbmigrate npm undo and npm redo ```(https://www.postgresql.org/)
 
-It allows authenticated users to post messages.
+#### Usage
 
-It allows for authenticated users to post messages.
-
-
-EndPoint                          |   Functionality                      
-----------------------------------|------------------------
-POST api/user/signup              |creates a new user.
-POST api/user/signin              |sign in an already created user.
-POST api/group	                  |a user creates a group.
-POST api/group/:groupid/user	    |a user adds other users to group.
-POST api/group/:groupid/message	  |a user posts messages to group.
-GET api/group/:groupid/messages	  |retrieves message posted to a group.
-
-
-The following are some sample requests and responses from the API.
-
-##### Users
-Create user
-Get user
-
-##### Groups
-Creates new group
-Add users to group
-
-##### Messages
-Post message to group
-Retrieve message from group.
-
-### Endpoint for Users API.
-Sign up User
-
-#### Request
-- Endpoint: POST: `api/user/signup`
-- Body `(application/json)`
-```json
-{
-  "username": "bootcampuser",
-  "email": "bootcamp@gmail.com",
-  "password": "password"
-}
-```
-#### Response
-- Status: `201: Created`
-- Body `(application/json)`
-```json
-{
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjgsInVzZXJuYW1lIjoiYm9vdGNhbXB1c2VyIiwiZW1haWwiOiJib290Y2FtcEBnbWFpbC5jb20iLCJpYXQiOjE0OTk5NDgyMDEsImV4cCI6MTUwMDAzNDYwMX0.pPDBamQ9Bu1YQmrFuU5SX39jMC2Urx4Cp8ieijh0Fdk",
-    "userInfo": {
-        "username": "bootcampuser",
-        "email": "bootcamp@gmail.com"
-    }
-}
-```
-
-### Singin User
-
-#### Request
-
-- Endpoint: `POST: /user/signin`
-- Requires: `Authentication`
-
-#### Response
-
-- Status: `200: OK`
-- Body `(application/json)`
-```json
-{
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjgsInVzZXJuYW1lIjoiYm9vdGNhbXB1c2VyIiwiZW1haWwiOiJib290Y2FtcEBnbWFpbC5jb20iLCJpYXQiOjE0OTk5NDgyMDEsImV4cCI6MTUwMDAzNDYwMX0.pPDBamQ9Bu1YQmrFuU5SX39jMC2Urx4Cp8ieijh0Fdk",
-    "userInfo": {
-        "username": "bootcampuser",
-        "email": "bootcamp@gmail.com"
-    }
-}
-```
-### Group
-
-#### Request
-
-- Endpoint: `POST: /group`
-- Requires: `Authentication`
-- Body
-```json
-{
- "groupname": happy12,
-}
-```
-#### Response
-
-- Status: `200: OK`
-- Body (application/json)
-```json
-{
-    "id": 5,
-    "groupname": "happy12",
-    "updatedAt": "2017-07-13T16:09:10.679Z",
-    "createdAt": "2017-07-13T16:09:10.679Z"
-}
-```
-### Add user to Group
-
-#### Request
-
-- Endpoint: `POST: api/group/1/user`
-- Requires: `Authentication`
-- Body `(application/json)`
-
-#### Response
-
-- Status: `200: OK`
-- Body `(application/json)`
-```json
-{
-    "groupId": 1,
-    "userId": 1,
-    "updatedAt": "2017-07-13T16:11:37.427Z",
-    "createdAt": "2017-07-13T16:11:37.427Z",
-    "id": 3
-}
-```
-### Post Message to Group
-
-#### Request
-
-- Endpoint: `POST: api/group/:groupid/message`
-- Requires: `Authentication`
-
-#### Response
-
-- Status: `200: OK`
-- Body `(application/json)`
-```json
-{
-    "id": 2,
-    "userId": 8,
-    "groupId": 3,
-    "message": "Hi enjoyment team.",
-    "messagePriority": "normal",
-    "updatedAt": "2017-07-13T13:59:14.420Z",
-    "createdAt": "2017-07-13T13:59:14.420Z"
-}
-```
-### Retrieve Message for Group
-
-#### Request
-
-- Endpoint: `GET: api/group/:groupid/messages`
-- Requires: `Authentication`
-
-#### Response
-
-- Status: `200: OK`
-- Body `(application/json)`
-```json
-[
-    {
-        "id": 2,
-        "groupId": 3,
-        "userId": 8,
-        "message": "Hi enjoyment team.",
-        "messagePriority": "normal",
-        "createdAt": "2017-07-13T13:59:14.420Z",
-        "updatedAt": "2017-07-13T13:59:14.420Z"
-    }
-]
-```
-
+Login, Sign Up and start creating groups
 
 ### Technologies Used
 
-- JavaScript (ES6)
-- Node.js
-- Express
-- Postgresql
-- Sequelize ORM
-- Bootstrap CSS
+- JavaScript (ES6) (http://es6-features.org/)
+- Node.js (https://nodejs.org/en/)
+- Express (https://www.npmjs.com/package/express-api)
+- React/Redux (http://redux.js.org/docs/basics/UsageWithReact.html)
+- Sequelize ORM (http://docs.sequelizejs.com/)
+- Material Design CSS Framework (http://materializecss.com/)
+- SASS/SCSS.
+- Postgres (https://www.postgresql.org/)
 
+### Contributing
 
-### Prerequisites includes
+- Fork this repositry to your account.
+- Clone your repositry: ``` git clone ```
+https://github.com/andela-cofor/postit.git.
+- Create your feature branch: ``` git checkout -b new-feature ```
+- Commit your changes: ``` git commit -m "did something" ```
+- Push to the remote branch: ``` git push origin new-feature ```
+- Open a pull request.
 
-- Postgresql and
-- Node.js >= v6.8.0.
+#### Licence
 
-### Procedure
+ISC
 
-- Clone this repository from a terminal `https://github.com/bumsyalao/PostIt-Bootcamp-Project.git`
-- Move into the project directory cd PostIt-Bootcamp-Project
-- Install project dependencies npm install
-- Create Postgresql database and run migrations npm undo and npm redo.
-- Start the express server npm start.
-- Run test npm test.
-- Make changes and commit your changes
-- git push and make a pull request to my repo
-
-### How to Contribute
-
-- Fork or clone the repo to your computer.
-- Run npm install
-- Create a feature branch and work on it.
-- Push to the remote branch.
-- Open a Pull Request to master branch.
+Copyright (c) 2017 Bunmi Alao

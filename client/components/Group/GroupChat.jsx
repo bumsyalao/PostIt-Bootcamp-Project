@@ -48,11 +48,13 @@ class GroupChat extends React.Component {
     <div>
       <div className="row">
         <div className="col s12 m12 l12 form-margin message-form">
-        <h5> {(this.props.group.groupname || '').toUpperCase()} </h5>        
+        <h5> {(this.props.group.groupname || '').toUpperCase()} </h5>
         <div className="message-box">
+        <ul className="collection">
           {this.props.messages.map(message =>
              <MessageCard key={message.id} {...message} />)
           }
+        </ul>
           </div>
           <div className="message-holder">
             <div className="message-card2 ">
@@ -62,6 +64,7 @@ class GroupChat extends React.Component {
               <select
                 name="messagePriority"
                 className="browser-default input-field select" onChange={this.onChange}>
+                <option value="" disabled selected>Choose your option</option>
                 <option value="normal">Normal</option>
                 <option value="urgent">Urgent</option>
                 <option value="critical">Critical</option>
