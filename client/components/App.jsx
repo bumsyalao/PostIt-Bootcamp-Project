@@ -1,14 +1,12 @@
- /*./client/components/App.js */
+ /* ./client/components/App.js */
 
 import React from 'react';
 import NavigationBar from './NavigationBar';
 
-const App = () => {
-    return (
+const App = () => (
       <div className ="container">
         <NavigationBar />
-      </div> 
-    ); 
-}
+      </div>
+    );
 
 export default App;

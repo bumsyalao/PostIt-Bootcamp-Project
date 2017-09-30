@@ -3,6 +3,7 @@ const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 
 const models = require('../models');
+const Groups = require('./groups');
 
 const paginate = (count, limit, offset) => {
   const page = Math.floor(offset / limit) + 1;
@@ -21,6 +22,8 @@ const paginate = (count, limit, offset) => {
 require('dotenv').config();
 
 const Users = models.Users;
+const UserGroups = models.Usergroups;
+
 const secret = process.env.SECRET;
 const useremail = process.env.USEREMAIL;
 const userpass = process.env.USERPASS;
@@ -63,11 +66,12 @@ module.exports = {
     if (req.body.username && req.body.password) {
       Users.findOne({ where: { username: req.body.username } })
         .then((foundUser) => {
-          if (foundUser && foundUser.verifyPassword(req.body.password)) {           
+          if (foundUser && foundUser.verifyPassword(req.body.password)) {
             const token = jwt.sign({
               userId: foundUser.id,
               username: foundUser.username,
-              email: foundUser.email
+              email: foundUser.email,
+              phonenumber: foundUser.phonenumber
             }, secret, { expiresIn: '1 day' });
             return res.status(200)
               .send({
@@ -99,6 +103,33 @@ module.exports = {
           message: 'There was a server error, please try again' });
       });
   },
+  viewUserGroups(req, res) {
+    console.log('I got here');
+    const userId = req.query.userid;
+    UserGroups.findAll({
+      where: { userId }
+    }).then((userGroups) => {
+      console.log(userGroups);
+      res.send(userGroups);
+    }).catch((err) => {
+      console.log(err);
+    });
+    // Users.findAll({
+    //   include: [{
+    //     model: Groups,
+    //     as: 'groups',
+    //     required: false,
+    //     attributes: ['id', 'groupName'],
+    //     through: { attributes: [] }
+    //   }],
+    //   where: { id: userId } })
+    //     .then((groups) => {
+    //       console.log(groups);
+    //       res.send(groups);
+    //     }).catch((err) => {
+    //       console.log(err);
+    //     });
+  },
   viewUsers(req, res) {
     const { limit, offset, searchParam } = req.query;
     const search = `${searchParam}%`;
@@ -128,7 +159,7 @@ module.exports = {
     const salt = bcrypt.genSaltSync(8);
     const hash = bcrypt.hashSync(email, salt);
     const date = new Date();
-    
+
     date.setHours(date.getHours() + 1);
 
     if (email === undefined || email.trim() === ' ') {

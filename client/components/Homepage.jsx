@@ -7,6 +7,7 @@ import CreateGroup from './Group/CreateGroup';
 import ListGroup from './Group/ListGroup';
 import GroupChat from './Group/GroupChat';
 import UsersPage from '../components/Users/UsersPage';
+import UserProfile from '../components/Users/UserProfile';
 import welcome from '../images/welcome.png';
 import Welcomepage from './Welcomepage';
 
@@ -44,6 +45,10 @@ class Homepage extends React.Component {
             <Route
               path={`${this.props.match.url}/search-users`}
               component={UsersPage}
+            />
+            <Route
+              path={`${this.props.match.url}/user-profile`}
+              component={UserProfile}
             />
           </Switch>
         </div>

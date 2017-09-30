@@ -8,9 +8,6 @@ import { userSignInRequest } from '../../actions/SignInAction';
 import ForgotPassword from './ForgotPassword';
 
 
-
-
-
 class SignInForm extends React.Component {
 
   constructor(props) {
@@ -31,34 +28,33 @@ class SignInForm extends React.Component {
     };
     this.props.userSignInRequest(data)
       .then(() => {
-        if(this.props.access.message){
+        if (this.props.access.message) {
           this.props.history.push('/homepage/welcome-page');
           Materialize.toast('Login Succesful', 5000, 'green');
         } else {
           Materialize.toast('Login Failed', 5000, 'red');
         }
       })
-      .catch(err => Materialize.toast(err.response.data.message, 5000, 'red'))
+      .catch(err => Materialize.toast(err.response.data.message, 5000, 'red'));
   }
 
   render() {
-
     return (
       <div className="form-margin">
         <div className="col s12 container">
           <div className="input-field col s6 offset-s3">
               <i className="material-icons prefix">account_circle</i>
-              <input id ="username" value={this.state.username} onChange={this.onChange} name="username"  type="text" 
+              <input id ="username" value={this.state.username} onChange={this.onChange} name="username" type="text"
               className="validate" required/>
               <label className="active" htmlFor="credential">username</label>
             </div>
             <div className="input-field col s6 offset-s3">
               <i className="material-icons prefix">lock</i>
-              <input id="password" value={this.state.password} onChange={this.onChange} name="password"type="password" 
+              <input id="password" value={this.state.password} onChange={this.onChange} name="password"type="password"
               className="validate" required/>
               <label className="active" htmlFor="password">password</label>
             </div>
-          <button 
+          <button
             onClick={this.onSubmit}
             className="btn waves-effect waves-light col s6 offset-s3 red lighten-2"
             name="action">Login
@@ -87,4 +83,4 @@ SignInForm.propTypes = {
 };
 
 
-export default connect(mapStateToProps , {userSignInRequest})(withRouter(SignInForm));
+export default connect(mapStateToProps, { userSignInRequest })(withRouter(SignInForm));

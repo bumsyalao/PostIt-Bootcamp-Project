@@ -7,6 +7,7 @@ import feminist from '../images/feminist.png';
 
 
 const SideBar = () => (
+  <div>
   <ul id="slide-out" className="side-nav fixed #e57373 red lighten-2">
     <li><div className="user-view">
       <div className="side-logo center">
@@ -53,7 +54,7 @@ const SideBar = () => (
     </ul>
     <div className="col s9"> <img src="https://goo.gl/photos/UpxDhKEHMoz8Fadu8"/> </div>
   </ul>
-
+</div>
 );
 
 export default SideBar;

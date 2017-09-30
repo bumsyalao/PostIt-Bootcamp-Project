@@ -36,6 +36,9 @@ module.exports = (app) => {
 // api route to get message posted to a group.
   app.get('/api/v1/group/:groupid/messages', auth.checkToken, messagesController.retrieve);
 
+// api route to get all groups for a user
+  app.get('/api/v1/user/:userid/groups', auth.checkToken, usersController.viewUserGroups);
+
 // api route to list all users in a group
   app.get('/api/v1/group/:groupid/users', auth.checkToken, usergroupsController.listall);
 

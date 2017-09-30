@@ -12,7 +12,7 @@ import { LOGGEDIN_USER } from './actions/types';
 import './scss/style.scss';
 import Routes from './Routes';
 
-const token = localStorage.getItem('token');
+const token = global.localStorage.getItem('token');
 if (token) {
   attachAuthorizationToken(token);
   const decoded = jwt.decode(token);
@@ -20,7 +20,8 @@ if (token) {
     const userInfo = {
       userId: decoded.userId,
       username: decoded.username,
-      email: decoded.email
+      email: decoded.email,
+      phonenumber: decoded.phonenumber
     };
     store.dispatch(
       { type: LOGGEDIN_USER, userInfo }
@@ -33,4 +34,4 @@ render(
     <BrowserRouter>
       <Routes />
     </BrowserRouter>
-</Provider>, document.getElementById("app"));
+</Provider>, document.getElementById('app'));
