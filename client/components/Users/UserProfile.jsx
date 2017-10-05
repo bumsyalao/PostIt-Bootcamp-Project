@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { userSignInRequest } from '../../actions/SignInAction';
+import { allUserGroups } from '../../actions/users';
 
 
 class UserProfile extends Component {
@@ -10,6 +11,17 @@ class UserProfile extends Component {
       user: []
     };
   }
+
+  componentDidMount () {
+    this.props.allUserGroups(this.props.access.user.userId)
+    .then(() => {
+      this.setState({
+        groups: this.props.user
+      });
+    })
+    .catch();
+  }
+
   componentWillReceiveProps(nextProps) {
     this.setState({
       user: nextProps.access.user
@@ -31,7 +43,9 @@ class UserProfile extends Component {
                       <div><span>Username: {this.props.access.user.username} </span></div>
                       <div><span>Email: {this.props.access.user.email} </span></div>
                       <div><span>Phone Number: {this.props.access.user.phonenumber} </span></div>
-                      <div> <span>Groups I belong to: </span></div>
+                      <div> Groups I belong to: {this.state.groups && this.state.groups.map((group) => {
+                        <p>{group.groupname}</p>
+                      })} </div>
                     </div>
                   </div>
                 </div>
@@ -45,8 +59,9 @@ class UserProfile extends Component {
 }
 const mapStateToProps = state => (
   {
-    access: state.access
+    access: state.access,
+    user: state.users.usergroups
   }
 );
 
-export default connect(mapStateToProps, null)(UserProfile);
+export default connect(mapStateToProps, { allUserGroups })(UserProfile);

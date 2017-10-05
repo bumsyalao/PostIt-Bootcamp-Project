@@ -10,7 +10,7 @@ describe('Sign in reducer', () => {
         id: 21,
         username: 'banku',
         email: 'bunku@gmail.com',
-        phonenumber: '09082091920',
+        phonenumber: '0908209193`0',
         password: '$2a$10$zzPmWsXS/.CgFRpqFnKchO…K3IjcyXe2',
         forgotpasswordtoken: null,
         expirytime: null,
@@ -20,14 +20,12 @@ describe('Sign in reducer', () => {
       message: 'You have logged in succesfully',
       isAuthenticated: true
     };
-    const results = color(state, action);
+    const results = access(state, action);
     expect(results)
             .toEqual({
-              id: 0,
-              title: 'Test Teal',
-              color: '#90C3D4',
-              timestamp: action.timestamp,
-              rating: 0
+              isAuthenticated: true,
+              message: 'You have logged in succesfully',
+              user: undefined
             });
   });
 })

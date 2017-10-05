@@ -104,31 +104,15 @@ module.exports = {
       });
   },
   viewUserGroups(req, res) {
-    console.log('I got here');
-    const userId = req.query.userid;
+    const userId = req.params.userid;
     UserGroups.findAll({
-      where: { userId }
+      where: { userId },
+      attributes: ['groupname']
     }).then((userGroups) => {
-      console.log(userGroups);
-      res.send(userGroups);
+      res.status(200).send(userGroups);
     }).catch((err) => {
       console.log(err);
     });
-    // Users.findAll({
-    //   include: [{
-    //     model: Groups,
-    //     as: 'groups',
-    //     required: false,
-    //     attributes: ['id', 'groupName'],
-    //     through: { attributes: [] }
-    //   }],
-    //   where: { id: userId } })
-    //     .then((groups) => {
-    //       console.log(groups);
-    //       res.send(groups);
-    //     }).catch((err) => {
-    //       console.log(err);
-    //     });
   },
   viewUsers(req, res) {
     const { limit, offset, searchParam } = req.query;

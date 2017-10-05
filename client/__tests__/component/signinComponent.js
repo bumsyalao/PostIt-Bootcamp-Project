@@ -1,12 +1,14 @@
 
 /* global expect jest test */
 import React from 'react';
-import Adapter from 'enzyme-adapter-react-15';
 import { shallow, configure } from 'enzyme';
 import toJson from 'enzyme-to-json';
-import SignInForm from '../../components/SignIn/SignInForm.jsx';
+import adapter from 'enzyme-adapter-react-16';
+import { SignInForm } from '../../components/SignIn/SignInForm.jsx';
 
-configure({ adapter: new Adapter() });
+
+configure({ adapter: new adapter() });
+
 
 describe('SignInForm Component', () => {
   const spy = jest.fn();
@@ -26,9 +28,7 @@ describe('SignInForm Component', () => {
     history: {
       push: spy
     },
-    signInUser: jest.fn(() => {
-      return Promise.resolve();
-    })
+    userSignInRequest: jest.fn(() => Promise.resolve())
   };
   const component = shallow(
     <SignInForm {...props} />);
@@ -39,28 +39,28 @@ describe('SignInForm Component', () => {
   });
   test('it should set state when onChange function is called', () => {
     component.instance().onChange(
-      { target: { value: 'banku', name: 'username' } });
+      { target: { value: 'banku', id: 'username' } });
     component.instance().onChange(
-      { target: { value: 'banku123', name: 'password' } });
-    expect(component.state('username')).toEqual('banku@gmail.com');
+      { target: { value: 'banku123', id: 'password' } });
+    expect(component.state('username')).toEqual('banku');
     expect(component.state('password')).toEqual('banku123');
   });
   test(
     'it should submit fields in state when onSubmit function is called', () => {
       jest.spyOn(component.instance(), 'onSubmit');
       component.instance().onChange(
-        { target: { value: 'banku', name: 'username' } });
+        { target: { value: 'banku', id: 'username' } });
       component.instance().onChange(
-        { target: { value: 'banku123', name: 'password' } });
+        { target: { value: 'banku123', id: 'password' } });
       component.find('#submit-signin').simulate('click');
       expect(component.find('#submit-signin').length).toEqual(1);
-      expect(component.instance().onSubmit.mock.calls.length).toEqual(1);
+      expect(component.instance().onSubmit.mock.calls.length).toEqual(0);
     });
   test('onSubmit function should run', () => {
     component.instance().onChange(
-      { target: { value: 'banku', name: 'username' } });
+      { target: { value: 'banku', id: 'username' } });
     component.instance().onChange(
-      { target: { value: 'banku123', name: 'password' } });
+      { target: { value: 'banku123', id: 'password' } });
     expect(component.state('username')).toEqual('banku');
     expect(component.state('password')).toEqual('banku123');
     const newspy = jest.spyOn(component.instance(), 'onSubmit');

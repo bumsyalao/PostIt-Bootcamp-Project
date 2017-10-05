@@ -23,12 +23,12 @@ class GroupChat extends React.Component {
   }
 
   onChange(event) {
-    this.setState ({
+    this.setState({
       [event.target.name]: event.target.value });
   }
 
   optionChange(event) {
-    this.setState ({ messagePriority: event.target.value });
+    this.setState({ messagePriority: event.target.value });
   }
 
   onSubmit() {
@@ -36,7 +36,10 @@ class GroupChat extends React.Component {
     const { groupId } = this.props.match.params;
     this.props.newMessage(groupId, this.props.username, { message, messagePriority })
       .then(() => {
-        console.log(this.message);
+        this.setState({
+          message: '',
+          messagePriority: ''
+        });
       });
   }
   /**
@@ -59,7 +62,7 @@ class GroupChat extends React.Component {
           <div className="message-holder">
             <div className="message-card2 ">
               <label htmlFor="textarea">Enter Message Here</label>
-              <textarea value={this.message} name="message" id="textarea" onChange={this.onChange} />
+              <textarea value={this.state.message} name="message" id="textarea" onChange={this.onChange} />
               <label>Priority</label>
               <select
                 name="messagePriority"

@@ -23,7 +23,8 @@ module.exports = {
           Usergroups.create({
             groupId: foundGroup.id,
             userId: req.decoded.userId,
-            username: req.decoded.username
+            username: req.decoded.username,
+            groupname: foundGroup.groupname
           })
           .then(newGroup => res.status(200).send(newGroup));
         });

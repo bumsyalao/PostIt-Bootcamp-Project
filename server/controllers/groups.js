@@ -12,7 +12,8 @@ module.exports = {
       Usergroups.create({
         groupId: newGroup.id,
         userId: req.decoded.userId,
-        username: req.decoded.username
+        username: req.decoded.username,
+        groupname: newGroup.groupname
       })
       .then(savedGroup => res.status(200).send(savedGroup))
       .catch((error) => {

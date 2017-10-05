@@ -8,7 +8,7 @@ import { userSignInRequest } from '../../actions/SignInAction';
 import ForgotPassword from './ForgotPassword';
 
 
-class SignInForm extends React.Component {
+export class SignInForm extends React.Component {
 
   constructor(props) {
     super(props);
@@ -56,6 +56,7 @@ class SignInForm extends React.Component {
             </div>
           <button
             onClick={this.onSubmit}
+            id="submit-signin"
             className="btn waves-effect waves-light col s6 offset-s3 red lighten-2"
             name="action">Login
             <i className="material-icons right">send</i>

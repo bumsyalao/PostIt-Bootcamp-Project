@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SignInForm Component should match the SignInForm snapshot 1`] = `
+<div
+  className="form-margin"
+>
+  <div
+    className="col s12 container"
+  >
+    <div
+      className="input-field col s6 offset-s3"
+    >
+      <i
+        className="material-icons prefix"
+      >
+        account_circle
+      </i>
+      <input
+        className="validate"
+        id="username"
+        name="username"
+        onChange={[Function]}
+        required={true}
+        type="text"
+      />
+      <label
+        className="active"
+        htmlFor="credential"
+      >
+        username
+      </label>
+    </div>
+    <div
+      className="input-field col s6 offset-s3"
+    >
+      <i
+        className="material-icons prefix"
+      >
+        lock
+      </i>
+      <input
+        className="validate"
+        id="password"
+        name="password"
+        onChange={[Function]}
+        required={true}
+        type="password"
+      />
+      <label
+        className="active"
+        htmlFor="password"
+      >
+        password
+      </label>
+    </div>
+    <button
+      className="btn waves-effect waves-light col s6 offset-s3 red lighten-2"
+      id="submit-signin"
+      name="action"
+      onClick={[Function]}
+    >
+      Login
+      <i
+        className="material-icons right"
+      >
+        send
+      </i>
+    </button>
+  </div>
+  <div
+    className="col s6 offset-s3 forgot-password"
+  >
+    <Link
+      replace={false}
+      to="/forgot-password"
+    >
+      Forgot Password?
+    </Link>
+  </div>
+</div>
+`;
