@@ -4,6 +4,13 @@ const Groups = models.Groups;
 const Usergroups = models.Usergroups;
 
 module.exports = {
+
+  /**
+   *
+   *
+   * @param {any} req
+   * @param {any} res
+   */
   create(req, res) {
     Groups.create({
       groupname: req.body.groupname
@@ -23,6 +30,12 @@ module.exports = {
     .catch(error => res.status(400).send(error.message));
   },
 
+  /**
+   *
+   *
+   * @param {any} req
+   * @param {any} res
+   */
   retrieve(req, res) {
     Groups.findAll({
       attributes: ['id', 'groupname']
@@ -30,11 +43,25 @@ module.exports = {
     .then(allGroups => res.status(200).send(allGroups))
     .catch(error => res.status(400).send(error));
   },
+
+  /**
+   *
+   *
+   * @param {any} req
+   * @param {any} res
+   */
   retrieveGroup(req, res) {
     Groups.findById(req.params.groupid)
     .then(group => res.status(200).send(group))
     .catch(error => res.status(400).send(error));
   },
+
+  /**
+   *
+   *
+   * @param {any} req
+   * @param {any} res
+   */
   removeGroup(req, res) {
     const groupId = req.params.groupid;
     Groups.findById(groupId)

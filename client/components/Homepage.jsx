@@ -11,14 +11,24 @@ import UserProfile from '../components/Users/UserProfile';
 import welcome from '../images/welcome.png';
 import Welcomepage from './Welcomepage';
 
+
+/**
+ * @class Homepage
+ * @extends {React.Component}
+ */
 class Homepage extends React.Component {
   componentDidMount() {
     if (!this.props.access.isAuthenticated) {
       this.props.history.push('/signin');
       Materialize.toast('Please SignIn or Register', 5000, 'red');
     }
-    $('.collapsible').collapsible();
+    $('.collapsible').collapsible(); // eslint-disable-line
   }
+
+  /**
+   * @returns homepage
+   * @memberOf Homepage
+   */
   render() {
     return (
       <div>

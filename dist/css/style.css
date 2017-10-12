@@ -7,6 +7,11 @@ a {
 nav ul a {
   font-weight: bolder; }
 
+.message-form {
+  height: 100%;
+  position: fixed;
+  width: calc(100% - 300px) !important; }
+
 .message-card {
   max-width: 600px;
   margin: 0 auto;
@@ -32,10 +37,19 @@ nav ul a {
     padding: 10px;
     line-height: 25px; }
 
-.message-card2 {
-  margin-top: 10% !important;
-  max-width: 600px;
+.message-box {
+  max-width: 650px;
   margin: 0 auto;
+  max-height: calc(100% - 340px);
+  overflow: scroll;
+  border: none; }
+  .message-box > h5 {
+    margin: 25px;
+    font-weight: bolder; }
+
+.message-card2 {
+  margin: 20px auto;
+  max-width: 600px;
   border: 1px solid #aaa;
   padding: 10px; }
   .message-card2 .message-head {
@@ -51,6 +65,17 @@ nav ul a {
     padding: 10px;
     line-height: 25px; }
 
+.message-holder {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  margin: 0 auto 30px auto;
+  background: #fff;
+  width: calc(100% - 300px);
+  margin-top: 0;
+  border-top: 1px solid #aaa;
+  height: 200px; }
+
 .float-right {
   float: right; }
 
@@ -64,7 +89,8 @@ nav ul a {
     display: flex;
     cursor: pointer;
     line-height: 16px;
-    color: #8e8c8c; }
+    color: #8e8c8c;
+    overflow: scroll; }
     .group-options > li > i {
       margin-right: 10px; }
     .group-options > li > .users-list {
@@ -91,11 +117,34 @@ nav ul a {
   .page-button a {
     margin-right: 30px; }
 
+.forgot-password {
+  margin-top: 20px; }
+
+.normal-color {
+  color: #00c853; }
+
+.urgent-color {
+  color: #ff6d00; }
+
+.critical-color {
+  color: #d50000; }
+
+.welcome-image {
+  margin-top: 10%; }
+
+.collection {
+  margin-bottom: 100px !important; }
+
+.profile-image {
+  box-sizing: inherit;
+  text-align: center; }
+
 .form-margin {
   margin-top: 5% !important; }
 
-.homepage {
-  margin-left: 300px; }
+@media only screen and (min-width: 769px) {
+  .homepage {
+    margin-left: 300px; } }
 
 nav .brand-logo {
   color: #000; }
@@ -110,5 +159,15 @@ nav ul a {
   margin-bottom: 10px; }
   .linkcolor:last-child {
     margin-bottom: 0; }
+
+.error-page {
+  text-align: center;
+  margin-top: 100px; }
+
+.pagination {
+  cursor: pointer; }
+
+.img-style {
+  display: flex; }
 
 /*# sourceMappingURL=style.css.map*/

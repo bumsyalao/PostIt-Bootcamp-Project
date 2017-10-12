@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import NavigationBar from './NavigationBar';
+import welcomeimage from '../images/welcome-image.jpg';
+
 
 const Dashboard = () => (
   <div>
@@ -9,7 +11,7 @@ const Dashboard = () => (
       <div className="container">
         <br />
         <div className="center">
-          <img src="https://www.embracingspirituality.com/wp-content/uploads/wpforo/default_attachments/1489579326-welcome.jpg" />
+          <img src={welcomeimage} />
         </div>
         <div className="row center">
           <h3 className="header col s12 light">Share Anything, With Anyone!</h3>
@@ -25,7 +27,6 @@ const Dashboard = () => (
         <br />
       </div>
     </div>
-    
   </div>
 );
 

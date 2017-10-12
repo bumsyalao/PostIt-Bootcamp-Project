@@ -31,6 +31,13 @@ const userpass = process.env.USERPASS;
 
 module.exports = {
 
+  /**
+   *
+   *
+   * @param {any} req
+   * @param {any} res
+   * @returns
+   */
   signup(req, res) {
     if (req.body.username && req.body.email && req.body.password) {
       Users
@@ -62,6 +69,13 @@ module.exports = {
     }
   },
 
+  /**
+   *
+   *
+   * @param {any} req
+   * @param {any} res
+   * @returns
+   */
   signin(req, res) {
     if (req.body.username && req.body.password) {
       Users.findOne({ where: { username: req.body.username } })
@@ -89,6 +103,13 @@ module.exports = {
         .send({ message: 'Incomplete login details' });
     }
   },
+
+  /**
+   *
+   *
+   * @param {any} req
+   * @param {any} res
+   */
   viewUser(req, res) {
     const userId = req.body.userId;
     Users.findOne({ where: { id: userId } })
@@ -103,6 +124,13 @@ module.exports = {
           message: 'There was a server error, please try again' });
       });
   },
+
+  /**
+   *
+   *
+   * @param {any} req
+   * @param {any} res
+   */
   viewUserGroups(req, res) {
     const userId = req.params.userid;
     UserGroups.findAll({
@@ -114,6 +142,13 @@ module.exports = {
       console.log(err);
     });
   },
+
+  /**
+   *
+   *
+   * @param {any} req
+   * @param {any} res
+   */
   viewUsers(req, res) {
     const { limit, offset, searchParam } = req.query;
     const search = `${searchParam}%`;
@@ -137,6 +172,14 @@ module.exports = {
         message: 'There was a server error, please try again' });
     });
   },
+
+  /**
+   *
+   *
+   * @param {any} req
+   * @param {any} res
+   * @returns
+   */
   sendResetPassword(req, res) {
     const email = req.body.email;
     // const secretword = req.body.email;
@@ -199,6 +242,12 @@ module.exports = {
       });
   },
 
+  /**
+   *
+   *
+   * @param {any} req
+   * @param {any} res
+   */
   updatePassword(req, res) {
     const newPassword = req.body.password;
     const hash = req.body.hash;

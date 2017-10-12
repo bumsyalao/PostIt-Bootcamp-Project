@@ -4,6 +4,13 @@ const Usergroups = models.Usergroups;
 const Groups = models.Groups;
 
 module.exports = {
+
+  /**
+   *
+   *
+   * @param {any} req
+   * @param {any} res
+   */
   create(req, res) {
     const groupId = Number(req.params.groupid);
     Groups.findById(groupId)
@@ -31,6 +38,12 @@ module.exports = {
       }).catch(error => res.status(400).send(error));
   },
 
+  /**
+   *
+   *
+   * @param {any} req
+   * @param {any} res
+   */
   listall(req, res) {
     const groupId = req.params.groupid;
     Usergroups.findAll({ where: { groupId } })
@@ -46,6 +59,13 @@ module.exports = {
         });
       });
   },
+
+  /**
+   *
+   *
+   * @param {any} req
+   * @param {any} res
+   */
   removeUser(req, res) {
     const userId = req.body.userId;
     const groupId = req.params.groupId;

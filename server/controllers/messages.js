@@ -6,6 +6,13 @@ const Groups = models.Groups;
 const Users = models.Users;
 
 module.exports = {
+
+  /**
+   *
+   *
+   * @param {any} req
+   * @param {any} res
+   */
   create(req, res) {
     const groupId = Number(req.params.groupid);
 
@@ -24,6 +31,13 @@ module.exports = {
       .catch(error => res.status(400).send(error));
     });
   },
+
+  /**
+   *
+   *
+   * @param {any} req
+   * @param {any} res
+   */
   retrieve(req, res) {
     const groupId = Number(req.params.groupid);
     Groups.findById(groupId)

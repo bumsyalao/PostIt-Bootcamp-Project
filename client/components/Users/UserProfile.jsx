@@ -4,6 +4,12 @@ import { userSignInRequest } from '../../actions/SignInAction';
 import { allUserGroups } from '../../actions/users';
 
 
+/**
+ *
+ *
+ * @class UserProfile
+ * @extends {Component}
+ */
 class UserProfile extends Component {
   constructor() {
     super();
@@ -12,44 +18,69 @@ class UserProfile extends Component {
     };
   }
 
-  componentDidMount () {
-    this.props.allUserGroups(this.props.access.user.userId)
-    .then(() => {
-      this.setState({
-        groups: this.props.user
-      });
-    })
-    .catch();
+  /**
+   *
+   *
+   *
+   * @memberOf UserProfile
+   */
+  componentDidMount() {
+    this.props.allUserGroups(this.props.access.user.userId).catch();
   }
 
+  /**
+   *
+   *
+   * @param {any} nextProps
+   *
+   * @memberOf UserProfile
+   */
   componentWillReceiveProps(nextProps) {
     this.setState({
+      groups: nextProps.user,
       user: nextProps.access.user
     });
   }
+
+  /**
+   *
+   *
+   * @returns
+   *
+   * @memberOf UserProfile
+   */
   render() {
     return (
       <div className="row">
         <div className="container form-margin">
-          <div className="">
-            <div className="row">
-              <form className="col s12" >
-                <div className="row">
-                  <div className="input-field col s12">
-                    <div>
-                      <img src="https://yt3.ggpht.com/-niLM_ysnU8w/AAAAAAAAAAI/AAAAAAAAAAA/0UFxDTtpaJg/s900-c-k-no-mo-rj-c0xffffff/photo.jpg" width="50px" height ="50px"/>
-                    </div>
-                    <div className="table">
-                      <div><span>Username: {this.props.access.user.username} </span></div>
-                      <div><span>Email: {this.props.access.user.email} </span></div>
-                      <div><span>Phone Number: {this.props.access.user.phonenumber} </span></div>
-                      <div> Groups I belong to: {this.state.groups && this.state.groups.map((group) => {
-                        <p>{group.groupname}</p>
-                      })} </div>
-                    </div>
-                  </div>
+          <div className="col s12 m7">
+            <div className="profile-image">
+              <img
+                src="https://yt3.ggpht.com/-niLM_ysnU8w/AAAAAAAAAAI/AAAAAAAAAAA/0UFxDTtpaJg/s900-c-k-no-mo-rj-c0xffffff/photo.jpg"
+                width="100px"
+                height="100px"
+              />
+            </div>
+            <div className="card-content">
+              <div className="collection">
+                <div className="collection-item">
+                  <span>{this.props.access.user.username} </span>
                 </div>
-              </form>
+                <div className="collection-item">
+                  <span>{this.props.access.user.email} </span>
+                </div>
+                <div className="collection-item">
+                  <span>{this.props.access.user.phonenumber} </span>
+                </div>
+                <div className="collection-item">
+                  {' '}
+                  Groups I belong to:{' '}
+                  {this.state.groups &&
+                    this.state.groups.map(group => (
+                      <div className="chip">{group.groupname}</div>
+                    ))}{' '}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -57,11 +88,10 @@ class UserProfile extends Component {
     );
   }
 }
-const mapStateToProps = state => (
-  {
-    access: state.access,
-    user: state.users.usergroups
-  }
-);
+
+const mapStateToProps = state => ({
+  access: state.access,
+  user: state.users.usergroups
+});
 
 export default connect(mapStateToProps, { allUserGroups })(UserProfile);

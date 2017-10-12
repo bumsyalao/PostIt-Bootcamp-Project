@@ -6,6 +6,13 @@ import Homepage from '../Homepage';
 import { createGroup } from '../../actions/groups';
 
 class CreateGroup extends Component {
+
+  /**
+   * Creates an instance of CreateGroup.
+   * @param {any} props
+   *
+   * @memberOf CreateGroup
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -15,12 +22,26 @@ class CreateGroup extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
   componentDidMount() {
-    $('.collapsible').collapsible();
+    $('.collapsible').collapsible(); // eslint-disable-line
   }
 
+  /**
+   *
+   *
+   * @param {any} event
+   *
+   * @memberOf CreateGroup
+   */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
+
+  /**
+   *
+   *
+   *
+   * @memberOf CreateGroup
+   */
   onSubmit() {
     this.props.createGroup(this.state.groupname)
       .then(() => {
@@ -33,6 +54,13 @@ class CreateGroup extends Component {
   }
 
 
+  /**
+   *
+   *
+   * @returns
+   *
+   * @memberOf CreateGroup
+   */
   render() {
     return (
       <div>

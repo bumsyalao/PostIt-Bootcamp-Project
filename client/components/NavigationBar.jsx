@@ -4,6 +4,11 @@ import { Link } from 'react-router-dom';
 import { logout } from '../actions/SignInAction';
 import { withRouter } from 'react-router-dom';
 
+
+/**
+ * @class NavigationBar
+ * @extends {React.Component}
+ */
 class NavigationBar extends React.Component {
   constructor(props) {
     super(props);
@@ -13,7 +18,7 @@ class NavigationBar extends React.Component {
     this.logout = this.logout.bind(this);
   }
   /**
-   * 
+   *
    * @param {object} nextProps
    */
   componentWillReceiveProps(nextProps) {
@@ -24,6 +29,9 @@ class NavigationBar extends React.Component {
     }
   }
 
+  /**
+   * @memberOf NavigationBar
+   */
   componentDidMount() {
     this.setState({
       user: this.props.isAuth
@@ -34,8 +42,10 @@ class NavigationBar extends React.Component {
     this.props.logout();
     this.props.history.push('/');
   }
+
   /**
-   * c
+   * @returns Navigationbar
+   * @memberOf NavigationBar
    */
   render() {
     return (
@@ -91,12 +101,12 @@ class NavigationBar extends React.Component {
     );
   }
 }
+
 NavigationBar.propTypes = {
   logout: React.PropTypes.func.isRequired
 };
-const mapStateToProps = state => {
-  return {
-    isAuth: state.access.user
-  };
-};
+
+const mapStateToProps = state => ({
+  isAuth: state.access.user
+});
 export default connect(mapStateToProps, { logout })(withRouter(NavigationBar));

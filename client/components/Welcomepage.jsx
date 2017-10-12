@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const Welcomepage = () => (
   <div>
     <div className="center">

@@ -3,6 +3,11 @@ import { connect } from 'react-redux';
 import ReactPaginate from 'react-paginate';
 import { getAllUsers } from '../../actions/users';
 
+
+/**
+ * @class UsersPage
+ * @extends {Component}
+ */
 class UsersPage extends Component {
   constructor() {
     super();
@@ -16,14 +21,27 @@ class UsersPage extends Component {
     this.handlePageClick = this.handlePageClick.bind(this);
   }
 
+  /**
+   * @memberOf UsersPage
+   */
   componentWillMount() {
     this.getUsers();
   }
 
+  /**
+   * @param {int} offset
+   * @param {int} limit
+   *
+   * @memberOf UsersPage
+   */
   getUsers(offset, limit) {
     this.props.getAllUsers(offset, limit, this.state.searchParam);
   }
 
+  /**
+   * @param {any} nextProps
+   * @memberOf UsersPage
+   */
   componentWillReceiveProps(nextProps) {
     this.setState({
       users: nextProps.users.users,
@@ -31,15 +49,29 @@ class UsersPage extends Component {
       count: nextProps.pagination.count });
   }
 
+  /**
+   * @param {any} e
+   * @memberOf UsersPage
+   */
   searchUsers = (e) => {
     this.setState({ searchParam: e.target.value, offset: 0, limit: 5 });
   }
 
+
+  /**
+   * @memberOf UsersPage
+   */
   onSearch = () => {
     const limit = 5, offset = 0;
     if (!this.state.searchParam) return;
     this.getUsers(offset, limit);
   }
+
+
+  /**
+   * @param {any} data
+   * @memberOf UsersPage
+   */
   handlePageClick(data) {
     const selected = data.selected;
     const limit = 5;
@@ -52,6 +84,13 @@ class UsersPage extends Component {
     });
   }
 
+  /**
+   *
+   *
+   * @returns
+   *
+   * @memberOf UsersPage
+   */
   render() {
     const { users } = this.state;
     return (

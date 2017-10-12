@@ -5,9 +5,14 @@ import SignInForm from './signInForm';
 // import { userSignInRequest } from '../../actions/SignInAction';
 import NavigationBar from '../NavigationBar';
 
+
+/**
+ * @class SignInPage
+ * @extends {React.Component}
+ */
 class SignInPage extends React.Component {
-  constructor(props){
-    super(props)
+  constructor(props) {
+    super(props);
   }
   render() {
     // const userSignIn = this.props.userSignInRequest;

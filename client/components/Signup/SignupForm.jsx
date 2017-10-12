@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router';
 import { withRouter } from 'react-router-dom';
 
+/**
+ * @class SignupForm
+ * @extends {React.Component}
+ */
 class SignupForm extends React.Component {
   constructor(props) {
     super(props);
@@ -23,7 +27,8 @@ class SignupForm extends React.Component {
   }
   onSubmit(event) {
     event.preventDefault();
-    this.props.userSignupRequest(this.state)
+    this.props
+      .userSignupRequest(this.state)
       .then(() => {
         this.setState({ loggedIn: true });
         this.props.history.push('/homepage/welcome-page');
@@ -32,52 +37,106 @@ class SignupForm extends React.Component {
         Materialize.toast(error.response.data.message, 5000, 'red');
       });
   }
+
+  /**
+   * @returns signupform
+   * @memberOf SignupForm
+   */
+
   render() {
-    { this.state.loggedIn && <Redirect to="/" />; }
+    {
+      this.state.loggedIn && <Redirect to="/" />;
+    }
     return (
-        <div className="form-margin">
+      <div className="form-margin">
         <form className="col s12 container">
           <div className="input-field col s6 offset-s3">
-              <i className="material-icons prefix">account_circle</i>
-              <input value={this.state.username} onChange={this.onChange} name="username" type="text"
-              className="validate" required/>
-              <label className="active" htmlFor="username">username</label>
-            </div>
-            <div className="input-field col s6 offset-s3">
-              <i className="material-icons prefix">email</i>
-              <input value={this.state.email} onChange={this.onChange} name="email" type="email"
-              className="validate" required/>
-              <label className="active" htmlFor="email">email</label>
-            </div>
-            <div className="input-field col s6 offset-s3">
-              <i className="material-icons prefix">phone</i>
-              <input value={this.state.phonenumber} onChange={this.onChange} name="phonenumber"type="tel" className="validate" required/>
-              <label className="active" htmlFor="icon_telephone">phone number</label>
-            </div>
-            <div className="input-field col s6 offset-s3">
-              <i className="material-icons prefix">lock</i>
-              <input value={this.state.password} onChange={this.onChange} name="password"type="password"
-              className="validate" required/>
-              <label className="active" htmlFor="password">password</label>
-            </div>
-            <div className="input-field col s6 offset-s3">
-              <i className="material-icons prefix">lock</i>
-              <input value={this.state.confirmPassword} onChange={this.onChange} name="confirmPassword" type="password"
-              className="validate" required/>
-              <label className="active" htmlFor="confirmPassword">confirm password</label>
-            </div>
-          <button onClick={this.onSubmit} disabled={this.state.invalid} className="btn waves-effect waves-light col s6 offset-s3 red lighten-2" type="submit" name="action">Register
-            <i className="material-icons right">send</i>
+            <i className="material-icons prefix">account_circle</i>
+            <input
+              value={this.state.username}
+              onChange={this.onChange}
+              name="username"
+              type="text"
+              className="validate"
+              required
+            />
+            <label className="active" htmlFor="username">
+              username
+            </label>
+          </div>
+          <div className="input-field col s6 offset-s3">
+            <i className="material-icons prefix">email</i>
+            <input
+              value={this.state.email}
+              onChange={this.onChange}
+              name="email"
+              type="email"
+              className="validate"
+              required
+            />
+            <label className="active" htmlFor="email">
+              email
+            </label>
+          </div>
+          <div className="input-field col s6 offset-s3">
+            <i className="material-icons prefix">phone</i>
+            <input
+              value={this.state.phonenumber}
+              onChange={this.onChange}
+              name="phonenumber"
+              type="tel"
+              className="validate"
+              required
+            />
+            <label className="active" htmlFor="icon_telephone">
+              phone number
+            </label>
+          </div>
+          <div className="input-field col s6 offset-s3">
+            <i className="material-icons prefix">lock</i>
+            <input
+              value={this.state.password}
+              onChange={this.onChange}
+              name="password"
+              type="password"
+              className="validate"
+              required
+            />
+            <label className="active" htmlFor="password">
+              password
+            </label>
+          </div>
+          <div className="input-field col s6 offset-s3">
+            <i className="material-icons prefix">lock</i>
+            <input
+              value={this.state.confirmPassword}
+              onChange={this.onChange}
+              name="confirmPassword"
+              type="password"
+              className="validate"
+              required
+            />
+            <label className="active" htmlFor="confirmPassword">
+              confirm password
+            </label>
+          </div>
+          <button
+            onClick={this.onSubmit}
+            disabled={this.state.invalid}
+            className="btn waves-effect waves-light col s6 offset-s3 red lighten-2"
+            type="submit"
+            name="action"
+          >
+            Register
           </button>
         </form>
-        </div>
+      </div>
     );
   }
-  }
-
+}
 
 SignupForm.propTypes = {
-  userSignupRequest: React.PropTypes.func.isRequired,
+  userSignupRequest: React.PropTypes.func.isRequired
 };
 
 export default withRouter(SignupForm);

@@ -8,6 +8,12 @@ import GroupCard from './GroupCard';
 import GroupChat from './GroupChat';
 
 
+/**
+ *
+ *
+ * @class ListGroup
+ * @extends {React.Component}
+ */
 class ListGroup extends React.Component {
   constructor(props) {
     super(props);
@@ -17,14 +23,34 @@ class ListGroup extends React.Component {
     this.deleteGroup = this.deleteGroup.bind(this);
   }
 
+  /**
+   *
+   *
+   *
+   * @memberOf ListGroup
+   */
   componentDidMount() {
     this.props.getGroups();
   }
 
+  /**
+   *
+   *
+   * @param {any} id
+   *
+   * @memberOf ListGroup
+   */
   onClick(id) {
     this.props.history.push(`/homepage/view-group/${id}`);
   }
 
+  /**
+   *
+   *
+   * @param {any} event
+   *
+   * @memberOf ListGroup
+   */
   joinGroup(event) {
     event.preventDefault();
     const id = event.target.id;
@@ -42,6 +68,14 @@ class ListGroup extends React.Component {
       });
   }
 
+  /**
+   *
+   *
+   * @param {any} groupId
+   * @returns
+   *
+   * @memberOf ListGroup
+   */
   listUsers(groupId) {
     const { users } = this.props;
     if (users && users.length > 0) return;
@@ -54,6 +88,13 @@ class ListGroup extends React.Component {
       });
   }
 
+  /**
+   *
+   *
+   * @param {any} event
+   *
+   * @memberOf ListGroup
+   */
   deleteGroup(event) {
     this.props.removeGroup(event.target.id)
       .then(() => {
@@ -61,6 +102,13 @@ class ListGroup extends React.Component {
       });
   }
 
+  /**
+   *
+   *
+   * @returns
+   *
+   * @memberOf ListGroup
+   */
   render() {
     return (
       <div>
