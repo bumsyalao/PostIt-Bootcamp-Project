@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-const MessageCard = props => {
+const MessageCard = (props) => {
   const date = new Date(props.createdAt);
   return (
     <li className="collection-item">

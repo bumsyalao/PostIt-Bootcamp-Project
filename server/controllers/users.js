@@ -138,8 +138,9 @@ module.exports = {
       attributes: ['groupname']
     }).then((userGroups) => {
       res.status(200).send(userGroups);
-    }).catch((err) => {
-      console.log(err);
+    }).catch(() => {
+      res.status(500).send({
+        message: 'There was a server error, please try again' });
     });
   },
 

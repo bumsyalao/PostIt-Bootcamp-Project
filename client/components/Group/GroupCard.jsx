@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 class GroupCard extends Component {
   componentDidMount() {
-    $('.collapsible').collapsible();
+    $('.collapsible').collapsible(); // eslint-disable-line
   }
 
   /**
@@ -14,7 +14,7 @@ class GroupCard extends Component {
    * @memberOf GroupCard
    */
   render() {
-    const { groupname, id, onClick, joinGroup, listUsers, users } = this.props;
+    const { groupname, id, joinGroup, listUsers, users } = this.props;
 
     return (
       <div className="row">

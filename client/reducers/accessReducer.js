@@ -1,6 +1,9 @@
 import * as types from '../actions/types';
 
-export default (state = { user: {}, message: null, isAuthenticated: false }, action) => {
+export default (
+  state = { user: {}, message: null, isAuthenticated: false },
+  action
+) => {
   switch (action.type) {
     case types.SIGN_UP_USER:
     case types.SIGN_IN_USER:
@@ -13,6 +16,7 @@ export default (state = { user: {}, message: null, isAuthenticated: false }, act
       };
     case types.SIGN_OUT_USER:
       return { ...state, user: {}, message: null, isAuthenticated: false };
-    default: return state;
+    default:
+      return state;
   }
 };

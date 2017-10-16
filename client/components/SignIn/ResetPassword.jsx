@@ -49,13 +49,13 @@ class ResetPassword extends Component {
    *
    * @memberOf ResetPassword
    */
-  resetPassword(event) {
+  resetPassword() {
     const password = this.state.password;
     const pathname = this.props.location.pathname;
     const hash = pathname.replace('/reset-password/', '');
     this.props.resetPasswordAction({ password, hash })
       .then(() => {
-        this.props.history.push('/homepage');
+        this.props.history.push('/homepage/welcome-page');
         Materialize.toast('Password Updated Succesfully', 5000, 'green');
       })
       .catch(err => Materialize.toast(err.response.data.message, 5000, 'red'));

@@ -46,8 +46,8 @@ class ForgotPassword extends Component {
         this.props.history.push('/');
         Materialize.toast('Password Reset Link sent', 5000, 'green');
       })
-      .catch(error => {
-        Materialize.toast('Server Error', 5000, 'red');
+      .catch((error) => {
+        Materialize.toast(error.response.data.message, 5000, 'red');
       });
   }
 

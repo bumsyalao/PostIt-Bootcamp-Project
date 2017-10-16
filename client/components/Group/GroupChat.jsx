@@ -47,11 +47,12 @@ class GroupChat extends React.Component {
   }
 
   /**
-   *
+   *@
    *
    *
    * @memberOf GroupChat
    */
+
   onSubmit() {
     const { message, messagePriority } = this.state;
     const { groupId } = this.props.match.params;

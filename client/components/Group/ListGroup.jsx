@@ -1,11 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Switch, Route, withRouter } from 'react-router-dom';
 import addMemberToGroup from '../../actions/createGroupRequest';
 import { getMessages } from '../../actions/messages';
-import { getGroups, listAllUsers, removeGroup } from '../../actions/groups';
+import { getGroups, listAllUsers, } from '../../actions/groups';
 import GroupCard from './GroupCard';
-import GroupChat from './GroupChat';
 
 
 /**

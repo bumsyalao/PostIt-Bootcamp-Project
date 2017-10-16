@@ -1,6 +1,7 @@
 /* global localStorage */
 import axios from 'axios';
-import { LIST_GROUPS, GET_GROUP_USERS, LIST_ALL_USERS, LIST_GROUP } from './types';
+import {
+  LIST_GROUPS, GET_GROUP_USERS, LIST_ALL_USERS, LIST_GROUP } from './types';
 import attachAuthorizationToken from '../utils/attachToken';
 
 export const loadGroup = group => ({
@@ -69,11 +70,3 @@ export const listAllUsers = groupId => dispatch =>
       throw error;
     });
 
-export const removeGroup = groupId => dispatch =>
-  axios.delete(`/api/v1/group/${groupId}`)
-    .then((response) => {
-      console.log(response.data);
-    })
-    .catch((error) => {
-      throw error;
-    });

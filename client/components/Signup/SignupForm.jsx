@@ -1,6 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Redirect } from 'react-router';
 import { withRouter } from 'react-router-dom';
 
 /**
@@ -16,9 +14,8 @@ class SignupForm extends React.Component {
       password: '',
       phonenumber: '',
       confirmPassword: '',
-      invalid: false
+      loggedIn: false
     };
-    this.state = { loggedIn: false };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -44,9 +41,6 @@ class SignupForm extends React.Component {
    */
 
   render() {
-    {
-      this.state.loggedIn && <Redirect to="/" />;
-    }
     return (
       <div className="form-margin">
         <form className="col s12 container">
@@ -122,7 +116,6 @@ class SignupForm extends React.Component {
           </div>
           <button
             onClick={this.onSubmit}
-            disabled={this.state.invalid}
             className="btn waves-effect waves-light col s6 offset-s3 red lighten-2"
             type="submit"
             name="action"
@@ -135,8 +128,5 @@ class SignupForm extends React.Component {
   }
 }
 
-SignupForm.propTypes = {
-  userSignupRequest: React.PropTypes.func.isRequired
-};
 
 export default withRouter(SignupForm);

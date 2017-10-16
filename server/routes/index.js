@@ -21,11 +21,11 @@ module.exports = (app) => {
 // api route to get all groups
   app.get('/api/v1/groups', groupsController.retrieve);
 
-// api route to get a group a group
+// api route to get a specific group
   app.get('/api/v1/group/:groupid', groupsController.retrieveGroup);
 
-// api route to remove a group a group
-  app.delete('/api/v1/group/:groupid', groupsController.removeGroup);
+// api route to delete a group
+  // app.delete('/api/v1/group/:groupid', groupsController.removeGroup);
 
 //  api route to add users to group
   app.post('/api/v1/group/:groupid/user', auth.checkToken, usergroupsController.create);
@@ -49,7 +49,7 @@ module.exports = (app) => {
   app.get('/api/v1/users', auth.checkToken, usersController.viewUsers);
 
 // api route to remove a user from a group
-  app.delete('/api/v1/group/:groupid/user', usergroupsController.removeUser);
+  // app.delete('/api/v1/group/:groupid/user', usergroupsController.removeUser);
 
 // api route to send reset password email
   app.post('/api/v1/user/forgot-password', usersController.sendResetPassword);

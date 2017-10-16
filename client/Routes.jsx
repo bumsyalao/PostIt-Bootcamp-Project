@@ -1,6 +1,5 @@
 import React from 'react';
 import { Route, IndexRoute, Switch } from 'react-router-dom';
-import NavigationBar from './components/NavigationBar';
 import Sidebar from './components/Sidebar';
 import App from './components/App';
 import Dashboard from './components/Dashboard';
@@ -11,7 +10,7 @@ import Homepage from './components/Homepage';
 import ForgotPassword from './components/SignIn/ForgotPassword';
 import ResetPassword from './components/SignIn/ResetPassword';
 import ErrorPage from './components/ErrorPage';
-// import UsersPage from './components/Users/UsersPage';
+
 const Routes = () => (
       <Switch>
         <Route exact path="/" component={Dashboard} />
@@ -19,9 +18,8 @@ const Routes = () => (
         <Route path="/signup" component={SignupPage} />
         <Route path="/signin" component={SignInPage} />
         <Route path="/forgot-password" component={ForgotPassword} />
-          {/* <Route path="/create/group" component={CreateGroup} />  */}
-          <Route path="/reset-password" component={ResetPassword} />
-
+        {/* <Route path="/create/group" component={CreateGroup} />  */}
+        <Route path="/reset-password" component={ResetPassword} />
         <Route path="/homepage" component={Homepage} />
         <Route component={ErrorPage}/>
       </Switch>
