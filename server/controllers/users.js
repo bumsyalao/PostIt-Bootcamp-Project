@@ -32,11 +32,11 @@ const userpass = process.env.USERPASS;
 module.exports = {
 
   /**
-   *
-   *
-   * @param {any} req
-   * @param {any} res
-   * @returns
+   * Sign Up User
+   * Route: POST: /user/signup
+   * @param {object} request object
+   * @param {object} response object
+   * @returns {response} response object
    */
   signup(req, res) {
     if (req.body.username && req.body.email && req.body.password) {
@@ -70,11 +70,11 @@ module.exports = {
   },
 
   /**
-   *
-   *
-   * @param {any} req
-   * @param {any} res
-   * @returns
+   * Sign In User
+   * Route: POST: /user/signin
+   * @param {object} request object
+   * @param {object} response object
+   * @returns {response} response object
    */
   signin(req, res) {
     if (req.body.username && req.body.password) {
@@ -105,10 +105,10 @@ module.exports = {
   },
 
   /**
-   *
-   *
-   * @param {any} req
-   * @param {any} res
+   * View a user
+   * ROUTE: GET: /user
+   * @param {object} request object
+   * @param {object} response object
    */
   viewUser(req, res) {
     const userId = req.body.userId;
@@ -126,10 +126,10 @@ module.exports = {
   },
 
   /**
-   *
-   *
-   * @param {any} req
-   * @param {any} res
+   * View a user's Groups
+   * Route: GET: /user/:userid/groups
+   * @param {object} request object
+   * @param {object} response object
    */
   viewUserGroups(req, res) {
     const userId = req.params.userid;
@@ -145,10 +145,10 @@ module.exports = {
   },
 
   /**
-   *
-   *
-   * @param {any} req
-   * @param {any} res
+   * View all Users
+   * Routes: GET /users
+   * @param {object} request object
+   * @param {object} response object
    */
   viewUsers(req, res) {
     const { limit, offset, searchParam } = req.query;
@@ -175,11 +175,11 @@ module.exports = {
   },
 
   /**
-   *
-   *
-   * @param {any} req
-   * @param {any} res
-   * @returns
+   * Send Reset password email
+   * Routes: POST: /user/forgot-password
+   * @param {object} request object
+   * @param {object} response object
+   * @returns {response} response object
    */
   sendResetPassword(req, res) {
     const email = req.body.email;
@@ -244,10 +244,10 @@ module.exports = {
   },
 
   /**
-   *
-   *
-   * @param {any} req
-   * @param {any} res
+   * Update Password
+   * Route: POST: /user/update-password/:hash
+   * @param {object} request object
+   * @param {object} response object
    */
   updatePassword(req, res) {
     const newPassword = req.body.password;

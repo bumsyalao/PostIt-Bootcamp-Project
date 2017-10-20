@@ -2,15 +2,18 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class GroupCard extends Component {
-  componentDidMount() {
-    $('.collapsible').collapsible(); // eslint-disable-line
-  }
-
+  /* eslint-disable */
   /**
-   *
-   *
-   * @returns GroupCard
-   *
+   * Mounts materialize collapsible
+   * @memberOf GroupCard
+   */
+  componentDidMount() {
+    $('.collapsible').collapsible();
+  }
+  /* eslint-enable */
+  /**
+   * Renders GroupCard component
+   * @returns GroupCard component
    * @memberOf GroupCard
    */
   render() {

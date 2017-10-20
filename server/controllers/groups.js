@@ -3,13 +3,15 @@ const models = require('../models');
 const Groups = models.Groups;
 const Usergroups = models.Usergroups;
 
+
 module.exports = {
 
   /**
+   * Create Group
+   * Route: POST: /group
    *
-   *
-   * @param {any} req
-   * @param {any} res
+   * @param {object} request object
+   * @param {object} response object
    */
   create(req, res) {
     Groups.create({
@@ -31,7 +33,8 @@ module.exports = {
   },
 
   /**
-   *
+   * Retrieve all Groups
+   * Route: GET: /groups
    *
    * @param {any} req
    * @param {any} res
@@ -45,10 +48,11 @@ module.exports = {
   },
 
   /**
+   * Retrieve one group
+   * Route: /group/:groupid
    *
-   *
-   * @param {any} req
-   * @param {any} res
+   * @param {object} request object
+   * @param {object} response object
    */
   retrieveGroup(req, res) {
     Groups.findById(req.params.groupid)
@@ -57,10 +61,11 @@ module.exports = {
   },
 
   /**
+   * Remove Group
+   * Route: DELETE: /group/:groupid
    *
-   *
-   * @param {any} req
-   * @param {any} res
+   * @param {object} request object
+   * @param {object} response object
    */
   removeGroup(req, res) {
     const groupId = req.params.groupid;
@@ -74,8 +79,6 @@ module.exports = {
         res.status(500).send({
           message: 'There was an error, please try again', error });
       });
-  }).catch((error) => {
-    console.log(error);
-  });
+  }).catch(error => res.status(400).send(error));
   }
 };

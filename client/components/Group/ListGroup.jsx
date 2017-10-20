@@ -7,24 +7,27 @@ import GroupCard from './GroupCard';
 
 
 /**
- *
- *
  * @class ListGroup
  * @extends {React.Component}
  */
 class ListGroup extends React.Component {
+
+  /**
+   * Creates an instance of ListGroup.
+   * Binds class methods.
+   * @param {object} props
+   *
+   * @memberOf ListGroup
+   */
   constructor(props) {
     super(props);
     this.onClick = this.onClick.bind(this);
     this.joinGroup = this.joinGroup.bind(this);
     this.listUsers = this.listUsers.bind(this);
-    this.deleteGroup = this.deleteGroup.bind(this);
   }
 
   /**
-   *
-   *
-   *
+   * Makes an action call to getGroups
    * @memberOf ListGroup
    */
   componentDidMount() {
@@ -33,8 +36,8 @@ class ListGroup extends React.Component {
 
   /**
    *
-   *
-   * @param {any} id
+   * Makes an action call to push to url
+   * @param {int} id
    *
    * @memberOf ListGroup
    */
@@ -44,8 +47,8 @@ class ListGroup extends React.Component {
 
   /**
    *
-   *
-   * @param {any} event
+   * Makes an action call to addMemberToGroup
+   * @param {object} event The event of the HTML component
    *
    * @memberOf ListGroup
    */
@@ -68,16 +71,15 @@ class ListGroup extends React.Component {
 
   /**
    *
-   *
-   * @param {any} groupId
-   * @returns
+   * Makes an action call to listAllUsers
+   * @param {int} groupId
+   * @returns users
    *
    * @memberOf ListGroup
    */
   listUsers(groupId) {
     const { users } = this.props;
     if (users && users.length > 0) return;
-    console.log(this.props.users);
     this.props
       .listAllUsers(groupId)
       .then(() => {})
@@ -88,22 +90,8 @@ class ListGroup extends React.Component {
 
   /**
    *
-   *
-   * @param {any} event
-   *
-   * @memberOf ListGroup
-   */
-  deleteGroup(event) {
-    this.props.removeGroup(event.target.id)
-      .then(() => {
-        console.log('HI');
-      });
-  }
-
-  /**
-   *
-   *
-   * @returns
+   * Renders ListGroup component
+   * @returns ListGroup HMTL component
    *
    * @memberOf ListGroup
    */
@@ -145,7 +133,6 @@ const actions = {
   getMessages,
   addMemberToGroup,
   listAllUsers,
-  removeGroup
 };
 
 export default connect(mapStateToProps, actions)(ListGroup);

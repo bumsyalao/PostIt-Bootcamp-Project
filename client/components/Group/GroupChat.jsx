@@ -4,7 +4,20 @@ import MessageCard from './MessageCard';
 import { newMessage, getMessages } from '../../actions/messages';
 import { getGroup } from '../../actions/groups';
 
+/**
+ * 
+ * @class GroupChat
+ * @extends {React.Component}
+ */
 class GroupChat extends React.Component {
+
+  /**
+   * Creates an instance of GroupChat.
+   * Binds class methods
+   * @param {any} props
+   *
+   * @memberOf GroupChat
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -15,6 +28,12 @@ class GroupChat extends React.Component {
     this.onChange = this.onChange.bind(this);
   }
 
+  /**
+   *
+   * Makes action call to getMessages and getGroup
+   *
+   * @memberOf GroupChat
+   */
   componentDidMount() {
     $('select').material_select(); // eslint-disable-line
     const { groupId } = this.props.match.params;
@@ -24,8 +43,8 @@ class GroupChat extends React.Component {
 
   /**
    *
-   *
-   * @param {any} event
+   * Sets the event value to the state
+   * @param {object} event The event of the HTML component
    *
    * @memberOf GroupChat
    */
@@ -37,8 +56,8 @@ class GroupChat extends React.Component {
 
   /**
    *
-   *
-   * @param {any} event
+   * Sets the state of messagePriority
+   * @param {object} event
    *
    * @memberOf GroupChat
    */
@@ -47,8 +66,8 @@ class GroupChat extends React.Component {
   }
 
   /**
-   *@
    *
+   * Makes an action call to get newMessage
    *
    * @memberOf GroupChat
    */
@@ -66,6 +85,7 @@ class GroupChat extends React.Component {
       });
   }
   /**
+   * Renders Groupchat
    * @returns Groupchat
    * @memberof GroupChat
    */

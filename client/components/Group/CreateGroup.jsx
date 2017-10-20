@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { addMemberToGroup } from '../../actions/createGroupRequest';
 import { connect } from 'react-redux';
-import Homepage from '../Homepage';
 import { createGroup } from '../../actions/groups';
 
 class CreateGroup extends Component {
 
   /**
    * Creates an instance of CreateGroup.
+   * Binds class methods
    * @param {any} props
    *
    * @memberOf CreateGroup
@@ -21,14 +20,20 @@ class CreateGroup extends Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
-  componentDidMount() {
-    $('.collapsible').collapsible(); // eslint-disable-line
-  }
+  /* eslint-disable */
 
   /**
-   *
-   *
-   * @param {any} event
+   * Mounts Materialize collapsible
+   * 
+   * @memberOf CreateGroup
+   */
+  componentDidMount() {
+    $('.collapsible').collapsible();
+  }
+  /* eslint-enable */
+  /**
+   * Sets the event value to the state
+   * @param {object} event The event of the HTML component
    *
    * @memberOf CreateGroup
    */
@@ -38,7 +43,7 @@ class CreateGroup extends Component {
 
   /**
    *
-   *
+   * Makes an action call to createGroup
    *
    * @memberOf CreateGroup
    */
@@ -56,8 +61,8 @@ class CreateGroup extends Component {
 
   /**
    *
-   *
-   * @returns
+   * Renders CreateGroup component
+   * @returns CreateGroup HTML component
    *
    * @memberOf CreateGroup
    */

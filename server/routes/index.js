@@ -19,7 +19,7 @@ module.exports = (app) => {
   app.post('/api/v1/group', auth.checkToken, groupsController.create);
 
 // api route to get all groups
-  app.get('/api/v1/groups', groupsController.retrieve);
+  app.get('/api/v1/groups', auth.checkToken, groupsController.retrieve);
 
 // api route to get a specific group
   app.get('/api/v1/group/:groupid', groupsController.retrieveGroup);

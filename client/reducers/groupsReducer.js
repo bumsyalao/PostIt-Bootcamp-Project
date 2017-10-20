@@ -39,7 +39,7 @@ export default (state = initialState, action = {}) => {
       const groupList = state.groupList;
       const group = groupList.filter(grp => grp.id === action.groupId)[0];
       group.users = action.users;
-      const allGroups = groupList.filter(group => group.id !== action.groupId);
+      const allGroups = groupList.filter(grop => grop.id !== action.groupId);
 
       return {
         ...state,

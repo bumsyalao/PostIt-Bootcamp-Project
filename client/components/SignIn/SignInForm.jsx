@@ -6,44 +6,47 @@ import { connect } from 'react-redux';
 import { userSignInRequest } from '../../actions/SignInAction';
 
 /**
- *
- *
- * @export
  * @class SignInForm
  * @extends {React.Component}
  */
 export class SignInForm extends React.Component {
+  /**
+   * Creates an instance of SignInForm.
+   * Binds class methods.
+   * @param {any} props
+   *
+   * @memberOf SignInForm
+   */
   constructor(props) {
     super(props);
     this.state = { loggedIn: false };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
-
   /**
-   *
-   *
-   * @param {any} event
+   * Sets the event value to the state
+   * @return {void}
+   * @param {Object} event The event of the HTML component
    *
    * @memberOf SignInForm
    */
   onChange(event) {
     this.setState({ [event.target.id]: event.target.value });
   }
-
   /**
-   *
-   *
+   * Validates the SignInForm
+   * Makes an action call to sign in the user
+   * Toasts the error/success message
+   * @return {void}
    *
    * @memberOf SignInForm
    */
   onSubmit() {
-    const data = {
+    const SigninInfo = {
       username: this.state.username,
       password: this.state.password
     };
-    this.props
-      .userSignInRequest(data)
+    this.props.userSignInRequest(SigninInfo)
       .then(() => {
         if (this.props.access.message) {
           this.props.history.push('/homepage/welcome-page');
@@ -57,8 +60,8 @@ export class SignInForm extends React.Component {
 
   /**
    *
-   *
-   * @returns
+   * Renders SignInForm component
+   * @returns SignInForm HTML component
    *
    * @memberOf SignInForm
    */

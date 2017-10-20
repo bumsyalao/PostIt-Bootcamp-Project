@@ -48,6 +48,14 @@
     }]
   },
   "globals": {
-    "Materialize": true
+    "Materialize": true,
+    "React": true
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js",".jsx"]
+      }
+    }
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import SignInForm from './signInForm';
+import { SignInForm } from './SignInForm';
 // import { userSignInRequest } from '../../actions/SignInAction';
 import NavigationBar from '../NavigationBar';
 
@@ -8,22 +8,15 @@ import NavigationBar from '../NavigationBar';
  * @class SignInPage
  * @extends {React.Component}
  */
-class SignInPage extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    return (
+const SignInPage = ({ match }) => (
     <div>
-      <NavigationBar match={this.props.match}/>
+      <NavigationBar match={match}/>
     <div className="row">
       <div className="col-md-4 col-md-offset-4">
         <SignInForm />
       </div>
     </div>
     </div>
-    );
-  }
-}
+);
 
 export default SignInPage;

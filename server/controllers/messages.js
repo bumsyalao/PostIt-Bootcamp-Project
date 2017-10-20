@@ -8,10 +8,11 @@ const Users = models.Users;
 module.exports = {
 
   /**
+   * Create new message
+   * Route: POST: /group/:groupid/message
    *
-   *
-   * @param {any} req
-   * @param {any} res
+   * @param {object} request object
+   * @param {any} response object
    */
   create(req, res) {
     const groupId = Number(req.params.groupid);
@@ -33,10 +34,11 @@ module.exports = {
   },
 
   /**
+   * Retrieve message
+   * Route: GET: /group/:groupid/messages
    *
-   *
-   * @param {any} req
-   * @param {any} res
+   * @param {object} request object
+   * @param {object} response object
    */
   retrieve(req, res) {
     const groupId = Number(req.params.groupid);

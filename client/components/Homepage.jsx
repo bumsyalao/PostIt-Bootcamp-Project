@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, IndexRoute, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import NavigationBar from './NavigationBar';
 import Sidebar from './Sidebar';
@@ -8,7 +8,6 @@ import ListGroup from './Group/ListGroup';
 import GroupChat from './Group/GroupChat';
 import UsersPage from '../components/Users/UsersPage';
 import UserProfile from '../components/Users/UserProfile';
-import welcome from '../images/welcome.png';
 import Welcomepage from './Welcomepage';
 
 
@@ -17,6 +16,15 @@ import Welcomepage from './Welcomepage';
  * @extends {React.Component}
  */
 class Homepage extends React.Component {
+
+  /**
+   *
+   * Check if user is authenticated
+   * Toast access message
+   * Intialize materialize collapsible
+   *
+   * @memberOf Homepage
+   */
   componentDidMount() {
     if (!this.props.access.isAuthenticated) {
       this.props.history.push('/signin');
@@ -26,7 +34,8 @@ class Homepage extends React.Component {
   }
 
   /**
-   * @returns homepage
+   * Renders Homepage
+   * @returns Homepage
    * @memberOf Homepage
    */
   render() {

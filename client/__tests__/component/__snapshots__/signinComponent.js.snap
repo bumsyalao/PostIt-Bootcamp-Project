@@ -60,11 +60,6 @@ exports[`SignInForm Component should match the SignInForm snapshot 1`] = `
       onClick={[Function]}
     >
       Login
-      <i
-        className="material-icons right"
-      >
-        send
-      </i>
     </button>
   </div>
   <div

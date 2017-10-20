@@ -6,10 +6,11 @@ const Groups = models.Groups;
 module.exports = {
 
   /**
+   * Add user to a group
+   * Route: POST: /group/:groupid/user
    *
-   *
-   * @param {any} req
-   * @param {any} res
+   * @param {object} request object
+   * @param {object} response object
    */
   create(req, res) {
     const groupId = Number(req.params.groupid);
@@ -39,10 +40,11 @@ module.exports = {
   },
 
   /**
+   * List all users in a groups
+   * Route: GET: /group/:groupid/users
    *
-   *
-   * @param {any} req
-   * @param {any} res
+   * @param {object} request object
+   * @param {object} response object
    */
   listall(req, res) {
     const groupId = req.params.groupid;
@@ -61,10 +63,11 @@ module.exports = {
   },
 
   /**
+   * Remove a user from a group
+   * Route: DELETE: /group/:groupid/user
    *
-   *
-   * @param {any} req
-   * @param {any} res
+   * @param {object} request object
+   * @param {object} response object
    */
   removeUser(req, res) {
     const userId = req.body.userId;

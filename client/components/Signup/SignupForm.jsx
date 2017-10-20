@@ -1,11 +1,22 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import userSignupRequest from '../../actions/signupAction';
+
 
 /**
  * @class SignupForm
  * @extends {React.Component}
  */
 class SignupForm extends React.Component {
+
+  /**
+   * Creates an instance of SignupForm.
+   * Binds class methods.
+   * @param {object} props
+   *
+   * @memberOf SignupForm
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -19,13 +30,35 @@ class SignupForm extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
+
+  /**
+   * Sets the event value to the state
+   * @return {void}
+   * @param {Object} event The event of the HTML component
+   *
+   * @memberOf SignupForm
+   */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
+
+  /**
+   *
+   * Validates the SignupForm
+   * Makes an action call to sign up the user
+   * Toasts the error/success message
+   * @return {void}
+   * @param {object} event
+   *
+   * @memberOf SignupForm
+   */
   onSubmit(event) {
     event.preventDefault();
-    this.props
-      .userSignupRequest(this.state)
+    if (this.state.confirmPassword !== this.state.password) {
+      Materialize.toast('Password does not match', 5000, 'red');
+      this.props.history.push('/signup');
+    } else {
+      this.props.userSignupRequest(this.state)
       .then(() => {
         this.setState({ loggedIn: true });
         this.props.history.push('/homepage/welcome-page');
@@ -33,9 +66,12 @@ class SignupForm extends React.Component {
       .catch((error) => {
         Materialize.toast(error.response.data.message, 5000, 'red');
       });
+    }
   }
 
   /**
+   *
+   * renders signupForm component
    * @returns signupform
    * @memberOf SignupForm
    */
@@ -116,7 +152,8 @@ class SignupForm extends React.Component {
           </div>
           <button
             onClick={this.onSubmit}
-            className="btn waves-effect waves-light col s6 offset-s3 red lighten-2"
+            className=
+            "btn waves-effect waves-light col s6 offset-s3 red lighten-2"
             type="submit"
             name="action"
           >
@@ -129,4 +166,4 @@ class SignupForm extends React.Component {
 }
 
 
-export default withRouter(SignupForm);
+export default connect(null, { userSignupRequest })(withRouter(SignupForm));

@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { userSignInRequest } from '../../actions/SignInAction';
 import { allUserGroups } from '../../actions/users';
 
 
 /**
- *
- *
  * @class UserProfile
  * @extends {Component}
  */
@@ -19,9 +16,8 @@ class UserProfile extends Component {
   }
 
   /**
-   *
-   *
-   *
+   * Makes action call to get UserId
+   * @returns userId
    * @memberOf UserProfile
    */
   componentDidMount() {
@@ -29,10 +25,8 @@ class UserProfile extends Component {
   }
 
   /**
-   *
-   *
-   * @param {any} nextProps
-   *
+   * Update the state if the props are change
+   * @param {object} nextProps
    * @memberOf UserProfile
    */
   componentWillReceiveProps(nextProps) {
@@ -43,10 +37,8 @@ class UserProfile extends Component {
   }
 
   /**
-   *
-   *
-   * @returns
-   *
+   * Renders UserProfile
+   * @returns UserProfile
    * @memberOf UserProfile
    */
   render() {

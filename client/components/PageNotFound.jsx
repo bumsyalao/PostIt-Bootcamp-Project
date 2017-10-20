@@ -2,7 +2,7 @@ import React from 'react';
 import NavigationBar from './NavigationBar';
 
 
-const ErrorPage = () => (
+const PageNotFound = () => (
   <div>
     <NavigationBar />
     <h4 className="error-page"> Error 404: Page Not Found </h4>
@@ -10,4 +10,4 @@ const ErrorPage = () => (
 
 );
 
-export default ErrorPage;
+export default PageNotFound;

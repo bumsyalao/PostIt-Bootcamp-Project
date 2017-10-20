@@ -10,7 +10,7 @@ const userSignupRequest = userData =>
   dispatch => axios.post('/api/v1/user/signup', userData)
     .then((response) => {
       localStorage.setItem('token', response.data.token);
-      dispatch(setCurrentUser(response.data.existingUser, SIGN_UP_USER));
+      dispatch(setCurrentUser(response.data.userInfo, SIGN_UP_USER));
       attachAuthorizationToken(
         response.data.token
       );

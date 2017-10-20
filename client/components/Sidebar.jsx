@@ -1,8 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import CreateGroup from './Group/CreateGroup';
-import ListGroup from './Group/ListGroup';
 import feminist from '../images/feminist.png';
 
 const SideBar = () => (
@@ -61,10 +58,6 @@ const SideBar = () => (
           </div>
         </li>
       </ul>
-      <div className="col s9">
-        {' '}
-        <img src="https://goo.gl/photos/UpxDhKEHMoz8Fadu8" />{' '}
-      </div>
     </ul>
   </div>
 );

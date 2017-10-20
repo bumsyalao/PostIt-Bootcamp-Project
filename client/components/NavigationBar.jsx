@@ -10,6 +10,13 @@ import { withRouter } from 'react-router-dom';
  * @extends {React.Component}
  */
 class NavigationBar extends React.Component {
+
+  /**
+   * Creates an instance of NavigationBar.
+   * @param {object} props
+   *
+   * @memberOf NavigationBar
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -18,7 +25,7 @@ class NavigationBar extends React.Component {
     this.logout = this.logout.bind(this);
   }
   /**
-   *
+   * Update the state if the props are changed
    * @param {object} nextProps
    */
   componentWillReceiveProps(nextProps) {
@@ -30,6 +37,7 @@ class NavigationBar extends React.Component {
   }
 
   /**
+   * Updates the state.
    * @memberOf NavigationBar
    */
   componentDidMount() {
@@ -37,6 +45,14 @@ class NavigationBar extends React.Component {
       user: this.props.isAuth
     });
   }
+
+  /**
+   * Prevent default action of event
+   *
+   * @param {object} event
+   *
+   * @memberOf NavigationBar
+   */
   logout(event) {
     event.preventDefault();
     this.props.logout();
@@ -44,6 +60,7 @@ class NavigationBar extends React.Component {
   }
 
   /**
+   * Renders NavigationBar
    * @returns Navigationbar
    * @memberOf NavigationBar
    */
@@ -62,19 +79,15 @@ class NavigationBar extends React.Component {
                 <li>
                   <Link to="/signin">Login</Link>
                 </li>
+                <li>
+                  <Link to="/signup">Register</Link>
+                </li>
               </ul>
             )}
             {this.props.match.url === '/signup' && (
               <ul className="right">
                 <li>
                   <Link to="/signin">Login</Link>
-                </li>
-              </ul>
-            )}
-            {this.props.match.url === '/' && (
-              <ul className="right">
-                <li>
-                  <Link to="/signup">Register</Link>
                 </li>
               </ul>
             )}
