@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-class GroupCard extends Component {
+/**
+ *
+ * @class GroupCard
+ * @extends {Component}
+ */
+export class GroupCard extends Component {
   /* eslint-disable */
   /**
    * Mounts materialize collapsible
    * @memberOf GroupCard
    */
-  componentDidMount() {
-    $('.collapsible').collapsible();
-  }
+  // componentDidMount() {
+  //   $('.collapsible').collapsible();
+  // }
   /* eslint-enable */
   /**
    * Renders GroupCard component

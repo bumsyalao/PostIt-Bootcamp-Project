@@ -7,7 +7,7 @@ import NavigationBar from '../NavigationBar';
  * @class ForgotPassword
  * @extends {Component}
  */
-class ForgotPassword extends Component {
+export class ForgotPassword extends Component {
 
   /**
    * Creates an instance of ForgotPassword.
@@ -34,7 +34,7 @@ class ForgotPassword extends Component {
    */
   onChange(event) {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.id]: event.target.value
     });
   }
 
@@ -88,6 +88,7 @@ class ForgotPassword extends Component {
             </div>
             <div className="input-field col s6 offset-s3">
               <button
+                id="submit-forgotPassword"
                 onClick={this.forgotPassword}
                 className=
                 "btn waves-effect waves-light col s6 offset-s3 red lighten-2"

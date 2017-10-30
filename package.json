@@ -78,6 +78,7 @@
     "sass-loader": "^6.0.6",
     "sequelize": "^3.30.4",
     "sequelize-cli": "^2.7.0",
+    "sinon": "^4.0.1",
     "style-loader": "^0.18.2",
     "supertest": "^3.0.0",
     "webpack": "^3.5.2",
@@ -113,6 +114,17 @@
   "jest": {
     "roots": [
       "<rootDir>/client/"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/vendors/**",
+      "!**/public/**",
+      "!**/server/**",
+      "!**/coverage/**",
+      "!webpack.config.js",
+      "!bundle.js"
     ]
   }
 }

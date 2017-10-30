@@ -8,7 +8,7 @@ import userSignupRequest from '../../actions/signupAction';
  * @class SignupForm
  * @extends {React.Component}
  */
-class SignupForm extends React.Component {
+export class SignupForm extends React.Component {
 
   /**
    * Creates an instance of SignupForm.
@@ -39,7 +39,7 @@ class SignupForm extends React.Component {
    * @memberOf SignupForm
    */
   onChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
+    this.setState({ [event.target.id]: event.target.value });
   }
 
   /**
@@ -83,6 +83,7 @@ class SignupForm extends React.Component {
           <div className="input-field col s6 offset-s3">
             <i className="material-icons prefix">account_circle</i>
             <input
+              id="username"
               value={this.state.username}
               onChange={this.onChange}
               name="username"
@@ -97,6 +98,7 @@ class SignupForm extends React.Component {
           <div className="input-field col s6 offset-s3">
             <i className="material-icons prefix">email</i>
             <input
+              id="email"
               value={this.state.email}
               onChange={this.onChange}
               name="email"
@@ -111,6 +113,7 @@ class SignupForm extends React.Component {
           <div className="input-field col s6 offset-s3">
             <i className="material-icons prefix">phone</i>
             <input
+              id="phonenumber"
               value={this.state.phonenumber}
               onChange={this.onChange}
               name="phonenumber"
@@ -125,6 +128,7 @@ class SignupForm extends React.Component {
           <div className="input-field col s6 offset-s3">
             <i className="material-icons prefix">lock</i>
             <input
+              id="password"
               value={this.state.password}
               onChange={this.onChange}
               name="password"
@@ -139,6 +143,7 @@ class SignupForm extends React.Component {
           <div className="input-field col s6 offset-s3">
             <i className="material-icons prefix">lock</i>
             <input
+              id="confirmPassword"
               value={this.state.confirmPassword}
               onChange={this.onChange}
               name="confirmPassword"
@@ -152,6 +157,7 @@ class SignupForm extends React.Component {
           </div>
           <button
             onClick={this.onSubmit}
+            id="submit-signup"
             className=
             "btn waves-effect waves-light col s6 offset-s3 red lighten-2"
             type="submit"

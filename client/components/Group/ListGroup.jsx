@@ -10,7 +10,7 @@ import GroupCard from './GroupCard';
  * @class ListGroup
  * @extends {React.Component}
  */
-class ListGroup extends React.Component {
+export class ListGroup extends React.Component {
 
   /**
    * Creates an instance of ListGroup.

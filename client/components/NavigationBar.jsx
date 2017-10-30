@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { logout } from '../actions/SignInAction';
-import { withRouter } from 'react-router-dom';
 
 
 /**

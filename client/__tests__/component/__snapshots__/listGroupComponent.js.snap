@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ListGroup component should match the ListGroupSnapshot 1`] = `
+<div>
+  <div
+    className="row form-margin"
+  >
+    <div
+      className="col s12 m12 l12"
+    />
+    <div
+      className="col s12 m12 l12"
+    />
+  </div>
+</div>
+`;

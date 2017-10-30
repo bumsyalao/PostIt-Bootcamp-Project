@@ -35,11 +35,13 @@ class ResetPassword extends Component {
    */
   onChange(event) {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.id]: event.target.value
     });
   }
 
   /**
+   * Gets the password
+   * Gets the hash
    * Makes an action call to get resetPasswordAction
    * Toasts the error/success message
    *
@@ -73,6 +75,7 @@ class ResetPassword extends Component {
             <div className="input-field col s6 offset-s3">
               <i className="material-icons prefix">lock</i>
               <input
+                id="password"
                 value={this.state.password}
                 onChange={this.onChange}
                 name="password"
@@ -87,6 +90,7 @@ class ResetPassword extends Component {
             <div className="input-field col s6 offset-s3">
               <i className="material-icons prefix">lock</i>
               <input
+                id="confirmPassword"
                 value={this.state.confirmPassword}
                 onChange={this.onChange}
                 name="confirmPassword"
@@ -100,6 +104,7 @@ class ResetPassword extends Component {
             </div>
             <div className="input-field col s6 offset-s3">
               <button
+                id="resetPassword"
                 onClick={this.resetPassword}
                 className=
                 "btn waves-effect waves-light col s6 offset-s3 red lighten-2"

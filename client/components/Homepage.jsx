@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import NavigationBar from './NavigationBar';
-import Sidebar from './Sidebar';
+import Sidebar from './SideBar';
 import CreateGroup from './Group/CreateGroup';
 import ListGroup from './Group/ListGroup';
 import GroupChat from './Group/GroupChat';

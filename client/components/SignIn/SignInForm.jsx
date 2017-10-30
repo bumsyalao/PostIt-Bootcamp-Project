@@ -47,15 +47,17 @@ export class SignInForm extends React.Component {
       password: this.state.password
     };
     this.props.userSignInRequest(SigninInfo)
-      .then(() => {
+      .then((res) => {
         if (this.props.access.message) {
           this.props.history.push('/homepage/welcome-page');
-          Materialize.toast('Login Succesful', 5000, 'green');
+          Materialize.toast(res.message, 5000, 'green');
         } else {
-          Materialize.toast('Login Failed', 5000, 'red');
+          Materialize.toast(`Login Failed: ${res.response.data.message}`, 5000, 'red');
         }
       })
-      .catch(err => Materialize.toast(err.response.data.message, 5000, 'red'));
+      .catch((error) => {
+        Materialize.toast(error.response.data.message, 5000, 'red');
+      });
   }
 
   /**

@@ -140,8 +140,8 @@ class UsersPage extends Component {
             <tbody>
                 {users && users.map(({ email, username }) =>
                   <tr>
-                    <td>{username}</td>
-                    <td>{email}</td>
+                    <td key={username.id}>{username}</td>
+                    <td key={email.id}>{email}</td>
                   </tr>
               )}
             </tbody>

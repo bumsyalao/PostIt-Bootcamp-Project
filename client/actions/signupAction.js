@@ -14,7 +14,7 @@ const userSignupRequest = userData =>
       attachAuthorizationToken(
         response.data.token
       );
-      Materialize.toast('Your account has been created', 5000, 'green');
+      Materialize.toast(response.data.message, 5000, 'green');
     })
     .catch((error) => {
       throw error;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { SignInForm } from './SignInForm';
+import SignInForm from './SignInForm';
 // import { userSignInRequest } from '../../actions/SignInAction';
 import NavigationBar from '../NavigationBar';
 

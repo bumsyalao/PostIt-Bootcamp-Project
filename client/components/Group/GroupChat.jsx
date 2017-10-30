@@ -5,11 +5,11 @@ import { newMessage, getMessages } from '../../actions/messages';
 import { getGroup } from '../../actions/groups';
 
 /**
- * 
+ *
  * @class GroupChat
  * @extends {React.Component}
  */
-class GroupChat extends React.Component {
+export class GroupChat extends React.Component {
 
   /**
    * Creates an instance of GroupChat.
@@ -35,7 +35,7 @@ class GroupChat extends React.Component {
    * @memberOf GroupChat
    */
   componentDidMount() {
-    $('select').material_select(); // eslint-disable-line
+    // $('select').material_select(); // eslint-disable-line
     const { groupId } = this.props.match.params;
     this.props.getMessages(groupId);
     this.props.getGroup(groupId);
@@ -50,7 +50,7 @@ class GroupChat extends React.Component {
    */
   onChange(event) {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.id]: event.target.value
     });
   }
 
@@ -114,6 +114,7 @@ class GroupChat extends React.Component {
                 <label>Priority</label>
                 <select
                   name="messagePriority"
+                  id="messagePriority"
                   className="browser-default input-field select"
                   onChange={this.onChange}
                 >
@@ -124,7 +125,9 @@ class GroupChat extends React.Component {
                   <option value="urgent">Urgent</option>
                   <option value="critical">Critical</option>
                 </select>
-                <button onClick={this.onSubmit}> Send </button>
+                <button
+                id="submit-message"
+                onClick={this.onSubmit}> Send </button>
               </div>
             </div>
           </div>

@@ -10,7 +10,7 @@ describe('Sign in reducer', () => {
         id: 21,
         username: 'banku',
         email: 'bunku@gmail.com',
-        phonenumber: '0908209193`0',
+        phonenumber: '09082091930',
         password: '$2a$10$zzPmWsXS/.CgFRpqFnKchO…K3IjcyXe2',
         forgotpasswordtoken: null,
         expirytime: null,

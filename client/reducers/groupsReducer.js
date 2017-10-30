@@ -9,6 +9,7 @@ const initialState = {
 
 export default (state = initialState, action = {}) => {
   switch (action.type) {
+
     case types.ADD_MEMBER_TO_GROUP:
       return {
         ...state,
@@ -34,17 +35,16 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
       };
-
-    case types.GET_GROUP_USERS:
+    case types.GET_GROUP_USERS: {
       const groupList = state.groupList;
-      const group = groupList.filter(grp => grp.id === action.groupId)[0];
-      group.users = action.users;
+      const group = groupList.find(grp => grp.id === action.groupId);
       const allGroups = groupList.filter(grop => grop.id !== action.groupId);
 
       return {
         ...state,
-        groupList: [...allGroups, group]
+        groupList: [...allGroups, { ...group, users: action.users }]
       };
+    }
     default: return state;
   }
 };

@@ -3,6 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createGroup } from '../../actions/groups';
 
+/**
+ *
+ * @class CreateGroup
+ * @extends {Component}
+ */
 class CreateGroup extends Component {
 
   /**
@@ -50,10 +55,9 @@ class CreateGroup extends Component {
   onSubmit() {
     this.props.createGroup(this.state.groupname)
       .then(() => {
-        Materialize.toast('created', 5000, 'green');
+        Materialize.toast('Created Group Succesfully', 5000, 'green');
         this.props.history.push('/homepage/groups');
       }).catch((err) => {
-        console.log(err.response.data);
         Materialize.toast(err.response.data, 5000, 'red');
       });
   }
@@ -79,7 +83,7 @@ class CreateGroup extends Component {
             className="validate" required/>
             <label className="active" htmlFor="groupname">Groupname</label>
           </div>
-            <button onClick={this.onSubmit} disabled={this.state.invalid}
+            <button onClick={this.onSubmit}
             className=
             "btn waves-effect waves-light col s6 offset-s3 red lighten-2"
             type="submit" name="action">Enter

@@ -4,7 +4,7 @@ import React from 'react';
 import { shallow, configure } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import adapter from 'enzyme-adapter-react-16';
-import { SignInForm } from '../../components/SignIn/SignInForm.jsx';
+import { SignInForm } from '../../components/SignIn/SignInForm';
 
 
 configure({ adapter: new adapter() });

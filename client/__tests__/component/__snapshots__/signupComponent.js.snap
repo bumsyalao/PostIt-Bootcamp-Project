@@ -1,0 +1,141 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SignUpForm Component should match the SignUpForm snapshot 1`] = `
+<div
+  className="form-margin"
+>
+  <form
+    className="col s12 container"
+  >
+    <div
+      className="input-field col s6 offset-s3"
+    >
+      <i
+        className="material-icons prefix"
+      >
+        account_circle
+      </i>
+      <input
+        className="validate"
+        id="username"
+        name="username"
+        onChange={[Function]}
+        required={true}
+        type="text"
+        value=""
+      />
+      <label
+        className="active"
+        htmlFor="username"
+      >
+        username
+      </label>
+    </div>
+    <div
+      className="input-field col s6 offset-s3"
+    >
+      <i
+        className="material-icons prefix"
+      >
+        email
+      </i>
+      <input
+        className="validate"
+        id="email"
+        name="email"
+        onChange={[Function]}
+        required={true}
+        type="email"
+        value=""
+      />
+      <label
+        className="active"
+        htmlFor="email"
+      >
+        email
+      </label>
+    </div>
+    <div
+      className="input-field col s6 offset-s3"
+    >
+      <i
+        className="material-icons prefix"
+      >
+        phone
+      </i>
+      <input
+        className="validate"
+        id="phonenumber"
+        name="phonenumber"
+        onChange={[Function]}
+        required={true}
+        type="tel"
+        value=""
+      />
+      <label
+        className="active"
+        htmlFor="icon_telephone"
+      >
+        phone number
+      </label>
+    </div>
+    <div
+      className="input-field col s6 offset-s3"
+    >
+      <i
+        className="material-icons prefix"
+      >
+        lock
+      </i>
+      <input
+        className="validate"
+        id="password"
+        name="password"
+        onChange={[Function]}
+        required={true}
+        type="password"
+        value=""
+      />
+      <label
+        className="active"
+        htmlFor="password"
+      >
+        password
+      </label>
+    </div>
+    <div
+      className="input-field col s6 offset-s3"
+    >
+      <i
+        className="material-icons prefix"
+      >
+        lock
+      </i>
+      <input
+        className="validate"
+        id="confirmPassword"
+        name="confirmPassword"
+        onChange={[Function]}
+        required={true}
+        type="password"
+        value=""
+      />
+      <label
+        className="active"
+        htmlFor="confirmPassword"
+      >
+        confirm password
+      </label>
+    </div>
+    <button
+      className="btn waves-effect waves-light col s6 offset-s3 red lighten-2"
+      id="submit-signup"
+      name="action"
+      onClick={[Function]}
+      type="submit"
+    >
+      Register
+    </button>
+  </form>
+</div>
+`;
