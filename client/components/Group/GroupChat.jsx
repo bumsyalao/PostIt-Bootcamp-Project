@@ -35,7 +35,6 @@ export class GroupChat extends React.Component {
    * @memberOf GroupChat
    */
   componentDidMount() {
-    // $('select').material_select(); // eslint-disable-line
     const { groupId } = this.props.match.params;
     this.props.getMessages(groupId);
     this.props.getGroup(groupId);

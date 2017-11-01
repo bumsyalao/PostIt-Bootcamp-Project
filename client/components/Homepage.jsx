@@ -15,7 +15,7 @@ import Welcomepage from './Welcomepage';
  * @class Homepage
  * @extends {React.Component}
  */
-class Homepage extends React.Component {
+export class Homepage extends React.Component {
 
   /**
    *
@@ -30,7 +30,6 @@ class Homepage extends React.Component {
       this.props.history.push('/signin');
       Materialize.toast('Please SignIn or Register', 5000, 'red');
     }
-    $('.collapsible').collapsible(); // eslint-disable-line
   }
 
   /**

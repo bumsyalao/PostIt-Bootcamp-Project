@@ -3,11 +3,11 @@ import React from 'react';
 import { shallow, configure } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import adapter from 'enzyme-adapter-react-16';
-import MessageCard from '../../components/Group/MessageCard';
+import { NavigationBar } from '../../components/NavigationBar';
 
 configure({ adapter: new adapter() });
 
-describe('MessageCard Component', () => {
+describe('NavigationBar component', () => {
   const spy = jest.fn();
   beforeEach(() => {
     global.Materialize = { toast: jest.fn() };
@@ -16,22 +16,20 @@ describe('MessageCard Component', () => {
     spy.mockReset();
   });
   const props = {
-    createdAt: spy,
-    username: spy,
-    User: { username: spy },
-    messagePriority: spy,
-    message: spy
-
+    isAuth: true,
+    history: {
+      push: spy
+    },
+    match: {
+      url: ''
+    },
+    logout: jest.fn(() => Promise.resolve())
   };
   const component = shallow(
-    <MessageCard {...props} />
+    <NavigationBar {...props}/>
   );
 
-  test('should render component', () => {
-    expect(component.exists()).toBe(true);
-  });
-
-  test('should match the Message card snapshot', () => {
+  test('should match the NavigationBar component snapshot', () => {
     const tree = toJson(component);
     expect(tree).toMatchSnapshot();
   });

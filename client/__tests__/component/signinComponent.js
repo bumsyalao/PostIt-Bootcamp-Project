@@ -5,7 +5,7 @@ import { shallow, configure } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import adapter from 'enzyme-adapter-react-16';
 import { SignInForm } from '../../components/SignIn/SignInForm';
-
+import SignInPage from '../../components/SignIn/SignInPage';
 
 configure({ adapter: new adapter() });
 
@@ -32,11 +32,20 @@ describe('SignInForm Component', () => {
   };
   const component = shallow(
     <SignInForm {...props} />);
+  const signinPage = shallow(
+    <SignInPage />
+  );
+
+  test('should render sub components', () => {
+    expect(signinPage.exists()).toBe(true);
+  });
+
   test('should match the SignInForm snapshot', () => {
     const tree = toJson(component);
     expect(component.find('input').length).toEqual(2);
     expect(tree).toMatchSnapshot();
   });
+
   test('it should set state when onChange function is called', () => {
     component.instance().onChange(
       { target: { value: 'banku', id: 'username' } });
@@ -45,6 +54,7 @@ describe('SignInForm Component', () => {
     expect(component.state('username')).toEqual('banku');
     expect(component.state('password')).toEqual('banku123');
   });
+
   test(
     'it should submit fields in state when onSubmit function is called', () => {
       jest.spyOn(component.instance(), 'onSubmit');
@@ -56,6 +66,7 @@ describe('SignInForm Component', () => {
       expect(component.find('#submit-signin').length).toEqual(1);
       expect(component.instance().onSubmit.mock.calls.length).toEqual(0);
     });
+
   test('onSubmit function should run', () => {
     component.instance().onChange(
       { target: { value: 'banku', id: 'username' } });

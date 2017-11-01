@@ -7,7 +7,7 @@ export default (
   switch (action.type) {
     case types.SIGN_UP_USER:
     case types.SIGN_IN_USER:
-    case types.LOGGEDIN_USER:
+    // case types.LOGGEDIN_USER:
       return {
         ...state,
         user: action.userInfo,

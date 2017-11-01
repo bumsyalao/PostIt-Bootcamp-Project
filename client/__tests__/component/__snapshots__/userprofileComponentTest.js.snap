@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserProfile Compoenent should match User Profile component snapshot 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="container form-margin"
+  >
+    <div
+      className="col s12 m7"
+    >
+      <div
+        className="profile-image"
+      >
+        <img
+          height="100px"
+          src="https://yt3.ggpht.com/-niLM_ysnU8w/AAAAAAAAAAI/AAAAAAAAAAA/0UFxDTtpaJg/s900-c-k-no-mo-rj-c0xffffff/photo.jpg"
+          width="100px"
+        />
+      </div>
+      <div
+        className="card-content"
+      >
+        <div
+          className="collection"
+        >
+          <div
+            className="collection-item"
+          >
+            <span>
+               
+            </span>
+          </div>
+          <div
+            className="collection-item"
+          >
+            <span>
+               
+            </span>
+          </div>
+          <div
+            className="collection-item"
+          >
+            <span>
+               
+            </span>
+          </div>
+          <div
+            className="collection-item"
+          >
+             
+            Groups I belong to:
+             
+             
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

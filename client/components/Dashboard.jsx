@@ -11,7 +11,7 @@ const Dashboard = () => (
       <div className="container">
         <br />
         <div className="center">
-          <img src={welcomeimage} />
+         <img src={welcomeimage} />
         </div>
         <div className="row center">
           <h3 className="header col s12 light">Share Anything, With Anyone!</h3>

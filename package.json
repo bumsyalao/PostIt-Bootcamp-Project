@@ -102,6 +102,7 @@
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.3.0",
     "file-loader": "^0.11.2",
+    "img-loader": "^2.0.0",
     "jest": "^21.0.1",
     "nodemon": "^1.11.0",
     "nyc": "^11.1.0",
@@ -112,6 +113,9 @@
     "webpack-hot-middleware": "^2.18.2"
   },
   "jest": {
+     "moduleNameMapper": { 
+       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/assetsTransformer.js", "\\.(css|less)$": "<rootDir>/assetsTransformer.js" 
+      },
     "roots": [
       "<rootDir>/client/"
     ],
@@ -124,7 +128,14 @@
       "!**/server/**",
       "!**/coverage/**",
       "!webpack.config.js",
-      "!bundle.js"
+      "!bundle.js",
+      "!**/client/Index.jsx",
+      "!**/client/Routes.jsx",
+      "!**/client/bundle.js",
+      "!**/client/reducers/rootReducer.js",
+      "!**/client/store/**",
+      "!**/client/utils/**",
+      "!assetsTransformer.js"
     ]
   }
 }

@@ -10,21 +10,21 @@ import './scss/style.scss';
 import Routes from './Routes';
 
 const token = global.localStorage.getItem('token');
-if (token) {
-  attachAuthorizationToken(token);
-  const decoded = jwt.decode(token);
-  if (decoded) {
-    const userInfo = {
-      userId: decoded.userId,
-      username: decoded.username,
-      email: decoded.email,
-      phonenumber: decoded.phonenumber
-    };
-    store.dispatch(
-      { type: LOGGEDIN_USER, userInfo }
-    );
-  }
-}
+// if (token) {
+//   attachAuthorizationToken(token);
+//   const decoded = jwt.decode(token);
+//   if (decoded) {
+//     const userInfo = {
+//       userId: decoded.userId,
+//       username: decoded.username,
+//       email: decoded.email,
+//       phonenumber: decoded.phonenumber
+//     };
+//     store.dispatch(
+//       { type: LOGGEDIN_USER, userInfo }
+//     );
+//   }
+// }
 
 render(
   <Provider store={store}>

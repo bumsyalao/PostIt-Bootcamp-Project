@@ -10,11 +10,11 @@ const initialState = {
 export default (state = initialState, action = {}) => {
   switch (action.type) {
 
-    case types.ADD_MEMBER_TO_GROUP:
-      return {
-        ...state,
-        group: action.groups
-      };
+    // case types.ADD_MEMBER_TO_GROUP:
+    //   return {
+    //     ...state,
+    //     group: action.groups
+    //   };
     case types.LIST_GROUPS:
       return {
         ...state,

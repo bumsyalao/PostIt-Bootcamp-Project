@@ -8,7 +8,7 @@ import { createGroup } from '../../actions/groups';
  * @class CreateGroup
  * @extends {Component}
  */
-class CreateGroup extends Component {
+export class CreateGroup extends Component {
 
   /**
    * Creates an instance of CreateGroup.
@@ -25,17 +25,8 @@ class CreateGroup extends Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
-  /* eslint-disable */
 
-  /**
-   * Mounts Materialize collapsible
-   * 
-   * @memberOf CreateGroup
-   */
-  componentDidMount() {
-    $('.collapsible').collapsible();
-  }
-  /* eslint-enable */
+
   /**
    * Sets the event value to the state
    * @param {object} event The event of the HTML component
@@ -43,7 +34,7 @@ class CreateGroup extends Component {
    * @memberOf CreateGroup
    */
   onChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
+    this.setState({ [event.target.id]: event.target.value });
   }
 
   /**
@@ -76,17 +67,22 @@ class CreateGroup extends Component {
         <div className="col s12 container form-margin">
           <div className="input-field col s6 offset-s3">
             <i className="material-icons prefix">group</i>
-            <input value={this.state.groupname}
+            <input
+            id="groupname"
+            value={this.state.groupname}
             onChange={this.onChange}
             name="groupname"
             type="text"
             className="validate" required/>
             <label className="active" htmlFor="groupname">Groupname</label>
           </div>
-            <button onClick={this.onSubmit}
+            <button
+            id="submit-group"
+            onClick={this.onSubmit}
             className=
             "btn waves-effect waves-light col s6 offset-s3 red lighten-2"
-            type="submit" name="action">Enter
+            type="submit"
+            name="action">Enter
               <i className="material-icons right">send</i>
             </button>
         </div>

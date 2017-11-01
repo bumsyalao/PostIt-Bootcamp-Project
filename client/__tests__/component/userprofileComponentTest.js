@@ -3,11 +3,11 @@ import React from 'react';
 import { shallow, configure } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import adapter from 'enzyme-adapter-react-16';
-import MessageCard from '../../components/Group/MessageCard';
+import { UserProfile } from '../../components/Users/UserProfile';
 
 configure({ adapter: new adapter() });
 
-describe('MessageCard Component', () => {
+describe('UserProfile Compoenent', () => {
   const spy = jest.fn();
   beforeEach(() => {
     global.Materialize = { toast: jest.fn() };
@@ -16,22 +16,27 @@ describe('MessageCard Component', () => {
     spy.mockReset();
   });
   const props = {
-    createdAt: spy,
-    username: spy,
-    User: { username: spy },
-    messagePriority: spy,
-    message: spy
+    access: {
+      user: { id: 1 }
+    },
 
+    allUserGroups: jest.fn(() => Promise.resolve())
+  };
+  const nextProps = {
+    user: spy,
+    access: {
+      user: spy
+    }
   };
   const component = shallow(
-    <MessageCard {...props} />
+    <UserProfile {...props} />
   );
 
-  test('should render component', () => {
+  test('should render componemt', () => {
     expect(component.exists()).toBe(true);
   });
 
-  test('should match the Message card snapshot', () => {
+  test('should match User Profile component snapshot', () => {
     const tree = toJson(component);
     expect(tree).toMatchSnapshot();
   });

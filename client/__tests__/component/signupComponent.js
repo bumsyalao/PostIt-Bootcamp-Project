@@ -5,6 +5,7 @@ import { shallow, configure } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import adapter from 'enzyme-adapter-react-16';
 import { SignupForm } from '../../components/Signup/SignupForm';
+import SignupPage from '../../components/Signup/SignupPage';
 
 configure({ adapter: new adapter() });
 
@@ -31,6 +32,12 @@ describe('SignUpForm Component', () => {
   const component = shallow(
     <SignupForm {...props} />
   );
+  const signupPage = shallow(
+    <SignupPage />
+  );
+  test('should render sub components', () => {
+    expect(signupPage.exists()).toBe(true);
+  });
   test('should match the SignUpForm snapshot', () => {
     const tree = toJson(component);
     expect(component.find('input').length).toEqual(5);

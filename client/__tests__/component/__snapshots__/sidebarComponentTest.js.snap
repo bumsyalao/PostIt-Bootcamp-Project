@@ -1,0 +1,134 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SideBar component should match the SideBar component snapshot 1`] = `
+<div>
+  <ul
+    className="side-nav fixed #e57373 red lighten-2"
+    id="slide-out"
+  >
+    <li>
+      <div
+        className="user-view"
+      >
+        <div
+          className="side-logo center"
+        >
+          <img
+            height="50%"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+            width="50%"
+          />
+        </div>
+      </div>
+    </li>
+    <ul
+      className="collapsible "
+      data-collapsible="accordion"
+    >
+      <li>
+        <div
+          className="collapsible-header"
+          id="document-header"
+        >
+          <i
+            className="material-icons"
+          >
+            group
+          </i>
+          Groups
+        </div>
+        <div
+          className="collapsible-body #ffebee red lighten-5"
+          id="groups"
+        >
+          <ul>
+            <li>
+              <Link
+                id="create-group"
+                replace={false}
+                to="/homepage/create-group"
+              >
+                <i
+                  className="material-icons"
+                >
+                  group_add
+                </i>
+                Create Group
+              </Link>
+            </li>
+            <li>
+              <Link
+                replace={false}
+                to="/homepage/groups"
+              >
+                <i
+                  className="material-icons"
+                >
+                  groups
+                </i>
+                All Groups
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+    <ul
+      className="collapsible "
+      data-collapsible="accordion"
+    >
+      <li>
+        <div
+          className="collapsible-header"
+          id="document-header"
+        >
+          <i
+            className="material-icons"
+          >
+            person
+          </i>
+          Users
+        </div>
+        <div
+          className="collapsible-body #ffebee red lighten-5"
+          id="groups"
+        >
+          <ul>
+            <li>
+              <Link
+                id="create-group"
+                replace={false}
+                to="/homepage/user-profile"
+              >
+                <i
+                  className="material-icons"
+                >
+                  face
+                </i>
+                Profile
+              </Link>
+            </li>
+            <li>
+              <Link
+                replace={false}
+                to="/homepage/search-users"
+              >
+                <i
+                  className="material-icons"
+                >
+                  search
+                </i>
+                Search User
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </ul>
+</div>
+`;

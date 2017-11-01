@@ -23,6 +23,10 @@ describe('ListGroup component', () => {
     groupList: {
       map: spy
     },
+    groups: [{
+      id: 'vgh',
+      groupname: 'Bunmi'
+    }],
     getGroups: jest.fn(() => Promise.resolve()),
     addMemberToGroup: jest.fn(() => Promise.resolve()),
     listAllUsers: jest.fn(() => Promise.resolve())
@@ -38,15 +42,10 @@ describe('ListGroup component', () => {
     expect(component.find('GroupCard').length).toEqual(0);
     expect(tree).toMatchSnapshot();
   });
-  test('it should get groups when getGroups is called', () => {
-    const newspy = jest.spyOn(ListGroup.prototype, 'getGroups');
-    const mountComponent = mount(<ListGroup {...props} />);
-    mountComponent.instance().getGroups();
-    expect(newspy).toHaveBeenCalled();
-  });
+
   test('it should run function onClick', () => {
     const newerspy = jest.spyOn(component.instance(), 'joinGroup');
-    component.find('#id').simulate('click', { preventDefault: () => {} });
+    component.find('#id').simulate('click');
     expect(newerspy).toHaveBeenCalled();
   });
 });

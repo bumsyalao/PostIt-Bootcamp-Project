@@ -1,4 +1,3 @@
-/* global localStorage */
 import axios from 'axios';
 import {
   GET_GROUP_USERS,

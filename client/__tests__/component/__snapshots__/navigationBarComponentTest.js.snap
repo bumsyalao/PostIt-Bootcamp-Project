@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavigationBar component should match the NavigationBar component snapshot 1`] = `
+<div>
+  <nav>
+    <div
+      className="nav-wrapper container"
+    >
+      <Link
+        replace={false}
+        to="/"
+      >
+        <a
+          className="brand-logo"
+          id="logo-container"
+        >
+          POST-IT
+        </a>
+      </Link>
+      <a
+        className="button-collapse"
+        data-activates="nav-mobile"
+        href="#"
+      >
+        <i
+          className="mdi-navigation-menu"
+        />
+      </a>
+    </div>
+  </nav>
+</div>
+`;

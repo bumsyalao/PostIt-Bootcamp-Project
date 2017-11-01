@@ -3,18 +3,21 @@ import React from 'react';
 import { shallow, configure } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import adapter from 'enzyme-adapter-react-16';
-import ResetPassword from '../../components/SignIn/ResetPassword';
+import { ResetPassword } from '../../components/SignIn/ResetPassword';
 
 configure({ adapter: new adapter() });
 
 describe('ResetPassword component', () => {
   const spy = jest.fn();
+
   beforeEach(() => {
     global.Materialize = { toast: jest.fn() };
   });
+
   afterEach(() => {
     spy.mockReset();
   });
+
   const props = {
     match: {
       path: ''
@@ -27,17 +30,19 @@ describe('ResetPassword component', () => {
     },
     resetPasswordAction: jest.fn(() => Promise.resolve())
   };
+
   const component = shallow(
     <ResetPassword {...props} />
   );
+
   test('should match the ResetPassword snapshot', () => {
     const tree = toJson(component);
-    expect(component.find('input').length).toEqual(0);
+    expect(component.find('input').length).toEqual(2);
     expect(tree).toMatchSnapshot();
   });
   test('it should set state when onChange function is called', () => {
     component.instance().onChange(
-      { traget: { value: 'banku123', id: 'password' } });
+      { target: { value: 'banku123', id: 'password' } });
     expect(component.state('password')).toEqual('banku123');
   });
   test('it should submit fields when resetPassword fuunction is called', () => {

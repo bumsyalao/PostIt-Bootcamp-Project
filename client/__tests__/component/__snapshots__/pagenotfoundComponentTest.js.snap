@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageNotFound component should match the PageNotFound component snapshot 1`] = `
+<div>
+  <Connect(withRouter(NavigationBar)) />
+  <h4
+    className="error-page"
+  >
+     Error 404: Page Not Found 
+  </h4>
+</div>
+`;

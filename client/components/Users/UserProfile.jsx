@@ -7,7 +7,7 @@ import { allUserGroups } from '../../actions/users';
  * @class UserProfile
  * @extends {Component}
  */
-class UserProfile extends Component {
+export class UserProfile extends Component {
   constructor() {
     super();
     this.state = {
@@ -21,7 +21,7 @@ class UserProfile extends Component {
    * @memberOf UserProfile
    */
   componentDidMount() {
-    this.props.allUserGroups(this.props.access.user.userId).catch();
+    this.props.allUserGroups(this.props.access.user.id).catch();
   }
 
   /**

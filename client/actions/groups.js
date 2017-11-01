@@ -8,6 +8,7 @@ export const loadGroup = group => ({
   type: LIST_GROUP,
   group
 });
+
 export const loadGroups = groups => ({
   type: LIST_GROUPS,
   groups
@@ -33,6 +34,7 @@ export const getGroups = () => dispatch =>
     .catch((error) => {
       throw error;
     });
+
 export const getGroup = groupid => dispatch =>
     axios
       .get(`/api/v1/group/${groupid}`)

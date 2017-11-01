@@ -3,11 +3,12 @@ import React from 'react';
 import { shallow, configure } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import adapter from 'enzyme-adapter-react-16';
-import MessageCard from '../../components/Group/MessageCard';
+// import feminist from '../../images/feminist.png';
+import SideBar from '../../components/SideBar';
 
 configure({ adapter: new adapter() });
 
-describe('MessageCard Component', () => {
+describe('SideBar component', () => {
   const spy = jest.fn();
   beforeEach(() => {
     global.Materialize = { toast: jest.fn() };
@@ -15,23 +16,13 @@ describe('MessageCard Component', () => {
   afterEach(() => {
     spy.mockReset();
   });
-  const props = {
-    createdAt: spy,
-    username: spy,
-    User: { username: spy },
-    messagePriority: spy,
-    message: spy
 
-  };
   const component = shallow(
-    <MessageCard {...props} />
+    <SideBar />
+     
   );
 
-  test('should render component', () => {
-    expect(component.exists()).toBe(true);
-  });
-
-  test('should match the Message card snapshot', () => {
+  test('should match the SideBar component snapshot', () => {
     const tree = toJson(component);
     expect(tree).toMatchSnapshot();
   });
