@@ -37,8 +37,8 @@ export default (state = initialState, action = {}) => {
       };
     case types.GET_GROUP_USERS: {
       const groupList = state.groupList;
-      const group = groupList.find(grp => grp.id === action.groupId);
-      const allGroups = groupList.filter(grop => grop.id !== action.groupId);
+      const group = groupList.find(foundGroup => foundGroup.id === action.groupId);
+      const allGroups = groupList.filter(allGroup => allGroup.id !== action.groupId);
 
       return {
         ...state,

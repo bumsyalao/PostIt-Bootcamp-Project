@@ -76836,11 +76836,11 @@ exports.default = function () {
     case types.GET_GROUP_USERS:
       {
         var groupList = state.groupList;
-        var group = groupList.find(function (grp) {
-          return grp.id === action.groupId;
+        var group = groupList.find(function (foundGroup) {
+          return foundGroup.id === action.groupId;
         });
-        var allGroups = groupList.filter(function (grop) {
-          return grop.id !== action.groupId;
+        var allGroups = groupList.filter(function (allGroup) {
+          return allGroup.id !== action.groupId;
         });
 
         return _extends({}, state, {
