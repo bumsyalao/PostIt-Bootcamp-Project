@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-expressions */
 import chai from 'chai';
-import models from '../../server/models';
+import models from '../../models';
 
 
 const Messages = models.Messages;

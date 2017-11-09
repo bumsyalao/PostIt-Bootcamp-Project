@@ -50,7 +50,11 @@
   },
   "globals": {
     "Materialize": true,
-    "React": true
+    "React": true,
+    "window": true,
+    "$": true,
+    "document": true,
+    "localStorage": true
   },
   "settings": {
     "import/resolver": {

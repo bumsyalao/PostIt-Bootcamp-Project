@@ -42,7 +42,7 @@ export default (state = initialState, action = {}) => {
 
       return {
         ...state,
-        groupList: [...allGroups, { ...group, users: action.users }]
+        groupList: [{ ...group, users: action.users }, ...allGroups]
       };
     }
     default: return state;

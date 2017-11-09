@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import feminist from '../images/feminist.png';
 
+
 const SideBar = () => (
   <div>
     <ul id="slide-out" className="side-nav fixed #e57373 red lighten-2">

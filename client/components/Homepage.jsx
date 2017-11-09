@@ -26,6 +26,7 @@ export class Homepage extends React.Component {
    * @memberOf Homepage
    */
   componentDidMount() {
+    $('.collapsible').collapsible();
     if (!this.props.access.isAuthenticated) {
       this.props.history.push('/signin');
       Materialize.toast('Please SignIn or Register', 5000, 'red');

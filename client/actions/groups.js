@@ -43,8 +43,8 @@ export const getGroup = groupid => dispatch =>
       });
 
 export const getAllUsers = (offset, limit = 5) => dispatch =>
-axios
-    .get(`/api/v1/users?limit=${limit}&offset=${offset}`)
+    axios
+     .get(`/api/v1/users?limit=${limit}&offset=${offset}`)
     .then((response) => {
       dispatch(loadAllUsers(response.data));
     })

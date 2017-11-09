@@ -13,6 +13,9 @@ export class GroupCard extends Component {
    * @returns GroupCard component
    * @memberOf GroupCard
    */
+  componentDidMount() {
+    $('.collapsible').collapsible();
+  }
   render() {
     const { groupname, id, joinGroup, listUsers, users } = this.props;
 

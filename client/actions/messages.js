@@ -21,8 +21,8 @@ export const getMessages = id =>
  })
 .catch((error) => { throw error; });
 
-export const newMessage = (groupId, username, data) =>
-dispatch => axios.post(`/api/v1/group/${groupId}/message`, data)
+export const newMessage = (groupId, username, message) =>
+dispatch => axios.post(`/api/v1/group/${groupId}/message`, message)
  .then((response) => {
    dispatch(loadMessage(response.data, username, groupId));
  })

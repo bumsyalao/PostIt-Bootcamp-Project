@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { allUserGroups } from '../../actions/users';
-
+import photo from '../../images/photo.jpg';
 
 /**
  * @class UserProfile
@@ -21,7 +21,8 @@ export class UserProfile extends Component {
    * @memberOf UserProfile
    */
   componentDidMount() {
-    this.props.allUserGroups(this.props.access.user.id).catch();
+    const userid = this.props.access.user.userId;
+    this.props.allUserGroups(userid).catch();
   }
 
   /**
@@ -48,7 +49,7 @@ export class UserProfile extends Component {
           <div className="col s12 m7">
             <div className="profile-image">
               <img
-                src="https://yt3.ggpht.com/-niLM_ysnU8w/AAAAAAAAAAI/AAAAAAAAAAA/0UFxDTtpaJg/s900-c-k-no-mo-rj-c0xffffff/photo.jpg"
+                src={photo}
                 width="100px"
                 height="100px"
               />
@@ -69,7 +70,7 @@ export class UserProfile extends Component {
                   Groups I belong to:{' '}
                   {this.state.groups &&
                     this.state.groups.map(group => (
-                      <div className="chip">{group.groupname}</div>
+                      <div className="chip" key={group.id} > {group.groupname}</div>
                     ))}{' '}
                 </div>
               </div>

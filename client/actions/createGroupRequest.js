@@ -1,4 +1,3 @@
-/* global */
 import axios from 'axios';
 import { ADD_USER_TO_GROUP } from './types';
 

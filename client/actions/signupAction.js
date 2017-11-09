@@ -1,10 +1,11 @@
-/* global localStorage */
-/* global Materialize */
 import axios from 'axios';
 import attachAuthorizationToken from '../utils/attachToken';
 import { SIGN_UP_USER } from './types';
-import setCurrentUser from './authAction';
 
+export const setCurrentUser = (userInfo, type) => ({
+  type,
+  userInfo
+});
 
 const userSignupRequest = userData =>
   dispatch => axios.post('/api/v1/user/signup', userData)

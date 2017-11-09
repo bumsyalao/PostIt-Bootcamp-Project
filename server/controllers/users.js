@@ -98,9 +98,16 @@ module.exports = {
               secret,
               { expiresIn: '1 day' }
             );
+            const userDetails = {
+              userId: foundUser.id,
+              username: foundUser.username,
+              email: foundUser.email,
+              phonenumber: foundUser.phonenumber
+              
+            };
             return res.status(200).send({
               token,
-              foundUser,
+              userDetails,
               message: 'You have logged in succesfully'
             });
           }

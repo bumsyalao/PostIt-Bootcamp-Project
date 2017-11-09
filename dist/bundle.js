@@ -12146,6 +12146,8 @@ var GET_GROUP_USERS = exports.GET_GROUP_USERS = 'GET_GROUP_USERS';
 var LIST_ALL_USERS = exports.LIST_ALL_USERS = 'LIST_ALL_USERS';
 var LIST_GROUP = exports.LIST_GROUP = 'LIST_GROUP';
 var ALL_USERS_GROUPS = exports.ALL_USERS_GROUPS = 'ALL_USERS_GROUPS';
+var RECOVER_PASSWORD = exports.RECOVER_PASSWORD = 'RECOVER_PASSWORD';
+var UPDATE_PASSWORD = exports.UPDATE_PASSWORD = 'UPDATE_PASSWORD';
 
 /***/ }),
 /* 24 */
@@ -14728,6 +14730,7 @@ module.exports = __webpack_require__(584);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.NavigationBar = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -14753,7 +14756,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * @class NavigationBar
  * @extends {React.Component}
  */
-var NavigationBar = function (_React$Component) {
+var NavigationBar = exports.NavigationBar = function (_React$Component) {
   _inherits(NavigationBar, _React$Component);
 
   /**
@@ -19642,7 +19645,7 @@ exports.default = attachAuthorizationToken;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.resetPasswordAction = exports.forgotPasswordAction = exports.userSignInRequest = exports.logout = undefined;
+exports.resetPasswordAction = exports.forgotPasswordAction = exports.userSignInRequest = exports.userSigninSuccess = exports.logout = exports.userSignoutSuccess = undefined;
 
 var _axios = __webpack_require__(36);
 
@@ -19656,42 +19659,47 @@ var _types = __webpack_require__(23);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var userSignoutSuccess = exports.userSignoutSuccess = function userSignoutSuccess() {
+  return {
+    type: _types.SIGN_OUT_USER
+  };
+}; /* global localStorage */
 var logout = exports.logout = function logout() {
   return function (dispatch) {
     localStorage.removeItem('token');
     (0, _attachToken2.default)(false);
-    return dispatch({ type: _types.SIGN_OUT_USER });
+    return dispatch(userSignoutSuccess());
   };
-}; /* global localStorage */
+};
+
+var userSigninSuccess = exports.userSigninSuccess = function userSigninSuccess(userDetails, message) {
+  return {
+    userInfo: userDetails,
+    type: _types.SIGN_IN_USER,
+    message: message };
+};
+
 var userSignInRequest = exports.userSignInRequest = function userSignInRequest(userData) {
   return function (dispatch) {
     return _axios2.default.post('/api/v1/user/signin', userData).then(function (response) {
       localStorage.setItem('token', response.data.token);
-      return dispatch({
-        userInfo: response.data.foundUser,
-        type: _types.SIGN_IN_USER,
-        message: response.data.message
-      });
-    }).catch(function (error) {
-      throw error;
-    });
-  };
-};
-var forgotPasswordAction = exports.forgotPasswordAction = function forgotPasswordAction(email) {
-  return function (dispatch) {
-    return _axios2.default.post('/api/v1/user/forgot-password', email).then(function (response) {
-      console.log(response.data);
+      (0, _attachToken2.default)(response.data.token);
+      return dispatch(userSigninSuccess(response.data.userDetails, response.data.message));
     }).catch(function (error) {
       throw error;
     });
   };
 };
 
+var forgotPasswordAction = exports.forgotPasswordAction = function forgotPasswordAction(email) {
+  return function (dispatch) {
+    return _axios2.default.post('/api/v1/user/forgot-password', email);
+  };
+};
+
 var resetPasswordAction = exports.resetPasswordAction = function resetPasswordAction(data) {
   return function (dispatch) {
-    return _axios2.default.put('/api/v1/user/update-password/' + data.hash, data).then(function (response) {
-      console.log(response.data);
-    });
+    return _axios2.default.put('/api/v1/user/update-password/' + data.hash, data);
   };
 };
 
@@ -24448,6 +24456,7 @@ var getGroups = exports.getGroups = function getGroups() {
     });
   };
 };
+
 var getGroup = exports.getGroup = function getGroup(groupid) {
   return function (dispatch) {
     return _axios2.default.get('/api/v1/group/' + groupid).then(function (response) {
@@ -46556,9 +46565,9 @@ var getMessages = exports.getMessages = function getMessages(id) {
   };
 };
 
-var newMessage = exports.newMessage = function newMessage(groupId, username, data) {
+var newMessage = exports.newMessage = function newMessage(groupId, username, message) {
   return function (dispatch) {
-    return _axios2.default.post('/api/v1/group/' + groupId + '/message', data).then(function (response) {
+    return _axios2.default.post('/api/v1/group/' + groupId + '/message', message).then(function (response) {
       dispatch(loadMessage(response.data, username, groupId));
     }).catch(function (error) {
       throw error;
@@ -46586,7 +46595,6 @@ var _types = __webpack_require__(23);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/* global localStorage */
 var loadUsers = exports.loadUsers = function loadUsers(users, groupId) {
   return {
     type: _types.GET_GROUP_USERS,
@@ -46710,7 +46718,7 @@ if (token) {
     null,
     _react2.default.createElement(_Routes2.default, null)
   )
-), document.getElementById('app')); // eslint-disable-line
+), document.getElementById('app'));
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17)))
 
 /***/ }),
@@ -76806,10 +76814,12 @@ exports.default = function () {
   var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
   switch (action.type) {
-    case types.ADD_MEMBER_TO_GROUP:
-      return _extends({}, state, {
-        group: action.groups
-      });
+
+    // case types.ADD_MEMBER_TO_GROUP:
+    //   return {
+    //     ...state,
+    //     group: action.groups
+    //   };
     case types.LIST_GROUPS:
       return _extends({}, state, {
         groupList: action.groups
@@ -76823,20 +76833,20 @@ exports.default = function () {
 
     case types.LOAD_MESSAGE:
       return _extends({}, state);
-
     case types.GET_GROUP_USERS:
-      var groupList = state.groupList;
-      var group = groupList.filter(function (grp) {
-        return grp.id === action.groupId;
-      })[0];
-      group.users = action.users;
-      var allGroups = groupList.filter(function (grop) {
-        return grop.id !== action.groupId;
-      });
+      {
+        var groupList = state.groupList;
+        var group = groupList.find(function (grp) {
+          return grp.id === action.groupId;
+        });
+        var allGroups = groupList.filter(function (grop) {
+          return grop.id !== action.groupId;
+        });
 
-      return _extends({}, state, {
-        groupList: [].concat(_toConsumableArray(allGroups), [group])
-      });
+        return _extends({}, state, {
+          groupList: [_extends({}, group, { users: action.users })].concat(_toConsumableArray(allGroups))
+        });
+      }
     default:
       return state;
   }
@@ -76951,9 +76961,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(29);
 
-var _Sidebar = __webpack_require__(332);
+var _SideBar = __webpack_require__(332);
 
-var _Sidebar2 = _interopRequireDefault(_Sidebar);
+var _SideBar2 = _interopRequireDefault(_SideBar);
 
 var _Dashboard = __webpack_require__(612);
 
@@ -76963,11 +76973,11 @@ var _SignupPage = __webpack_require__(614);
 
 var _SignupPage2 = _interopRequireDefault(_SignupPage);
 
-var _SignInPage = __webpack_require__(618);
+var _SignInPage = __webpack_require__(617);
 
 var _SignInPage2 = _interopRequireDefault(_SignInPage);
 
-var _Homepage = __webpack_require__(620);
+var _Homepage = __webpack_require__(619);
 
 var _Homepage2 = _interopRequireDefault(_Homepage);
 
@@ -76990,7 +77000,7 @@ var Routes = function Routes() {
     _reactRouterDom.Switch,
     null,
     _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Dashboard2.default }),
-    _react2.default.createElement(_reactRouterDom.Route, { path: '/Sidebar', component: _Sidebar2.default }),
+    _react2.default.createElement(_reactRouterDom.Route, { path: '/Sidebar', component: _SideBar2.default }),
     _react2.default.createElement(_reactRouterDom.Route, { path: '/signup', component: _SignupPage2.default }),
     _react2.default.createElement(_reactRouterDom.Route, { path: '/signin', component: _SignInPage2.default }),
     _react2.default.createElement(_reactRouterDom.Route, { path: '/forgot-password', component: _ForgotPassword2.default }),
@@ -77147,6 +77157,7 @@ exports.default = SignupPage;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.SignupForm = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -77176,7 +77187,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * @class SignupForm
  * @extends {React.Component}
  */
-var SignupForm = function (_React$Component) {
+var SignupForm = exports.SignupForm = function (_React$Component) {
   _inherits(SignupForm, _React$Component);
 
   /**
@@ -77216,7 +77227,7 @@ var SignupForm = function (_React$Component) {
   _createClass(SignupForm, [{
     key: 'onChange',
     value: function onChange(event) {
-      this.setState(_defineProperty({}, event.target.name, event.target.value));
+      this.setState(_defineProperty({}, event.target.id, event.target.value));
     }
 
     /**
@@ -77274,6 +77285,7 @@ var SignupForm = function (_React$Component) {
               'account_circle'
             ),
             _react2.default.createElement('input', {
+              id: 'username',
               value: this.state.username,
               onChange: this.onChange,
               name: 'username',
@@ -77296,6 +77308,7 @@ var SignupForm = function (_React$Component) {
               'email'
             ),
             _react2.default.createElement('input', {
+              id: 'email',
               value: this.state.email,
               onChange: this.onChange,
               name: 'email',
@@ -77318,6 +77331,7 @@ var SignupForm = function (_React$Component) {
               'phone'
             ),
             _react2.default.createElement('input', {
+              id: 'phonenumber',
               value: this.state.phonenumber,
               onChange: this.onChange,
               name: 'phonenumber',
@@ -77340,6 +77354,7 @@ var SignupForm = function (_React$Component) {
               'lock'
             ),
             _react2.default.createElement('input', {
+              id: 'password',
               value: this.state.password,
               onChange: this.onChange,
               name: 'password',
@@ -77362,6 +77377,7 @@ var SignupForm = function (_React$Component) {
               'lock'
             ),
             _react2.default.createElement('input', {
+              id: 'confirmPassword',
               value: this.state.confirmPassword,
               onChange: this.onChange,
               name: 'confirmPassword',
@@ -77379,6 +77395,7 @@ var SignupForm = function (_React$Component) {
             'button',
             {
               onClick: this.onSubmit,
+              id: 'submit-signup',
               className: 'btn waves-effect waves-light col s6 offset-s3 red lighten-2',
               type: 'submit',
               name: 'action'
@@ -77405,6 +77422,7 @@ exports.default = (0, _reactRedux.connect)(null, { userSignupRequest: _signupAct
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.setCurrentUser = undefined;
 
 var _axios = __webpack_require__(36);
 
@@ -77416,21 +77434,22 @@ var _attachToken2 = _interopRequireDefault(_attachToken);
 
 var _types = __webpack_require__(23);
 
-var _authAction = __webpack_require__(617);
-
-var _authAction2 = _interopRequireDefault(_authAction);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/* global localStorage */
-/* global Materialize */
+var setCurrentUser = exports.setCurrentUser = function setCurrentUser(userInfo, type) {
+  return {
+    type: type,
+    userInfo: userInfo
+  };
+};
+
 var userSignupRequest = function userSignupRequest(userData) {
   return function (dispatch) {
     return _axios2.default.post('/api/v1/user/signup', userData).then(function (response) {
       localStorage.setItem('token', response.data.token);
-      dispatch((0, _authAction2.default)(response.data.userInfo, _types.SIGN_UP_USER));
+      dispatch(setCurrentUser(response.data.userInfo, _types.SIGN_UP_USER));
       (0, _attachToken2.default)(response.data.token);
-      Materialize.toast('Your account has been created', 5000, 'green');
+      Materialize.toast(response.data.message, 5000, 'green');
     }).catch(function (error) {
       throw error;
     });
@@ -77449,31 +77468,14 @@ exports.default = userSignupRequest;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var setCurrentUser = function setCurrentUser(userInfo, type) {
-  return {
-    type: type,
-    userInfo: userInfo
-  };
-};
-
-exports.default = setCurrentUser;
-
-/***/ }),
-/* 618 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 
 var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _SignInForm = __webpack_require__(619);
+var _SignInForm = __webpack_require__(618);
+
+var _SignInForm2 = _interopRequireDefault(_SignInForm);
 
 var _NavigationBar = __webpack_require__(37);
 
@@ -77497,7 +77499,7 @@ var SignInPage = function SignInPage(_ref) {
       _react2.default.createElement(
         'div',
         { className: 'col-md-4 col-md-offset-4' },
-        _react2.default.createElement(_SignInForm.SignInForm, null)
+        _react2.default.createElement(_SignInForm2.default, null)
       )
     )
   );
@@ -77506,7 +77508,7 @@ var SignInPage = function SignInPage(_ref) {
 exports.default = SignInPage;
 
 /***/ }),
-/* 619 */
+/* 618 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -77600,15 +77602,15 @@ var SignInForm = exports.SignInForm = function (_React$Component) {
         username: this.state.username,
         password: this.state.password
       };
-      this.props.userSignInRequest(SigninInfo).then(function () {
+      this.props.userSignInRequest(SigninInfo).then(function (res) {
         if (_this2.props.access.message) {
           _this2.props.history.push('/homepage/welcome-page');
-          Materialize.toast('Login Succesful', 5000, 'green');
+          Materialize.toast(res.message, 5000, 'green');
         } else {
-          Materialize.toast('Login Failed', 5000, 'red');
+          Materialize.toast('Login Failed: ' + res.response.data.message, 5000, 'red');
         }
-      }).catch(function (err) {
-        return Materialize.toast(err.response.data.message, 5000, 'red');
+      }).catch(function (error) {
+        Materialize.toast(error.response.data.message, 5000, 'red');
       });
     }
 
@@ -77715,7 +77717,7 @@ SignInForm.propTypes = {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, { userSignInRequest: _SignInAction.userSignInRequest })((0, _reactRouterDom.withRouter)(SignInForm));
 
 /***/ }),
-/* 620 */
+/* 619 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -77724,6 +77726,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, { userSignInRequest:
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.Homepage = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -77739,27 +77742,27 @@ var _NavigationBar = __webpack_require__(37);
 
 var _NavigationBar2 = _interopRequireDefault(_NavigationBar);
 
-var _Sidebar = __webpack_require__(332);
+var _SideBar = __webpack_require__(332);
 
-var _Sidebar2 = _interopRequireDefault(_Sidebar);
+var _SideBar2 = _interopRequireDefault(_SideBar);
 
-var _CreateGroup = __webpack_require__(621);
+var _CreateGroup = __webpack_require__(620);
 
 var _CreateGroup2 = _interopRequireDefault(_CreateGroup);
 
-var _ListGroup = __webpack_require__(622);
+var _ListGroup = __webpack_require__(621);
 
 var _ListGroup2 = _interopRequireDefault(_ListGroup);
 
-var _GroupChat = __webpack_require__(625);
+var _GroupChat = __webpack_require__(624);
 
 var _GroupChat2 = _interopRequireDefault(_GroupChat);
 
-var _UsersPage = __webpack_require__(627);
+var _UsersPage = __webpack_require__(626);
 
 var _UsersPage2 = _interopRequireDefault(_UsersPage);
 
-var _UserProfile = __webpack_require__(634);
+var _UserProfile = __webpack_require__(633);
 
 var _UserProfile2 = _interopRequireDefault(_UserProfile);
 
@@ -77779,7 +77782,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * @class Homepage
  * @extends {React.Component}
  */
-var Homepage = function (_React$Component) {
+var Homepage = exports.Homepage = function (_React$Component) {
   _inherits(Homepage, _React$Component);
 
   function Homepage() {
@@ -77801,11 +77804,11 @@ var Homepage = function (_React$Component) {
      * @memberOf Homepage
      */
     value: function componentDidMount() {
+      $('.collapsible').collapsible();
       if (!this.props.access.isAuthenticated) {
         this.props.history.push('/signin');
         Materialize.toast('Please SignIn or Register', 5000, 'red');
       }
-      $('.collapsible').collapsible(); // eslint-disable-line
     }
 
     /**
@@ -77820,7 +77823,7 @@ var Homepage = function (_React$Component) {
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_Sidebar2.default, null),
+        _react2.default.createElement(_SideBar2.default, null),
         _react2.default.createElement(
           'div',
           { className: 'homepage' },
@@ -77870,7 +77873,7 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, null)((0, _reactRouterDom.withRouter)(Homepage));
 
 /***/ }),
-/* 621 */
+/* 620 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -77879,6 +77882,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, null)((0, _reactRout
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.CreateGroup = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -77904,7 +77908,12 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var CreateGroup = function (_Component) {
+/**
+ *
+ * @class CreateGroup
+ * @extends {Component}
+ */
+var CreateGroup = exports.CreateGroup = function (_Component) {
   _inherits(CreateGroup, _Component);
 
   /**
@@ -77926,21 +77935,12 @@ var CreateGroup = function (_Component) {
     _this.onSubmit = _this.onSubmit.bind(_this);
     return _this;
   }
-  /* eslint-disable */
-
-  /**
-   * Mounts Materialize collapsible
-   * 
-   * @memberOf CreateGroup
-   */
-
 
   _createClass(CreateGroup, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
       $('.collapsible').collapsible();
     }
-    /* eslint-enable */
     /**
      * Sets the event value to the state
      * @param {object} event The event of the HTML component
@@ -77951,7 +77951,7 @@ var CreateGroup = function (_Component) {
   }, {
     key: 'onChange',
     value: function onChange(event) {
-      this.setState(_defineProperty({}, event.target.name, event.target.value));
+      this.setState(_defineProperty({}, event.target.id, event.target.value));
     }
 
     /**
@@ -77967,10 +77967,9 @@ var CreateGroup = function (_Component) {
       var _this2 = this;
 
       this.props.createGroup(this.state.groupname).then(function () {
-        Materialize.toast('created', 5000, 'green');
+        Materialize.toast('Created Group Succesfully', 5000, 'green');
         _this2.props.history.push('/homepage/groups');
       }).catch(function (err) {
-        console.log(err.response.data);
         Materialize.toast(err.response.data, 5000, 'red');
       });
     }
@@ -78000,7 +77999,9 @@ var CreateGroup = function (_Component) {
               { className: 'material-icons prefix' },
               'group'
             ),
-            _react2.default.createElement('input', { value: this.state.groupname,
+            _react2.default.createElement('input', {
+              id: 'groupname',
+              value: this.state.groupname,
               onChange: this.onChange,
               name: 'groupname',
               type: 'text',
@@ -78013,9 +78014,12 @@ var CreateGroup = function (_Component) {
           ),
           _react2.default.createElement(
             'button',
-            { onClick: this.onSubmit, disabled: this.state.invalid,
+            {
+              id: 'submit-group',
+              onClick: this.onSubmit,
               className: 'btn waves-effect waves-light col s6 offset-s3 red lighten-2',
-              type: 'submit', name: 'action' },
+              type: 'submit',
+              name: 'action' },
             'Enter',
             _react2.default.createElement(
               'i',
@@ -78044,7 +78048,7 @@ CreateGroup.propTypes = {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, { createGroup: _groups.createGroup })(CreateGroup);
 
 /***/ }),
-/* 622 */
+/* 621 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -78053,6 +78057,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, { createGroup: _grou
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.ListGroup = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -78064,7 +78069,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(18);
 
-var _createGroupRequest = __webpack_require__(623);
+var _createGroupRequest = __webpack_require__(622);
 
 var _createGroupRequest2 = _interopRequireDefault(_createGroupRequest);
 
@@ -78072,7 +78077,7 @@ var _messages = __webpack_require__(333);
 
 var _groups = __webpack_require__(118);
 
-var _GroupCard = __webpack_require__(624);
+var _GroupCard = __webpack_require__(623);
 
 var _GroupCard2 = _interopRequireDefault(_GroupCard);
 
@@ -78088,7 +78093,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * @class ListGroup
  * @extends {React.Component}
  */
-var ListGroup = function (_React$Component) {
+var ListGroup = exports.ListGroup = function (_React$Component) {
   _inherits(ListGroup, _React$Component);
 
   /**
@@ -78198,7 +78203,7 @@ var ListGroup = function (_React$Component) {
           { className: 'row form-margin' },
           _react2.default.createElement(
             'div',
-            { className: 'col s12 m12 l12' },
+            { className: 'col s12 m12 l12 scroll-group' },
             this.props.groupList.map(function (group) {
               return _react2.default.createElement(_GroupCard2.default, _extends({
                 key: group.id,
@@ -78242,7 +78247,7 @@ var actions = {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(ListGroup);
 
 /***/ }),
-/* 623 */
+/* 622 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -78251,6 +78256,7 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, actions)(ListGroup);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.addUser = undefined;
 
 var _axios = __webpack_require__(36);
 
@@ -78260,8 +78266,7 @@ var _types = __webpack_require__(23);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/* global */
-var addUser = function addUser(newGroup) {
+var addUser = exports.addUser = function addUser(newGroup) {
   return {
     type: _types.ADD_USER_TO_GROUP,
     newGroup: newGroup
@@ -78281,7 +78286,7 @@ var addMemberToGroup = function addMemberToGroup(groupId) {
 exports.default = addMemberToGroup;
 
 /***/ }),
-/* 624 */
+/* 623 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -78290,6 +78295,7 @@ exports.default = addMemberToGroup;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.GroupCard = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -78307,7 +78313,12 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var GroupCard = function (_Component) {
+/**
+ *
+ * @class GroupCard
+ * @extends {Component}
+ */
+var GroupCard = exports.GroupCard = function (_Component) {
   _inherits(GroupCard, _Component);
 
   function GroupCard() {
@@ -78319,21 +78330,15 @@ var GroupCard = function (_Component) {
   _createClass(GroupCard, [{
     key: 'componentDidMount',
 
-    /* eslint-disable */
-    /**
-     * Mounts materialize collapsible
-     * @memberOf GroupCard
-     */
-    value: function componentDidMount() {
-      $('.collapsible').collapsible();
-    }
-    /* eslint-enable */
+
     /**
      * Renders GroupCard component
      * @returns GroupCard component
      * @memberOf GroupCard
      */
-
+    value: function componentDidMount() {
+      $('.collapsible').collapsible();
+    }
   }, {
     key: 'render',
     value: function render() {
@@ -78477,7 +78482,7 @@ var GroupCard = function (_Component) {
 exports.default = GroupCard;
 
 /***/ }),
-/* 625 */
+/* 624 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -78486,6 +78491,7 @@ exports.default = GroupCard;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.GroupChat = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -78497,7 +78503,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(18);
 
-var _MessageCard = __webpack_require__(626);
+var _MessageCard = __webpack_require__(625);
 
 var _MessageCard2 = _interopRequireDefault(_MessageCard);
 
@@ -78516,11 +78522,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /**
- * 
+ *
  * @class GroupChat
  * @extends {React.Component}
  */
-var GroupChat = function (_React$Component) {
+var GroupChat = exports.GroupChat = function (_React$Component) {
   _inherits(GroupChat, _React$Component);
 
   /**
@@ -78555,7 +78561,7 @@ var GroupChat = function (_React$Component) {
   _createClass(GroupChat, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      $('select').material_select(); // eslint-disable-line
+      $('select').material_select();
       var groupId = this.props.match.params.groupId;
 
       this.props.getMessages(groupId);
@@ -78573,7 +78579,7 @@ var GroupChat = function (_React$Component) {
   }, {
     key: 'onChange',
     value: function onChange(event) {
-      this.setState(_defineProperty({}, event.target.name, event.target.value));
+      this.setState(_defineProperty({}, event.target.id, event.target.value));
     }
 
     /**
@@ -78664,7 +78670,7 @@ var GroupChat = function (_React$Component) {
                 _react2.default.createElement('textarea', {
                   value: this.state.message,
                   name: 'message',
-                  id: 'textarea',
+                  id: 'message',
                   onChange: this.onChange
                 }),
                 _react2.default.createElement(
@@ -78676,6 +78682,7 @@ var GroupChat = function (_React$Component) {
                   'select',
                   {
                     name: 'messagePriority',
+                    id: 'messagePriority',
                     className: 'browser-default input-field select',
                     onChange: this.onChange
                   },
@@ -78702,7 +78709,9 @@ var GroupChat = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                   'button',
-                  { onClick: this.onSubmit },
+                  {
+                    id: 'submit-message',
+                    onClick: this.onSubmit },
                   ' Send '
                 )
               )
@@ -78729,7 +78738,7 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, { newMessage: _messages.newMessage, getMessages: _messages.getMessages, getGroup: _groups.getGroup })(GroupChat);
 
 /***/ }),
-/* 626 */
+/* 625 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -78801,7 +78810,7 @@ var MessageCard = function MessageCard(props) {
 exports.default = MessageCard;
 
 /***/ }),
-/* 627 */
+/* 626 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -78810,6 +78819,7 @@ exports.default = MessageCard;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.UsersPage = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -78819,7 +78829,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(18);
 
-var _reactPaginate = __webpack_require__(628);
+var _reactPaginate = __webpack_require__(627);
 
 var _reactPaginate2 = _interopRequireDefault(_reactPaginate);
 
@@ -78837,7 +78847,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * @class UsersPage
  * @extends {Component}
  */
-var UsersPage = function (_Component) {
+var UsersPage = exports.UsersPage = function (_Component) {
   _inherits(UsersPage, _Component);
 
   /**
@@ -79042,12 +79052,12 @@ var UsersPage = function (_Component) {
                   null,
                   _react2.default.createElement(
                     'td',
-                    null,
+                    { key: username.id },
                     username
                   ),
                   _react2.default.createElement(
                     'td',
-                    null,
+                    { key: email.id },
                     email
                   )
                 );
@@ -79083,13 +79093,13 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, { getAllUsers: _users.getAllUsers })(UsersPage);
 
 /***/ }),
-/* 628 */
+/* 627 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _PaginationBoxView = __webpack_require__(629);
+var _PaginationBoxView = __webpack_require__(628);
 
 var _PaginationBoxView2 = _interopRequireDefault(_PaginationBoxView);
 
@@ -79099,7 +79109,7 @@ module.exports = _PaginationBoxView2.default;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 629 */
+/* 628 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79119,19 +79129,19 @@ var _propTypes = __webpack_require__(10);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _classnames = __webpack_require__(630);
+var _classnames = __webpack_require__(629);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _reactAddonsCreateFragment = __webpack_require__(631);
+var _reactAddonsCreateFragment = __webpack_require__(630);
 
 var _reactAddonsCreateFragment2 = _interopRequireDefault(_reactAddonsCreateFragment);
 
-var _PageView = __webpack_require__(632);
+var _PageView = __webpack_require__(631);
 
 var _PageView2 = _interopRequireDefault(_PageView);
 
-var _BreakView = __webpack_require__(633);
+var _BreakView = __webpack_require__(632);
 
 var _BreakView2 = _interopRequireDefault(_BreakView);
 
@@ -79377,7 +79387,7 @@ exports.default = PaginationBoxView;
 //# sourceMappingURL=PaginationBoxView.js.map
 
 /***/ }),
-/* 630 */
+/* 629 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -79432,7 +79442,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 
 /***/ }),
-/* 631 */
+/* 630 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79787,7 +79797,7 @@ module.exports = createReactFragment;
 
 
 /***/ }),
-/* 632 */
+/* 631 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79842,7 +79852,7 @@ exports.default = PageView;
 //# sourceMappingURL=PageView.js.map
 
 /***/ }),
-/* 633 */
+/* 632 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79873,7 +79883,7 @@ exports.default = BreakView;
 //# sourceMappingURL=BreakView.js.map
 
 /***/ }),
-/* 634 */
+/* 633 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79882,6 +79892,7 @@ exports.default = BreakView;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.UserProfile = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -79892,6 +79903,10 @@ var _react2 = _interopRequireDefault(_react);
 var _reactRedux = __webpack_require__(18);
 
 var _users = __webpack_require__(334);
+
+var _photo = __webpack_require__(634);
+
+var _photo2 = _interopRequireDefault(_photo);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -79905,7 +79920,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * @class UserProfile
  * @extends {Component}
  */
-var UserProfile = function (_Component) {
+var UserProfile = exports.UserProfile = function (_Component) {
   _inherits(UserProfile, _Component);
 
   function UserProfile() {
@@ -79929,7 +79944,8 @@ var UserProfile = function (_Component) {
   _createClass(UserProfile, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.props.allUserGroups(this.props.access.user.userId).catch();
+      var userid = this.props.access.user.userId;
+      this.props.allUserGroups(userid).catch();
     }
 
     /**
@@ -79969,7 +79985,7 @@ var UserProfile = function (_Component) {
               'div',
               { className: 'profile-image' },
               _react2.default.createElement('img', {
-                src: 'https://yt3.ggpht.com/-niLM_ysnU8w/AAAAAAAAAAI/AAAAAAAAAAA/0UFxDTtpaJg/s900-c-k-no-mo-rj-c0xffffff/photo.jpg',
+                src: _photo2.default,
                 width: '100px',
                 height: '100px'
               })
@@ -80019,7 +80035,8 @@ var UserProfile = function (_Component) {
                   this.state.groups && this.state.groups.map(function (group) {
                     return _react2.default.createElement(
                       'div',
-                      { className: 'chip' },
+                      { className: 'chip', key: group.id },
+                      ' ',
                       group.groupname
                     );
                   }),
@@ -80044,6 +80061,12 @@ var mapStateToProps = function mapStateToProps(state) {
 };
 
 exports.default = (0, _reactRedux.connect)(mapStateToProps, { allUserGroups: _users.allUserGroups })(UserProfile);
+
+/***/ }),
+/* 634 */
+/***/ (function(module, exports) {
+
+module.exports = "data:image/jpeg;base64,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AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAP/2Q=="
 
 /***/ }),
 /* 635 */
@@ -80089,6 +80112,7 @@ exports.default = Welcomepage;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.ForgotPassword = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -80118,7 +80142,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * @class ForgotPassword
  * @extends {Component}
  */
-var ForgotPassword = function (_Component) {
+var ForgotPassword = exports.ForgotPassword = function (_Component) {
   _inherits(ForgotPassword, _Component);
 
   /**
@@ -80153,7 +80177,7 @@ var ForgotPassword = function (_Component) {
   _createClass(ForgotPassword, [{
     key: 'onChange',
     value: function onChange(event) {
-      this.setState(_defineProperty({}, event.target.name, event.target.value));
+      this.setState(_defineProperty({}, event.target.id, event.target.value));
     }
 
     /**
@@ -80227,6 +80251,7 @@ var ForgotPassword = function (_Component) {
               _react2.default.createElement(
                 'button',
                 {
+                  id: 'submit-forgotPassword',
                   onClick: this.forgotPassword,
                   className: 'btn waves-effect waves-light col s6 offset-s3 red lighten-2',
                   name: 'action'
@@ -80260,6 +80285,7 @@ exports.default = (0, _reactRedux.connect)(null, { forgotPasswordAction: _SignIn
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.ResetPassword = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -80291,7 +80317,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
  * @class ResetPassword
  * @extends {Component}
  */
-var ResetPassword = function (_Component) {
+var ResetPassword = exports.ResetPassword = function (_Component) {
   _inherits(ResetPassword, _Component);
 
   /**
@@ -80327,10 +80353,12 @@ var ResetPassword = function (_Component) {
   _createClass(ResetPassword, [{
     key: 'onChange',
     value: function onChange(event) {
-      this.setState(_defineProperty({}, event.target.name, event.target.value));
+      this.setState(_defineProperty({}, event.target.id, event.target.value));
     }
 
     /**
+     * Gets the password
+     * Gets the hash
      * Makes an action call to get resetPasswordAction
      * Toasts the error/success message
      *
@@ -80383,6 +80411,7 @@ var ResetPassword = function (_Component) {
                 'lock'
               ),
               _react2.default.createElement('input', {
+                id: 'password',
                 value: this.state.password,
                 onChange: this.onChange,
                 name: 'password',
@@ -80405,6 +80434,7 @@ var ResetPassword = function (_Component) {
                 'lock'
               ),
               _react2.default.createElement('input', {
+                id: 'confirmPassword',
                 value: this.state.confirmPassword,
                 onChange: this.onChange,
                 name: 'confirmPassword',
@@ -80424,6 +80454,7 @@ var ResetPassword = function (_Component) {
               _react2.default.createElement(
                 'button',
                 {
+                  id: 'resetPassword',
                   onClick: this.resetPassword,
                   className: 'btn waves-effect waves-light col s6 offset-s3 red lighten-2',
                   name: 'action'

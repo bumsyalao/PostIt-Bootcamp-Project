@@ -99,7 +99,7 @@ export class ListGroup extends React.Component {
     return (
       <div>
         <div className="row form-margin">
-          <div className="col s12 m12 l12">
+          <div className="col s12 m12 l12 scroll-group">
             {this.props.groupList.map(group => (
               <GroupCard
                 key={group.id}

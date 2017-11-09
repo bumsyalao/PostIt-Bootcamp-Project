@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Sidebar from './components/Sidebar';
+import Sidebar from './components/SideBar';
 import Dashboard from './components/Dashboard';
 import SignupPage from './components/Signup/SignupPage';
 import SignInPage from './components/SignIn/SignInPage';

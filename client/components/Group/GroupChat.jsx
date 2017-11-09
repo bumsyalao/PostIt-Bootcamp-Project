@@ -35,6 +35,7 @@ export class GroupChat extends React.Component {
    * @memberOf GroupChat
    */
   componentDidMount() {
+    $('select').material_select();
     const { groupId } = this.props.match.params;
     this.props.getMessages(groupId);
     this.props.getGroup(groupId);
@@ -107,7 +108,7 @@ export class GroupChat extends React.Component {
                 <textarea
                   value={this.state.message}
                   name="message"
-                  id="textarea"
+                  id="message"
                   onChange={this.onChange}
                 />
                 <label>Priority</label>

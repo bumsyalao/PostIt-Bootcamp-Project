@@ -58,14 +58,48 @@ Login, Sign Up and start creating groups
 
 ### Contributing
 
-- Fork this repositry to your account.
-- Clone your repositry: ``` git clone ```
-https://github.com/andela-cofor/postit.git.
-- Create your feature branch: ``` git checkout -b new-feature ```
-- Commit your changes: ``` git commit -m "did something" ```
-- Push to the remote branch: ``` git push origin new-feature ```
-- Open a pull request.
+PostIt welcomes contributions in form of pull requests, as main purpose of open sourcing is to make it better and easier to use.
 
+#### Reporting Bugs
+
+If you find bugs in the application, create a New Issue with additional data, like your node/npm version or snippet of code and let me know about it.
+
+#### Contact
+
+If you need clarification on what is not clear, contact me via mail olubunmi.alao@andela.com
+
+Pull requests
+
+Fork the repository and create a branch from develop.
+If you have added or changed existing code, add unit tests!
+Ensure that all unit tests passes.
+Check that your code lints (Eslint)
+
+#### Style guide [airbnb](https://github.com/airbnb/javascript)
+
+- Use es6 syntax only
+- Use semicolons
+- 2 space indention (no tabs)
+- Prefer single quote over double quote
+- Prefer template strings
+- 120 character length limit
+- Do not use console.log, etc in code (expect debugging locally)
+- Always add exact versions of packages 3.2.0 instead of ^3.2.0
+
+##### Branch Naming Convention
+
+A sample of the branch naming convention is found on the Branch Naming wiki page
+
+##### Commit Message Convention
+
+A sample of the commit message convention is found on the Commit Message wiki page
+
+##### Pull Request Naming and Description Convention
+
+A sample of the pull request naming and description convention on the Pull Request Naming and Description wiki page
+
+### Author
+Olubunmi Alao
 #### Licence
 
 ISC

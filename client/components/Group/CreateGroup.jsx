@@ -26,7 +26,9 @@ export class CreateGroup extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-
+  componentDidMount() {
+    $('.collapsible').collapsible();
+  }
   /**
    * Sets the event value to the state
    * @param {object} event The event of the HTML component
