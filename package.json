@@ -15,8 +15,8 @@
     "coverage-report": "cat ./coverage/lcov.info | coveralls",
     "test": "NODE_ENV=test sequelize db:migrate && nyc --reporter=text --reporter=html --reporter=lcov mocha --compilers js:babel-core/register \"test/**/*.test.js\" --timeout 5000 && npm run coverage-report",
     "prebuild": "rm -rf ./dist",
-    "build": "npm run build:server && npm run build:client",
-    "postbuild": "node server.prod.js",
+    "build": "./node_modules/.bin/webpack --config ./webpack.config.prod.js",
+    "postbuild": "./node_modules/.bin/babel-node server.prod.js",
     "build:server": "babel server -d dist/server --copy-files --ignore test",
     "build:client": "NODE_ENV=production webpack --config webpack.config.prod.js && cp -R client dist/client"
   },
