@@ -31,7 +31,7 @@ module.exports = {
       type: Sequelize.STRING
     },
 
-    groupname: {
+    groupName: {
       allowNull: false,
       type: Sequelize.STRING
     },

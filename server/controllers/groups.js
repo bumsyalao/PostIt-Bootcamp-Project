@@ -15,16 +15,19 @@ module.exports = {
    */
   create(req, res) {
     Groups.create({
-      groupname: req.body.groupname
+      groupName: req.body.groupName
     })
     .then((newGroup) => {
       Usergroups.create({
         groupId: newGroup.id,
         userId: req.decoded.userId,
         username: req.decoded.username,
-        groupname: newGroup.groupname
+        groupName: newGroup.groupName
       })
-      .then(savedGroup => res.status(200).send(savedGroup))
+      .then(savedGroup => res.status(200).send({
+        savedGroup,
+        message: 'group created'
+      }))
       .catch((error) => {
         res.status(400).send(`user groups error: ${error.message}`);
       });
@@ -41,9 +44,11 @@ module.exports = {
    */
   retrieve(req, res) {
     Groups.findAll({
-      attributes: ['id', 'groupname']
+      attributes: ['id', 'groupName']
     })
-    .then(allGroups => res.status(200).send(allGroups))
+    .then(allGroups => res.status(200).send({
+      allGroups
+    }))
     .catch(error => res.status(400).send(error));
   },
 
@@ -56,29 +61,9 @@ module.exports = {
    */
   retrieveGroup(req, res) {
     Groups.findById(req.params.groupid)
-    .then(group => res.status(200).send(group))
+    .then(group => res.status(200).send({
+      group
+    }))
     .catch(error => res.status(400).send(error));
   },
-
-  /**
-   * Remove Group
-   * Route: DELETE: /group/:groupid
-   *
-   * @param {object} request object
-   * @param {object} response object
-   */
-  removeGroup(req, res) {
-    const groupId = req.params.groupid;
-    Groups.findById(groupId)
-  .then((group) => {
-    group.destroy()
-      .then(() => {
-        res.status(206).send({
-          message: 'Group has been deleted' });
-      }).catch((error) => {
-        res.status(500).send({
-          message: 'There was an error, please try again', error });
-      });
-  }).catch(error => res.status(400).send(error));
-  }
 };

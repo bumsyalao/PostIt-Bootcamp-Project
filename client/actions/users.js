@@ -55,7 +55,7 @@ export const allUserGroups = userid => dispatch =>
   axios
     .get(`/api/v1/user/${userid}/groups`)
     .then((response) => {
-      dispatch(getUserGroups(response.data));
+      dispatch(getUserGroups(response.data.userGroups));
     })
     .catch((error) => {
       throw error;

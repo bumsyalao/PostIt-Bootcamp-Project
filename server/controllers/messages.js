@@ -4,6 +4,7 @@ const models = require('../models');
 const Messages = models.Messages;
 const Groups = models.Groups;
 const Users = models.Users;
+const UserGroups = models.Usergroups;
 
 module.exports = {
 
@@ -16,19 +17,38 @@ module.exports = {
    */
   create(req, res) {
     const groupId = Number(req.params.groupid);
-
-    Groups.findById(groupId)
-    .then((foundGroup) => {
-      if (!foundGroup) {
-        return res.status(404).send({ message: 'Group Not Found' });
+    const userId = req.decoded.userId;
+  // Check if group exist
+    Groups.findById(groupId).then((group) => {
+      if (!group) {
+        return res.status(404).send({ message: 'Group not found' });
       }
+    }
+    );
+  // Check if user exist in group
+    UserGroups.findOne({
+      where: {
+        userId,
+        groupId
+      }
+    })
+    .then((record) => {
+      if (!record) {
+        return res.status(404).send({
+          message: 'Not a member, Join group to post message'
+        });
+      }
+
       Messages.create({
         userId: req.decoded.userId,
-        groupId: foundGroup.id,
+        groupId: record.groupId,
         message: req.body.message,
         messagePriority: req.body.messagePriority,
       })
-      .then(newMessage => res.status(200).send(newMessage))
+      .then(newMessage => res.status(200).send({
+        newMessage,
+        message: 'message posted succesfully'
+      }))
       .catch(error => res.status(400).send(error));
     });
   },
@@ -42,10 +62,26 @@ module.exports = {
    */
   retrieve(req, res) {
     const groupId = Number(req.params.groupid);
-    Groups.findById(groupId)
-    .then((foundGroup) => {
-      if (!foundGroup) {
-        return res.status(404).send({ message: 'Group Not Found' });
+    const userId = req.decoded.userId;
+    // Check if group exist
+    Groups.findById(groupId).then((group) => {
+      if (!group) {
+        return res.status(404).send({ message: 'Group not found' });
+      }
+    }
+    );
+    // Check if user is in group
+    UserGroups.findOne({
+      where: {
+        userId,
+        groupId
+      }
+    })
+    .then((record) => {
+      if (!record) {
+        return res.status(404).send({
+          message: 'Not a member, Join Group to view message'
+        });
       }
       Messages.findAll({
         where: {
@@ -56,7 +92,9 @@ module.exports = {
           attributes: ['username']
         }]
       })
-      .then(messages => res.status(200).send(messages))
+      .then(messages => res.status(200).send({
+        messages
+      }))
       .catch(error => res.status(400).send(error));
     });
   },

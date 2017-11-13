@@ -18,7 +18,7 @@ if (token) {
       userId: decoded.userId,
       username: decoded.username,
       email: decoded.email,
-      phonenumber: decoded.phonenumber
+      phoneNumber: decoded.phoneNumber
     };
     store.dispatch(
       { type: LOGGEDIN_USER, userInfo }

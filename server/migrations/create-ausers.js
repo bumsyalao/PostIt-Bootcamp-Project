@@ -19,7 +19,7 @@ module.exports = {
       type: Sequelize.STRING,
       unique: true,
     },
-    phonenumber: {
+    phoneNumber: {
       allowNull: false,
       type: Sequelize.STRING,
     },
@@ -27,11 +27,11 @@ module.exports = {
       allowNull: false,
       type: Sequelize.STRING,
     },
-    forgotpasswordtoken: {
+    forgotPasswordToken: {
       allowNull: true,
       type: Sequelize.STRING,
     },
-    expirytime: {
+    expiryTime: {
       allowNull: true,
       type: Sequelize.DATE,
     },

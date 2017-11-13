@@ -22,7 +22,7 @@ export class GroupChat extends React.Component {
     super(props);
     this.state = {
       message: '',
-      messagePriority: ''
+      messagePriority: 'normal'
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
@@ -50,19 +50,8 @@ export class GroupChat extends React.Component {
    */
   onChange(event) {
     this.setState({
-      [event.target.id]: event.target.value
+      [event.target.name]: event.target.value
     });
-  }
-
-  /**
-   *
-   * Sets the state of messagePriority
-   * @param {object} event
-   *
-   * @memberOf GroupChat
-   */
-  optionChange(event) {
-    this.setState({ messagePriority: event.target.value });
   }
 
   /**
@@ -94,7 +83,7 @@ export class GroupChat extends React.Component {
       <div>
         <div className="row">
           <div className="col s12 m12 l12 form-margin message-form">
-            <h5> {(this.props.group.groupname || '').toUpperCase()} </h5>
+            <h5> {(this.props.group.groupName || '').toUpperCase()} </h5>
             <div className="message-box">
               <ul className="collection">
                 {this.props.messages.map(message => (
@@ -117,11 +106,9 @@ export class GroupChat extends React.Component {
                   id="messagePriority"
                   className="browser-default input-field select"
                   onChange={this.onChange}
+                  value={this.state.messagePriority}
                 >
-                  <option value="" disabled selected>
-                    Choose your option
-                  </option>
-                  <option value="normal">Normal</option>
+                  <option value="normal" defaultValue>Normal</option>
                   <option value="urgent">Urgent</option>
                   <option value="critical">Critical</option>
                 </select>

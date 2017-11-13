@@ -54,7 +54,8 @@
     "window": true,
     "$": true,
     "document": true,
-    "localStorage": true
+    "localStorage": true,
+    "componentDidMount": true
   },
   "settings": {
     "import/resolver": {

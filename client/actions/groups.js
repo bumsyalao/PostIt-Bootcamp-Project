@@ -29,7 +29,7 @@ export const getGroups = () => dispatch =>
   axios
     .get('/api/v1/groups')
     .then((response) => {
-      dispatch(loadGroups(response.data));
+      dispatch(loadGroups(response.data.allGroups));
     })
     .catch((error) => {
       throw error;
@@ -39,7 +39,7 @@ export const getGroup = groupid => dispatch =>
     axios
       .get(`/api/v1/group/${groupid}`)
       .then((response) => {
-        dispatch(loadGroup(response.data));
+        dispatch(loadGroup(response.data.group));
       });
 
 export const getAllUsers = (offset, limit = 5) => dispatch =>
@@ -52,9 +52,9 @@ export const getAllUsers = (offset, limit = 5) => dispatch =>
       throw error;
     });
 
-export const createGroup = groupname => dispatch =>
+export const createGroup = groupName => dispatch =>
   attachAuthorizationToken(localStorage.getItem('token'))
-    .post('/api/v1/group', { groupname })
+    .post('/api/v1/group', { groupName })
     .then(() => {
       dispatch(getGroups());
     })

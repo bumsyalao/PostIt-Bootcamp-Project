@@ -63,14 +63,15 @@ export class UserProfile extends Component {
                   <span>{this.props.access.user.email} </span>
                 </div>
                 <div className="collection-item">
-                  <span>{this.props.access.user.phonenumber} </span>
+                  <span>{this.props.access.user.phoneNumber} </span>
                 </div>
                 <div className="collection-item">
                   {' '}
                   Groups I belong to:{' '}
+                  {console.log(this.state.group)}
                   {this.state.groups &&
                     this.state.groups.map(group => (
-                      <div className="chip" key={group.id} > {group.groupname}</div>
+                      <div className="chip" key={group.id} > {group.groupName}</div>
                     ))}{' '}
                 </div>
               </div>

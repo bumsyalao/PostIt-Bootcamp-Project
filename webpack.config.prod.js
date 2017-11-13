@@ -58,7 +58,8 @@ module.exports = {
     }),
     new CopyWebpackPlugin([
       { from: './client/index.html' }
-    ])
+    ]),
+    new webpack.optimize.UglifyJsPlugin()
   ],
   resolve: {
     extensions: ['.js', '.jsx'],

@@ -20,13 +20,13 @@ export class CreateGroup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      groupname: '',
+      groupName: '',
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  componentDidMount() {
+  componentDidMount() { //eslint-disable-line
     $('.collapsible').collapsible();
   }
   /**
@@ -46,7 +46,7 @@ export class CreateGroup extends Component {
    * @memberOf CreateGroup
    */
   onSubmit() {
-    this.props.createGroup(this.state.groupname)
+    this.props.createGroup(this.state.groupName)
       .then(() => {
         Materialize.toast('Created Group Succesfully', 5000, 'green');
         this.props.history.push('/homepage/groups');
@@ -70,13 +70,13 @@ export class CreateGroup extends Component {
           <div className="input-field col s6 offset-s3">
             <i className="material-icons prefix">group</i>
             <input
-            id="groupname"
-            value={this.state.groupname}
+            id="groupName"
+            value={this.state.groupName}
             onChange={this.onChange}
-            name="groupname"
+            name="groupName"
             type="text"
             className="validate" required/>
-            <label className="active" htmlFor="groupname">Groupname</label>
+            <label className="active" htmlFor="groupName">Groupname</label>
           </div>
             <button
             id="submit-group"

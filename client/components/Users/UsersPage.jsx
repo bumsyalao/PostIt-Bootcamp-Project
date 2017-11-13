@@ -138,10 +138,10 @@ export class UsersPage extends Component {
               </tr>
             </thead>
             <tbody>
-                {users && users.map(({ email, username }) =>
-                  <tr>
-                    <td key={username.id}>{username}</td>
-                    <td key={email.id}>{email}</td>
+                {users && users.map(user =>
+                  <tr key={user.id}>
+                    <td>{user.username}</td>
+                    <td>{user.email}</td>
                   </tr>
               )}
             </tbody>

@@ -9,6 +9,7 @@ import GroupChat from './Group/GroupChat';
 import UsersPage from '../components/Users/UsersPage';
 import UserProfile from '../components/Users/UserProfile';
 import Welcomepage from './Welcomepage';
+import PageNotFound from './PageNotFound';
 
 
 /**
@@ -43,7 +44,7 @@ export class Homepage extends React.Component {
       <div>
         <Sidebar />
         <div className="homepage">
-          <NavigationBar match={this.props.match} />
+
           <Switch>
             <Route
               path={`${this.props.match.url}/welcome-page`}
@@ -69,6 +70,7 @@ export class Homepage extends React.Component {
               path={`${this.props.match.url}/user-profile`}
               component={UserProfile}
             />
+            <Route component={PageNotFound}/>
           </Switch>
         </div>
       </div>

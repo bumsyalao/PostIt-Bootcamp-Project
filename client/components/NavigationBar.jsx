@@ -68,10 +68,10 @@ export class NavigationBar extends React.Component {
       <div>
         <nav>
           <div className="nav-wrapper container">
-            <Link to="/">
-              <a id="logo-container" className="brand-logo">
+            <Link to="/"
+            id="logo-container" className="brand-logo"
+            >
                 POST-IT
-              </a>
             </Link>
             {this.props.match.url === '/' && (
               <ul className="right">
@@ -94,13 +94,6 @@ export class NavigationBar extends React.Component {
               <ul className="right">
                 <li>
                   <Link to="/signup">Register</Link>
-                </li>
-              </ul>
-            )}
-            {this.props.match.url === '/homepage' && (
-              <ul className="right">
-                <li>
-                  <a onClick={this.logout}>LOG OUT</a>
                 </li>
               </ul>
             )}

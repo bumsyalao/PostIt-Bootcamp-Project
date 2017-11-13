@@ -109,7 +109,7 @@ export class ListGroup extends React.Component {
                 {...group}
                 users={group.users}
                 listUsers={this.listUsers}
-                deleteGroup={this.deleteGroup}
+
               />
             ))}
           </div>

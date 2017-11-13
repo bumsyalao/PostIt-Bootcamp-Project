@@ -32,9 +32,12 @@ module.exports = {
             groupId: foundGroup.id,
             userId: req.decoded.userId,
             username: req.decoded.username,
-            groupname: foundGroup.groupname
+            groupName: foundGroup.groupName
           })
-          .then(newGroup => res.status(200).send(newGroup));
+          .then(newGroup => res.status(200).send({
+            newGroup,
+            message: 'User succesfully added to group'
+          }));
         });
       }).catch(error => res.status(400).send(error));
   },
@@ -61,36 +64,4 @@ module.exports = {
         });
       });
   },
-
-  /**
-   * Remove a user from a group
-   * Route: DELETE: /group/:groupid/user
-   *
-   * @param {object} request object
-   * @param {object} response object
-   */
-  removeUser(req, res) {
-    const userId = req.body.userId;
-    const groupId = req.params.groupId;
-    Usergroups.findAll({ where: {
-      $and: [
-        { userId },
-        { groupId }]
-    }
-    })
-    .then((user) => {
-      if (user.length === 0) {
-        res.status(404).send({ message: 'User does not belong to this group' });
-      } else {
-        user.destroy()
-          .then(() => {
-            res.status(206).send({
-              message: 'User has been removed from group' });
-          }).catch(() => {
-            res.status(500).send({
-              message: 'There was an error, please try again' });
-          });
-      }
-    });
-  }
 };

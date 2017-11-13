@@ -17,13 +17,13 @@ export const loadMessage = (message, username, groupId) => ({
 export const getMessages = id =>
  dispatch => axios.get(`/api/v1/group/${id}/messages`)
  .then((response) => {
-   dispatch(loadMessages(response.data, id));
+   dispatch(loadMessages(response.data.messages, id));
  })
 .catch((error) => { throw error; });
 
 export const newMessage = (groupId, username, message) =>
 dispatch => axios.post(`/api/v1/group/${groupId}/message`, message)
  .then((response) => {
-   dispatch(loadMessage(response.data, username, groupId));
+   dispatch(loadMessage(response.data.newMessage, username, groupId));
  })
   .catch((error) => { throw error; });

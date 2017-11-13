@@ -5,6 +5,7 @@ A cool App that allows users create groups and post notifications to group.
 It provides restful APIs for users to create groups, post messages and retrieve messages based on userId and managing authentication of users with JsonWebToken.
 
 [![Build Status](https://travis-ci.org/bumsyalao/PostIt-Bootcamp-Project.svg?branch=master)](https://travis-ci.org/bumsyalao/PostIt-Bootcamp-Project) [![Coverage Status](https://coveralls.io/repos/github/bumsyalao/PostIt-Bootcamp-Project/badge.svg?branch=master)](https://coveralls.io/github/bumsyalao/PostIt-Bootcamp-Project?branch=master) [![Code Climate](https://codeclimate.com/github/bumsyalao/PostIt-Bootcamp-Project/badges/gpa.svg)](https://codeclimate.com/github/bumsyalao/PostIt-Bootcamp-Project)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 ##### Hosted App on Heroku 
 [Post-it](https://postit-now.herokuapp.com/)
@@ -36,7 +37,10 @@ The frontend was built with the react and redux framework.
 ### Installation
 
 - Clone the project repository.
-- Run git clone (https://github.com/bumsyalao/PostIt-Bootcamp-Project) 
+- Run git clone (https://github.com/bumsyalao/PostIt-Bootcamp-Project)
+
+``` git clone https://github.com/bumsyalao/PostIt-Bootcamp-Project ```
+
 more info: (https://help.github.com/articles/cloning-a-repository/)
 - Run ``` npm install ``` to install the dependencies in the package.json file.
 - Create Postgresql database and run ```sequelize dbmigrate npm undo and npm redo ```(https://www.postgresql.org/)
@@ -56,52 +60,33 @@ Login, Sign Up and start creating groups
 - SASS/SCSS.
 - Postgres (https://www.postgresql.org/)
 
-### Contributing
+### Limitations
++ Users cannot upload their picture.
++ Users cannot add other users to group.
++ Users cannot leave a group.
++ Users cannot delete a message when sent
++ Users cannot delete other users.
 
-PostIt welcomes contributions in form of pull requests, as main purpose of open sourcing is to make it better and easier to use.
+### FAQ
+#### Is PostIt app free or do you plan to monetize it in future?
+Yes its totally free and it will continue to be free
 
-#### Reporting Bugs
+#### How many end points are there currently?
+Currently its 14
 
-If you find bugs in the application, create a New Issue with additional data, like your node/npm version or snippet of code and let me know about it.
+#### Is PostIt app open source?
+Yes, and I encourage you to contribute to the project
 
-#### Contact
+#### What if I want to customize my environment variables?
+That's easy. In the root of the project. create a file named .env and add exactly what you see in the .env.example file.
 
-If you need clarification on what is not clear, contact me via mail olubunmi.alao@andela.com
 
-Pull requests
-
-Fork the repository and create a branch from develop.
-If you have added or changed existing code, add unit tests!
-Ensure that all unit tests passes.
-Check that your code lints (Eslint)
-
-#### Style guide [airbnb](https://github.com/airbnb/javascript)
-
-- Use es6 syntax only
-- Use semicolons
-- 2 space indention (no tabs)
-- Prefer single quote over double quote
-- Prefer template strings
-- 120 character length limit
-- Do not use console.log, etc in code (expect debugging locally)
-- Always add exact versions of packages 3.2.0 instead of ^3.2.0
-
-##### Branch Naming Convention
-
-A sample of the branch naming convention is found on the Branch Naming wiki page
-
-##### Commit Message Convention
-
-A sample of the commit message convention is found on the Commit Message wiki page
-
-##### Pull Request Naming and Description Convention
-
-A sample of the pull request naming and description convention on the Pull Request Naming and Description wiki page
+### Contribution
+I am glad you want to contribute to this project, Please checkout the wiki page [Contributing](https://github.com/bumsyalao/PostIt-Bootcamp-Project/wiki/Contributing)
 
 ### Author
 Olubunmi Alao
-#### Licence
+## License & Copyright
+MIT © [Olubunmi Alao](https://github.com/bumsyalao)
 
-ISC
-
-Copyright (c) 2017 Bunmi Alao
+Licensed under the [MIT License](LICENSE)

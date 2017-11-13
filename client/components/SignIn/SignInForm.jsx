@@ -19,9 +19,25 @@ export class SignInForm extends React.Component {
    */
   constructor(props) {
     super(props);
-    this.state = { loggedIn: false };
+    this.state = {
+      loggedIn: false,
+      username: '',
+      password: ''
+    };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+  }
+    /**
+   *
+   * Check if user is authenticated
+   * Directs user to homepage if user is already signed in
+   *
+   * @memberOf Homepage
+   */
+  componentDidMount() {
+    if (this.props.access.isAuthenticated) {
+      this.props.history.push('/homepage/welcome-page');
+    }
   }
   /**
    * Sets the event value to the state

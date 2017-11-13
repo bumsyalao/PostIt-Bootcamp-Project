@@ -3,7 +3,6 @@ const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 
 const models = require('../models');
-const Groups = require('./groups');
 
 const paginate = (count, limit, offset) => {
   const page = Math.floor(offset / limit) + 1;
@@ -40,7 +39,7 @@ module.exports = {
       Users.create({
         username: req.body.username,
         email: req.body.email,
-        phonenumber: req.body.phonenumber,
+        phoneNumber: req.body.phoneNumber,
         password: req.body.password
       })
         .then((newUser) => {
@@ -48,7 +47,7 @@ module.exports = {
             {
               userId: newUser.id,
               username: newUser.username,
-              phonenumber: newUser.phonenumber,
+              phoneNumber: newUser.phoneNumber,
               email: newUser.email
             },
             secret,
@@ -57,7 +56,7 @@ module.exports = {
           const userInfo = {
             userId: newUser.id,
             username: newUser.username,
-            phonenumber: newUser.phonenumber,
+            phoneNumber: newUser.phoneNumber,
             email: newUser.email
           };
           return res
@@ -93,7 +92,8 @@ module.exports = {
                 userId: foundUser.id,
                 username: foundUser.username,
                 email: foundUser.email,
-                phonenumber: foundUser.phonenumber
+                phoneNumber: foundUser.phoneNumber,
+
               },
               secret,
               { expiresIn: '1 day' }
@@ -102,8 +102,8 @@ module.exports = {
               userId: foundUser.id,
               username: foundUser.username,
               email: foundUser.email,
-              phonenumber: foundUser.phonenumber
-              
+              phoneNumber: foundUser.phoneNumber
+
             };
             return res.status(200).send({
               token,
@@ -131,7 +131,7 @@ module.exports = {
    * @param {object} response object
    */
   viewUser(req, res) {
-    const userId = req.body.userId;
+    const userId = req.decoded.userId;
     Users.findOne({ where: { id: userId } })
       .then((user) => {
         if (user.length === 0) {
@@ -157,10 +157,10 @@ module.exports = {
     const userId = req.params.userid;
     UserGroups.findAll({
       where: { userId },
-      attributes: ['groupname']
+      attributes: ['groupName']
     })
       .then((userGroups) => {
-        res.status(200).send(userGroups);
+        res.status(200).send({ userGroups });
       })
       .catch(() => {
         res.status(500).send({
@@ -179,7 +179,7 @@ module.exports = {
     const { limit, offset, searchParam } = req.query;
     const search = `${searchParam}%`;
     Users.findAndCount({
-      attributes: ['username', 'email'],
+      attributes: ['id', 'username', 'email'],
       limit: limit || 5,
       offset: offset || 0,
       where: {
@@ -235,12 +235,12 @@ module.exports = {
 
     // setup email data with unicode symbols
     const mailOptions = {
-      from: '"POST_IT" <alaobunmi93@gmail.com>', // sender address
+      from: '"POST_IT" <postit.nownow@gmail.com>', // sender address
       to: email, // list of receivers
       subject: 'Reset Your Password_POSTIT', // Subject line
       text: 'Hi There',
       html: `Hello ${email}, to reset your password, please click on
-       \n<a href="http://localhost:3000/reset-password/${hash}">this Link</a>
+       \n<a href="http://${req.headers.host}/reset-password/${hash}">this Link</a>
         to reset your password`
     };
     Users.findOne({
@@ -252,7 +252,7 @@ module.exports = {
         user
           .update({
             hash,
-            expirytime: date
+            expiryTime: date
           })
           .then((updatedUser) => {
             transporter.sendMail(mailOptions, (errors, info) => {
