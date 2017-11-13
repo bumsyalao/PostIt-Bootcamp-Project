@@ -4,7 +4,7 @@ const compression = require('compression');
 const app = require('./app');
 
 
-const port = process.env.PORT || 6116;
+const port = process.env.PORT || 3000;
 
 // let app = express();
 

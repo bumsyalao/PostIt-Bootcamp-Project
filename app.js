@@ -3,7 +3,7 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const routes = require('./server/routes/index');
 
-const port = parseInt(process.env.PORT, 10) || 6116;
+const port = parseInt(process.env.PORT, 10) || 3000;
 
 // Set up the express app
 const app = express();

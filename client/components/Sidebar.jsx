@@ -5,7 +5,7 @@ import feminist from '../images/feminist.png';
 import gender from '../images/gender-neutral copy.png';
 import { logout } from '../actions/SignInAction';
 
-class SideBar extends Component {
+class Sidebar extends Component {
 
   /**
    * Creates an instance of NavigationBar.
@@ -107,4 +107,4 @@ const mapStateToProps = state => ({
   isAuth: state.access.user
 });
 
-export default connect(mapStateToProps, { logout })(withRouter(SideBar));
+export default connect(mapStateToProps, { logout })(withRouter(Sidebar));

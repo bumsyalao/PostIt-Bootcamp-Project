@@ -24,15 +24,7 @@ module.exports = {
         test: /\.(js|jsx)$/,
         include:
         `${__dirname}/client`,
-        loaders: 'babel-loader',
-        query: {
-          presets: ['react', 'es2015', 'stage-0'],
-          plugins: [
-            'react-html-attrs',
-            'transform-class-properties',
-            'transform-decorators-legacy'
-          ]
-        }
+        loaders: 'babel-loader'
       },
       {
         test: /\.scss$/,

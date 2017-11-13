@@ -9,7 +9,7 @@ import app from './app';
 
 const compiler = webpack(config);
 
-const port = process.env.PORT || 6116;
+const port = process.env.PORT || 3000;
 const env = process.env.NODE_ENV || 'development';
 
 if (env === 'development') {

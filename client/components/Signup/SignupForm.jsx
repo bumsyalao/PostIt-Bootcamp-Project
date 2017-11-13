@@ -23,7 +23,7 @@ export class SignupForm extends React.Component {
       username: '',
       email: '',
       password: '',
-      phonenumber: '',
+      phoneNumber: '',
       confirmPassword: '',
       loggedIn: false
     };
@@ -124,10 +124,10 @@ export class SignupForm extends React.Component {
           <div className="input-field col s6 offset-s3">
             <i className="material-icons prefix">phone</i>
             <input
-              id="phonenumber"
-              value={this.state.phonenumber}
+              id="phoneNumber"
+              value={this.state.phoneNumber}
               onChange={this.onChange}
-              name="phonenumber"
+              name="phoneNumber"
               type="tel"
               className="validate"
               required

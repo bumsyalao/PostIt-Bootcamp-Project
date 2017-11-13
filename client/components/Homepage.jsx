@@ -1,9 +1,8 @@
 import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import NavigationBar from './NavigationBar';
-import Sidebar from './SideBar';
 import CreateGroup from './Group/CreateGroup';
+import Sidebar from './Sidebar';
 import ListGroup from './Group/ListGroup';
 import GroupChat from './Group/GroupChat';
 import UsersPage from '../components/Users/UsersPage';
