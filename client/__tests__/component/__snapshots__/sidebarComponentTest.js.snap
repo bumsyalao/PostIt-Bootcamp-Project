@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SideBar component should match the SideBar component snapshot 1`] = `
+exports[`Sidebar component should match the Sidebar component snapshot 1`] = `
 <div>
   <ul
     className="side-nav fixed #e57373 red lighten-2"
@@ -14,14 +14,17 @@ exports[`SideBar component should match the SideBar component snapshot 1`] = `
           className="side-logo center"
         >
           <img
-            height="50%"
+            height="80%"
             src={
               Object {
                 "process": [Function],
               }
             }
-            width="50%"
+            width="80%"
           />
+          <h5>
+             POST-IT 
+          </h5>
         </div>
       </div>
     </li>
@@ -126,6 +129,29 @@ exports[`SideBar component should match the SideBar component snapshot 1`] = `
               </Link>
             </li>
           </ul>
+        </div>
+      </li>
+    </ul>
+    <ul
+      className="collapsible "
+      data-collapsible="accordion"
+    >
+      <li>
+        <div
+          className="collapsible-header"
+          id="document-header"
+        >
+          <i
+            className="material-icons"
+          >
+            power_settings_new
+          </i>
+          <a
+            href="#"
+            onClick={[Function]}
+          >
+            Log Out 
+          </a>
         </div>
       </li>
     </ul>

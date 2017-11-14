@@ -9,15 +9,16 @@
   },
   "scripts": {
     "client-test": "jest",
-    "start": "node -- server.js",
+    "start": "babel-node -- server.js",
     "start-dev": "webpack --config ./webpack.config.js --progress --colors && nodemon --watch server --exec babel-node -- server.js",
     "postinstall": "npm run build",
     "coverage-report": "cat ./coverage/lcov.info | coveralls",
-    "test": "NODE_ENV=test sequelize db:migrate && nyc --reporter=text --reporter=html --reporter=lcov mocha --compilers js:babel-core/register \"test/**/*.test.js\" --timeout 5000 && npm run coverage-report",
+    "test": "NODE_ENV=test sequelize db:migrate && nyc --reporter=text --reporter=html --reporter=lcov mocha --compilers js:babel-core/register \"server/test/**/*.test.js\" --timeout 5000 && npm run coverage-report",
     "prebuild": "rm -rf ./dist",
     "build": "./node_modules/.bin/webpack --config ./webpack.config.prod.js",
     "build:server": "babel server -d dist/server --copy-files --ignore test",
-    "build:client": "NODE_ENV=production webpack --config webpack.config.prod.js && cp -R client dist/client"
+    "build:client": "NODE_ENV=production webpack --config webpack.config.prod.js && cp -R client dist/client",
+    "travis:clientTest": "NODE_ENV=development jest -u"
   },
   "repository": {
     "type": "git",
@@ -49,7 +50,7 @@
     "chai": "^4.0.2",
     "chai-http": "^3.0.0",
     "compression": "^1.7.0",
-    "copy-webpack-plugin": "^4.0.1",    
+    "copy-webpack-plugin": "^4.0.1",
     "cross-env": "^5.0.2",
     "crypto-js": "^3.1.9-1",
     "css-loader": "^0.28.4",
@@ -143,6 +144,7 @@
       "!bundle.js",
       "!**/client/Index.jsx",
       "!**/client/Routes.jsx",
+      "!**/client/components/SideBar.jsx",
       "!**/client/bundle.js",
       "!**/client/reducers/rootReducer.js",
       "!**/client/store/**",

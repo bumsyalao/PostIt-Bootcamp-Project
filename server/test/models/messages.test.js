@@ -5,6 +5,7 @@ import models from '../../models';
 
 const Messages = models.Messages;
 const Users = models.Users;
+const UserGroups = models.Usergroups;
 const Groups = models.Groups;
 const expect = chai.expect;
 
@@ -12,7 +13,8 @@ const userInfo = {
   id: 3,
   email: 'twyse@ereme.com',
   username: 'funny',
-  password: 'stuff'
+  password: 'stuff',
+  phoneNumber: '09082091930'
 };
 
 const messageInfo = {
@@ -25,12 +27,15 @@ const messageInfo = {
 describe('Messages model validation:', () => {
   before((done) => {
     Users.create(userInfo);
-    Groups.create({ id: 3, groupname: 'messages' });
+    Groups.create({ id: 2, groupName: 'messages' });
+    UserGroups.create({ groupId: 2, userId: 3, username: 'funny', groupName: 'messages' });
     done();
   });
   after((done) => {
-    Users.destroy({ where: { id: 3 } });
-    Groups.destroy({ where: { id: 3 } }).then(() => done());
+    UserGroups.destroy({ where: { groupName: 'message' } });
+    Groups.destroy({ where: { id: 2 } });
+    Users.destroy({ where: { id: 2 } })
+    .then(() => done());
   });
   it('requires userId field to create a message', () => {
     const nullUserId = Object.assign({}, messageInfo);

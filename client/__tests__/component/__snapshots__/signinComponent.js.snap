@@ -22,6 +22,7 @@ exports[`SignInForm Component should match the SignInForm snapshot 1`] = `
         onChange={[Function]}
         required={true}
         type="text"
+        value=""
       />
       <label
         className="active"
@@ -45,6 +46,7 @@ exports[`SignInForm Component should match the SignInForm snapshot 1`] = `
         onChange={[Function]}
         required={true}
         type="password"
+        value=""
       />
       <label
         className="active"

@@ -8,7 +8,7 @@ import { getAllUsers } from '../../actions/users';
  * @class UsersPage
  * @extends {Component}
  */
-export class UsersPage extends Component {
+class UsersPage extends Component {
 
   /**
    * Creates an instance of UsersPage.

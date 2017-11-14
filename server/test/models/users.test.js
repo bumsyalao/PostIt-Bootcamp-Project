@@ -8,11 +8,12 @@ const expect = chai.expect;
 const userInfo = {
   email: 'power.rangers@super.com',
   username: 'zack',
-  password: 'alfalfa'
+  password: 'alfalfa',
+  phoneNumber: '09082091930'
 };
 
 const requiredFields = [
-  'username', 'email', 'password'];
+  'username', 'email', 'password', 'phoneNumber'];
 
 const uniqueFields = ['email', 'username'];
 

@@ -7,15 +7,12 @@ exports[`NavigationBar component should match the NavigationBar component snapsh
       className="nav-wrapper container"
     >
       <Link
+        className="brand-logo"
+        id="logo-container"
         replace={false}
         to="/"
       >
-        <a
-          className="brand-logo"
-          id="logo-container"
-        >
-          POST-IT
-        </a>
+        POST-IT
       </Link>
       <a
         className="button-collapse"

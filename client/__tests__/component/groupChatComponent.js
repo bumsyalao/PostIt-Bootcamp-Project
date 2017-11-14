@@ -39,25 +39,25 @@ describe('GroupChat Component', () => {
   });
   test('should set state when onChange function', () => {
     component.instance().onChange(
-      { target: { value: 'Hi! Im a test', id: 'textarea' } });
-    expect(component.state('textarea')).toEqual('Hi! Im a test');
+      { target: { value: 'Hi! Im a test', name: 'message' } });
+    expect(component.state('message')).toEqual('Hi! Im a test');
   });
   test('it should submit fields when onSubmit is called', () => {
     jest.spyOn(component.instance(), 'onSubmit');
     component.instance().onChange(
-      { target: { value: 'Hi can I help you', id: 'textarea' } });
+      { target: { value: 'Hi can I help you', name: 'message' } });
     component.instance().onChange(
-      { target: { value: 'urgent', id: 'messagePriority' } });
+      { target: { value: 'urgent', name: 'messagePriority' } });
     component.find('#submit-message').simulate('click');
     expect(component.find('#submit-message').length).toEqual(1);
     expect(component.instance().onSubmit.mock.calls.length).toEqual(0);
   });
   test('onSubmit function should run', () => {
     component.instance().onChange(
-      { target: { value: 'Hi Im a test message', id: 'textarea' } });
+      { target: { value: 'Hi Im a test message', name: 'message' } });
     component.instance().onChange(
-      { target: { value: 'normal', id: 'messagePriority' } });
-    expect(component.state('textarea')).toEqual('Hi Im a test message');
+      { target: { value: 'normal', name: 'messagePriority' } });
+    expect(component.state('message')).toEqual('Hi Im a test message');
     expect(component.state('messagePriority')).toEqual('normal');
     const newspy = jest.spyOn(component.instance(), 'onSubmit');
     component.instance().onSubmit();

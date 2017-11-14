@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import feminist from '../images/feminist.png';
 import gender from '../images/gender-neutral copy.png';
 import { logout } from '../actions/SignInAction';
 

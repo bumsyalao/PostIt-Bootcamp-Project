@@ -7,7 +7,13 @@ import photo from '../../images/photo.jpg';
  * @class UserProfile
  * @extends {Component}
  */
-export class UserProfile extends Component {
+class UserProfile extends Component {
+
+  /**
+   * Creates an instance of UserProfile.
+   * Binds class methods
+   * @memberOf UserProfile
+   */
   constructor() {
     super();
     this.state = {
@@ -68,7 +74,6 @@ export class UserProfile extends Component {
                 <div className="collection-item">
                   {' '}
                   Groups I belong to:{' '}
-                  {console.log(this.state.group)}
                   {this.state.groups &&
                     this.state.groups.map(group => (
                       <div className="chip" key={group.id} > {group.groupName}</div>

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
  * @class GroupCard
  * @extends {Component}
  */
-export class GroupCard extends Component {
+class GroupCard extends Component {
 
   /**
    * Renders GroupCard component

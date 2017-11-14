@@ -1,8 +1,8 @@
 /* global expect test */
 import group from '../../reducers/groupsReducer';
 import users from '../../reducers/usersReducer';
-import { loadGroups, loadGroup, loadUsers } from '../../actions/groups';
-import { addUser } from '../../actions/createGroupRequest';
+import {
+  addUser, loadGroups, loadGroup, loadUsers } from '../../actions/groups';
 
 const initialState = {
   group: {},
@@ -18,6 +18,15 @@ const groups = [
   { id: 1, groupname: 'Trap' },
   { id: 2, groupname: 'Hiphop' }
 ];
+const newGroup = {
+  groupId: 1,
+  userId: 119,
+  username: 'test',
+  groupName: 'new stuff',
+  updatedAt: '2017-11-14T11:44:24.574Z',
+  createdAt: '2017-11-14T11:44:24.574Z',
+  id: 32
+};
 const userGroups = [
   { groupname: 'banku' },
   { groupname: 'Trap' }
@@ -47,6 +56,25 @@ const groupUsers =
         userId: 1,
         username: 'banku' }]
   };
+
+const busers = [
+  {
+    groupId: 59,
+    userId: 119,
+    username: 'test',
+    groupName: 'Group',
+    createdAt: '2017-11-14T20:52:55.426Z',
+    updatedAt: '2017-11-14T20:52:55.426Z'
+  },
+  {
+    groupId: 59,
+    userId: 1,
+    username: 'bantu',
+    groupName: 'Group',
+    createdAt: '2017-11-14T20:54:04.929Z',
+    updatedAt: '2017-11-14T20:54:04.929Z'
+  }
+];
 describe('Group Reducer', () => {
   it('should load all groups when loadGroup is called', () => {
     const action = loadGroups(groups);
@@ -66,14 +94,14 @@ describe('Group Reducer', () => {
   });
 
   it('should add member to group when addUser is called', () => {
-    const action = addUser(groups);
+    const action = addUser(newGroup);
     const newState = group(initialState, action);
 
     expect(newState.groupList[0]).toEqual({ id: 1, groupname: 'Trap' });
   });
 
   it('should load users in a group when loadUsers is called', () => {
-    const action = loadUsers(banku, 1);
+    const action = loadUsers(busers, 59);
     const loadGroupState = group(initialState, loadGroups(groups));
     const newState = group(loadGroupState, action);
 

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createGroup } from '../../actions/groups';
 
@@ -8,7 +7,7 @@ import { createGroup } from '../../actions/groups';
  * @class CreateGroup
  * @extends {Component}
  */
-export class CreateGroup extends Component {
+class CreateGroup extends Component {
 
   /**
    * Creates an instance of CreateGroup.
@@ -97,9 +96,5 @@ const mapStateToProps = state => ({
   user: state.access.user,
 });
 
-
-CreateGroup.propTypes = {
-  createGroup: PropTypes.func.isRequired,
-};
 
 export default connect(mapStateToProps, { createGroup })(CreateGroup);

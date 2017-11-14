@@ -23,6 +23,7 @@ describe('MessageCard Component', () => {
     message: spy
 
   };
+  spy.toUppercase();
   const component = shallow(
     <MessageCard {...props} />
   );

@@ -7,7 +7,7 @@ import NavigationBar from '../NavigationBar';
  * @class ForgotPassword
  * @extends {Component}
  */
-export class ForgotPassword extends Component {
+class ForgotPassword extends Component {
 
   /**
    * Creates an instance of ForgotPassword.

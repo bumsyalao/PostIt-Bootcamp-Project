@@ -1,7 +1,7 @@
 import chai from 'chai';
 import supertest from 'supertest';
-import app from '../../app';
-import models from '../../server/models';
+import app from '../../../app';
+import models from '../../../server/models';
 
 const expect = chai.expect;
 const api = supertest(app);

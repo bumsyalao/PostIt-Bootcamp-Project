@@ -22,6 +22,11 @@ export const getUserGroups = groups => ({
   groups
 });
 
+/**
+ * api call to getAllUsers
+ * @param {object} offset, limit, searchParam
+ * @return {object} returns data
+ */
 export const getAllUsers = (
   offset = 0,
   limit = 5,
@@ -41,6 +46,11 @@ export const getAllUsers = (
       throw error;
     });
 
+/**
+ * api call to listAllUsers
+ * @param {object} groupId
+ * @return {object} returns users, groupId
+ */
 export const listAllUsers = groupId => dispatch =>
   axios
     .get(`/api/v1/group/${groupId}/users`)
@@ -51,6 +61,11 @@ export const listAllUsers = groupId => dispatch =>
       throw error;
     });
 
+/**
+ * api call to allUserGroups
+ * @param {object} userid
+ * @return {object} returns userGroups
+ */
 export const allUserGroups = userid => dispatch =>
   axios
     .get(`/api/v1/user/${userid}/groups`)

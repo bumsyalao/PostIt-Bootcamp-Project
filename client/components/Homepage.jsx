@@ -15,7 +15,7 @@ import PageNotFound from './PageNotFound';
  * @class Homepage
  * @extends {React.Component}
  */
-export class Homepage extends React.Component {
+class Homepage extends React.Component {
 
   /**
    *

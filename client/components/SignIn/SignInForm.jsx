@@ -9,7 +9,7 @@ import { userSignInRequest } from '../../actions/SignInAction';
  * @class SignInForm
  * @extends {React.Component}
  */
-export class SignInForm extends React.Component {
+class SignInForm extends React.Component {
   /**
    * Creates an instance of SignInForm.
    * Binds class methods.

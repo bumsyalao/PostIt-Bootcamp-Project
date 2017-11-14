@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import userSignupRequest from '../../actions/signupAction';
+import { userSignupRequest } from '../../actions/signupAction';
 
 
 /**
  * @class SignupForm
  * @extends {React.Component}
  */
-export class SignupForm extends React.Component {
+class SignupForm extends React.Component {
 
   /**
    * Creates an instance of SignupForm.
@@ -181,6 +181,8 @@ export class SignupForm extends React.Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  access: state.access
+});
 
-
-export default connect(null, { userSignupRequest })(withRouter(SignupForm));
+export default connect(mapStateToProps, { userSignupRequest })(withRouter(SignupForm));

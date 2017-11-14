@@ -4,7 +4,7 @@ const messagesController = require('../controllers/messages');
 const usergroupsController = require('../controllers/usergroups');
 const auth = require('../middleware/jwt');
 
-module.exports = app => {
+module.exports = (app) => {
   app.get('/api', (req, res) =>
     res.status(200).send({
       message: 'Welcome to the PostIt API!'

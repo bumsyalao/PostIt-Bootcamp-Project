@@ -8,7 +8,7 @@ import { logout } from '../actions/SignInAction';
  * @class NavigationBar
  * @extends {React.Component}
  */
-export class NavigationBar extends React.Component {
+class NavigationBar extends React.Component {
 
   /**
    * Creates an instance of NavigationBar.

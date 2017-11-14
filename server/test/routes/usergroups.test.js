@@ -1,7 +1,7 @@
 import chai from 'chai';
 import supertest from 'supertest';
-import app from '../../app';
-import models from '../../server/models';
+import app from '../../../app';
+import models from '../../../server/models';
 
 const expect = chai.expect;
 const api = supertest(app);
@@ -13,13 +13,14 @@ const userInfo = {
   id: 4,
   email: 'zugzwang@chess.com',
   username: 'winner',
-  password: 'waitingMove'
+  password: 'waitingMove',
+  phoneNumber: '09082091930'
 };
 
 describe('USERGROUP ROUTES', () => {
   let validToken;
   before((done) => {
-    Groups.create({ id: 4, groupname: 'Route Usergroup' });
+    Groups.create({ id: 4, groupName: 'Route Usergroup' });
     Users.create(userInfo).then(() => {
       api.post('/api/v1/user/signin')
       .send(userInfo)
@@ -53,7 +54,7 @@ describe('USERGROUP ROUTES', () => {
       api.post('/api/v1/group/4/user')
         .set({ jwt: validToken })
         .end((err, res) => {
-          expect(res.status).to.equal(409);
+          expect(res.status).to.equal(401);
           expect(res.body.message).to.equal('User already in group');
           done();
         });

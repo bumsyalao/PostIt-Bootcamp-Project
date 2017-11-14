@@ -8,7 +8,7 @@ import { resetPasswordAction } from '../../actions/SignInAction';
  * @class ResetPassword
  * @extends {Component}
  */
-export class ResetPassword extends Component {
+class ResetPassword extends Component {
   /**
    * Creates an instance of ResetPassword.
    * Binds class methods

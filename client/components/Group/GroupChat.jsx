@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import MessageCard from './MessageCard';
 import { newMessage, getMessages } from '../../actions/messages';
+import { getUserGroups, allUserGroups } from '../../actions/users';
 import { getGroup } from '../../actions/groups';
 
 /**
@@ -9,7 +11,7 @@ import { getGroup } from '../../actions/groups';
  * @class GroupChat
  * @extends {React.Component}
  */
-export class GroupChat extends React.Component {
+class GroupChat extends React.Component {
 
   /**
    * Creates an instance of GroupChat.
@@ -37,8 +39,15 @@ export class GroupChat extends React.Component {
   componentDidMount() {
     $('select').material_select();
     const { groupId } = this.props.match.params;
+    const userid = this.props.access.user.userId;
+    this.props.allUserGroups(userid);
     this.props.getMessages(groupId);
     this.props.getGroup(groupId);
+  }
+
+  componentWillMount() {
+    const userid = this.props.access.user.userId;
+    this.props.allUserGroups(userid);
   }
 
   /**
@@ -79,6 +88,15 @@ export class GroupChat extends React.Component {
    * @memberof GroupChat
    */
   render() {
+    // check user's groups if they belong to group
+    // if groupname is not in array
+    // display toast message.
+    const userGroups = this.props.userGroups.map(group => group.groupName);
+    if (userGroups.indexOf(this.props.group.groupName) === -1) {
+      Materialize.toast('Join Group to view Message', 3000, 'red');
+      this.props.history.push('/homepage/groups');
+      return null;
+    }
     return (
       <div>
         <div className="row">
@@ -129,10 +147,13 @@ const mapStateToProps = (state, ownProps) => {
   return {
     username: state.access.user.username,
     messages: state.messages[groupId] || [],
-    group: state.group[groupId] || {}
+    group: state.group[groupId] || {},
+    userGroups: state.users.usergroups || [],
+    access: state.access,
   };
 };
 
-export default connect(mapStateToProps, { newMessage, getMessages, getGroup })(
+export default connect(mapStateToProps, {
+  newMessage, getMessages, getGroup, getUserGroups, allUserGroups })(withRouter(
   GroupChat
-);
+));

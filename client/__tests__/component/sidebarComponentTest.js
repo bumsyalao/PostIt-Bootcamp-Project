@@ -4,11 +4,11 @@ import { shallow, configure } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import adapter from 'enzyme-adapter-react-16';
 // import feminist from '../../images/feminist.png';
-import SideBar from '../../components/SideBar';
+import { Sidebar } from '../../components/Sidebar';
 
 configure({ adapter: new adapter() });
 
-describe('SideBar component', () => {
+describe('Sidebar component', () => {
   const spy = jest.fn();
   beforeEach(() => {
     global.Materialize = { toast: jest.fn() };
@@ -18,11 +18,11 @@ describe('SideBar component', () => {
   });
 
   const component = shallow(
-    <SideBar />
-     
+    <Sidebar />
+
   );
 
-  test('should match the SideBar component snapshot', () => {
+  test('should match the Sidebar component snapshot', () => {
     const tree = toJson(component);
     expect(tree).toMatchSnapshot();
   });

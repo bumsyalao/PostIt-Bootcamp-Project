@@ -148,14 +148,15 @@ describe('Users Action', () => {
     it('should make AJAX call to get all User Groups', (done) => {
       moxios.stubRequest(`/api/v1/user/${userid}/groups`, {
         status: 200,
-        response: [
-          {
-            groupname: 'wemblys'
-          },
-          {
-            groupname: 'wemblyss'
-          }
-        ]
+        response: {
+          userGroups: [
+            {
+              groupname: 'wemblys'
+            },
+            {
+              groupname: 'wemblyss'
+            }
+          ] }
       });
       const store = mockStore({});
       const expectedAction = [{

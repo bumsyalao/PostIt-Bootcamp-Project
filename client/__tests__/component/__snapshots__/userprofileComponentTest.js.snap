@@ -15,7 +15,11 @@ exports[`UserProfile Compoenent should match User Profile component snapshot 1`]
       >
         <img
           height="100px"
-          src="https://yt3.ggpht.com/-niLM_ysnU8w/AAAAAAAAAAI/AAAAAAAAAAA/0UFxDTtpaJg/s900-c-k-no-mo-rj-c0xffffff/photo.jpg"
+          src={
+            Object {
+              "process": [Function],
+            }
+          }
           width="100px"
         />
       </div>

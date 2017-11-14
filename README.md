@@ -10,7 +10,7 @@ It provides restful APIs for users to create groups, post messages and retrieve 
 ##### Hosted App on Heroku 
 [Post-it](https://postit-now.herokuapp.com/)
 
-[Api Documentation](https://app.apiary.io/postit13/)
+[Api Documentation](https://postit13.docs.apiary.io/)
 
 ### Key Application Features
 

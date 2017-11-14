@@ -3,7 +3,9 @@ import thunk from 'redux-thunk';
 import moxios from 'moxios';
 import expect from 'expect';
 import * as actionType from '../../actions/types';
-import { getGroups, getGroup, getAllUsers, createGroup, listAllUsers } from '../../actions/groups';
+import {
+  getGroups, addMemberToGroup, getGroup, getAllUsers, createGroup, listAllUsers
+} from '../../actions/groups';
 import localStorageMock from '../../__mocks__/localStorageMock';
 
 window.localStorage = localStorageMock;
@@ -22,25 +24,26 @@ describe('Group Action', () => {
     it('should make AJAX call to get all groups', (done) => {
       moxios.stubRequest('/api/v1/groups', {
         status: 200,
-        response: [
+        response: {
+          allGroups: [
 
-          {
-            id: 1,
-            groupname: 'Trap'
-          },
-          {
-            id: 2,
-            groupname: 'Banku Group'
-          },
-          {
-            id: 3,
-            groupname: 'Test Group'
-          },
-          {
-            id: 4,
-            groupname: 'Wambui'
-          }
-        ]
+            {
+              id: 1,
+              groupName: 'Trap'
+            },
+            {
+              id: 2,
+              groupName: 'Banku Group'
+            },
+            {
+              id: 3,
+              groupName: 'Test Group'
+            },
+            {
+              id: 4,
+              groupName: 'Wambui'
+            }
+          ] }
       });
       const store = mockStore({});
       const expectedAction = [{
@@ -48,19 +51,19 @@ describe('Group Action', () => {
 
           {
             id: 1,
-            groupname: 'Trap'
+            groupName: 'Trap'
           },
           {
             id: 2,
-            groupname: 'Banku Group'
+            groupName: 'Banku Group'
           },
           {
             id: 3,
-            groupname: 'Test Group'
+            groupName: 'Test Group'
           },
           {
             id: 4,
-            groupname: 'Wambui'
+            groupName: 'Wambui'
           }
         ],
         type: actionType.LIST_GROUPS
@@ -75,19 +78,21 @@ describe('Group Action', () => {
       moxios.stubRequest(`/api/v1/group/${groupid}`, {
         status: 200,
         response: {
-          id: 1,
-          groupname: 'Trap',
-          createdAt: '2017-10-02T08:20:40.859Z',
-          updatedAt: '2017-10-02T08:20:40.859Z'
+          group: {
+            id: 1,
+            groupName: 'new stuff',
+            createdAt: '2017-11-10T12:39:03.581Z',
+            updatedAt: '2017-11-10T12:39:03.581Z'
+          }
         }
       });
       const store = mockStore({});
       const expectedAction = [{
         group: {
           id: 1,
-          groupname: 'Trap',
-          createdAt: '2017-10-02T08:20:40.859Z',
-          updatedAt: '2017-10-02T08:20:40.859Z'
+          groupName: 'new stuff',
+          createdAt: '2017-11-10T12:39:03.581Z',
+          updatedAt: '2017-11-10T12:39:03.581Z'
         },
         type: actionType.LIST_GROUP
       }];
@@ -167,19 +172,22 @@ describe('Group Action', () => {
       moxios.stubRequest('/api/v1/group', {
         status: 200,
         response: {
-          groupId: 9,
-          userId: 25,
-          username: 'wambe',
-          groupname: 'wemblys',
-          updatedAt: '2017-11-06T12:09:37.075Z',
-          createdAt: '2017-11-06T12:09:37.075Z',
-          id: 14
+          savedGroup: {
+            groupId: 58,
+            userId: 119,
+            username: 'test',
+            groupName: 'gguj',
+            updatedAt: '2017-11-14T15:08:44.490Z',
+            createdAt: '2017-11-14T15:08:44.490Z',
+            id: 33
+          },
+          message: 'group created'
         }
       });
       const store = mockStore({});
       const expectedAction = [];
       store.dispatch(createGroup({
-        groupname: 'wemblys'
+        groupName: 'gguj'
       })).then(() => {
         expect(store.getActions()).toEqual(expectedAction);
       });
@@ -195,7 +203,7 @@ describe('Group Action', () => {
               groupId: 3,
               userId: 1,
               username: 'banku',
-              groupname: 'Test Group',
+              groupName: 'Test Group',
               createdAt: '2017-10-02T08:21:15.374Z',
               updatedAt: '2017-10-02T08:21:15.374Z'
             },
@@ -203,7 +211,7 @@ describe('Group Action', () => {
               groupId: 3,
               userId: 2,
               username: 'testuser',
-              groupname: 'Test Group',
+              groupName: 'Test Group',
               createdAt: '2017-10-02T08:22:53.699Z',
               updatedAt: '2017-10-02T08:22:53.699Z'
             }
@@ -217,7 +225,7 @@ describe('Group Action', () => {
             groupId: 3,
             userId: 1,
             username: 'banku',
-            groupname: 'Test Group',
+            groupName: 'Test Group',
             createdAt: '2017-10-02T08:21:15.374Z',
             updatedAt: '2017-10-02T08:21:15.374Z'
           },
@@ -225,7 +233,7 @@ describe('Group Action', () => {
             groupId: 3,
             userId: 2,
             username: 'testuser',
-            groupname: 'Test Group',
+            groupName: 'Test Group',
             createdAt: '2017-10-02T08:22:53.699Z',
             updatedAt: '2017-10-02T08:22:53.699Z'
           }
@@ -237,6 +245,49 @@ describe('Group Action', () => {
         expect(store.getActions()).toEqual(expectedAction);
       });
       done();
+    });
+  });
+
+  describe('create Group Action', () => {
+    beforeEach(() => moxios.install());
+    afterEach(() => moxios.uninstall());
+
+    describe('Add member member to group Action', () => {
+      it('should make AJAX call to add member to group', (done) => {
+        moxios.stubRequest(`/api/v1/group/${groupId}/user`, {
+          status: 200,
+          response: {
+            newGroup: {
+              groupId: 1,
+              userId: 119,
+              username: 'test',
+              groupName: 'new stuff',
+              updatedAt: '2017-11-14T11:44:24.574Z',
+              createdAt: '2017-11-14T11:44:24.574Z',
+              id: 32
+            },
+            message: 'User succesfully added to group'
+          }
+        });
+        const store = mockStore({});
+        const expectedAction = [{
+          newGroup: {
+            groupId: 1,
+            userId: 119,
+            username: 'test',
+            groupName: 'new stuff',
+            updatedAt: '2017-11-14T11:44:24.574Z',
+            createdAt: '2017-11-14T11:44:24.574Z',
+            id: 32
+          },
+          message: 'User succesfully added to group',
+          type: actionType.ADD_USER_TO_GROUP
+        }];
+        store.dispatch(addMemberToGroup()).then(() => {
+          expect(store.getActions()).toEqual(expectedAction);
+        });
+        done();
+      });
     });
   });
 });

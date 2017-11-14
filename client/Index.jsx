@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import jwt from 'jsonwebtoken';
-import attachAuthorizationToken from '../client/utils/attachToken';
+import attachAuthorizationToken from '../client/utils/attachAuthorizationToken';
 import store from '../client/store/configureStore';
 import { LOGGEDIN_USER } from './actions/types';
 import './scss/style.scss';

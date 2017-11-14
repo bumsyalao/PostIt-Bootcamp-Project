@@ -65,8 +65,8 @@ exports[`SignUpForm Component should match the SignUpForm snapshot 1`] = `
       </i>
       <input
         className="validate"
-        id="phonenumber"
-        name="phonenumber"
+        id="phoneNumber"
+        name="phoneNumber"
         onChange={[Function]}
         required={true}
         type="tel"

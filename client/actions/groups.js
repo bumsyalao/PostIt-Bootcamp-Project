@@ -1,8 +1,15 @@
 /* global localStorage */
 import axios from 'axios';
 import {
-  LIST_GROUPS, GET_GROUP_USERS, LIST_ALL_USERS, LIST_GROUP } from './types';
-import attachAuthorizationToken from '../utils/attachToken';
+  LIST_GROUPS, ADD_USER_TO_GROUP, GET_GROUP_USERS, LIST_ALL_USERS, LIST_GROUP }
+  from './types';
+import attachAuthorizationToken from '../utils/attachAuthorizationToken';
+
+
+export const addUser = newGroup => ({
+  type: ADD_USER_TO_GROUP,
+  newGroup
+});
 
 export const loadGroup = group => ({
   type: LIST_GROUP,
@@ -20,11 +27,11 @@ export const loadUsers = (users, groupId) => ({
   groupId
 });
 
-export const loadAllUsers = users => ({
-  type: LIST_ALL_USERS,
-  users
-});
-
+/**
+ * api call to getGroup
+ * @param {object} groupid
+ * @return {object} returns group if the call is successful
+ */
 export const getGroups = () => dispatch =>
   axios
     .get('/api/v1/groups')
@@ -35,6 +42,11 @@ export const getGroups = () => dispatch =>
       throw error;
     });
 
+/**
+ * api call to getGroup
+ * @param {object} groupid
+ * @return {object} returns group if the call is successful
+ */
 export const getGroup = groupid => dispatch =>
     axios
       .get(`/api/v1/group/${groupid}`)
@@ -42,16 +54,12 @@ export const getGroup = groupid => dispatch =>
         dispatch(loadGroup(response.data.group));
       });
 
-export const getAllUsers = (offset, limit = 5) => dispatch =>
-    axios
-     .get(`/api/v1/users?limit=${limit}&offset=${offset}`)
-    .then((response) => {
-      dispatch(loadAllUsers(response.data));
-    })
-    .catch((error) => {
-      throw error;
-    });
 
+/**
+ * api call to createGroup
+ * @param {object} groupName
+ * @return {object} returns groupName if the call is successful
+ */
 export const createGroup = groupName => dispatch =>
   attachAuthorizationToken(localStorage.getItem('token'))
     .post('/api/v1/group', { groupName })
@@ -62,6 +70,11 @@ export const createGroup = groupName => dispatch =>
       throw error;
     });
 
+/**
+ * api call to listAllUsers
+ * @param {object} groupId
+ * @return {object} returns users and groupId if the call is successful
+ */
 export const listAllUsers = groupId => dispatch =>
     axios
     .get(`/api/v1/group/${groupId}/users`)
@@ -72,3 +85,15 @@ export const listAllUsers = groupId => dispatch =>
       throw error;
     });
 
+/**
+ * api call to addMemberToGroup
+ * @param {object} groupId
+ * @return {object} returns newGroup if the call is successful
+ */
+export const addMemberToGroup = groupId =>
+  dispatch => axios.post(`/api/v1/group/${groupId}/user`)
+  .then((response) => {
+    dispatch(addUser(response.data.newGroup));
+  }).catch((error) => {
+    throw (error);
+  });

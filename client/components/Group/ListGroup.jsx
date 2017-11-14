@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import addMemberToGroup from '../../actions/createGroupRequest';
 import { getMessages } from '../../actions/messages';
-import { getGroups, listAllUsers, } from '../../actions/groups';
+import {
+  getGroups, listAllUsers, addMemberToGroup
+} from '../../actions/groups';
 import GroupCard from './GroupCard';
 
 

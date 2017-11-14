@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import moxios from 'moxios';
 import expect from 'expect';
 import * as actionType from '../../actions/types';
-import userSignupRequest from '../../actions/signupAction';
+import { userSignupRequest } from '../../actions/signupAction';
 import localStorageMock from '../../__mocks__/localStorageMock';
 
 window.localStorage = localStorageMock;
