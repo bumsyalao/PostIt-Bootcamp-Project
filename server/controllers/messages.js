@@ -1,10 +1,13 @@
 
+import sendMail from '../middleware/sendMail';
+
 const models = require('../models');
 
 const Messages = models.Messages;
 const Groups = models.Groups;
 const Users = models.Users;
 const UserGroups = models.Usergroups;
+
 
 module.exports = {
 
@@ -18,6 +21,7 @@ module.exports = {
   create(req, res) {
     const groupId = Number(req.params.groupid);
     const userId = req.decoded.userId;
+
   // Check if group exist
     Groups.findById(groupId).then((group) => {
       if (!group) {
@@ -45,10 +49,33 @@ module.exports = {
         message: req.body.message,
         messagePriority: req.body.messagePriority,
       })
-      .then(newMessage => res.status(200).send({
-        newMessage,
-        message: 'message posted succesfully'
-      }))
+      .then((newMessage) => {
+        UserGroups
+          .findAll({
+            where: {
+              groupId: record.groupId
+            },
+            attributes: ['userId'],
+            include: [
+              {
+                model: Users,
+                attributes: ['username', 'phoneNumber', 'email']
+              }
+            ]
+          }).then((users) => {
+                // send email here
+            if (req.body.messagePriority === 'urgent') {
+              sendMail(users, req.body.message, req.body.messagePriority);
+            }
+            if (req.body.messagePriority === 'critical') {
+              sendMail(users, req.body.message, req.body.messagePriority);
+            }
+          });
+        res.status(200).send({
+          newMessage,
+          message: 'message posted succesfully'
+        });
+      })
       .catch(error => res.status(400).send(error));
     });
   },

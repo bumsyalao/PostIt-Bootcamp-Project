@@ -1,16 +1,15 @@
+const paginate = require('../middleware/paginate');
+
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
-
 const models = require('../models');
 
-const paginate = require('../middleware/paginate');
 
 require('dotenv').config();
 
 const Users = models.Users;
 const UserGroups = models.Usergroups;
-
 const secret = process.env.SECRET;
 const useremail = process.env.USEREMAIL;
 const userpass = process.env.USERPASS;
@@ -200,7 +199,6 @@ module.exports = {
    */
   sendResetPassword(req, res) {
     const email = req.body.email;
-    // const secretword = req.body.email;
     const salt = bcrypt.genSaltSync(8);
     const hash = bcrypt.hashSync(email, salt);
     const date = new Date();
@@ -227,10 +225,22 @@ module.exports = {
       from: '"POST_IT" <postit.nownow@gmail.com>', // sender address
       to: email, // list of receivers
       subject: 'Reset Your Password_POSTIT', // Subject line
-      text: 'Hi There',
-      html: `Hello ${email}, to reset your password, please click on
-       \n<a href="http://${req.headers.host}/reset-password/${hash}">this Link</a>
-        to reset your password`
+      html:
+        `<div style="width: 100%; background-color: #eeeeee; padding: 2%;">
+      <div style="width: 60%; background-color: white; margin: auto;">
+        <div style="height: 8%; background-color: #e57373; width:100%; display: flex; flex-direction: row">
+          <img height="40px" style="margin-left: 2%; margin-top: 2%" src="http://res.cloudinary.com/dcpfdxsly/image/upload/v1510790648/feminist_zea7fw.png"> <h5> POST-IT </h5>
+        </div>
+        <div style="padding: 8%">
+          <div class="row">
+            Hello ${email}, You are receiving this because you (or someone else) requested to change password. <br />Please click on the following link or paste this into your browser to complete:
+            <p><a href="http://${req.headers.host}/reset-password/${hash}">this Link</a></p>
+            <p>If you did not request this, please ignore this mail and your password will remain unchanged.</p>
+          </div>
+          <div style="border-top: 3px solid #e57373;"></div>
+        </div>
+      </div>
+    </div>`
     };
     Users.findOne({
       where: { email }
