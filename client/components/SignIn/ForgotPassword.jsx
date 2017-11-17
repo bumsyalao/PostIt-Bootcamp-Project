@@ -4,12 +4,18 @@ import { forgotPasswordAction } from '../../actions/SignInAction';
 import NavigationBar from '../NavigationBar';
 
 /**
- *
- *
  * @class ForgotPassword
  * @extends {Component}
  */
 class ForgotPassword extends Component {
+
+  /**
+   * Creates an instance of ForgotPassword.
+   * Bind class methods
+   * @param {object} props
+   *
+   * @memberOf ForgotPassword
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -21,20 +27,20 @@ class ForgotPassword extends Component {
 
   /**
    *
-   *
-   * @param {any} event
+   * Sets the event value to the state
+   * @param {object} event
    *
    * @memberOf ForgotPassword
    */
   onChange(event) {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.id]: event.target.value
     });
   }
 
   /**
-   *
-   *
+   * Makes an action call to get forgotPasswordAction
+   * Toast Success/error message
    *
    * @memberOf ForgotPassword
    */
@@ -46,15 +52,15 @@ class ForgotPassword extends Component {
         this.props.history.push('/');
         Materialize.toast('Password Reset Link sent', 5000, 'green');
       })
-      .catch(error => {
-        Materialize.toast('Server Error', 5000, 'red');
+      .catch((error) => {
+        Materialize.toast(error.response.data.message, 5000, 'red');
       });
   }
 
   /**
    *
-   *
-   * @returns
+   * Renders ForgotPassword Component
+   * @returns ForgotPassword HTML component
    *
    * @memberOf ForgotPassword
    */
@@ -82,6 +88,7 @@ class ForgotPassword extends Component {
             </div>
             <div className="input-field col s6 offset-s3">
               <button
+                id="submit-forgotPassword"
                 onClick={this.forgotPassword}
                 className=
                 "btn waves-effect waves-light col s6 offset-s3 red lighten-2"

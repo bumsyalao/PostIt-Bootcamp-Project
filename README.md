@@ -5,11 +5,12 @@ A cool App that allows users create groups and post notifications to group.
 It provides restful APIs for users to create groups, post messages and retrieve messages based on userId and managing authentication of users with JsonWebToken.
 
 [![Build Status](https://travis-ci.org/bumsyalao/PostIt-Bootcamp-Project.svg?branch=master)](https://travis-ci.org/bumsyalao/PostIt-Bootcamp-Project) [![Coverage Status](https://coveralls.io/repos/github/bumsyalao/PostIt-Bootcamp-Project/badge.svg?branch=master)](https://coveralls.io/github/bumsyalao/PostIt-Bootcamp-Project?branch=master) [![Code Climate](https://codeclimate.com/github/bumsyalao/PostIt-Bootcamp-Project/badges/gpa.svg)](https://codeclimate.com/github/bumsyalao/PostIt-Bootcamp-Project)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 
 ##### Hosted App on Heroku 
 [Post-it](https://postit-now.herokuapp.com/)
 
-[Api Documentation](https://app.apiary.io/postit13/)
+[Api Documentation](https://postit13.docs.apiary.io/)
 
 ### Key Application Features
 
@@ -36,7 +37,10 @@ The frontend was built with the react and redux framework.
 ### Installation
 
 - Clone the project repository.
-- Run git clone (https://github.com/bumsyalao/PostIt-Bootcamp-Project) 
+- Run git clone (https://github.com/bumsyalao/PostIt-Bootcamp-Project)
+
+``` git clone https://github.com/bumsyalao/PostIt-Bootcamp-Project ```
+
 more info: (https://help.github.com/articles/cloning-a-repository/)
 - Run ``` npm install ``` to install the dependencies in the package.json file.
 - Create Postgresql database and run ```sequelize dbmigrate npm undo and npm redo ```(https://www.postgresql.org/)
@@ -56,18 +60,33 @@ Login, Sign Up and start creating groups
 - SASS/SCSS.
 - Postgres (https://www.postgresql.org/)
 
-### Contributing
+### Limitations
++ Users cannot upload their picture.
++ Users cannot add other users to group.
++ Users cannot leave a group.
++ Users cannot delete a message when sent
++ Users cannot delete other users.
 
-- Fork this repositry to your account.
-- Clone your repositry: ``` git clone ```
-https://github.com/andela-cofor/postit.git.
-- Create your feature branch: ``` git checkout -b new-feature ```
-- Commit your changes: ``` git commit -m "did something" ```
-- Push to the remote branch: ``` git push origin new-feature ```
-- Open a pull request.
+### FAQ
+#### Is PostIt app free or do you plan to monetize it in future?
+Yes its totally free and it will continue to be free
 
-#### Licence
+#### How many end points are there currently?
+Currently its 14
 
-ISC
+#### Is PostIt app open source?
+Yes, and I encourage you to contribute to the project
 
-Copyright (c) 2017 Bunmi Alao
+#### What if I want to customize my environment variables?
+That's easy. In the root of the project. create a file named .env and add exactly what you see in the .env.example file.
+
+
+### Contribution
+I am glad you want to contribute to this project, Please checkout the wiki page [Contributing](https://github.com/bumsyalao/PostIt-Bootcamp-Project/wiki/Contributing)
+
+### Author
+Olubunmi Alao
+## License & Copyright
+MIT © [Olubunmi Alao](https://github.com/bumsyalao)
+
+Licensed under the [MIT License](LICENSE)

@@ -1,5 +1,13 @@
 .form-margin {
   margin-top: 5% !important;
+
+  div {
+    h3 {
+      margin-left: 25%;
+      font-size: 1.92rem;
+      margin-bottom: 3%;
+    }
+  }
 }
 
 @media only screen and (min-width: 769px) {

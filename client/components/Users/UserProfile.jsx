@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { userSignInRequest } from '../../actions/SignInAction';
 import { allUserGroups } from '../../actions/users';
-
+import photo from '../../images/photo.jpg';
 
 /**
- *
- *
  * @class UserProfile
  * @extends {Component}
  */
 class UserProfile extends Component {
+
+  /**
+   * Creates an instance of UserProfile.
+   * Binds class methods
+   * @memberOf UserProfile
+   */
   constructor() {
     super();
     this.state = {
@@ -19,20 +22,18 @@ class UserProfile extends Component {
   }
 
   /**
-   *
-   *
-   *
+   * Makes action call to get UserId
+   * @returns userId
    * @memberOf UserProfile
    */
   componentDidMount() {
-    this.props.allUserGroups(this.props.access.user.userId).catch();
+    const userid = this.props.access.user.userId;
+    this.props.allUserGroups(userid).catch();
   }
 
   /**
-   *
-   *
-   * @param {any} nextProps
-   *
+   * Update the state if the props are change
+   * @param {object} nextProps
    * @memberOf UserProfile
    */
   componentWillReceiveProps(nextProps) {
@@ -43,10 +44,8 @@ class UserProfile extends Component {
   }
 
   /**
-   *
-   *
-   * @returns
-   *
+   * Renders UserProfile
+   * @returns UserProfile
    * @memberOf UserProfile
    */
   render() {
@@ -56,7 +55,7 @@ class UserProfile extends Component {
           <div className="col s12 m7">
             <div className="profile-image">
               <img
-                src="https://yt3.ggpht.com/-niLM_ysnU8w/AAAAAAAAAAI/AAAAAAAAAAA/0UFxDTtpaJg/s900-c-k-no-mo-rj-c0xffffff/photo.jpg"
+                src={photo}
                 width="100px"
                 height="100px"
               />
@@ -70,14 +69,14 @@ class UserProfile extends Component {
                   <span>{this.props.access.user.email} </span>
                 </div>
                 <div className="collection-item">
-                  <span>{this.props.access.user.phonenumber} </span>
+                  <span>{this.props.access.user.phoneNumber} </span>
                 </div>
                 <div className="collection-item">
                   {' '}
                   Groups I belong to:{' '}
                   {this.state.groups &&
                     this.state.groups.map(group => (
-                      <div className="chip">{group.groupname}</div>
+                      <div className="chip" key={group.id} > {group.groupName}</div>
                     ))}{' '}
                 </div>
               </div>

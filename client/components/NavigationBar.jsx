@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { logout } from '../actions/SignInAction';
-import { withRouter } from 'react-router-dom';
 
 
 /**
@@ -10,6 +9,13 @@ import { withRouter } from 'react-router-dom';
  * @extends {React.Component}
  */
 class NavigationBar extends React.Component {
+
+  /**
+   * Creates an instance of NavigationBar.
+   * @param {object} props
+   *
+   * @memberOf NavigationBar
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -18,7 +24,7 @@ class NavigationBar extends React.Component {
     this.logout = this.logout.bind(this);
   }
   /**
-   *
+   * Update the state if the props are changed
    * @param {object} nextProps
    */
   componentWillReceiveProps(nextProps) {
@@ -30,6 +36,7 @@ class NavigationBar extends React.Component {
   }
 
   /**
+   * Updates the state.
    * @memberOf NavigationBar
    */
   componentDidMount() {
@@ -37,6 +44,14 @@ class NavigationBar extends React.Component {
       user: this.props.isAuth
     });
   }
+
+  /**
+   * Prevent default action of event
+   *
+   * @param {object} event
+   *
+   * @memberOf NavigationBar
+   */
   logout(event) {
     event.preventDefault();
     this.props.logout();
@@ -44,6 +59,7 @@ class NavigationBar extends React.Component {
   }
 
   /**
+   * Renders NavigationBar
    * @returns Navigationbar
    * @memberOf NavigationBar
    */
@@ -52,15 +68,18 @@ class NavigationBar extends React.Component {
       <div>
         <nav>
           <div className="nav-wrapper container">
-            <Link to="/">
-              <a id="logo-container" className="brand-logo">
+            <Link to="/"
+            id="logo-container" className="brand-logo"
+            >
                 POST-IT
-              </a>
             </Link>
             {this.props.match.url === '/' && (
               <ul className="right">
                 <li>
                   <Link to="/signin">Login</Link>
+                </li>
+                <li>
+                  <Link to="/signup">Register</Link>
                 </li>
               </ul>
             )}
@@ -71,24 +90,10 @@ class NavigationBar extends React.Component {
                 </li>
               </ul>
             )}
-            {this.props.match.url === '/' && (
-              <ul className="right">
-                <li>
-                  <Link to="/signup">Register</Link>
-                </li>
-              </ul>
-            )}
             {this.props.match.url === '/signin' && (
               <ul className="right">
                 <li>
                   <Link to="/signup">Register</Link>
-                </li>
-              </ul>
-            )}
-            {this.props.match.url === '/homepage' && (
-              <ul className="right">
-                <li>
-                  <a onClick={this.logout}>LOG OUT</a>
                 </li>
               </ul>
             )}

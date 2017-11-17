@@ -9,11 +9,6 @@ const initialState = {
 
 export default (state = initialState, action = {}) => {
   switch (action.type) {
-    case types.ADD_MEMBER_TO_GROUP:
-      return {
-        ...state,
-        group: action.groups
-      };
     case types.LIST_GROUPS:
       return {
         ...state,
@@ -34,17 +29,18 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
       };
-
-    case types.GET_GROUP_USERS:
+    case types.GET_GROUP_USERS: {
       const groupList = state.groupList;
-      const group = groupList.filter(grp => grp.id === action.groupId)[0];
-      group.users = action.users;
-      const allGroups = groupList.filter(group => group.id !== action.groupId);
+      const group = groupList.find(
+        foundGroup => foundGroup.id === action.groupId);
+      const allGroups = groupList.filter(
+        allGroup => allGroup.id !== action.groupId);
 
       return {
         ...state,
-        groupList: [...allGroups, group]
+        groupList: [{ ...group, users: action.users }, ...allGroups]
       };
+    }
     default: return state;
   }
 };

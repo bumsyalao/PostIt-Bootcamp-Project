@@ -10,4 +10,4 @@ before_script:
   - sudo -u postgres createuser bunmialao
   - createdb postit-test
 script:
-  - npm run test
+  - npm run travis:clientTest

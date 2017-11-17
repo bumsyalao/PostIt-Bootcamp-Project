@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
     },
-    phonenumber: {
+    phoneNumber: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
@@ -50,11 +50,11 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
     },
-    forgotpasswordtoken: {
+    forgotPasswordToken: {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    expirytime: {
+    expiryTime: {
       type: DataTypes.DATE,
       allowNull: true
     },

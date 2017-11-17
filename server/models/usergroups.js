@@ -14,11 +14,19 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    groupname: {
+    groupName: {
       type: DataTypes.STRING,
       allowNull: false
     }
-  }
+  },
+    {
+      classMethods: {
+        associate: (models) => {
+          Usergroups.belongsTo(models.Groups, { foreignKey: 'groupId' });
+          Usergroups.belongsTo(models.Users, { foreignKey: 'userId' });
+        }
+      }
+    }
   );
 
   return Usergroups;

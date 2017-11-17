@@ -24,7 +24,7 @@ module.exports = {
         return res.status(401).send({ message: 'Token authentication failed' });
       }
       req.decoded = decoded;
-      return next();
+      next();
     });
   }
 };

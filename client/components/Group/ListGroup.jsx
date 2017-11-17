@@ -1,32 +1,34 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Switch, Route, withRouter } from 'react-router-dom';
-import addMemberToGroup from '../../actions/createGroupRequest';
 import { getMessages } from '../../actions/messages';
-import { getGroups, listAllUsers, removeGroup } from '../../actions/groups';
+import {
+  getGroups, listAllUsers, joinGroup
+} from '../../actions/groups';
 import GroupCard from './GroupCard';
-import GroupChat from './GroupChat';
 
 
 /**
- *
- *
  * @class ListGroup
  * @extends {React.Component}
  */
 class ListGroup extends React.Component {
+
+  /**
+   * Creates an instance of ListGroup.
+   * Binds class methods.
+   * @param {object} props
+   *
+   * @memberOf ListGroup
+   */
   constructor(props) {
     super(props);
     this.onClick = this.onClick.bind(this);
-    this.joinGroup = this.joinGroup.bind(this);
+    this.joinAGroup = this.joinAGroup.bind(this);
     this.listUsers = this.listUsers.bind(this);
-    this.deleteGroup = this.deleteGroup.bind(this);
   }
 
   /**
-   *
-   *
-   *
+   * Makes an action call to getGroups
    * @memberOf ListGroup
    */
   componentDidMount() {
@@ -35,8 +37,8 @@ class ListGroup extends React.Component {
 
   /**
    *
-   *
-   * @param {any} id
+   * Makes an action call to push to url
+   * @param {int} id
    *
    * @memberOf ListGroup
    */
@@ -46,16 +48,16 @@ class ListGroup extends React.Component {
 
   /**
    *
-   *
-   * @param {any} event
+   * Makes an action call to joinGroup
+   * @param {object} event The event of the HTML component
    *
    * @memberOf ListGroup
    */
-  joinGroup(event) {
+  joinAGroup(event) {
     event.preventDefault();
     const id = event.target.id;
     this.props
-      .addMemberToGroup(id)
+      .joinGroup(id)
       .then(() => {
         Materialize.toast('Member successfully added', 5000, 'green');
       })
@@ -70,16 +72,15 @@ class ListGroup extends React.Component {
 
   /**
    *
-   *
-   * @param {any} groupId
-   * @returns
+   * Makes an action call to listAllUsers
+   * @param {int} groupId
+   * @returns users
    *
    * @memberOf ListGroup
    */
   listUsers(groupId) {
     const { users } = this.props;
     if (users && users.length > 0) return;
-    console.log(this.props.users);
     this.props
       .listAllUsers(groupId)
       .then(() => {})
@@ -90,22 +91,8 @@ class ListGroup extends React.Component {
 
   /**
    *
-   *
-   * @param {any} event
-   *
-   * @memberOf ListGroup
-   */
-  deleteGroup(event) {
-    this.props.removeGroup(event.target.id)
-      .then(() => {
-        console.log('HI');
-      });
-  }
-
-  /**
-   *
-   *
-   * @returns
+   * Renders ListGroup component
+   * @returns ListGroup HMTL component
    *
    * @memberOf ListGroup
    */
@@ -113,17 +100,17 @@ class ListGroup extends React.Component {
     return (
       <div>
         <div className="row form-margin">
-          <div className="col s12 m12 l12">
+          <div className="col s12 m12 l12 scroll-group">
             {this.props.groupList.map(group => (
               <GroupCard
                 key={group.id}
                 id={group.id}
                 onClick={() => this.onClick(group.id)}
-                joinGroup={this.joinGroup}
+                joinAGroup={this.joinAGroup}
                 {...group}
                 users={group.users}
                 listUsers={this.listUsers}
-                deleteGroup={this.deleteGroup}
+
               />
             ))}
           </div>
@@ -145,9 +132,8 @@ const mapStateToProps = state => ({
 const actions = {
   getGroups,
   getMessages,
-  addMemberToGroup,
+  joinGroup,
   listAllUsers,
-  removeGroup
 };
 
 export default connect(mapStateToProps, actions)(ListGroup);

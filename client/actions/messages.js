@@ -13,17 +13,26 @@ export const loadMessage = (message, username, groupId) => ({
   groupId,
   username
 });
-
+/**
+ * api call to getMessages
+ * @param {object} id
+ * @return {object} returns messages, id if the call is successful
+ */
 export const getMessages = id =>
  dispatch => axios.get(`/api/v1/group/${id}/messages`)
  .then((response) => {
-   dispatch(loadMessages(response.data, id));
+   dispatch(loadMessages(response.data.messages, id));
  })
 .catch((error) => { throw error; });
 
-export const newMessage = (groupId, username, data) =>
-dispatch => axios.post(`/api/v1/group/${groupId}/message`, data)
+/**
+ * api call to create newMessage
+ * @param {object} groupId, username, message
+ * @return {object} returns messages, username, groupId if the call is successful
+ */
+export const newMessage = (groupId, username, message) =>
+dispatch => axios.post(`/api/v1/group/${groupId}/message`, message)
  .then((response) => {
-   dispatch(loadMessage(response.data, username, groupId));
+   dispatch(loadMessage(response.data.newMessage, username, groupId));
  })
   .catch((error) => { throw error; });
