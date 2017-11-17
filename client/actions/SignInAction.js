@@ -35,7 +35,7 @@ export const userSignInRequest = userData =>
       localStorage.setItem('token', response.data.token);
       attachAuthorizationToken(response.data.token);
       return dispatch(userSigninSuccess(
-        response.data.userDetails, response.data.userDetails));
+        response.data.userDetails, response.data.message));
     })
     .catch((error) => {
       throw error;

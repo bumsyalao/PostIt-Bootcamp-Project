@@ -1,10 +1,9 @@
-const paginate = require('../middleware/paginate');
+import paginate from '../middleware/paginate';
 
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 const models = require('../models');
-
 
 require('dotenv').config();
 
@@ -47,13 +46,11 @@ module.exports = {
             phoneNumber: newUser.phoneNumber,
             email: newUser.email
           };
-          return res
-            .status(200)
-            .send({
-              token,
-              userInfo,
-              message: 'Your account has been created'
-            });
+          return res.status(200).send({
+            token,
+            userInfo,
+            message: 'Your account has been created'
+          });
         })
         .catch(error => res.status(400).send({ message: error.message }));
     } else {
@@ -80,8 +77,7 @@ module.exports = {
                 userId: foundUser.id,
                 username: foundUser.username,
                 email: foundUser.email,
-                phoneNumber: foundUser.phoneNumber,
-
+                phoneNumber: foundUser.phoneNumber
               },
               secret,
               { expiresIn: '1 day' }
@@ -91,7 +87,6 @@ module.exports = {
               username: foundUser.username,
               email: foundUser.email,
               phoneNumber: foundUser.phoneNumber
-
             };
             return res.status(200).send({
               token,
@@ -99,12 +94,10 @@ module.exports = {
               message: 'You have logged in succesfully'
             });
           }
-          return res
-            .status(401)
-            .send({
-              success: false,
-              message: 'Incorrect username or password'
-            });
+          return res.status(401).send({
+            success: false,
+            message: 'Incorrect username or password'
+          });
         })
         .catch(error => res.status(400).send({ message: error.message }));
     } else {
@@ -225,16 +218,20 @@ module.exports = {
       from: '"POST_IT" <postit.nownow@gmail.com>', // sender address
       to: email, // list of receivers
       subject: 'Reset Your Password_POSTIT', // Subject line
-      html:
-        `<div style="width: 100%; background-color: #eeeeee; padding: 2%;">
+      html: `<div style="width: 100%; background-color: #eeeeee; padding: 2%;">
       <div style="width: 60%; background-color: white; margin: auto;">
-        <div style="height: 8%; background-color: #e57373; width:100%; display: flex; flex-direction: row">
-          <img height="40px" style="margin-left: 2%; margin-top: 2%" src="http://res.cloudinary.com/dcpfdxsly/image/upload/v1510790648/feminist_zea7fw.png"> <h5> POST-IT </h5>
+        <div style="height: 8%; background-color: #e57373; width:100%;
+        display: flex; flex-direction: row">
+          <img height="40px" style="margin-left: 2%; margin-top: 2%"
+          src="http://res.cloudinary.com/dcpfdxsly/image/upload/v1510790648/feminist_zea7fw.png">
+          <h5> POST-IT </h5>
         </div>
         <div style="padding: 8%">
           <div class="row">
-            Hello ${email}, You are receiving this because you (or someone else) requested to change password. <br />Please click on the following link or paste this into your browser to complete:
-            <p><a href="http://${req.headers.host}/reset-password/${hash}">this Link</a></p>
+            Hello ${email}, You are receiving this because you (or someone else) requested to change password.
+            <br />Please click on the following link or paste this into your browser to complete:
+            <p><a href="http://${req.headers
+              .host}/reset-password/${hash}">this Link</a></p>
             <p>If you did not request this, please ignore this mail and your password will remain unchanged.</p>
           </div>
           <div style="border-top: 3px solid #e57373;"></div>

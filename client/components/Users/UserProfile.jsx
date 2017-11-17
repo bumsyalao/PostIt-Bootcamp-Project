@@ -76,7 +76,8 @@ class UserProfile extends Component {
                   Groups I belong to:{' '}
                   {this.state.groups &&
                     this.state.groups.map(group => (
-                      <div className="chip" key={group.id} > {group.groupName}</div>
+                      <div className="chip" key={group.id} > {group.groupName}
+                      </div>
                     ))}{' '}
                 </div>
               </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import MessageCard from './MessageCard';
 import { newMessage, getMessages } from '../../actions/messages';
 import { getUserGroups, allUserGroups } from '../../actions/users';
@@ -12,7 +12,6 @@ import { getGroup } from '../../actions/groups';
  * @extends {React.Component}
  */
 class GroupChat extends React.Component {
-
   /**
    * Creates an instance of GroupChat.
    * Binds class methods
@@ -39,8 +38,6 @@ class GroupChat extends React.Component {
   componentDidMount() {
     $('select').material_select();
     const { groupId } = this.props.match.params;
-    const userid = this.props.access.user.userId;
-    this.props.allUserGroups(userid);
     this.props.getMessages(groupId);
     this.props.getGroup(groupId);
   }
@@ -97,11 +94,17 @@ class GroupChat extends React.Component {
       this.props.history.push('/homepage/groups');
       return null;
     }
+    const id = this.props.group.id;
     return (
       <div>
         <div className="row">
           <div className="col s12 m12 l12 form-margin message-form">
             <h5> {(this.props.group.groupName || '').toUpperCase()} </h5>
+             <Link to={`/homepage/group/${id}/add-user`}
+             className="waves-effect waves-light red lighten-2 btn">
+             <i className="material-icons left">add</i>
+             Add User
+             </Link>
             <div className="message-box">
               <ul className="collection">
                 {this.props.messages.map(message => (
@@ -126,13 +129,16 @@ class GroupChat extends React.Component {
                   onChange={this.onChange}
                   value={this.state.messagePriority}
                 >
-                  <option value="normal" defaultValue>Normal</option>
+                  <option value="normal" defaultValue>
+                    Normal
+                  </option>
                   <option value="urgent">Urgent</option>
                   <option value="critical">Critical</option>
                 </select>
-                <button
-                id="submit-message"
-                onClick={this.onSubmit}> Send </button>
+                <button id="submit-message" onClick={this.onSubmit}>
+                  {' '}
+                  Send{' '}
+                </button>
               </div>
             </div>
           </div>
@@ -149,11 +155,14 @@ const mapStateToProps = (state, ownProps) => {
     messages: state.messages[groupId] || [],
     group: state.group[groupId] || {},
     userGroups: state.users.usergroups || [],
-    access: state.access,
+    access: state.access
   };
 };
 
 export default connect(mapStateToProps, {
-  newMessage, getMessages, getGroup, getUserGroups, allUserGroups })(withRouter(
-  GroupChat
-));
+  newMessage,
+  getMessages,
+  getGroup,
+  getUserGroups,
+  allUserGroups
+})(withRouter(GroupChat));

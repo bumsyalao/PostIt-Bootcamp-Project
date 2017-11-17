@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getMessages } from '../../actions/messages';
 import {
-  getGroups, listAllUsers, addMemberToGroup
+  getGroups, listAllUsers, joinGroup
 } from '../../actions/groups';
 import GroupCard from './GroupCard';
 
@@ -11,7 +11,7 @@ import GroupCard from './GroupCard';
  * @class ListGroup
  * @extends {React.Component}
  */
-export class ListGroup extends React.Component {
+class ListGroup extends React.Component {
 
   /**
    * Creates an instance of ListGroup.
@@ -23,7 +23,7 @@ export class ListGroup extends React.Component {
   constructor(props) {
     super(props);
     this.onClick = this.onClick.bind(this);
-    this.joinGroup = this.joinGroup.bind(this);
+    this.joinAGroup = this.joinAGroup.bind(this);
     this.listUsers = this.listUsers.bind(this);
   }
 
@@ -48,16 +48,16 @@ export class ListGroup extends React.Component {
 
   /**
    *
-   * Makes an action call to addMemberToGroup
+   * Makes an action call to joinGroup
    * @param {object} event The event of the HTML component
    *
    * @memberOf ListGroup
    */
-  joinGroup(event) {
+  joinAGroup(event) {
     event.preventDefault();
     const id = event.target.id;
     this.props
-      .addMemberToGroup(id)
+      .joinGroup(id)
       .then(() => {
         Materialize.toast('Member successfully added', 5000, 'green');
       })
@@ -106,7 +106,7 @@ export class ListGroup extends React.Component {
                 key={group.id}
                 id={group.id}
                 onClick={() => this.onClick(group.id)}
-                joinGroup={this.joinGroup}
+                joinAGroup={this.joinAGroup}
                 {...group}
                 users={group.users}
                 listUsers={this.listUsers}
@@ -132,7 +132,7 @@ const mapStateToProps = state => ({
 const actions = {
   getGroups,
   getMessages,
-  addMemberToGroup,
+  joinGroup,
   listAllUsers,
 };
 

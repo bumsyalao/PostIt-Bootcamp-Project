@@ -1,7 +1,7 @@
 /* global localStorage */
 import axios from 'axios';
 import {
-  LIST_GROUPS, ADD_USER_TO_GROUP, GET_GROUP_USERS, LIST_ALL_USERS, LIST_GROUP }
+  LIST_GROUPS, ADD_USER_TO_GROUP, GET_GROUP_USERS, LIST_GROUP }
   from './types';
 import attachAuthorizationToken from '../utils/attachAuthorizationToken';
 
@@ -86,14 +86,28 @@ export const listAllUsers = groupId => dispatch =>
     });
 
 /**
- * api call to addMemberToGroup
+ * api call to joinGroup
  * @param {object} groupId
  * @return {object} returns newGroup if the call is successful
  */
-export const addMemberToGroup = groupId =>
+export const joinGroup = groupId =>
   dispatch => axios.post(`/api/v1/group/${groupId}/user`)
   .then((response) => {
     dispatch(addUser(response.data.newGroup));
   }).catch((error) => {
     throw (error);
   });
+
+/**
+ * api call to addMemberToGroup
+ * @param {object} groupId
+ * @return {object} returns newGroup if the call is successful
+ */
+export const addMemberToGroup = (groupId, userId) =>
+  dispatch => axios.post(`/api/v1/group/${groupId}/user/${userId}`)
+  .then((response) => {
+    dispatch(addUser(response.data.newGroup));
+  }).catch((error) => {
+    throw (error);
+  });
+
