@@ -90,6 +90,7 @@ class SignupForm extends React.Component {
   render() {
     return (
       <div className="form-margin">
+      <div><h3 className="form-header">REGISTER</h3></div>
         <form className="col s12 container">
           <div className="input-field col s6 offset-s3">
             <i className="material-icons prefix">account_circle</i>
@@ -174,7 +175,7 @@ class SignupForm extends React.Component {
             type="submit"
             name="action"
           >
-            Register
+            Register<i className="material-icons right">send</i>
           </button>
         </form>
       </div>

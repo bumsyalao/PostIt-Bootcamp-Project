@@ -1,4 +1,4 @@
-const paginate = require('../middleware/paginate');
+import paginate from '../middleware/paginate';
 
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');

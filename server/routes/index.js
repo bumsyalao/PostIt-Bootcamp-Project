@@ -28,10 +28,14 @@ module.exports = (app) => {
 
   //  api route to add users to group
   app.post(
-    '/api/v1/group/:groupid/user',
+    '/api/v1/group/:groupid/user/:userid',
     auth.checkToken,
     usergroupsController.create
   );
+
+  // api to join a group
+  app.post('/api/v1/group/:groupid/user', auth.checkToken,
+  usergroupsController.joinGroup);
 
   // api route to post message to group
   app.post(

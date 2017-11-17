@@ -19,7 +19,7 @@ class GroupCard extends Component {
   }
   /* eslint-enable */
   render() {
-    const { groupName, id, joinGroup, listUsers, users } = this.props;
+    const { groupName, id, joinAGroup, listUsers, users } = this.props;
 
     return (
       <div className="col s6">
@@ -46,7 +46,7 @@ class GroupCard extends Component {
                   >
                     <li>
                       <i className="material-icons tiny">games</i>
-                      <div onClick={joinGroup} id={id} className="card-title">
+                      <div onClick={joinAGroup} id={id} className="card-title">
                         Join group
                       </div>
                     </li>

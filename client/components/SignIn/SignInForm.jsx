@@ -86,6 +86,7 @@ class SignInForm extends React.Component {
   render() {
     return (
       <div className="form-margin">
+      <div><h3 className="form-header">LOGIN</h3></div>
         <div className="col s12 container">
           <div className="input-field col s6 offset-s3">
             <i className="material-icons prefix">account_circle</i>
@@ -124,7 +125,7 @@ class SignInForm extends React.Component {
             "btn waves-effect waves-light col s6 offset-s3 red lighten-2"
             name="action"
           >
-            Login
+            Login<i className="material-icons right">send</i>
           </button>
         </div>
         <div className="col s6 offset-s3 forgot-password">

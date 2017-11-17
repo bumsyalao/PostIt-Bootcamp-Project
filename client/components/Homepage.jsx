@@ -9,6 +9,7 @@ import UsersPage from '../components/Users/UsersPage';
 import UserProfile from '../components/Users/UserProfile';
 import Welcomepage from './Welcomepage';
 import PageNotFound from './PageNotFound';
+import SearchUser from '../components/Group/SearchUser';
 
 
 /**
@@ -68,6 +69,10 @@ class Homepage extends React.Component {
             <Route
               path={`${this.props.match.url}/user-profile`}
               component={UserProfile}
+            />
+            <Route
+              path={`${this.props.match.url}/group/:groupId/add-user`}
+              component={SearchUser}
             />
             <Route component={PageNotFound}/>
           </Switch>

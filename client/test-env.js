@@ -1,3 +1,5 @@
-import $ from 'jquery';
 
-global.$ = global.jQuery = $;
+global.$ = () => ({
+  collapsible: () => null,
+  material_select: () => null
+});
