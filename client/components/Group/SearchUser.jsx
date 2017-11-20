@@ -9,7 +9,7 @@ import { addMemberToGroup, getGroups } from '../../actions/groups';
  * @class SearchPage
  * @extends {Component}
  */
-class SearchUser extends Component {
+export class SearchUser extends Component {
   /**
    * Creates an instance of SearchPage.
    * Bind the function handlePageClick to the class.
@@ -184,7 +184,7 @@ class SearchUser extends Component {
                   <tr key={user.id}>
                     <td>
                       <i
-                        class="material-icons "
+                        className="material-icons"
                         onClick={this.joinGroup}
                         id={user.id}
                       >

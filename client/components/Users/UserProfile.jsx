@@ -7,7 +7,7 @@ import photo from '../../images/photo.jpg';
  * @class UserProfile
  * @extends {Component}
  */
-class UserProfile extends Component {
+export class UserProfile extends Component {
 
   /**
    * Creates an instance of UserProfile.

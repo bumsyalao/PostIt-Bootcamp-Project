@@ -13,12 +13,15 @@
     "start-dev": "webpack --config ./webpack.config.js --progress --colors && nodemon --watch server --exec babel-node -- server.js",
     "postinstall": "npm run build",
     "coverage-report": "cat ./coverage/lcov.info | coveralls",
-    "test": "NODE_ENV=test sequelize db:migrate && nyc --reporter=text --reporter=html --reporter=lcov mocha --compilers js:babel-core/register \"server/test/**/*.test.js\" --timeout 5000 && npm run coverage-report",
+    "testserver": " NODE_ENV=test && nyc --reporter=text --reporter=html --reporter=lcov mocha --compilers js:babel-core/register \"server/test/**/*.test.js\" --timeout 5000 && npm run coverage-report",
+    "test": "npm-run-all --sequential  migrate:test:down migrate:test testserver", 
     "prebuild": "rm -rf ./dist",
     "build": "./node_modules/.bin/webpack --config ./webpack.config.prod.js",
     "build:server": "babel server -d dist/server --copy-files --ignore test",
     "build:client": "NODE_ENV=production webpack --config webpack.config.prod.js && cp -R client dist/client",
-    "travis:clientTest": "NODE_ENV=development jest -u"
+    "travis:clientTest": "NODE_ENV=development jest -u",
+    "migrate:test": "cross-env NODE_ENV=test node_modules/.bin/sequelize db:migrate",
+    "migrate:test:down": "cross-env NODE_ENV=test node_modules/.bin/sequelize db:migrate:undo:all"
   },
   "repository": {
     "type": "git",
@@ -114,6 +117,7 @@
     "jquery": "^3.2.1",
     "moxios": "^0.4.0",
     "nodemon": "^1.11.0",
+    "npm-run-all": "^4.1.2",
     "nyc": "^11.1.0",
     "react-hot-loader": "^1.3.1",
     "react-test-renderer": "^16.0.0",

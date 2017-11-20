@@ -10,7 +10,7 @@ const Groups = models.Groups;
 const expect = chai.expect;
 
 const userInfo = {
-  id: 3,
+  id: 11,
   email: 'twyse@ereme.com',
   username: 'funny',
   password: 'stuff',
@@ -27,16 +27,16 @@ const messageInfo = {
 describe('Messages model validation:', () => {
   before((done) => {
     Users.create(userInfo);
-    Groups.create({ id: 2, groupName: 'messages' });
-    UserGroups.create({ groupId: 2, userId: 3, username: 'funny', groupName: 'messages' });
+    Groups.create({ id: 11, groupName: 'messages' });
+    UserGroups.create({ groupId: 11, userId: 3, username: 'funny', groupName: 'messages' });
     done();
   });
-  after((done) => {
-    UserGroups.destroy({ where: { groupName: 'message' } });
-    Groups.destroy({ where: { id: 2 } });
-    Users.destroy({ where: { id: 2 } })
-    .then(() => done());
-  });
+  // after((done) => {
+  //   UserGroups.destroy({ where: { groupName: 'messages' } });
+  //   Groups.destroy({ where: { id: 11 } });
+  //   Users.destroy({ where: { id: 11 } })
+  //   .then(() => done());
+  // });
   it('requires userId field to create a message', () => {
     const nullUserId = Object.assign({}, messageInfo);
     nullUserId.userId = null;

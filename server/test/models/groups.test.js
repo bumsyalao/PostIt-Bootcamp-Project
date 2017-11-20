@@ -16,10 +16,10 @@ describe('Groups model validation:', () => {
       groupName: 'test' });
     done();
   });
-  after((done) => {
-    UserGroups.destroy({ where: { groupName: 'test' } });
-    Groups.destroy({ where: { groupName: 'test' } }).then(() => done());
-  });
+  // after((done) => {
+  //   UserGroups.destroy({ where: { groupName: 'test' } });
+  //   Groups.destroy({ where: { groupName: 'test' } }).then(() => done());
+  // });
   it('requires groupName field to create a group', () => {
     const group = Groups.build({ groupName: null });
     group.save()

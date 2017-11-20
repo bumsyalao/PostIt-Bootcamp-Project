@@ -4,6 +4,13 @@ exports[`SignUpForm Component should match the SignUpForm snapshot 1`] = `
 <div
   className="form-margin"
 >
+  <div>
+    <h3
+      className="form-header"
+    >
+      REGISTER
+    </h3>
+  </div>
   <form
     className="col s12 container"
   >
@@ -135,6 +142,11 @@ exports[`SignUpForm Component should match the SignUpForm snapshot 1`] = `
       type="submit"
     >
       Register
+      <i
+        className="material-icons right"
+      >
+        send
+      </i>
     </button>
   </form>
 </div>

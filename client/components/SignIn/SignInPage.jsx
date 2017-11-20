@@ -1,7 +1,7 @@
 import React from 'react';
-import SignInForm from './SignInForm';
+import SignInConnectedForm from './SignInForm';
 // import { userSignInRequest } from '../../actions/SignInAction';
-import NavigationBar from '../NavigationBar';
+import ConnectedNavigationBar from '../NavigationBar';
 
 
 /**
@@ -10,10 +10,10 @@ import NavigationBar from '../NavigationBar';
  */
 const SignInPage = ({ match }) => (
     <div>
-      <NavigationBar match={match}/>
+      <ConnectedNavigationBar match={match}/>
     <div className="row">
       <div className="col-md-4 col-md-offset-4">
-        <SignInForm />
+        <SignInConnectedForm />
       </div>
     </div>
     </div>

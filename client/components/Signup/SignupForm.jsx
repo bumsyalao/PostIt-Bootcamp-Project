@@ -8,7 +8,7 @@ import { userSignupRequest } from '../../actions/signupAction';
  * @class SignupForm
  * @extends {React.Component}
  */
-class SignupForm extends React.Component {
+export class SignupForm extends React.Component {
 
   /**
    * Creates an instance of SignupForm.

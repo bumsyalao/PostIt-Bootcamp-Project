@@ -10,7 +10,6 @@ const Messages = models.Messages;
 const Groups = models.Groups;
 
 const userInfo = {
-  id: 5,
   email: 'foundation@marykay.com',
   username: 'eyepencil',
   password: 'eyeshadow'
@@ -21,7 +20,7 @@ describe('MESSAGES ROUTES', () => {
   before((done) => {
     Groups.create({ id: 5, groupname: 'Route Messages' });
     Users.create(userInfo).then(() => {
-      api.post('/api/v1/user/signin')
+      api.post('/api/v1/user/signup')
       .send(userInfo)
       .end((err, res) => {
         validToken = res.body.token;
@@ -29,11 +28,11 @@ describe('MESSAGES ROUTES', () => {
       });
     });
   });
-  after((done) => {
-    Messages.destroy({ where: { userId: 5 } });
-    Users.destroy({ where: { id: 5 } });
-    Groups.destroy({ where: { id: 5 } }).then(() => done());
-  });
+  // after((done) => {
+  //   Messages.destroy({ where: { message: 'Test message' } });
+  //   Users.destroy({ where: { id: 5 } });
+  //   Groups.destroy({ where: { id: 5 } }).then(() => done());
+  // });
   describe('POST: (/api/v1/group/:groupid/message) - Create', () => {
     it('should be an object with keys and values', (done) => {
       api.post('/api/v1/group/5/message')

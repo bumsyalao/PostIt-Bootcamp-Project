@@ -1,6 +1,5 @@
 /* global expect test */
 import group from '../../reducers/groupsReducer';
-import users from '../../reducers/usersReducer';
 import {
   addUser, loadGroups, loadGroup, loadUsers } from '../../actions/groups';
 
@@ -88,23 +87,21 @@ describe('Group Reducer', () => {
     const action = loadGroup(agroup);
     const newState = group(initialState, action);
 
-    console.log(newState);
-    console.log(newState.id);
-    expect.toEqual(1);
+    expect(newState[action.group.id]).toEqual(agroup);
   });
 
-  it('should add member to group when addUser is called', () => {
-    const action = addUser(newGroup);
-    const newState = group(initialState, action);
+  // it('should add member to group when addUser is called', () => {
+  //   const action = addUser(newGroup);
+  //   const newState = group(initialState, action);
 
-    expect(newState.groupList[0]).toEqual({ id: 1, groupname: 'Trap' });
-  });
+  //   expect(newState.groupList[0]).toEqual({ id: 1, groupname: 'Trap' });
+  // });
 
   it('should load users in a group when loadUsers is called', () => {
     const action = loadUsers(busers, 59);
     const loadGroupState = group(initialState, loadGroups(groups));
     const newState = group(loadGroupState, action);
 
-    expect(newState.groupList[1]).toEqual(groupUsers);
+    expect(newState.groupList[0].users).toEqual(busers);
   });
 });

@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` Search User component should match the SearchUserSnapshot 1`] = `
+<div
+  className="row"
+>
+  <Link
+    className="waves-effect waves-light red lighten-2 btn"
+    replace={false}
+    to="/homepage/view-group/1"
+  >
+     
+    Go Back to Group
+  </Link>
+  <div
+    className="container form-margin"
+  >
+    <div
+      className=""
+    >
+      <div
+        className="row"
+      >
+        <form
+          className="col s12"
+        >
+          <div
+            className="row"
+          >
+            <div
+              className="input-field col s12"
+            >
+              <i
+                className="material-icons prefix"
+              >
+                search
+              </i>
+              <input
+                className="validate"
+                id="icon_prefix"
+                onChange={[Function]}
+                type="text"
+              />
+              <label
+                htmlFor="icon_prefix"
+              >
+                Enter username
+              </label>
+              <a
+                className="waves-effect waves-light red lighten-2 btn"
+                onClick={[Function]}
+              >
+                Search
+              </a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div
+    className="container table"
+  >
+    <table
+      className="responsive-table"
+    >
+      <thead>
+        <tr>
+          <th>
+            USERNAME
+          </th>
+          <th>
+            EMAIL
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+         
+      </tbody>
+    </table>
+  </div>
+</div>
+`;

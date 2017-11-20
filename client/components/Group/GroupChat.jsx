@@ -11,7 +11,7 @@ import { getGroup } from '../../actions/groups';
  * @class GroupChat
  * @extends {React.Component}
  */
-class GroupChat extends React.Component {
+export class GroupChat extends React.Component {
   /**
    * Creates an instance of GroupChat.
    * Binds class methods

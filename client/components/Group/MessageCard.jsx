@@ -3,8 +3,8 @@ import React from 'react';
 /**
  *
  *
- * @param {any} props 
- * @returns 
+ * @param {any} props
+ * @returns
  */
 const MessageCard = (props) => {
   const date = new Date(props.createdAt);

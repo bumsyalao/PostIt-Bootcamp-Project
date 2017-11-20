@@ -4,14 +4,14 @@ import { getMessages } from '../../actions/messages';
 import {
   getGroups, listAllUsers, joinGroup
 } from '../../actions/groups';
-import GroupCard from './GroupCard';
+import ConnectedGroupCard from './GroupCard';
 
 
 /**
  * @class ListGroup
  * @extends {React.Component}
  */
-class ListGroup extends React.Component {
+export class ListGroup extends React.Component {
 
   /**
    * Creates an instance of ListGroup.
@@ -102,7 +102,7 @@ class ListGroup extends React.Component {
         <div className="row form-margin">
           <div className="col s12 m12 l12 scroll-group">
             {this.props.groupList.map(group => (
-              <GroupCard
+              <ConnectedGroupCard
                 key={group.id}
                 id={group.id}
                 onClick={() => this.onClick(group.id)}

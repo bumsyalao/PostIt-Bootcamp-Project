@@ -19,9 +19,9 @@ const uniqueFields = ['email', 'username'];
 
 
 describe('Users model validation:', () => {
-  after((done) => {
-    Users.destroy({ where: { username: 'zack' } }).then(() => done());
-  });
+  // after((done) => {
+  //   Users.destroy({ where: { username: 'zack' } }).then(() => done());
+  // });
 
   let user;
   beforeEach((done) => {

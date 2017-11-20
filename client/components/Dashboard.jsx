@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import NavigationBar from './NavigationBar';
+import ConnectedNavigationBar from './NavigationBar';
 import welcomeimage from '../images/welcome-image.jpg';
 
 
 const Dashboard = () => (
   <div>
-    <NavigationBar />
+    <ConnectedNavigationBar />
     <div className="section no-pad-bot" id="index-banner">
       <div className="container">
         <br />

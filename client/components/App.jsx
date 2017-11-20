@@ -1,9 +1,9 @@
 import React from 'react';
-import NavigationBar from './NavigationBar';
+import ConnectedNavigationBar from './NavigationBar';
 
 const App = () => (
       <div className ="container">
-        <NavigationBar />
+        <ConnectedNavigationBar />
       </div>
     );
 

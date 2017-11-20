@@ -10,7 +10,6 @@ const Usergroups = models.Usergroups;
 const Groups = models.Groups;
 
 const userInfo = {
-  id: 4,
   email: 'zugzwang@chess.com',
   username: 'winner',
   password: 'waitingMove',
@@ -22,7 +21,7 @@ describe('USERGROUP ROUTES', () => {
   before((done) => {
     Groups.create({ id: 4, groupName: 'Route Usergroup' });
     Users.create(userInfo).then(() => {
-      api.post('/api/v1/user/signin')
+      api.post('/api/v1/user/signup')
       .send(userInfo)
       .end((err, res) => {
         validToken = res.body.token;
@@ -30,15 +29,15 @@ describe('USERGROUP ROUTES', () => {
       });
     });
   });
-  after((done) => {
-    Usergroups.destroy({ where: { userId: 4 } });
-    Users.destroy({ where: { id: 4 } });
-    Groups.destroy({ where: { id: 4 } }).then(() => done());
-  });
+  // after((done) => {
+  //   Usergroups.destroy({ where: { groupName: 'Route Usergroup' } });
+  //   Users.destroy({ where: { username: userInfo.username } });
+  //   Groups.destroy({ where: { groupName: 'Route Usergroup' } }).then(() => done());
+  // });
   describe('POST: (/api/v1/group/:groupid/user) - Create', () => {
     it('should be an object with keys and values', (done) => {
       api.post('/api/v1/group/4/user')
-      .set({ jwt: validToken })
+      .set('jwt', validToken)
       .expect(200)
       .end((err, res) => {
         expect(res.body).to.have.property('groupId');
@@ -52,7 +51,7 @@ describe('USERGROUP ROUTES', () => {
     });
     it('should not add user to group which user is already in', (done) => {
       api.post('/api/v1/group/4/user')
-        .set({ jwt: validToken })
+        .set('jwt', validToken)
         .end((err, res) => {
           expect(res.status).to.equal(401);
           expect(res.body.message).to.equal('User already in group');

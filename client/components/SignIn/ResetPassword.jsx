@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import NavigationBar from '../NavigationBar';
+import ConnectedNavigationBar from '../NavigationBar';
 import { resetPasswordAction } from '../../actions/SignInAction';
 
 /**
  * @class ResetPassword
  * @extends {Component}
  */
-class ResetPassword extends Component {
+export class ResetPassword extends Component {
   /**
    * Creates an instance of ResetPassword.
    * Binds class methods
@@ -69,7 +69,7 @@ class ResetPassword extends Component {
   render() {
     return (
       <div>
-        <NavigationBar match={this.props.match} />
+        <ConnectedNavigationBar match={this.props.match} />
         <div className="form-margin">
           <div className="col s12 container">
             <div className="input-field col s6 offset-s3">

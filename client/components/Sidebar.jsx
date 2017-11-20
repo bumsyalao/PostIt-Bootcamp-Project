@@ -4,7 +4,7 @@ import { Link, withRouter } from 'react-router-dom';
 import gender from '../images/gender-neutral copy.png';
 import { logout } from '../actions/SignInAction';
 
-class Sidebar extends Component {
+export class Sidebar extends Component {
 
   /**
    * Creates an instance of NavigationBar.

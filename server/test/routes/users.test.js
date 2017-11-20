@@ -13,6 +13,12 @@ const chopper = {
   phoneNumber: '09087667344',
   password: 'medicine'
 };
+const signupUser = {
+  username: 'bakar',
+  email: 'bakar@email.com',
+  phoneNumber: '09087667344',
+  password: 'medicine'
+};
 
 const existingUsername = {
   username: 'candy',
@@ -33,25 +39,10 @@ const nullPassword = {
   password: null
 };
 
-let token = ''; // eslint-disable-line
-
 describe('ROUTES', () => {
-  after((done) => {
-    models.Users.destroy({ where: { username: 'candy' } }).then(() => done());
-  });
-
-  it('should get token for all tests', (done) => {
-    api
-    .post('/api/v1/user/signup')
-    .send({ chopper
-    })
-    .end((err, res) => {
-      token = res.body.token;
-      expect(res.status).to.equal('token');
-      res.should.have.status(201);
-      done();
-    });
-  });
+  // after((done) => {
+  //   models.Users.destroy({ where: { username: 'candy' } }).then(() => done());
+  // });
 
   describe('POST: (/api/v1/user/signup) - Signup', () => {
     it('should return a 200 response', (done) => {
@@ -59,9 +50,10 @@ describe('ROUTES', () => {
       .set('Accept', 'application/json')
       .expect(200, done);
     });
+
     it('should be an object with keys and values', (done) => {
       api.post('/api/v1/user/signup')
-      .send(chopper)
+      .send(signupUser)
       .expect(200)
       .end((err, res) => {
         expect(res.body).to.have.property('token');
@@ -71,6 +63,7 @@ describe('ROUTES', () => {
         done();
       });
     });
+
     it('should not create another user with same username', (done) => {
       api.post('/api/v1/user/signup')
         .send(existingUsername)
@@ -80,6 +73,7 @@ describe('ROUTES', () => {
           done();
         });
     });
+
     it('should not create another user with same email', (done) => {
       api.post('/api/v1/user/signup')
         .send(invalidEmail)
@@ -90,6 +84,7 @@ describe('ROUTES', () => {
         });
     });
   });
+
   describe('POST: (/api/v1/user/signin) - signin', () => {
     it('should not signin when password is null', (done) => {
       api.post('/api/v1/user/signin')
@@ -100,6 +95,7 @@ describe('ROUTES', () => {
           done();
         });
     });
+
     it('should not signin when supplied invalid password', (done) => {
       api.post('/api/v1/user/signin')
         .send({
@@ -112,6 +108,7 @@ describe('ROUTES', () => {
           done();
         });
     });
+
     it('should not signin username is not supplied', (done) => {
       api.post('/api/v1/users/signin')
         .send({
@@ -123,6 +120,7 @@ describe('ROUTES', () => {
           done();
         });
     });
+
     it('should signin when supplied valid details', (done) => {
       api.post('/api/v1/user/signin')
         .send({
@@ -141,52 +139,16 @@ describe('ROUTES', () => {
         });
     });
   });
-  // describe('GET: (/api/v1/user) - View User', () => {
-  //   it('should return a 200 response', (done) => {
-  //     api.get('/api')
-  //     .set('Accept', 'application/json')
-  //   })
-  // }) /api/v1/user/forgot-password
-  // describe('Forgot password route /api/v1/user/forgot-password', () => {
-  //   describe('Forgot password positive response ', () => {
-  //     it('should return a status of 200', (done) => {
-  //       api.get('/api')
-  //     .post('/api/v1/user/forgot-password')
-  //     .set('token', token)
-  //     .send({
-  //       email: 'chopper@email.com'
-  //     })
-  //     .end((err, res) => {
-  //       res.should.have.status(200);
-  //       done();
-  //     });
-  //     });
+
+  // describe('GET: (/api/v1/user) - viewUser', () => {
+  //   it('should not signin when password is null', (done) => {
+  //     api.get('/api/v1/user')
+  //       .set('jwt', token)
+  //       .end((err, res) => {
+  //         expect(res.body.userInfo).to.equal('Incomplete login details');
+  //         done();
+  //       });
   //   });
 
-  //   describe('Forgot password negative response ', () => {
-  //     it('it should return a status of 400 when email is not sent', (done) => {
-  //       api.get('/api')
-  //     .post('/api/v1/user/forgot-password')
-  //     .set('token', token)
-  //     .send()
-  //     .end((err, res) => {
-  //       res.should.have.status(400);
-  //       done();
-  //     });
-  //     });
-
-  //     it('it should return a status of 400 when no users is on the platforom with the email', (done) => {
-  //       api.get('/api')
-  //     .post('/api/v1/user/forgot-password')
-  //     .set('token', token)
-  //     .send({
-  //       email: 'nouseremail@email.com'
-  //     })
-  //     .end((err, res) => {
-  //       res.should.have.status(404);
-  //       done();
-  //     });
-  //     });
-  //   });
   // });
 });

@@ -2,6 +2,7 @@
 
 exports[`PageNotFound component should match the PageNotFound component snapshot 1`] = `
 <div>
+  <Connect(withRouter(NavigationBar)) />
   <h4
     className="error-page"
   >

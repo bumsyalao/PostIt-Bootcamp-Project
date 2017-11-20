@@ -4,7 +4,7 @@ import moxios from 'moxios';
 import expect from 'expect';
 import * as actionType from '../../actions/types';
 import {
-  getGroups, addMemberToGroup, getGroup, getAllUsers, createGroup, listAllUsers
+  getGroups, addMemberToGroup, getGroup, createGroup, listAllUsers
 } from '../../actions/groups';
 import localStorageMock from '../../__mocks__/localStorageMock';
 
@@ -12,8 +12,6 @@ window.localStorage = localStorageMock;
 const middleware = [thunk];
 const mockStore = configureMockStore(middleware);
 const groupid = 1;
-const limit = 5;
-const offset = 0;
 const groupId = 3;
 
 describe('Group Action', () => {
@@ -102,71 +100,6 @@ describe('Group Action', () => {
       done();
     });
 
-    it('should make AJAX call to get all Users', (done) => {
-      moxios.stubRequest(`/api/v1/users?limit=${limit}&offset=${offset}`, {
-        status: 200,
-        response: {
-          message: 'Users found',
-          users:
-          [{
-            username: 'testuser',
-            email: 'test@email.com'
-          },
-          {
-            username: 'bumsy',
-            email: 'alaobunmi93@gmail.com'
-          },
-          {
-            username: 'sage',
-            email: 'sage@gmail.com'
-          },
-          {
-            username: 'bantu',
-            email: 'bantu@email.com'
-          },
-          {
-            username: 'princess',
-            email: 'princess@email.com'
-          }],
-          metaData: {
-            page: 1,
-            pageCount: 5,
-            pageSize: '5',
-            count: 24
-          }
-        }
-      });
-      const store = mockStore({});
-      const expectedAction = [{
-        users: [
-          {
-            username: 'testuser',
-            email: 'test@email.com'
-          },
-          {
-            username: 'bumsy',
-            email: 'alaobunmi93@gmail.com'
-          },
-          {
-            username: 'sage',
-            email: 'sage@gmail.com'
-          },
-          {
-            username: 'bantu',
-            email: 'bantu@email.com'
-          },
-          {
-            username: 'princess',
-            email: 'princess@email.com'
-          }
-        ],
-        type: actionType.LIST_ALL_USERS
-      }];
-      store.dispatch(getAllUsers()).then(() => {
-        expect(store.getActions()).toEqual(expectedAction);
-      });
-      done();
-    });
 
     it('should make AJAX call to createGroup', (done) => {
       moxios.stubRequest('/api/v1/group', {

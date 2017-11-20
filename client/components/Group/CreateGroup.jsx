@@ -7,7 +7,7 @@ import { createGroup } from '../../actions/groups';
  * @class CreateGroup
  * @extends {Component}
  */
-class CreateGroup extends Component {
+export class CreateGroup extends Component {
 
   /**
    * Creates an instance of CreateGroup.

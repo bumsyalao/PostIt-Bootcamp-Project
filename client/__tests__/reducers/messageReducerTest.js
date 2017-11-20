@@ -1,11 +1,11 @@
-/* global expect jest test */
+/* global expect test */
 import message from '../../reducers/messageReducer';
 import { loadMessage, loadMessages } from '../../actions/messages';
 
 const initialState = {
   messages: {}
 };
-const groupid = 1;
+
 const newMessage = {
   id: 47,
   userId: 119,
@@ -36,18 +36,18 @@ describe('Message Reducer', () => {
   it('should load a message when loadMessage is called', () => {
     const action = loadMessage(newMessage, 'test', 1);
     const newState = message(initialState, action);
-    console.log(newState);
-    expect(newState.messagePriority).toEqual('normal');
+
+    expect(newState['1'][0].messagePriority).toEqual('normal');
   });
   it('should load messages when loadMessages is called', () => {
     const action = loadMessages(amessages, 59);
     const newState = message(initialState, action);
-    console.log(newState);
-    expect(newState.groupId).toEqual(59);
+
+    expect(Object.keys(newState)[0]).toEqual('59');
   });
   it('should return default state when no action is called', () => {
     const newState = message(initialState);
-    console.log(newState);
+
     expect(newState.messages).toEqual({});
   });
 });

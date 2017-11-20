@@ -4,6 +4,13 @@ exports[`SignInForm Component should match the SignInForm snapshot 1`] = `
 <div
   className="form-margin"
 >
+  <div>
+    <h3
+      className="form-header"
+    >
+      LOGIN
+    </h3>
+  </div>
   <div
     className="col s12 container"
   >
@@ -62,6 +69,11 @@ exports[`SignInForm Component should match the SignInForm snapshot 1`] = `
       onClick={[Function]}
     >
       Login
+      <i
+        className="material-icons right"
+      >
+        send
+      </i>
     </button>
   </div>
   <div
