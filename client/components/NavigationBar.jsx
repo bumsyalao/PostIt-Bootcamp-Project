@@ -1,15 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import { logout } from '../actions/SignInAction';
-
+import { logout } from '../actions/signInAction';
 
 /**
  * @class NavigationBar
  * @extends {React.Component}
  */
 export class NavigationBar extends React.Component {
-
   /**
    * Creates an instance of NavigationBar.
    * @param {object} props
@@ -68,10 +66,8 @@ export class NavigationBar extends React.Component {
       <div>
         <nav>
           <div className="nav-wrapper container">
-            <Link to="/"
-            id="logo-container" className="brand-logo"
-            >
-                POST-IT
+            <Link to="/" id="logo-container" className="brand-logo">
+              POST-IT
             </Link>
             {this.props.match.url === '/' && (
               <ul className="right">

@@ -9,5 +9,6 @@ before_script:
   - npm install -g sequelize-cli
   - sudo -u postgres createuser bunmialao
   - createdb postit-test
+  - sequelize db:migrate
 script:
-  - npm run travis:clientTest
+  - npm run test

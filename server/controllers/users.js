@@ -281,14 +281,14 @@ module.exports = {
    */
   updatePassword(req, res) {
     const newPassword = req.body.password;
-    const hash = req.body.hash;
+    const hash = req.params.hash;
     Users.findOne({
       where: { hash }
     }).then((user) => {
-      const email = user.dataValues.email;
+      const email = user.email;
       const now = new Date();
 
-      if (now > user.dataValues.expiresIn) {
+      if (now > user.expiryTime) {
         return res.status(200).send({
           data: { error: { message: 'Expired or Invalid link' } }
         });

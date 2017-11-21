@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import ConnectedNavigationBar from '../NavigationBar';
-import { resetPasswordAction } from '../../actions/SignInAction';
+import { resetPasswordAction } from '../../actions/signInAction';
 
 /**
  * @class ResetPassword

@@ -1,6 +1,6 @@
 /* global expect jest test */
 import React from 'react';
-import { shallow, configure, mount } from 'enzyme';
+import { shallow, configure } from 'enzyme';
 import toJson from 'enzyme-to-json';
 import adapter from 'enzyme-adapter-react-16';
 import { ListGroup } from '../../components/Group/ListGroup';
@@ -47,10 +47,4 @@ describe('ListGroup component', () => {
     expect(childComponent.exists()).toBe(true);
     expect(component.exists()).toBe(true);
   });
-
-  // test('it should run function onClick', () => {
-  //   const newerspy = jest.spyOn(component.instance(), 'joinGroup');
-  //   component.find('#id').simulate('click');
-  //   expect(newerspy).toHaveBeenCalled();
-  // });
 });

@@ -8,53 +8,17 @@ const initialState = {
   groupList: [],
   groupMessages: [],
 };
-const userState = {
-  users: [],
-  usergroups: [],
-  pagination: {}
-};
 const groups = [
   { id: 1, groupname: 'Trap' },
   { id: 2, groupname: 'Hiphop' }
 ];
-const newGroup = {
-  groupId: 1,
-  userId: 119,
-  username: 'test',
-  groupName: 'new stuff',
-  updatedAt: '2017-11-14T11:44:24.574Z',
-  createdAt: '2017-11-14T11:44:24.574Z',
-  id: 32
-};
-const userGroups = [
-  { groupname: 'banku' },
-  { groupname: 'Trap' }
-];
-const banku = [
-  { createdAt: '2017-10-02T08:21:15.374Z',
-    groupId: 1,
-    groupname: 'Trap',
-    updatedAt: '2017-10-02T08:21:15.374Z',
-    userId: 1,
-    username: 'banku' }];
+
 const agroup = {
   id: 1,
   groupname: 'Trap',
   createdAt: '2017-10-02T08:20:40.859Z',
   updatedAt: '2017-10-02T08:20:40.859Z'
 };
-const groupUsers =
-  {
-    groupname: 'Trap',
-    id: 1,
-    users: [
-      { createdAt: '2017-10-02T08:21:15.374Z',
-        groupId: 1,
-        groupname: 'Trap',
-        updatedAt: '2017-10-02T08:21:15.374Z',
-        userId: 1,
-        username: 'banku' }]
-  };
 
 const busers = [
   {
@@ -89,13 +53,6 @@ describe('Group Reducer', () => {
 
     expect(newState[action.group.id]).toEqual(agroup);
   });
-
-  // it('should add member to group when addUser is called', () => {
-  //   const action = addUser(newGroup);
-  //   const newState = group(initialState, action);
-
-  //   expect(newState.groupList[0]).toEqual({ id: 1, groupname: 'Trap' });
-  // });
 
   it('should load users in a group when loadUsers is called', () => {
     const action = loadUsers(busers, 59);

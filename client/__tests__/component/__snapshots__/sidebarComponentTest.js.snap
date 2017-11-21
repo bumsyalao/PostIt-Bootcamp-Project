@@ -150,7 +150,8 @@ exports[`Sidebar component should match the Sidebar component snapshot 1`] = `
             href="#"
             onClick={[Function]}
           >
-            Log Out 
+            Log Out
+             
           </a>
         </div>
       </li>

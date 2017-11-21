@@ -29,6 +29,16 @@
   </div>
   </footer>
   <script type="text/javascript" src="/bundle.js"></script>
+  <script>
+    const trigger = document.querySelector('.trigger');
+    const sidebar = document.querySelector('.side-nav');
+    if (trigger) {
+      trigger.addEventListener('click', () => {
+        sidebar.classList.toggle('show');
+          trigger.classList.toggle('move-trigger');
+      });
+    }
+  </script>
 </body>
 
 </html>

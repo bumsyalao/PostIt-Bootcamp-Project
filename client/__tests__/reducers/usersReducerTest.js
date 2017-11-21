@@ -28,10 +28,6 @@ const allUsers = [
     email: 'alaobunmi93@gmail.com'
   },
   {
-    username: 'sage',
-    email: 'sage@gmail.com'
-  },
-  {
     username: 'bantu',
     email: 'bantu@email.com'
   }
@@ -48,8 +44,6 @@ describe('Users Reducer', () => {
   it('should load all users when loadAllUsers is called', () => {
     const action = loadAllUsers(allUsers, pagination);
     const newState = users(initialState, action);
-
-    console.log(newState);
   });
 
   it('should get a user\'s group when get getUserGroups is called', () => {

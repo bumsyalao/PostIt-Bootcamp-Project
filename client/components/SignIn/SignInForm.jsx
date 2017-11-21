@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { userSignInRequest } from '../../actions/SignInAction';
+import { userSignInRequest } from '../../actions/signInAction';
 
 /**
  * @class SignInForm

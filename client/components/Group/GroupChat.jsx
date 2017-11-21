@@ -98,48 +98,57 @@ export class GroupChat extends React.Component {
     return (
       <div>
         <div className="row">
-          <div className="col s12 m12 l12 form-margin message-form">
+          <div className="col s12 m12 l12 message-form">
             <h5> {(this.props.group.groupName || '').toUpperCase()} </h5>
-             <Link to={`/homepage/group/${id}/add-user`}
-             className="waves-effect waves-light red lighten-2 btn">
-             <i className="material-icons left">add</i>
-             Add User
-             </Link>
-            <div className="message-box">
-              <ul className="collection">
+            <Link
+              to={`/homepage/group/${id}/add-user`}
+              className="waves-effect waves-light red lighten-2 btn"
+            >
+              <i className="material-icons left">add</i>
+              Add User
+            </Link>
+            <div className="col s12">
+              <ul className="msg-collection">
                 {this.props.messages.map(message => (
                   <MessageCard key={message.id} {...message} />
                 ))}
               </ul>
-            </div>
-            <div className="message-holder">
-              <div className="message-card2 ">
-                <label htmlFor="textarea">Enter Message Here</label>
-                <textarea
-                  value={this.state.message}
-                  name="message"
-                  id="message"
-                  onChange={this.onChange}
-                />
-                <label>Priority</label>
-                <select
-                  name="messagePriority"
-                  id="messagePriority"
-                  className="browser-default input-field select"
-                  onChange={this.onChange}
-                  value={this.state.messagePriority}
+              <div className="col s12">
+                <div className="col s9">
+                  <label htmlFor="textarea">Enter Message Here</label> <br />
+                  <textarea
+                    className="materialize-textarea"
+                    value={this.state.message}
+                    name="message"
+                    id="message"
+                    onChange={this.onChange}
+                  />
+                </div>
+                <div className="col s3">
+                  <label>Priority</label> <br />
+                  <select
+                    name="messagePriority"
+                    id="messagePriority"
+                    className="browser-default input-field select"
+                    onChange={this.onChange}
+                    value={this.state.messagePriority}
+                  >
+                    <option value="normal" defaultValue>
+                      Normal
+                    </option>
+                    <option value="urgent">Urgent</option>
+                    <option value="critical">Critical</option>
+                  </select>
+                </div>
+              </div>
+              <button
+                  className="btn"
+                  id="submit-message"
+                  onClick={this.onSubmit}
                 >
-                  <option value="normal" defaultValue>
-                    Normal
-                  </option>
-                  <option value="urgent">Urgent</option>
-                  <option value="critical">Critical</option>
-                </select>
-                <button id="submit-message" onClick={this.onSubmit}>
                   {' '}
                   Send{' '}
                 </button>
-              </div>
             </div>
           </div>
         </div>

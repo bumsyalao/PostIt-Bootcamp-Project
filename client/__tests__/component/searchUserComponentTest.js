@@ -61,10 +61,4 @@ describe(' Search User component', () => {
     component.setProps({ newusers, pagination });
     expect(newerspy).toHaveBeenCalled();
   });
-
-  // test('joinGroup function should run when called', () => {
-  //   const newwspy = jest.spyOn(component.instance(), 'joinGroup');
-  //   component.find('').simulate('click', { preventDefault: () => {} });
-  //   expect(newwspy).toHaveBeenCalled();
-  // });
 });

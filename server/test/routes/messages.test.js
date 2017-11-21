@@ -2,89 +2,98 @@ import chai from 'chai';
 import supertest from 'supertest';
 import app from '../../../app';
 import models from '../../../server/models';
+import {
+  validSignin,
+  messagesGroup,
+  messagesUsergroups,
+  message
+} from '../helpers';
 
 const expect = chai.expect;
 const api = supertest(app);
-const Users = models.Users;
-const Messages = models.Messages;
 const Groups = models.Groups;
+const UserGroups = models.Usergroups;
 
-const userInfo = {
-  email: 'foundation@marykay.com',
-  username: 'eyepencil',
-  password: 'eyeshadow'
-};
 
 describe('MESSAGES ROUTES', () => {
   let validToken;
+
   before((done) => {
-    Groups.create({ id: 5, groupname: 'Route Messages' });
-    Users.create(userInfo).then(() => {
-      api.post('/api/v1/user/signup')
-      .send(userInfo)
+    api.post('/api/v1/user/signin')
+      .send(validSignin)
       .end((err, res) => {
         validToken = res.body.token;
+        Groups.create(messagesGroup);
+        UserGroups.create(messagesUsergroups);
         done();
       });
-    });
   });
-  // after((done) => {
-  //   Messages.destroy({ where: { message: 'Test message' } });
-  //   Users.destroy({ where: { id: 5 } });
-  //   Groups.destroy({ where: { id: 5 } }).then(() => done());
-  // });
+
   describe('POST: (/api/v1/group/:groupid/message) - Create', () => {
     it('should be an object with keys and values', (done) => {
-      api.post('/api/v1/group/5/message')
-      .set({ jwt: validToken })
-      .send({ message: 'Test message', messagePriority: 'Urgent' })
+      api.post('/api/v1/group/1/message')
+      .set('x-access-token', validToken)
+      .send(message)
       .expect(200)
       .end((err, res) => {
-        expect(res.body).to.have.property('groupId');
-        expect(res.body.groupId).to.not.equal(null);
-        expect(res.body).to.have.property('userId');
-        expect(res.body.userId).to.not.equal(null);
-        expect(res.body).to.have.property('message');
-        expect(res.body.message).to.not.equal(null);
-        expect(res.body).to.have.property('messagePriority');
-        expect(res.body.messagePriority).to.not.equal(null);
-        expect(res.body.groupId).to.equal(5);
-        expect(res.body.userId).to.equal(5);
+        expect(res.body).to.have.property('newMessage');
+        expect(res.body.newMessage).to.not.equal(null);
+        expect(res.body.newMessage).to.have.property('userId');
+        expect(res.body.newMessage.userId).to.not.equal(null);
+        expect(res.body.newMessage).to.have.property('message');
+        expect(res.body.newMessage.message).to.not.equal(null);
+        expect(res.body.newMessage).to.have.property('messagePriority');
+        expect(res.body.newMessage.messagePriority).to.not.equal(null);
+        expect(res.body.newMessage.groupId).to.equal(1);
+        expect(res.body.newMessage.userId).to.equal(1);
         done();
       });
     });
+
     it('should not create message when group is not found', (done) => {
-      api.post('/api/v1/group/7/message')
-        .set({ jwt: validToken })
+      api.post('/api/v1/group/11/message')
+        .set('x-access-token', validToken)
         .end((err, res) => {
           expect(res.status).to.equal(404);
-          expect(res.body.message).to.equal('Group Not Found');
+          expect(res.body.message).to.equal('Group not found');
           done();
         });
+    });
+
+    it('should not create message when user is not found', (done) => {
+      api.post('/api/v1/group/1/message')
+          .end((err, res) => {
+            expect(res.status).to.equal(401);
+            expect(res.body.message).to.equal('User not authorized');
+            done();
+          });
     });
   });
+
   describe('POST: (/api/v1/group/:groupid/messages) - Retrieve', () => {
     it('should be an object with keys and values', (done) => {
-      api.get('/api/v1/group/5/messages')
-      .set({ jwt: validToken })
-      .expect(200)
-      .end((err, res) => {
-        expect(res.body[0].groupId).to.equal(5);
-        expect(res.body[0].userId).to.equal(5);
-        expect(res.body[0].message).to.equal('Test message');
-        expect(res.body[0].messagePriority).to.equal('Urgent');
-        expect(res.body.length).to.equal(1);
-        done();
-      });
-    });
-    it('should not retrieve any message when group is not found', (done) => {
-      api.get('/api/v1/group/7/messages')
-        .set({ jwt: validToken })
+      api.get('/api/v1/group/1/messages')
+        .set('x-access-token', validToken)
+        .expect(200)
         .end((err, res) => {
-          expect(res.status).to.equal(404);
-          expect(res.body.message).to.equal('Group Not Found');
+          expect(res.body.messages[0].groupId).to.equal(1);
+          expect(res.body.messages[0].userId).to.equal(1);
+          expect(res.body.messages[0].message).to.equal('Test message');
+          expect(res.body.messages[0].messagePriority).to.equal('normal');
+          expect(res.body.messages.length).to.equal(1);
           done();
         });
+    });
+
+    it('should not retrieve any message when group is not found', (done) => {
+      api.get('/api/v1/group/70/messages')
+          .set('x-access-token', validToken)
+          .end((err, res) => {
+            expect(res.status).to.equal(404);
+            expect(res.body.message).to.equal('Group not found');
+            done();
+          });
     });
   });
 });
+

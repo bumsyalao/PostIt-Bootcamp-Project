@@ -1,59 +1,46 @@
 /* eslint-disable no-unused-expressions */
 import chai from 'chai';
 import models from '../../models';
+import { invalidUserid, invalidGroupid } from '../helpers';
 
 
 const Usergroups = models.Usergroups;
-const Users = models.Users;
-const Groups = models.Groups;
 const expect = chai.expect;
 
-const userInfo = {
-  id: 20,
-  email: 'blue@ranger.com',
-  username: 'billy',
-  phoneNumber: '09082091930',
-  password: 'alfalfa'
-};
 
 describe('Groups model validation:', () => {
-  before((done) => {
-    Users.create(userInfo);
-    Groups.create({ id: 17, groupname: 'usergroup' });
-    done();
-  });
-  // after((done) => {
-  //   Users.destroy({ where: { id: 2 } });
-  //   Groups.destroy({ where: { id: 7 } }).then(() => done());
-  // });
-  it('requires userId field to create a usergroup', () => {
-    Usergroups.create({ groupId: 17, userId: null })
+  it('requires userId field to create a usergroup', (done) => {
+    Usergroups.create(invalidUserid)
       .catch((error) => {
         expect(/notNull Violation/.test(error.message)).to.be.true;
+        done();
       });
   });
-  it('requires groupId field to create a usergroup', () => {
-    Usergroups.create({ groupId: null, userId: 20 })
+  it('requires groupId field to create a usergroup', (done) => {
+    Usergroups.create(invalidGroupid)
       .catch((error) => {
         expect(/notNull Violation/.test(error.message)).to.be.true;
+        done();
       });
   });
-  it('requires userId to be an integer or castable to an integer', () => {
-    Usergroups.create({ groupId: 17, userId: [20] })
+  it('requires userId to be an integer or castable to an integer', (done) => {
+    Usergroups.create({ username: 'Foo', groupName: 'Bar', groupId: 17, userId: [20] })
       .catch((error) => {
-        expect(error.name).to.equal('SequelizeValidationError');
+        expect(error.name).to.equal('SequelizeDatabaseError');
         expect(error.message).to.equal(
           'column "userId" is of type integer but' +
           ' expression is of type integer[]');
+        done();
       });
   });
-  it('requires groupId to be an integer or castable to an integer', () => {
-    Usergroups.create({ groupId: [17], userId: 20 })
+  it('requires groupId to be an integer or castable to an integer', (done) => {
+    Usergroups.create({ username: 'Foo', groupName: 'Bar', groupId: [17], userId: 20 })
       .catch((error) => {
-        expect(error.name).to.equal('SequelizeValidationError');
+        expect(error.name).to.equal('SequelizeDatabaseError');
         expect(error.message).to.equal(
           'column "groupId" is of type integer but' +
           ' expression is of type integer[]');
+        done();
       });
   });
 });

@@ -1,29 +1,20 @@
 import chai from 'chai';
 import supertest from 'supertest';
 import app from '../../../app';
-import models from '../../../server/models';
+import {
+  groupUser,
+  group
+} from '../helpers';
 
 const expect = chai.expect;
 const api = supertest(app);
-const Groups = models.Groups;
-const Users = models.Users;
-const group = {
-  groupName: 'People',
-};
-const userInfo = {
-  email: 'zugzwang@chess.com',
-  username: 'winnerdf',
-  password: 'waitingMove',
-  phoneNumber: '09082091930'
-};
 
 
 describe('GROUP ROUTES', () => {
   let validToken;
   before((done) => {
-    Users.create(userInfo).then(() => {
-      api.post('/api/v1/user/signup')
-      .send(userInfo)
+    api.post('/api/v1/user/signup')
+      .send(groupUser)
       .end((err, res) => {
         if (err) {
           return done(err);
@@ -31,33 +22,60 @@ describe('GROUP ROUTES', () => {
         validToken = res.body.token;
         done();
       });
-    });
   });
-  // after((done) => {
-  //   Users.destroy({ where: { username: userInfo.username } });
-  //   Groups.destroy({ where: { groupName: group.groupName } }).then(() => done());
-  // });
 
-  describe('POST: (/api/v1/group) - Create', () => {
-    it('should take an object with keys and values', (done) => {
+  describe('POST: (/api/v1/group) - Group', () => {
+    let groupid;
+    it('should return an object with keys and values', (done) => {
       api.post('/api/v1/group')
-      .set('jwt', validToken)
+      .set('x-access-token', validToken)
       .send(group)
       .expect(200)
       .end((err, res) => {
-        expect(res.body).to.have.property('groupName');
-        expect(res.body.groupName).to.not.equal(null);
-        expect(res.body.groupName).to.equal('People');
+        expect(res.body.savedGroup).to.have.property('groupName');
+        expect(res.body.savedGroup.groupName).to.not.equal(null);
+        expect(res.body.savedGroup.groupName).to.equal('People');
+        groupid = res.body.savedGroup.groupid;
         done();
       });
     });
+
     it('should not create another group with same groupName', (done) => {
       api.post('/api/v1/group')
-      .set('jwt', validToken)
+      .set('x-access-token', validToken)
         .send(group)
         .end((err, res) => {
-          expect(res.status).to.equal(401);
+          expect(res.status).to.equal(400);
           expect(res.error.text).to.equal('Group name must be unique');
+          done();
+        });
+    });
+
+    it('should get all groups', (done) => {
+      api.get('/api/v1/groups')
+      .set('x-access-token', validToken)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.allGroups).to.not.equal(null);
+          done();
+        });
+    });
+
+    it('should return 400 when invalid group is passed', (done) => {
+      api.get(`/api/v1/group/${groupid}`)
+      .set('x-access-token', validToken)
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          done();
+        });
+    });
+
+    it('should get group', (done) => {
+      api.get('/api/v1/group/1')
+      .set('x-access-token', validToken)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.group).to.not.equal(null);
           done();
         });
     });

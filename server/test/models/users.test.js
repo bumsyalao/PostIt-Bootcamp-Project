@@ -1,41 +1,33 @@
 /* eslint-disable no-unused-expressions */
 import chai from 'chai';
 import models from '../../models';
+import { userDetails, requiredFields, uniqueFields } from '../helpers';
 
 const Users = models.Users;
 const expect = chai.expect;
 
-const userInfo = {
-  email: 'power.rangers@super.com',
-  username: 'zack',
-  password: 'alfalfa',
-  phoneNumber: '09082091930'
-};
-
-const requiredFields = [
-  'username', 'email', 'password', 'phoneNumber'];
-
-const uniqueFields = ['email', 'username'];
-
-
 describe('Users model validation:', () => {
-  // after((done) => {
-  //   Users.destroy({ where: { username: 'zack' } }).then(() => done());
-  // });
+  before((done) => {
+    Users.create(userDetails).then(() => done());
+  });
+  after((done) => {
+    Users.destroy({ where: { username: 'zack' } }).then(() => done());
+  });
 
   let user;
   beforeEach((done) => {
-    user = Users.build(userInfo);
+    user = Users.build(userDetails);
     done();
   });
 
   describe('Required Fields', () => {
     requiredFields.forEach((field) => {
-      it(`requires ${field} field to create a user`, () => {
+      it(`requires ${field} field to create a user`, (done) => {
         user[field] = null;
-        return user.save()
+        user.save()
           .catch((error) => {
             expect(/notNull Violation/.test(error.message)).to.be.true;
+            done();
           });
       });
     });
@@ -43,21 +35,23 @@ describe('Users model validation:', () => {
 
   describe('Unique Fields', () => {
     uniqueFields.forEach((field) => {
-      it(`requires ${field} field to be Unique`, () => {
+      it(`requires ${field} field to be Unique`, (done) => {
         user.save()
           .catch((error) => {
             expect(/UniqueConstraintError/.test(error.name)).to.be.true;
+            done();
           });
       });
     });
   });
 
   describe('Mail Validation', () => {
-    it('requires user mail to be authentic', () => {
+    it('requires user mail to be authentic', (done) => {
       user.email = 'sugarbad.com';
-      return user.save()
+      user.save()
         .catch((error) => {
           expect(/ValidationError/.test(error.name)).to.be.true;
+          done();
         });
     });
   });
@@ -65,9 +59,9 @@ describe('Users model validation:', () => {
   describe('Password Validation', () => {
     let person;
     before((done) => {
-      userInfo.email = 'boye@dollars.com';
-      userInfo.username = 'lala';
-      Users.create(userInfo)
+      userDetails.email = 'boye@dollars.com';
+      userDetails.username = 'lala';
+      Users.create(userDetails)
         .then((createdUser) => {
           person = createdUser;
           done();
@@ -76,8 +70,9 @@ describe('Users model validation:', () => {
     after((done) => {
       Users.destroy({ where: { username: 'lala' } }).then(() => done());
     });
-    it('should be valid if compared', () => {
-      expect(person.verifyPassword(userInfo.password)).to.be.true;
+    it('should be valid if compared', (done) => {
+      expect(person.verifyPassword(userDetails.password)).to.be.true;
+      done();
     });
   });
 });

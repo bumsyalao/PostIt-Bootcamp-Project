@@ -23,13 +23,17 @@ nav ul a {
 .message-form {
   height: 100%;
   position: fixed;
-  width: calc(100% - 300px) !important;
 }
+
+@media (min-width: 768px) {
+  .message-form {
+    width: calc(100% - 300px) !important;
+  }
+}
+
 .message-card {
-  max-width: 600px;
-  margin: 0 auto;
-  border: 1px solid $light-gray;
-  padding: 10px;
+  width: 90%;
+  padding: 0.1rem;
 
   &.group {
     padding: 0;
@@ -126,7 +130,6 @@ nav ul a {
     line-height: 16px;
     color: #8e8c8c;
     overflow: scroll;
-    // flex-direction: column;
 
     > i {
       margin-right: 10px;
@@ -198,4 +201,39 @@ nav ul a {
   border: 3px solid #fff;
   width: 150px;
   height: 500px;
+}
+
+.card .card-title {
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+.inline-block {
+  display: inline-block !important;
+}
+
+.inline-margin {
+  margin-left: 0.5rem;
+}
+
+.priority-badge {
+  padding: 0.02rem 0.3rem;
+  border-radius: 0.2rem;
+}
+
+.card .card-content {
+  padding: 1px 24px;
+}
+
+.card .card-action {
+  padding: 1px 24px;
+}
+
+.message-text {
+  font-size: 1.1rem;
+}
+
+.msg-collection {
+  height: 60vh !important;
+  overflow: scroll;
 }

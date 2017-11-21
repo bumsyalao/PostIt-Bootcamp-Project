@@ -13,15 +13,15 @@
     "start-dev": "webpack --config ./webpack.config.js --progress --colors && nodemon --watch server --exec babel-node -- server.js",
     "postinstall": "npm run build",
     "coverage-report": "cat ./coverage/lcov.info | coveralls",
-    "testserver": " NODE_ENV=test && nyc --reporter=text --reporter=html --reporter=lcov mocha --compilers js:babel-core/register \"server/test/**/*.test.js\" --timeout 5000 && npm run coverage-report",
-    "test": "npm-run-all --sequential  migrate:test:down migrate:test testserver", 
+    "testserver": "NODE_ENV=test && NODE_ENV=test nyc -x \"server/middleware/sendMail.js\" --reporter=text --reporter=html --reporter=lcov mocha --timeout 15000 --compilers js:babel-core/register \"server/test/index.test.js\" && npm run coverage-report",
+    "test": "npm run testserver",
     "prebuild": "rm -rf ./dist",
     "build": "./node_modules/.bin/webpack --config ./webpack.config.prod.js",
     "build:server": "babel server -d dist/server --copy-files --ignore test",
     "build:client": "NODE_ENV=production webpack --config webpack.config.prod.js && cp -R client dist/client",
     "travis:clientTest": "NODE_ENV=development jest -u",
-    "migrate:test": "cross-env NODE_ENV=test node_modules/.bin/sequelize db:migrate",
-    "migrate:test:down": "cross-env NODE_ENV=test node_modules/.bin/sequelize db:migrate:undo:all"
+    "migrate:test": "NODE_ENV=test node_modules/.bin/sequelize db:migrate",
+    "migrate:test:down": "NODE_ENV=test node_modules/.bin/sequelize db:migrate:undo:all"
   },
   "repository": {
     "type": "git",
@@ -52,6 +52,7 @@
     "body-parser": "^1.17.2",
     "chai": "^4.0.2",
     "chai-http": "^3.0.0",
+    "classnames": "^2.2.5",
     "compression": "^1.7.0",
     "copy-webpack-plugin": "^4.0.1",
     "cross-env": "^5.0.2",

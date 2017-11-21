@@ -1,6 +1,6 @@
 /* global expect jest test */
 import access from '../../reducers/accessReducer';
-import { userSigninSuccess, userSignoutSuccess } from '../../actions/SignInAction';
+import { userSigninSuccess, userSignoutSuccess } from '../../actions/signInAction';
 
 const state = {};
 const newUser = {

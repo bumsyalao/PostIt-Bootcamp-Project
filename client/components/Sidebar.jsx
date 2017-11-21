@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import gender from '../images/gender-neutral copy.png';
-import { logout } from '../actions/SignInAction';
+import { logout } from '../actions/signInAction';
 
 export class Sidebar extends Component {
-
   /**
    * Creates an instance of NavigationBar.
    * @param {object} props
@@ -16,7 +15,6 @@ export class Sidebar extends Component {
     super(props);
     this.logout = this.logout.bind(this);
   }
-
 
   /**
    * Prevent default action of event
@@ -34,6 +32,7 @@ export class Sidebar extends Component {
   render() {
     return (
       <div>
+      <a href="#" className="trigger"><i className="material-icons">menu</i></a>
         <ul id="slide-out" className="side-nav fixed #e57373 red lighten-2">
           <li>
             <div className="user-view">
@@ -48,7 +47,10 @@ export class Sidebar extends Component {
               <div className="collapsible-header" id="document-header">
                 <i className="material-icons">group</i>Groups
               </div>
-              <div className="collapsible-body #ffebee red lighten-5" id="groups">
+              <div
+                className="collapsible-body #ffebee red lighten-5"
+                id="groups"
+              >
                 <ul>
                   <li>
                     <Link to="/homepage/create-group" id="create-group">
@@ -71,7 +73,10 @@ export class Sidebar extends Component {
               <div className="collapsible-header" id="document-header">
                 <i className="material-icons">person</i>Users
               </div>
-              <div className="collapsible-body #ffebee red lighten-5" id="groups">
+              <div
+                className="collapsible-body #ffebee red lighten-5"
+                id="groups"
+              >
                 <ul>
                   <li>
                     <Link to="/homepage/user-profile" id="create-group">
@@ -93,7 +98,9 @@ export class Sidebar extends Component {
             <li>
               <div className="collapsible-header" id="document-header">
                 <i className="material-icons">power_settings_new</i>
-                <a href="#" onClick={this.logout}>Log Out </a>
+                <a href="#" onClick={this.logout}>
+                  Log Out{' '}
+                </a>
               </div>
             </li>
           </ul>

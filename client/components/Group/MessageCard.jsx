@@ -9,30 +9,26 @@ import React from 'react';
 const MessageCard = (props) => {
   const date = new Date(props.createdAt);
   return (
-    <li className="collection-item">
-      <div className="row">
-        <div className="col s12 container">
-          <div className="message-card">
-            <div className="message-head">
-              <div className="sender">
-                <h6>{(props.username || props.User.username).toUpperCase()}</h6>
-              </div>
-              <div className="priority">
-                Priority: &nbsp;
-                <span>{props.messagePriority}</span>
-              </div>
-              <div className="time">
-              {
-                `${date.toDateString()} at ${
-                  date.getHours()}:${date.getMinutes()}`
-              }
-              </div>
-            </div>
-            <div className="message-body"> {props.message}</div>
+    <div className="row">
+      <div className="col s12">
+        <div className="card white">
+          <div className="card-content black-text">
+            <span className="card-title inline-block">
+              @{(props.username || props.User.username).toUpperCase()}
+            </span>
+            <span className="inline-margin inline-block priority-badge black-text">
+              {props.messagePriority}
+            </span>
+            <span className="inline-margin inline-block right">
+              {`${date.toDateString()} at ${date.getHours()}:${date.getMinutes()}`}
+            </span>
+          </div>
+          <div className="card-action">
+            <p className="message-text"> {props.message}</p>
           </div>
         </div>
       </div>
-    </li>
+    </div>
   );
 };
 export default MessageCard;

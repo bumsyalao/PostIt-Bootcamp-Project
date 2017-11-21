@@ -47,3 +47,20 @@ nav {
 .img-style {
   display: flex;
 }
+
+.show {
+  display: block !important;
+  position: fixed !important;
+  left: 22rem !important;
+}
+
+.move-trigger {
+  position: relative;
+  left: 22rem !important;
+}
+
+div .trigger {
+  position: relative;
+  left: 4rem;
+  top: 2rem;
+}

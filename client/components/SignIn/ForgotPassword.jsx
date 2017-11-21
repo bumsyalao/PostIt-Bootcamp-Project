@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { forgotPasswordAction } from '../../actions/SignInAction';
+import { forgotPasswordAction } from '../../actions/signInAction';
 import ConnectedNavigationBar from '../NavigationBar';
 
 /**

@@ -60,29 +60,6 @@ describe('Message Action', () => {
       done();
     });
 
-
-//   it('should not dispatch loadPlatformUsers when unsuccessful', () => {
-//     mock.reset();
-//     const store = mockStore({});
-//     const offset = datas.offfset;
-//     const searchUserData = datas.searchUser;
-//     const userName = datas.userName;
-
-//     mock.onPost(`api/users/list/${offset}`, searchUserData)
-//     .reply(400, {
-//       success: false,
-//       message: 'An error has occured'
-//     });
-
-//     const expectedAction = datas.emptyAction;
-
-//     return store.dispatch(searchUsers(offset, userName))
-//     .then(() => {
-//       expect(store.getActions()).toEqual(expectedAction);
-//     });
-//   });
-// });
-
     it('should make AJAX call to post a new message', (done) => {
       moxios.stubRequest(`/api/v1/group/${groupId}/message`, {
         status: 200,

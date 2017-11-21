@@ -39,9 +39,7 @@ describe('ForgotPassword component', () => {
     component.instance().onChange(
       { target: { value: 'banku@email.com', id: 'email' } });
     expect(component.state('email')).toEqual('banku@email.com');
-    // const newspy = jest.spyOn(component.instance(), 'forgotPassword');
     component.find('#submit-forgotPassword').simulate('click');
     expect(component.find('#submit-forgotPassword').length).toEqual(1);
-    // expect(newspy).toHaveBeenCalled();
   });
 });

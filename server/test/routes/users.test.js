@@ -1,65 +1,49 @@
 import chai from 'chai';
 import supertest from 'supertest';
 import app from '../../../app';
-import models from '../../../server/models';
+import {
+  clearUserDb,
+  clearMessagesDb,
+  clearGroupDb,
+  clearUsergroupsDb,
+  chopper,
+  existingUsername,
+  invalidEmail,
+  nullPassword,
+  newUser,
+  invalidPassword,
+  noUsername,
+  validSignin,
+} from '../helpers';
 
 const expect = chai.expect;
 const api = supertest(app);
 
-
-const chopper = {
-  username: 'candy',
-  email: 'chopper@email.com',
-  phoneNumber: '09087667344',
-  password: 'medicine'
-};
-const signupUser = {
-  username: 'bakar',
-  email: 'bakar@email.com',
-  phoneNumber: '09087667344',
-  password: 'medicine'
-};
-
-const existingUsername = {
-  username: 'candy',
-  email: 'invalid@test.com',
-  phoneNumber: '09087667344',
-  password: 'invalid'
-};
-
-const invalidEmail = {
-  username: 'userssname',
-  email: 'chopper@email.com',
-  phoneNumber: '09087667344',
-  password: 'invalid'
-};
-
-const nullPassword = {
-  username: 'tester',
-  password: null
-};
+clearUserDb();
+clearMessagesDb();
+clearGroupDb();
+clearUsergroupsDb();
 
 describe('ROUTES', () => {
-  // after((done) => {
-  //   models.Users.destroy({ where: { username: 'candy' } }).then(() => done());
-  // });
-
   describe('POST: (/api/v1/user/signup) - Signup', () => {
     it('should return a 200 response', (done) => {
       api.get('/api')
       .set('Accept', 'application/json')
-      .expect(200, done);
+      .expect(200);
+      done();
     });
 
-    it('should be an object with keys and values', (done) => {
+    it('should return object with keys and values', (done) => {
       api.post('/api/v1/user/signup')
-      .send(signupUser)
+      .send(chopper)
       .expect(200)
       .end((err, res) => {
         expect(res.body).to.have.property('token');
         expect(res.body.token).to.not.equal(null);
         expect(res.body).to.have.property('userInfo');
         expect(res.body.userInfo).to.not.equal(null);
+        expect(res.body).to.have.property('message');
+        expect(res.body.message).to.equal('Your account has been created');
         done();
       });
     });
@@ -83,6 +67,16 @@ describe('ROUTES', () => {
           done();
         });
     });
+
+    it('should not create user with incomplete details', (done) => {
+      api.post('/api/v1/user/signup')
+        .send()
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body.message).to.equal('Incomplete registration details');
+          done();
+        });
+    });
   });
 
   describe('POST: (/api/v1/user/signin) - signin', () => {
@@ -98,10 +92,7 @@ describe('ROUTES', () => {
 
     it('should not signin when supplied invalid password', (done) => {
       api.post('/api/v1/user/signin')
-        .send({
-          username: 'candy',
-          password: 'isewujfikf'
-        })
+        .send(invalidPassword)
         .expect(400)
         .end((err, res) => {
           expect(res.body.token).to.not.exist;
@@ -111,9 +102,7 @@ describe('ROUTES', () => {
 
     it('should not signin username is not supplied', (done) => {
       api.post('/api/v1/users/signin')
-        .send({
-          password: 'medicine'
-        })
+        .send(noUsername)
         .expect(400)
         .end((err, res) => {
           expect(res.body.token).to.not.exist;
@@ -123,10 +112,7 @@ describe('ROUTES', () => {
 
     it('should signin when supplied valid details', (done) => {
       api.post('/api/v1/user/signin')
-        .send({
-          username: 'candy',
-          password: 'medicine'
-        })
+        .send(validSignin)
         .end((err, res) => {
           expect(res.body).to.have.property('token');
           expect(res.body.token).to.not.equal(null);
@@ -140,15 +126,52 @@ describe('ROUTES', () => {
     });
   });
 
-  // describe('GET: (/api/v1/user) - viewUser', () => {
-  //   it('should not signin when password is null', (done) => {
-  //     api.get('/api/v1/user')
-  //       .set('jwt', token)
-  //       .end((err, res) => {
-  //         expect(res.body.userInfo).to.equal('Incomplete login details');
-  //         done();
-  //       });
-  //   });
+  describe('GET: (/api/v1/user) - viewUser', () => {
+    let validToken;
+    before((done) => {
+      api.post('/api/v1/user/signup')
+          .send(newUser)
+          .end((err, res) => {
+            if (err) {
+              return done(err);
+            }
+            validToken = res.body.token;
+            done();
+          });
+    });
+    it('should get a user', (done) => {
+      api.get('/api/v1/user')
+        .set('x-access-token', validToken)
+        .end((err, res) => {
+          expect(res.body).to.have.property('userInfo');
+          expect(res.body.userInfo).to.not.equal(null);
+          expect(res.body.userInfo).to.have.property('username');
+          expect(res.body.userInfo.username).to.not.equal(null);
+          done();
+        });
+    });
 
-  // });
+    it('should get Users group', (done) => {
+      api.get('/api/v1/user/1/groups')
+      .set('x-access-token', validToken)
+      .expect(200)
+      .end((err, res) => {
+        expect(res.body).to.have.property('userGroups');
+        expect(res.body.userGroups).to.not.equal(null);
+        done();
+      });
+    });
+
+    it('should get all Users', (done) => {
+      api.get('/api/v1/users?limit=5&offset=0&searchParam=')
+      .set('x-access-token', validToken)
+      .expect(200)
+      .end((err, res) => {
+        expect(res.body).to.have.property('message');
+        expect(res.body.message).to.not.equal(null);
+        expect(res.body.message).to.equal('Users found');
+        done();
+      });
+    });
+  });
 });

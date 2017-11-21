@@ -1,6 +1,5 @@
 import React from 'react';
 import SignInConnectedForm from './SignInForm';
-// import { userSignInRequest } from '../../actions/SignInAction';
 import ConnectedNavigationBar from '../NavigationBar';
 
 

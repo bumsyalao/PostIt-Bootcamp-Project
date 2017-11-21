@@ -20,8 +20,5 @@ describe('Dashboard component', () => {
   );
   it('should render self and sub components', () => {
     expect(component.exists()).toBe(true);
-  // test('should match the Dashboard component snapshot', () => {
-  //   const tree = toJson(component);
-  //   expect(tree).toMatchSnapshot();
   });
 });
