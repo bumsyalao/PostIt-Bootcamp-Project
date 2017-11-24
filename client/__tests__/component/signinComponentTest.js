@@ -36,17 +36,17 @@ describe('SignInForm Component', () => {
     <SignInPage />
   );
 
-  test('should render sub components', () => {
+  it('should render sub components', () => {
     expect(signinPage.exists()).toBe(true);
   });
 
-  test('should match the SignInForm snapshot', () => {
+  it('should match the SignInForm snapshot', () => {
     const tree = toJson(component);
     expect(component.find('input').length).toEqual(2);
     expect(tree).toMatchSnapshot();
   });
 
-  test('it should set state when onChange function is called', () => {
+  it('it should set state when onChange function is called', () => {
     component.instance().onChange(
       { target: { value: 'banku', id: 'username' } });
     component.instance().onChange(
@@ -55,7 +55,7 @@ describe('SignInForm Component', () => {
     expect(component.state('password')).toEqual('banku123');
   });
 
-  test(
+  it(
     'it should submit fields in state when onSubmit function is called', () => {
       jest.spyOn(component.instance(), 'onSubmit');
       component.instance().onChange(
@@ -67,7 +67,7 @@ describe('SignInForm Component', () => {
       expect(component.instance().onSubmit.mock.calls.length).toEqual(0);
     });
 
-  test('onSubmit function should run', () => {
+  it('onSubmit function should run', () => {
     component.instance().onChange(
       { target: { value: 'banku', id: 'username' } });
     component.instance().onChange(

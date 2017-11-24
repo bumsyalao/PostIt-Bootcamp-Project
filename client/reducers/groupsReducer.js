@@ -3,8 +3,6 @@ import * as types from '../actions/types';
 const initialState = {
   group: {},
   groupList: [],
-  groupMessages: [],
-
 };
 
 export default (state = initialState, action = {}) => {
@@ -19,11 +17,6 @@ export default (state = initialState, action = {}) => {
         ...state,
         [action.group.id]: action.group
       };
-    case types.LIST_GROUP_MESSAGES:
-      return {
-        ...state,
-        groupMessages: action.groups
-      };
 
     case types.LOAD_MESSAGE:
       return {
@@ -32,9 +25,9 @@ export default (state = initialState, action = {}) => {
     case types.GET_GROUP_USERS: {
       const groupList = state.groupList;
       const group = groupList.find(
-        foundGroup => foundGroup.id === action.groupId);
+        foundGroup => foundGroup.groupId === action.groupId);
       const allGroups = groupList.filter(
-        allGroup => allGroup.id !== action.groupId);
+        allGroup => allGroup.groupId !== action.groupId);
 
       return {
         ...state,

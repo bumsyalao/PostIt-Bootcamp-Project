@@ -2,6 +2,16 @@
 
 exports[`Sidebar component should match the Sidebar component snapshot 1`] = `
 <div>
+  <a
+    className="trigger"
+    href="#"
+  >
+    <i
+      className="material-icons"
+    >
+      menu
+    </i>
+  </a>
   <ul
     className="side-nav fixed #e57373 red lighten-2"
     id="slide-out"
@@ -73,7 +83,7 @@ exports[`Sidebar component should match the Sidebar component snapshot 1`] = `
                 >
                   groups
                 </i>
-                All Groups
+                My Groups
               </Link>
             </li>
           </ul>

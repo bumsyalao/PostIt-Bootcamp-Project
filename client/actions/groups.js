@@ -32,16 +32,15 @@ export const loadUsers = (users, groupId) => ({
  * @param {object} groupid
  * @return {object} returns group if the call is successful
  */
-export const getGroups = () => dispatch =>
+export const getGroups = userid => dispatch =>
   axios
-    .get('/api/v1/groups')
+    .get(`/api/v1/user/${userid}/groups`)
     .then((response) => {
-      dispatch(loadGroups(response.data.allGroups));
+      dispatch(loadGroups(response.data.userGroups));
     })
     .catch((error) => {
       throw error;
     });
-
 /**
  * api call to getGroup
  * @param {object} groupid
@@ -53,7 +52,6 @@ export const getGroup = groupid => dispatch =>
       .then((response) => {
         dispatch(loadGroup(response.data.group));
       });
-
 
 /**
  * api call to createGroup

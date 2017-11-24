@@ -85,15 +85,6 @@ export class GroupChat extends React.Component {
    * @memberof GroupChat
    */
   render() {
-    // check user's groups if they belong to group
-    // if groupname is not in array
-    // display toast message.
-    const userGroups = this.props.userGroups.map(group => group.groupName);
-    if (userGroups.indexOf(this.props.group.groupName) === -1) {
-      Materialize.toast('Join Group to view Message', 3000, 'red');
-      this.props.history.push('/homepage/groups');
-      return null;
-    }
     const id = this.props.group.id;
     return (
       <div>
@@ -102,15 +93,14 @@ export class GroupChat extends React.Component {
             <h5> {(this.props.group.groupName || '').toUpperCase()} </h5>
             <Link
               to={`/homepage/group/${id}/add-user`}
-              className="waves-effect waves-light red lighten-2 btn"
-            >
+              className="waves-effect waves-light red lighten-2 btn">
               <i className="material-icons left">add</i>
               Add User
             </Link>
             <div className="col s12">
               <ul className="msg-collection">
                 {this.props.messages.map(message => (
-                  <MessageCard key={message.id} {...message} />
+                  <MessageCard key={message.id} {...message}/>
                 ))}
               </ul>
               <div className="col s12">

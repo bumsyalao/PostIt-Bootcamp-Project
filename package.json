@@ -150,6 +150,7 @@
       "!**/client/Index.jsx",
       "!**/client/Routes.jsx",
       "!**/client/components/SideBar.jsx",
+      "!**/client/actions/SignInAction.js",
       "!**/client/bundle.js",
       "!**/client/reducers/rootReducer.js",
       "!**/client/store/**",

@@ -90,11 +90,7 @@ export class UsersPage extends Component {
     const limit = 5;
     const offset = Math.ceil(selected * limit);
     this.setState({ offset });
-    this.getUsers(offset, limit).then(() => {
-      this.setState({
-        users: this.props.users.users
-      });
-    });
+    this.getUsers(offset, limit);
   }
 
   /**

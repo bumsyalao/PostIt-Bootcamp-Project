@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
  * @extends {Component}
  */
 export class GroupCard extends Component {
-
   /**
    * Renders GroupCard component
    * @returns GroupCard component
@@ -19,8 +18,7 @@ export class GroupCard extends Component {
   }
   /* eslint-enable */
   render() {
-    const { groupName, id, joinAGroup, listUsers, users } = this.props;
-
+    const { groupName, id, listUsers, users } = this.props;
     return (
       <div className="col s6">
         <div className="message-card group">
@@ -44,13 +42,6 @@ export class GroupCard extends Component {
                     className="collapsible group-options"
                     data-collapsible="accordion"
                   >
-                    <li>
-                      <i className="material-icons tiny">games</i>
-                      <div onClick={joinAGroup} id={id} className="card-title">
-                        Join group
-                      </div>
-                    </li>
-
                     <li className="user-list">
                       <div
                         className="collapsible-header group-header menu-item"
@@ -74,8 +65,11 @@ export class GroupCard extends Component {
                             <div className="users-list">
                               {users &&
                                 users.map(user => (
-                                  <div id={id} key={user.userId}
-                                  className="card-title">
+                                  <div
+                                    id={id}
+                                    key={user.userId}
+                                    className="card-title"
+                                  >
                                     {user.username}
                                   </div>
                                 ))}

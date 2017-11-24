@@ -138,7 +138,7 @@ module.exports = {
     const userId = req.params.userid;
     UserGroups.findAll({
       where: { userId },
-      attributes: ['groupName']
+      attributes: ['groupId', 'groupName']
     })
       .then((userGroups) => {
         res.status(200).send({ userGroups });

@@ -5,7 +5,6 @@ const Groups = models.Groups;
 const Users = models.Users;
 
 module.exports = {
-
   /**
    * Add user to a group
    * Route: POST: /group/:groupid/user/:userid
@@ -19,35 +18,36 @@ module.exports = {
     const userId = Number(req.params.userid);
 
     Groups.findById(groupId)
-    .then((foundGroup) => {
-      // check if user is already in group
-      Usergroups.findOne({
-        where: {
-          $and: [
-            { userId },
-            { groupId }
-          ]
-        }
+      .then((foundGroup) => {
+        // check if user is already in group
+        Usergroups.findOne({
+          where: {
+            $and: [{ userId }, { groupId }]
+          }
+        })
+          .then((foundUserGroup) => {
+            if (foundUserGroup) {
+              return res.status(409).send({ message: 'User Already in group' });
+            }
+          });
+        // Find username from users model
+        Users.findById(userId)
+          .then((user) => {
+            Usergroups.create({
+              groupId: foundGroup.id,
+              userId: req.params.userid,
+              username: user.username,
+              groupName: foundGroup.groupName
+            });
+          })
+          .then(newGroup =>
+            res.status(200).send({
+              newGroup,
+              message: 'User successfully added to group'
+            })
+          );
       })
-      .then((foundUserGroup) => {
-        if (foundUserGroup) {
-          return res.status(409).send({ message: 'User Already in group' });
-        }
-      });
-      // Find username from users model
-      Users.findById(userId)
-    .then((user) => {
-      Usergroups.create({
-        groupId: foundGroup.id,
-        userId: req.params.userid,
-        username: user.username,
-        groupName: foundGroup.groupName
-      });
-    }).then(newGroup => res.status(200).send({
-      newGroup,
-      message: 'User successfully added to group'
-    }));
-    }).catch(error => res.status(400).send(error));
+      .catch(error => res.status(400).send(error));
   },
 
   /**
@@ -65,13 +65,9 @@ module.exports = {
       .then((foundGroup) => {
         Usergroups.findOne({
           where: {
-            $and: [
-              { userId },
-              { groupId }
-            ]
+            $and: [{ userId }, { groupId }]
           }
-        })
-        .then((foundUserGroup) => {
+        }).then((foundUserGroup) => {
           if (foundUserGroup) {
             return res.status(409).send({ message: 'User already in group' });
           }
@@ -80,13 +76,15 @@ module.exports = {
             userId: req.decoded.userId,
             username: req.decoded.username,
             groupName: foundGroup.groupName
-          })
-          .then(newGroup => res.status(200).send({
-            newGroup,
-            message: 'User succesfully added to group'
-          }));
+          }).then(newGroup =>
+            res.status(200).send({
+              newGroup,
+              message: 'User succesfully added to group'
+            })
+          );
         });
-      }).catch(error => res.status(400).send(error));
+      })
+      .catch(error => res.status(400).send(error));
   },
 
   /**
@@ -105,10 +103,11 @@ module.exports = {
         } else {
           res.status(200).send({ users });
         }
-      }).catch(() => {
+      })
+      .catch(() => {
         res.status(500).send({
           message: 'There was a server error, please try again'
         });
       });
-  },
+  }
 };

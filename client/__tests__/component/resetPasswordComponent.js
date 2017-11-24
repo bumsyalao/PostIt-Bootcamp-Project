@@ -35,17 +35,17 @@ describe('ResetPassword component', () => {
     <ResetPassword {...props} />
   );
 
-  test('should match the ResetPassword snapshot', () => {
+  it('should match the ResetPassword snapshot', () => {
     const tree = toJson(component);
     expect(component.find('input').length).toEqual(2);
     expect(tree).toMatchSnapshot();
   });
-  test('it should set state when onChange function is called', () => {
+  it('it should set state when onChange function is called', () => {
     component.instance().onChange(
       { target: { value: 'banku123', id: 'password' } });
     expect(component.state('password')).toEqual('banku123');
   });
-  test('it should submit fields when resetPassword fuunction is called', () => {
+  it('it should submit fields when resetPassword fuunction is called', () => {
     jest.spyOn(component.instance(), 'resetPassword');
     component.instance().onChange(
       { target: { value: 'banku123', id: 'password' } });
@@ -54,7 +54,7 @@ describe('ResetPassword component', () => {
     expect(component.find('#resetPassword').simulate('click'));
     expect(component.instance().resetPassword.mock.calls.length).toEqual(0);
   });
-  test('resetPassword function should run', () => {
+  it('resetPassword function should run', () => {
     component.instance().onChange(
       { target: { value: 'banku123', id: 'password' } });
     component.instance().onChange(

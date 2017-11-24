@@ -119,11 +119,7 @@ export class SearchUser extends Component {
     const limit = 5;
     const offset = Math.ceil(selected * limit);
     this.setState({ offset });
-    this.getUsers(offset, limit).then(() => {
-      this.setState({
-        users: this.props.users.users
-      });
-    });
+    this.getUsers(offset, limit);
   }
 
   /**
@@ -184,7 +180,7 @@ export class SearchUser extends Component {
                   <tr key={user.id}>
                     <td>
                       <i
-                        className="material-icons"
+                        className="material-icons icon-pointer"
                         onClick={this.joinGroup}
                         id={user.id}
                       >

@@ -2,8 +2,8 @@ import axios from 'axios';
 import attachAuthorizationToken from '../utils/attachAuthorizationToken';
 import { SIGN_UP_USER } from './types';
 
-export const setCurrentUser = (userInfo, type) => ({
-  type,
+export const setCurrentUser = userInfo => ({
+  type: SIGN_UP_USER,
   userInfo
 });
 
@@ -16,7 +16,7 @@ export const userSignupRequest = userData =>
   dispatch => axios.post('/api/v1/user/signup', userData)
     .then((response) => {
       localStorage.setItem('token', response.data.token);
-      dispatch(setCurrentUser(response.data.userInfo, SIGN_UP_USER));
+      dispatch(setCurrentUser(response.data.userInfo));
       attachAuthorizationToken(
         response.data.token
       );

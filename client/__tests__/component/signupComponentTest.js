@@ -35,21 +35,21 @@ describe('SignUpForm Component', () => {
   const signupPage = shallow(
     <SignupPage />
   );
-  test('should render sub components', () => {
+  it('should render sub components', () => {
     expect(signupPage.exists()).toBe(true);
   });
-  test('should match the SignUpForm snapshot', () => {
+  it('should match the SignUpForm snapshot', () => {
     const tree = toJson(component);
     expect(component.find('input').length).toEqual(5);
     expect(tree).toMatchSnapshot();
   });
-  test('it should set state when onChange function is called', () => {
+  it('should set state when onChange function is called', () => {
     component.instance().onChange(
       { target: { value: 'banku', id: 'username' } });
     expect(component.state('username')).toEqual('banku');
   });
-  test(
-    'it should submit fields in state when onSubmit function is called', () => {
+  it(
+    'should submit fields in state when onSubmit function is called', () => {
       jest.spyOn(component.instance(), 'onSubmit');
       component.instance().onChange(
       { target: { value: 'banku', id: 'username' } });
@@ -65,7 +65,7 @@ describe('SignUpForm Component', () => {
       expect(component.find('#submit-signup').length).toEqual(1);
       expect(component.instance().onSubmit.mock.calls.length).toEqual(0);
     });
-  test('onSubmit function should run', () => {
+  it('onSubmit function should run', () => {
     component.instance().onChange(
       { target: { value: 'banku', id: 'username' } });
     component.instance().onChange(

@@ -33,6 +33,7 @@ exports[`UserProfile Compoenent should match User Profile component snapshot 1`]
             className="collection-item"
           >
             <span>
+              bantu
                
             </span>
           </div>
@@ -40,6 +41,7 @@ exports[`UserProfile Compoenent should match User Profile component snapshot 1`]
             className="collection-item"
           >
             <span>
+              bantu@email.com
                
             </span>
           </div>
@@ -47,6 +49,7 @@ exports[`UserProfile Compoenent should match User Profile component snapshot 1`]
             className="collection-item"
           >
             <span>
+              09082091930
                
             </span>
           </div>

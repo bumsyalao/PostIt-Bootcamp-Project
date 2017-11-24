@@ -31,7 +31,7 @@ describe('Hompeage component', () => {
     <Homepage {...props} />
   );
 
-  test('should match the Dashboard component snapshot', () => {
+  it('should match the Dashboard component snapshot', () => {
     const tree = toJson(component);
     expect(tree).toMatchSnapshot();
   });

@@ -7,7 +7,7 @@ import MessageCard from '../../components/Group/MessageCard';
 
 configure({ adapter: new adapter() });
 
-xdescribe('MessageCard Component', () => {
+describe('MessageCard Component', () => {
   const spy = jest.fn();
   beforeEach(() => {
     global.Materialize = { toast: jest.fn() };
@@ -17,21 +17,22 @@ xdescribe('MessageCard Component', () => {
   });
   const props = {
     createdAt: spy,
-    username: spy,
-    User: { username: spy },
+    username: 'blessing',
+    User: { username: 'blessing' },
     messagePriority: spy,
     message: spy,
 
   };
+
   const component = shallow(
     <MessageCard {...props} />
   );
 
-  test('should render component', () => {
+  it('should render component', () => {
     expect(component.exists()).toBe(true);
   });
 
-  test('should match the Message card snapshot', () => {
+  it('should match the Message card snapshot', () => {
     const tree = toJson(component);
     expect(tree).toMatchSnapshot();
   });

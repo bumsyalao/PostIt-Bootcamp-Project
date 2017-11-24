@@ -20,7 +20,7 @@ describe('Welcomepage component', () => {
     <Welcomepage />
   );
 
-  test('should match the Welcomepage component snapshot', () => {
+  it('should match the Welcomepage component snapshot', () => {
     const tree = toJson(component);
     expect(tree).toMatchSnapshot();
   });

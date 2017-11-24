@@ -29,8 +29,24 @@ describe('NavigationBar component', () => {
     <NavigationBar {...props}/>
   );
 
-  test('should match the NavigationBar component snapshot', () => {
+  it('should match the NavigationBar component snapshot', () => {
     const tree = toJson(component);
     expect(tree).toMatchSnapshot();
+  });
+  it('calls logout function', () => {
+    const logoutSpy = jest.spyOn(
+      component.instance(), 'logout'
+    );
+    component.instance().logout({ preventDefault: () => {} });
+    expect(logoutSpy).toHaveBeenCalled();
+  });
+
+  it('it has componentWillReceiveProps', () => {
+    const componentWillReceivePropsSpy = jest.spyOn(
+      component.instance(), 'componentWillReceiveProps'
+    );
+    const nextProps = spy;
+    component.instance().componentWillReceiveProps(nextProps);
+    expect(componentWillReceivePropsSpy).toHaveBeenCalled();
   });
 });

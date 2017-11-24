@@ -7,7 +7,7 @@ import { GroupChat } from '../../components/Group/GroupChat';
 
 configure({ adapter: new adapter() });
 
-xdescribe('GroupChat Component', () => {
+describe('GroupChat Component', () => {
   const spy = jest.fn();
   beforeEach(() => {
     global.Materialize = { toast: jest.fn() };
@@ -25,11 +25,9 @@ xdescribe('GroupChat Component', () => {
     group: {
       groupName: 'bankue'
     },
-    userGroups: {
-      map: spy,
-      indexOf: spy,
+    userGroups: [{
       groupName: 'bankue'
-    },
+    }],
     messages: {
       map: spy
     },
@@ -43,19 +41,19 @@ xdescribe('GroupChat Component', () => {
     <GroupChat {...props} />
   );
 
-  test('should match the GroupChat snapshot', () => {
+  it('should match the GroupChat snapshot', () => {
     const tree = toJson(component);
     expect(component.find('textarea').length).toEqual(1);
     expect(tree).toMatchSnapshot();
   });
 
-  test('should set state when onChange function', () => {
+  it('should set state when onChange function', () => {
     component.instance().onChange(
       { target: { value: 'Hi! Im a test', name: 'message' } });
     expect(component.state('message')).toEqual('Hi! Im a test');
   });
 
-  test('it should submit fields when onSubmit is called', () => {
+  it('should submit fields when onSubmit is called', () => {
     jest.spyOn(component.instance(), 'onSubmit');
     component.instance().onChange(
       { target: { value: 'Hi can I help you', name: 'message' } });
@@ -65,7 +63,7 @@ xdescribe('GroupChat Component', () => {
     expect(component.find('#submit-message').length).toEqual(1);
     expect(component.instance().onSubmit.mock.calls.length).toEqual(0);
   });
-  test('onSubmit function should run', () => {
+  it('should run onSubmit function', () => {
     component.instance().onChange(
       { target: { value: 'Hi Im a test message', name: 'message' } });
     component.instance().onChange(

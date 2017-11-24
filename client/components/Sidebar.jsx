@@ -61,7 +61,7 @@ export class Sidebar extends Component {
                   <li>
                     <Link to="/homepage/groups">
                       <i className="material-icons">groups</i>
-                      All Groups
+                      My Groups
                     </Link>
                   </li>
                 </ul>
@@ -98,7 +98,8 @@ export class Sidebar extends Component {
             <li>
               <div className="collapsible-header" id="document-header">
                 <i className="material-icons">power_settings_new</i>
-                <a href="#" onClick={this.logout}>
+                <a href="#"
+                onClick={this.logout}>
                   Log Out{' '}
                 </a>
               </div>

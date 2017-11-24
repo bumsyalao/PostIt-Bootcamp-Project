@@ -20,16 +20,22 @@ describe('ListGroup component', () => {
     history: {
       push: spy
     },
+    access: {
+      user: {
+        userId: 1
+      }
+    },
     groupList: {
       map: spy
     },
     groups: [{
-      id: 'vgh',
+      id: 1,
       groupname: 'Bunmi'
     }],
     getGroups: jest.fn(() => Promise.resolve()),
     addMemberToGroup: jest.fn(() => Promise.resolve()),
-    listAllUsers: jest.fn(() => Promise.resolve())
+    listAllUsers: jest.fn(() => Promise.resolve()),
+    allUserGroups: jest.fn(() => Promise.resolve())
   };
   const component = shallow(
     <ListGroup {...props} />
@@ -37,14 +43,32 @@ describe('ListGroup component', () => {
   const childComponent = shallow(
     <GroupCard {...props} />
   );
-  test('should match the ListGroupSnapshot', () => {
+  it('should match the ListGroupSnapshot', () => {
     const tree = toJson(component);
     expect(component.find('GroupCard').length).toEqual(0);
     expect(tree).toMatchSnapshot();
   });
 
-  test('should render component and subcomponent', () => {
+  it('should render component and subcomponent', () => {
     expect(childComponent.exists()).toBe(true);
     expect(component.exists()).toBe(true);
+  });
+
+  it('it calls the onClick method', () => {
+    const onClickSpy = jest.spyOn(
+      component.instance(), 'onClick'
+    );
+    const id = 1;
+    component.instance().onClick(id);
+    expect(onClickSpy).toHaveBeenCalled();
+  });
+
+  it('calls listUsers function', () => {
+    const listUsersSpy = jest.spyOn(
+      component.instance(), 'listUsers'
+    );
+    const groupId = 1;
+    component.instance().listUsers(groupId);
+    expect(listUsersSpy).toHaveBeenCalled();
   });
 });

@@ -24,18 +24,18 @@ describe('ForgotPassword component', () => {
   const component = shallow(
     <ForgotPassword {...props} />
   );
-  test('should match the ForgotPassword snapshot', () => {
+  it('should match the ForgotPassword snapshot', () => {
     const tree = toJson(component);
     expect(component.find('input').length).toEqual(1);
     expect(tree).toMatchSnapshot();
   });
-  test('should set state when onChange function is called', () => {
+  it('should set state when onChange function is called', () => {
     component.instance().onChange(
       { target: { value: 'banku@email.com', id: 'email' } });
     expect(component.state('email')).toEqual('banku@email.com');
   });
 
-  test('forgotPassword function should run', () => {
+  it('forgotPassword function should run', () => {
     component.instance().onChange(
       { target: { value: 'banku@email.com', id: 'email' } });
     expect(component.state('email')).toEqual('banku@email.com');

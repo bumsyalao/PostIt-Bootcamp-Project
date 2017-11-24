@@ -28,11 +28,11 @@ export class UserProfile extends Component {
    */
   componentDidMount() {
     const userid = this.props.access.user.userId;
-    this.props.allUserGroups(userid).catch();
+    this.props.allUserGroups(userid);
   }
 
   /**
-   * Update the state if the props are change
+   * Update the state if the props are changed
    * @param {object} nextProps
    * @memberOf UserProfile
    */
@@ -42,7 +42,6 @@ export class UserProfile extends Component {
       user: nextProps.access.user
     });
   }
-
   /**
    * Renders UserProfile
    * @returns UserProfile
@@ -76,7 +75,7 @@ export class UserProfile extends Component {
                   Groups I belong to:{' '}
                   {this.state.groups &&
                     this.state.groups.map(group => (
-                      <div className="chip" key={group.id} > {group.groupName}
+                      <div className="chip" key={group.groupId} > {group.groupName}
                       </div>
                     ))}{' '}
                 </div>

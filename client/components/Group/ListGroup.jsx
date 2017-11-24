@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { getMessages } from '../../actions/messages';
 import {
-  getGroups, listAllUsers, joinGroup
+  getGroups, listAllUsers
 } from '../../actions/groups';
+import { allUserGroups } from '../../actions/users';
 import ConnectedGroupCard from './GroupCard';
 
 
@@ -23,17 +25,21 @@ export class ListGroup extends React.Component {
   constructor(props) {
     super(props);
     this.onClick = this.onClick.bind(this);
-    this.joinAGroup = this.joinAGroup.bind(this);
+    // this.joinAGroup = this.joinAGroup.bind(this);
     this.listUsers = this.listUsers.bind(this);
   }
 
   /**
-   * Makes an action call to getGroups
-   * @memberOf ListGroup
+   * Makes action call to get UserId
+   * @returns userId
+   * @memberOf UserProfile
    */
-  componentDidMount() {
-    this.props.getGroups();
+  componentWillMount() {
+    const userid = this.props.access.user.userId;
+    this.props.getGroups(userid).catch();
+    this.props.allUserGroups(userid).catch();
   }
+
 
   /**
    *
@@ -44,30 +50,6 @@ export class ListGroup extends React.Component {
    */
   onClick(id) {
     this.props.history.push(`/homepage/view-group/${id}`);
-  }
-
-  /**
-   *
-   * Makes an action call to joinGroup
-   * @param {object} event The event of the HTML component
-   *
-   * @memberOf ListGroup
-   */
-  joinAGroup(event) {
-    event.preventDefault();
-    const id = event.target.id;
-    this.props
-      .joinGroup(id)
-      .then(() => {
-        Materialize.toast('Member successfully added', 5000, 'green');
-      })
-      .catch(({ response }) => {
-        Materialize.toast(
-          `An error occured: ${response.data.message}`,
-          5000,
-          'red'
-        );
-      });
   }
 
   /**
@@ -97,21 +79,27 @@ export class ListGroup extends React.Component {
    * @memberOf ListGroup
    */
   render() {
+    if (this.props.groupList.length === 0) {
+      return (
+        <div className="no-group">
+        <h4> You have no group </h4>
+        <Link to="/homepage/create-group"> Click Here to create your first group
+        </Link>
+        </div>
+      );
+    }
     return (
       <div>
         <div className="row form-margin">
           <div className="col s12 m12 l12 scroll-group">
             {this.props.groupList.map(group => (
               <ConnectedGroupCard
-                key={group.id}
-                id={group.id}
-                onClick={() => this.onClick(group.id)}
-                joinAGroup={this.joinAGroup}
+                key={group.groupId}
+                id={group.groupId}
+                onClick={() => this.onClick(group.groupId)}
                 {...group}
                 users={group.users}
-                listUsers={this.listUsers}
-
-              />
+                listUsers={this.listUsers}/>
             ))}
           </div>
           <div className="col s12 m12 l12">
@@ -123,6 +111,8 @@ export class ListGroup extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  access: state.access,
+  user: state.users.usergroups,
   group: state.group.group,
   groupList: state.group.groupList,
   messages: state.group.groupMessages,
@@ -132,8 +122,8 @@ const mapStateToProps = state => ({
 const actions = {
   getGroups,
   getMessages,
-  joinGroup,
   listAllUsers,
+  allUserGroups
 };
 
 export default connect(mapStateToProps, actions)(ListGroup);

@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MessageCard Component should match the Message card snapshot 1`] = `
+<div
+  className="row"
+>
+  <div
+    className="col s12"
+  >
+    <div
+      className="card white"
+    >
+      <div
+        className="card-content black-text"
+      >
+        <span
+          className="card-title inline-block"
+        >
+          @
+          BLESSING
+        </span>
+        <span
+          className="inline-margin inline-block priority-badge black-text"
+        />
+        <span
+          className="inline-margin inline-block right"
+        >
+          Invalid Date at NaN:NaN
+        </span>
+      </div>
+      <div
+        className="card-action"
+      >
+        <p
+          className="message-text"
+        >
+           
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -1,5 +1,5 @@
-/* global expect jest test */
-import users from '../../reducers/usersReducer';
+/* global expect test */
+import usersReducer from '../../reducers/usersReducer';
 import { loadAllUsers, getUserGroups } from '../../actions/users';
 
 
@@ -14,48 +14,58 @@ const userGroups = [
   { groupname: 'Trap' }
 ];
 
-const allUsers = [
+const users = [
   {
-    username: 'banku',
-    email: 'banku@gmail.com'
-  },
-  {
-    username: 'testuser',
-    email: 'test@email.com'
-  },
-  {
-    username: 'bumsy',
+    id: 1,
+    username: 'bunmi',
     email: 'alaobunmi93@gmail.com'
   },
   {
-    username: 'bantu',
-    email: 'bantu@email.com'
+    id: 2,
+    username: 'test',
+    email: 'test@email.com'
+  },
+  {
+    id: 3,
+    username: 'michelle',
+    email: 'michelle@email.com'
+  },
+  {
+    id: 4,
+    username: 'param',
+    email: 'param@email.com'
   }
 ];
 
-const pagination = {
+const metaData = {
   page: 1,
-  pageCount: 5,
-  pageSize: 5,
-  count: 22
+  pageCount: 1,
+  pageSize: 4,
+  count: 4
 };
 
-describe('Users Reducer', () => {
+describe.only('Users Reducer', () => {
   it('should load all users when loadAllUsers is called', () => {
-    const action = loadAllUsers(allUsers, pagination);
-    const newState = users(initialState, action);
+    const action = loadAllUsers({ users, metaData });
+    const newState = usersReducer(initialState, action);
+    
+    expect(newState.users[0]).toEqual({
+      id: 1, username: 'bunmi', email: 'alaobunmi93@gmail.com' });
+    expect(newState.pagination.page).toEqual(1);
   });
 
   it('should get a user\'s group when get getUserGroups is called', () => {
     const action = getUserGroups(userGroups);
-    const newState = users(initialState, action);
+    const newState = usersReducer(initialState, action);
 
     expect(newState.usergroups[0]).toEqual({ groupname: 'banku' });
   });
 
   it('should return default state when no action is called', () => {
-    const newState = users(initialState);
+    const newState = usersReducer(initialState);
 
     expect(newState.usergroups).toEqual([]);
+    expect(newState.users).toEqual([]);
+    expect(newState.pagination).toEqual({});
   });
 });
