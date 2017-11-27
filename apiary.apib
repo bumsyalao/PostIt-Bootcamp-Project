@@ -1,0 +1,353 @@
+FORMAT: 1A
+HOST: http://polls.apiblueprint.org/
+
+# Post-It
+
+A cool App that allows users create groups and post notifications to group.
+
+It provides restful APIs for users to create groups, post messages and retrieve messages based on userId and managing authentication of users with JsonWebToken.
+
+## Endpoint for Users API[ api/v1/user ]
+
+### Sign up User [POST]
+
++ Request (application/json)
+
+        {
+            "username": "bootcampuser",
+            "email": "bootcamp@gmail.com",
+            "password": "password"
+
+        }
+
++ Response 200 (application/json)
+
+        [
+            {
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjgsInVzZXJuYW1lIjoiYm9vdGNhbXB1c2VyIiwiZW1haWwiOiJib290Y2FtcEBnbWFpbC5jb20iLCJpYXQiOjE0OTk5NDgyMDEsImV4cCI6MTUwMDAzNDYwMX0.pPDBamQ9Bu1YQmrFuU5SX39jMC2Urx4Cp8ieijh0Fdk",
+                "userInfo": {
+                "username": "bootcampuser",
+                "email": "bootcamp@gmail.com"
+                }
+            }
+
+        ]
+        
+### Sign in User [POST]
+
++ Request (application/json)
+
+        {
+            "username": "bootcampuser",
+            "password": "password"
+
+        }
+
++ Response 200 (application/json)
+
+        [
+            {
+                "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjgsInVzZXJuYW1lIjoiYm9vdGNhbXB1c2VyIiwiZW1haWwiOiJib290Y2FtcEBnbWFpbC5jb20iLCJpYXQiOjE0OTk5NDgyMDEsImV4cCI6MTUwMDAzNDYwMX0.pPDBamQ9Bu1YQmrFuU5SX39jMC2Urx4Cp8ieijh0Fdk",
+                "userInfo": {
+                "username": "bootcampuser",
+                "email": "bootcamp@gmail.com"
+                }
+            }
+
+        ]
+        
+### Forgot Password [post]
+
++ Request (application/json)
+    
+        {
+            "email": "wambe@email.com"
+        }
+        
++ Response 200 (application/json)
+    
+        {
+            "data": {
+                "message": {
+                    "accepted": [
+                        "wambe@email.com"
+                    ],
+                    "rejected": [],
+                    "response": "250 2.0.0 OK 1510155876 l4sm4725228edc.20 - gsmtp",
+                    "envelope": {
+                        "from": "alaobunmi93@gmail.com",
+                        "to": [
+                            "wambe@email.com"
+                        ]
+                    },
+                    "messageId": "<6a7f4e4f-e029-1a38-a169-46c531ecccbb@gmail.com>"
+                }
+            },
+            "updatedUser": {
+                "id": 25,
+                "username": "wambe",
+                "email": "wambe@email.com",
+                "phonenumber": "09082091930",
+                "forgotpasswordtoken": null,
+                "expirytime": "2017-11-08T16:44:32.716Z",
+                "hash": "$2a$08$QL8SGPHsolilnTd2mtzhg.YdUzmAttr2QhSjFAanqi8NxnUAjOh02",
+                "createdAt": "2017-11-06T09:35:19.648Z"
+            }
+        }
+        
+        
+### Update password [PUT]
+
+    + Request (application/json)
+        
+            {
+                "password": "password",
+                "confirmPassword": "password"
+            }
+            
+    + Response 200 (application/json)
+    
+        {
+            "data": {
+                "message": "Password Reset Successful"
+            }
+            
+        }
+        
+        
+### view all Users [POST]
+
++ Request (application/json)
+        
+        - Endpoint: `GET: api/v1/users`
+        - Requires: `Authentication`
+        - Body `(application/json)`
+
++ Response 200 (application/json)
+    + Body  {
+              "message": "Users found",
+              "users":
+              [{
+                "username": "testuser",
+                "email": "test@email.com"
+              },
+              {
+                "username": "bumsy",
+                email: 'alaobunmi93@gmail.com'
+              },
+              {
+                "username": "bantu",
+                "email": "bantu@email.com"
+              },
+              {
+                "username": "princess",
+                "email": "princess@email.com"
+              }],
+              "metaData": {
+                "page": 1,
+                "pageCount": 5,
+                "pageSize": '5',
+                "count": 24
+              }
+            }
+     
+## Endpoint for Group API[ api/v1/group ]
+
+### Create Group [POST]
+
++ Request (application/json)
+
+        + Headers
+        
+            x-access-token
+
+        {   
+            "groupname": happy
+        }
+
++ Response 200 (application/json)
+
+    + Body
+
+        {   
+            "groupId": 12,
+            "userId": 22,
+            "username": "wambui",
+            "groupname": "Bunmi",
+            "updatedAt": "2017-11-08T13:45:39.239Z",
+            "createdAt": "2017-11-08T13:45:39.239Z",
+            "id": 19
+        }
+### Get all GroupS
+
++ Request (application/json)
+        
+        - Endpoint: `GET: api/v1/groups`
+        - Requires: `Authentication`
+        - Body `(application/json)`
+
++ Response 200 (application/json)
+    + Body
+        
+        [
+             {
+                "id": 1,
+                "groupname": "Trap"
+            },
+            {
+                "id": 2,
+                "groupname": "Banku Group"
+            },
+            {
+                "id": 3,
+                "groupname": "Test Group"
+            },
+            {
+                "id": 4,
+                "groupname": "Wambui"
+            },
+            {
+                "id": 9,
+                "groupname": "wemblys"
+            },
+            {
+                "id": 11,
+                "groupname": "wemblyss"
+            },
+            {
+                "id": 12,
+                "groupname": "Bunmi"
+            }
+        ]
+ 
+### Get a Group
+
++ Request (application/json)
+        
+        - Endpoint: `GET: api/v1/group/1`
+        - Requires: `Authentication`
+        - Body `(application/json)`
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "id": 1,
+                "groupname": "Trap",
+                "createdAt": "2017-10-02T08:20:40.859Z",
+                "updatedAt": "2017-10-02T08:20:40.859Z"
+            }       
+        
+### Add user to Group
+
++ Request (application/json)
+        
+        - Endpoint: `POST: api/v1/group/3/user`
+        - Requires: `Authentication`
+        - Body `(application/json)`
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "groupId": 3,
+                "userId": 22,
+                "username": "wambui",
+                "groupname": "Test Group",
+                "updatedAt": "2017-11-08T15:09:20.167Z",
+                "createdAt": "2017-11-08T15:09:20.167Z",
+                "id": 20
+            }
+
+### List all users in a group
+
++ Request (application/json)
+        
+        - Endpoint: `POST: api/v1/group/3/users`
+        - Requires: `Authentication`
+        - Body `(application/json)`
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "users": [
+                    {
+                        "groupId": 3,
+                        "userId": 1,
+                        "username": "banku",
+                        "groupname": "Test Group",
+                        "createdAt": "2017-10-02T08:21:15.374Z",
+                        "updatedAt": "2017-10-02T08:21:15.374Z"
+                    },
+                    {
+                        "groupId": 3,
+                        "userId": 2,
+                        "username": "testuser",
+                        "groupname": "Test Group",
+                        "createdAt": "2017-10-02T08:22:53.699Z",
+                        "updatedAt": "2017-10-02T08:22:53.699Z"
+                    },
+                    {
+                        "groupId": 3,
+                        "userId": 25,
+                        "username": "wambe",
+                        "groupname": "Test Group",
+                        "createdAt": "2017-11-07T09:00:53.100Z",
+                        "updatedAt": "2017-11-07T09:00:53.100Z"
+                    },
+                    {
+                        "groupId": 3,
+                        "userId": 22,
+                        "username": "wambui",
+                        "groupname": "Test Group",
+                        "createdAt": "2017-11-08T15:09:20.167Z",
+                        "updatedAt": "2017-11-08T15:09:20.167Z"
+                    }
+                ]
+            }
+
+## Endpoint for Message API[ api/v1/group ]
+
+### Post Message to Group
+
++ Request (application/json)
+
+        - Endpoint: `POST: api/v1/group/:groupid/message`
+        - Requires: `Authentication`
+
++ Response 200 (application/json)
+
+{
+    "id": 2,
+    "userId": 8,
+    "groupId": 3,
+    "message": "Hi enjoyment team.",
+    "messagePriority": "normal",
+    "updatedAt": "2017-07-13T13:59:14.420Z",
+    "createdAt": "2017-07-13T13:59:14.420Z"
+}
+
+### Retrieve Message for Group
+
++ Request (application/json)
+
+    - Endpoint: `GET: api/group/:groupid/messages`
+    - Requires: `Authentication`
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 2,
+                "groupId": 3,
+                "userId": 8,
+                "message": "Hi enjoyment team.",
+                "messagePriority": "normal",
+                "createdAt": "2017-07-13T13:59:14.420Z",
+                "updatedAt": "2017-07-13T13:59:14.420Z"
+            }
+        ]

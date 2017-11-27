@@ -1,0 +1,41 @@
+.form-margin {
+  margin-top: 5% !important;
+}
+
+@media only screen and (min-width: 769px) {
+  .homepage {
+    margin-left: 300px;
+  }
+}
+
+nav {
+  .brand-logo {
+    color: $black;
+  }
+
+  ul a {
+    color: $black;
+  }
+}
+
+.options {
+  padding: 10px;
+}
+
+.linkcolor {
+  margin-bottom: 10px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+.error-page {
+  text-align: center;
+  margin-top: 100px;
+}
+.pagination {
+  cursor: pointer;
+}
+.img-style {
+  display: flex;
+}
