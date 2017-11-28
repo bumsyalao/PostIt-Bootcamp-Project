@@ -1,7 +1,7 @@
 const models = require('../models');
 
 const Groups = models.Groups;
-const Usergroups = models.Usergroups;
+const UserGroups = models.UserGroups;
 
 
 module.exports = {
@@ -18,7 +18,7 @@ module.exports = {
       groupName: req.body.groupName
     })
     .then((newGroup) => {
-      Usergroups.create({
+      UserGroups.create({
         groupId: newGroup.id,
         userId: req.decoded.userId,
         username: req.decoded.username,

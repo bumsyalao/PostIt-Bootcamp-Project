@@ -5,7 +5,7 @@ import {
   clearUserDb,
   clearMessagesDb,
   clearGroupDb,
-  clearUsergroupsDb,
+  clearUserGroupsDb,
   chopper,
   existingUsername,
   invalidEmail,
@@ -22,7 +22,7 @@ const api = supertest(app);
 clearUserDb();
 clearMessagesDb();
 clearGroupDb();
-clearUsergroupsDb();
+clearUserGroupsDb();
 
 describe('ROUTES', () => {
   describe('POST: (/api/v1/user/signup) - Signup', () => {

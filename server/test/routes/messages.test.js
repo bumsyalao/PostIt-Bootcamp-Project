@@ -12,7 +12,7 @@ import {
 const expect = chai.expect;
 const api = supertest(app);
 const Groups = models.Groups;
-const UserGroups = models.Usergroups;
+const UserGroups = models.UserGroups;
 
 
 describe('MESSAGES ROUTES', () => {

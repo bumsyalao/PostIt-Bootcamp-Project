@@ -12,7 +12,7 @@ import {
 const expect = chai.expect;
 const api = supertest(app);
 const Users = models.Users;
-const UserGroups = models.Usergroups;
+const UserGroups = models.UserGroups;
 const Groups = models.Groups;
 
 

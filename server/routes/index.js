@@ -1,7 +1,7 @@
 const usersController = require('../controllers/users');
 const groupsController = require('../controllers/groups');
 const messagesController = require('../controllers/messages');
-const usergroupsController = require('../controllers/usergroups');
+const userGroupsController = require('../controllers/userGroups');
 const auth = require('../middleware/jwt');
 
 module.exports = (app) => {
@@ -30,12 +30,12 @@ module.exports = (app) => {
   app.post(
     '/api/v1/group/:groupid/user/:userid',
     auth.checkToken,
-    usergroupsController.addUser
+    userGroupsController.addUser
   );
 
   // api to join a group
   app.post('/api/v1/group/:groupid/user', auth.checkToken,
-  usergroupsController.joinGroup);
+  userGroupsController.joinGroup);
 
   // api route to post message to group
   app.post(
@@ -62,7 +62,7 @@ module.exports = (app) => {
   app.get(
     '/api/v1/group/:groupid/users',
     auth.checkToken,
-    usergroupsController.listAllUsers
+    userGroupsController.listAllUsers
   );
 
   // api route to view a users information

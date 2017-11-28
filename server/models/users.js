@@ -80,7 +80,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       classMethods: {
         associate: (models) => {
-          Users.belongsToMany(models.Groups, { through: 'Usergroups',
+          Users.belongsToMany(models.Groups, { through: 'UserGroups',
             foreignKey: 'userId' });
           Users.hasMany(models.Messages, { foreignKey: 'userId' });
         },

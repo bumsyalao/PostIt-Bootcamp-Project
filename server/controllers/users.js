@@ -8,7 +8,7 @@ const models = require('../models');
 require('dotenv').config();
 
 const Users = models.Users;
-const UserGroups = models.Usergroups;
+const UserGroups = models.UserGroups;
 const secret = process.env.SECRET;
 
 
