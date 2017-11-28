@@ -20,7 +20,7 @@ exports[`MessageCard Component should match the Message card snapshot 1`] = `
           BLESSING
         </span>
         <span
-          className="inline-margin inline-block priority-badge black-text"
+          className=""
         />
         <span
           className="inline-margin inline-block right"

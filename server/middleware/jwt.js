@@ -5,7 +5,7 @@ const secret = process.env.SECRET;
 module.exports = {
 
   /**
-   *
+   * Function to check token
    *
    * @param {any} req
    * @param {any} res

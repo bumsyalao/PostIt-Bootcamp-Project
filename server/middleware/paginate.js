@@ -1,5 +1,5 @@
 /**
- *
+ * Function to paginate
  * @param {any} count
  * @param {any} limit
  * @param {any} offset

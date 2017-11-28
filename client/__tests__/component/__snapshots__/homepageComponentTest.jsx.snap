@@ -37,6 +37,10 @@ exports[`Hompeage component should match the Dashboard component snapshot 1`] = 
       />
       <Route
         component={[Function]}
+        path="undefined/group/:groupid/group-users"
+      />
+      <Route
+        component={[Function]}
       />
     </Switch>
   </div>

@@ -4,7 +4,6 @@ body {
   min-height: 100vh;
   flex-direction: column;
 }
-
 main {
   flex: 1 0 auto;
 }
@@ -217,6 +216,8 @@ nav ul a {
 }
 
 .priority-badge {
+  background: red;
+  color: white;
   padding: 0.02rem 0.3rem;
   border-radius: 0.2rem;
 }
@@ -243,4 +244,14 @@ nav ul a {
 
 .icon-pointer {
   cursor: pointer;
+}
+
+.urgent {
+  background: red;
+}
+.btn-space {
+  margin-right: 1rem;
+}
+.link-underline {
+  text-decoration: underline;
 }

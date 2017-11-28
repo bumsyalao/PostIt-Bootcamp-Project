@@ -29,7 +29,7 @@ module.exports = {
         message: 'group created'
       }))
       .catch((error) => {
-        res.status(400).send(`user groups error: ${error.message}`);
+        res.status(400).send(`${error.message}`);
       });
     })
     .catch(error => res.status(400).send(error.message));
@@ -49,7 +49,7 @@ module.exports = {
     .then(allGroups => res.status(200).send({
       allGroups
     }))
-    .catch(error => res.status(400).send(error));
+    .catch(error => res.status(404).send(error));
   },
 
   /**
@@ -64,6 +64,6 @@ module.exports = {
     .then(group => res.status(200).send({
       group
     }))
-    .catch(error => res.status(400).send(error));
+    .catch(error => res.status(404).send(error));
   },
 };

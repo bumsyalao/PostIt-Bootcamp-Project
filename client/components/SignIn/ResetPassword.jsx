@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import ConnectedNavigationBar from '../NavigationBar';
+import NavigationBar from '../NavigationBar';
 import { resetPasswordAction } from '../../actions/signInAction';
 
 /**
@@ -69,7 +69,7 @@ export class ResetPassword extends Component {
   render() {
     return (
       <div>
-        <ConnectedNavigationBar match={this.props.match} />
+        <NavigationBar match={this.props.match} />
         <div className="form-margin">
           <div className="col s12 container">
             <div className="input-field col s6 offset-s3">

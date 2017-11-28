@@ -1,9 +1,9 @@
 import React from 'react';
-import ConnectedNavigationBar from './NavigationBar';
+import NavigationBar from './NavigationBar';
 
 const PageNotFound = () => (
   <div>
-  <ConnectedNavigationBar/>
+  <NavigationBar/>
     <h4 className="error-page"> Error 404: Page Not Found </h4>
   </div>
 

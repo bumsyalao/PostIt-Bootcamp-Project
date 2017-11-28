@@ -19,9 +19,7 @@ export class UsersPage extends Component {
     super();
     this.state = {
       users: [],
-      offset: 0,
       pageCount: 0,
-      limit: 5,
       searchParam: ''
     };
     this.handlePageClick = this.handlePageClick.bind(this);
@@ -85,8 +83,8 @@ export class UsersPage extends Component {
    * @param {object} data
    * @memberOf UsersPage
    */
-  handlePageClick(data) {
-    const selected = data.selected;
+  handlePageClick(pageData) {
+    const selected = pageData.selected;
     const limit = 5;
     const offset = Math.ceil(selected * limit);
     this.setState({ offset });

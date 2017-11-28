@@ -4,7 +4,7 @@ import { withRouter, Link } from 'react-router-dom';
 import MessageCard from './MessageCard';
 import { newMessage, getMessages } from '../../actions/messages';
 import { getUserGroups, allUserGroups } from '../../actions/users';
-import { getGroup } from '../../actions/groups';
+import { getGroup, listAllUsers } from '../../actions/groups';
 
 /**
  *
@@ -42,9 +42,17 @@ export class GroupChat extends React.Component {
     this.props.getGroup(groupId);
   }
 
+  /**
+   *
+   * Makes action call to get all group users
+   * Makes action call to list all users
+   * @memberOf GroupChat
+   */
   componentWillMount() {
+    const id = this.props.group.id;
     const userid = this.props.access.user.userId;
     this.props.allUserGroups(userid);
+    this.props.listAllUsers(id);
   }
 
   /**
@@ -79,6 +87,7 @@ export class GroupChat extends React.Component {
         });
       });
   }
+
   /**
    * Renders Groupchat
    * @returns Groupchat
@@ -93,21 +102,28 @@ export class GroupChat extends React.Component {
             <h5> {(this.props.group.groupName || '').toUpperCase()} </h5>
             <Link
               to={`/homepage/group/${id}/add-user`}
-              className="waves-effect waves-light red lighten-2 btn">
+              className="waves-effect waves-light red lighten-2 btn"
+            >
               <i className="material-icons left">add</i>
               Add User
             </Link>
+            <Link
+              class="waves-effect waves-light red lighten-2 btn"
+              to={`/homepage/group/${id}/group-users`}
+            >
+              View Users
+            </Link>
+
             <div className="col s12">
               <ul className="msg-collection">
                 {this.props.messages.map(message => (
-                  <MessageCard key={message.id} {...message}/>
+                  <MessageCard key={message.id} {...message} />
                 ))}
               </ul>
               <div className="col s12">
                 <div className="col s9">
                   <label htmlFor="textarea">Enter Message Here</label> <br />
                   <textarea
-                    className="materialize-textarea"
                     value={this.state.message}
                     name="message"
                     id="message"
@@ -132,13 +148,13 @@ export class GroupChat extends React.Component {
                 </div>
               </div>
               <button
-                  className="btn"
-                  id="submit-message"
-                  onClick={this.onSubmit}
-                >
-                  {' '}
-                  Send{' '}
-                </button>
+                className="btn"
+                id="submit-message"
+                onClick={this.onSubmit}
+              >
+                {' '}
+                Send{' '}
+              </button>
             </div>
           </div>
         </div>
@@ -154,7 +170,8 @@ const mapStateToProps = (state, ownProps) => {
     messages: state.messages[groupId] || [],
     group: state.group[groupId] || {},
     userGroups: state.users.usergroups || [],
-    access: state.access
+    access: state.access,
+    groupList: state.group.groupList
   };
 };
 
@@ -163,5 +180,6 @@ export default connect(mapStateToProps, {
   getMessages,
   getGroup,
   getUserGroups,
-  allUserGroups
+  allUserGroups,
+  listAllUsers
 })(withRouter(GroupChat));

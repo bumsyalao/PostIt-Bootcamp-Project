@@ -13,7 +13,7 @@ module.exports = {
    * @param {object} response object
    */
 
-  create(req, res) {
+  addUser(req, res) {
     const groupId = Number(req.params.groupid);
     const userId = Number(req.params.userid);
 
@@ -45,9 +45,9 @@ module.exports = {
               newGroup,
               message: 'User successfully added to group'
             })
-          );
+          ).catch(error => res.status(400).send(error));
       })
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(500).send(error));
   },
 
   /**
@@ -94,7 +94,7 @@ module.exports = {
    * @param {object} request object
    * @param {object} response object
    */
-  listall(req, res) {
+  listAllUsers(req, res) {
     const groupId = req.params.groupid;
     Usergroups.findAll({ where: { groupId } })
       .then((users) => {

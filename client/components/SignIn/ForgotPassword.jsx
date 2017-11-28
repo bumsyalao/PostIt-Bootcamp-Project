@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { forgotPasswordAction } from '../../actions/signInAction';
-import ConnectedNavigationBar from '../NavigationBar';
+import NavigationBar from '../NavigationBar';
 
 /**
  * @class ForgotPassword
@@ -67,7 +67,7 @@ export class ForgotPassword extends Component {
   render() {
     return (
       <div>
-        <ConnectedNavigationBar match={this.props.match} />
+        <NavigationBar match={this.props.match} />
         <div className="form-margin">
           <div className="col s12 container">
             <div className="input-field col s6 offset-s3">

@@ -1,7 +1,7 @@
 import paginate from '../middleware/paginate';
+import { sendForgotPasswordMail } from '../middleware/sendMail';
 
 const jwt = require('jsonwebtoken');
-const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 const models = require('../models');
 
@@ -10,8 +10,7 @@ require('dotenv').config();
 const Users = models.Users;
 const UserGroups = models.Usergroups;
 const secret = process.env.SECRET;
-const useremail = process.env.USEREMAIL;
-const userpass = process.env.USERPASS;
+
 
 module.exports = {
   /**
@@ -144,8 +143,8 @@ module.exports = {
         res.status(200).send({ userGroups });
       })
       .catch(() => {
-        res.status(500).send({
-          message: 'There was a server error, please try again'
+        res.status(400).send({
+          message: 'No user found in group'
         });
       });
   },
@@ -204,41 +203,6 @@ module.exports = {
       });
       return;
     }
-    const transporter = nodemailer.createTransport({
-      service: 'Gmail',
-      // secure:true for port 465, secure:false for port 587
-      auth: {
-        user: useremail,
-        pass: userpass
-      }
-    });
-
-    // setup email data with unicode symbols
-    const mailOptions = {
-      from: '"POST_IT" <postit.nownow@gmail.com>', // sender address
-      to: email, // list of receivers
-      subject: 'Reset Your Password_POSTIT', // Subject line
-      html: `<div style="width: 100%; background-color: #eeeeee; padding: 2%;">
-      <div style="width: 60%; background-color: white; margin: auto;">
-        <div style="height: 8%; background-color: #e57373; width:100%;
-        display: flex; flex-direction: row">
-          <img height="40px" style="margin-left: 2%; margin-top: 2%"
-          src="http://res.cloudinary.com/dcpfdxsly/image/upload/v1510790648/feminist_zea7fw.png">
-          <h5> POST-IT </h5>
-        </div>
-        <div style="padding: 8%">
-          <div class="row">
-            Hello ${email}, You are receiving this because you (or someone else) requested to change password.
-            <br />Please click on the following link or paste this into your browser to complete:
-            <p><a href="http://${req.headers
-              .host}/reset-password/${hash}">this Link</a></p>
-            <p>If you did not request this, please ignore this mail and your password will remain unchanged.</p>
-          </div>
-          <div style="border-top: 3px solid #e57373;"></div>
-        </div>
-      </div>
-    </div>`
-    };
     Users.findOne({
       where: { email }
     }).then((user) => {
@@ -251,17 +215,10 @@ module.exports = {
             expiryTime: date
           })
           .then((updatedUser) => {
-            transporter.sendMail(mailOptions, (errors, info) => {
-              if (errors) {
-                res.status(503).send({
-                  data: { error: { message: errors } }
-                });
-              } else {
-                res.status(200).send({
-                  data: { message: info },
-                  updatedUser: updatedUser.filterUserDetails()
-                });
-              }
+            // send email here
+            sendForgotPasswordMail(updatedUser.email, hash, req.headers.host);
+            res.status(200).send({
+              updatedUser: updatedUser.filterUserDetails()
             });
           })
           .catch((error) => {

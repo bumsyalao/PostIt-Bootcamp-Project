@@ -30,7 +30,7 @@ module.exports = (app) => {
   app.post(
     '/api/v1/group/:groupid/user/:userid',
     auth.checkToken,
-    usergroupsController.create
+    usergroupsController.addUser
   );
 
   // api to join a group
@@ -62,7 +62,7 @@ module.exports = (app) => {
   app.get(
     '/api/v1/group/:groupid/users',
     auth.checkToken,
-    usergroupsController.listall
+    usergroupsController.listAllUsers
   );
 
   // api route to view a users information

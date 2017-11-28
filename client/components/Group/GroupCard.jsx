@@ -18,7 +18,7 @@ export class GroupCard extends Component {
   }
   /* eslint-enable */
   render() {
-    const { groupName, id, listUsers, users } = this.props;
+    const { groupName, id } = this.props;
     return (
       <div className="col s6">
         <div className="message-card group">
@@ -35,50 +35,6 @@ export class GroupCard extends Component {
                   >
                     {groupName}
                   </Link>
-                  <i className="material-icons">more_vert</i>
-                </div>
-                <div className="collapsible-body options" id="groups">
-                  <ul
-                    className="collapsible group-options"
-                    data-collapsible="accordion"
-                  >
-                    <li className="user-list">
-                      <div
-                        className="collapsible-header group-header menu-item"
-                        id="document-header"
-                      >
-                        <i className="material-icons tiny">group</i>
-                        <div
-                          onClick={() => listUsers(id)}
-                          id={id}
-                          className="card-title"
-                        >
-                          View users
-                        </div>
-                      </div>
-                      <div className="collapsible-body options" id="groups">
-                        <ul
-                          className="collapsible group-options"
-                          data-collapsible="accordion"
-                        >
-                          <li>
-                            <div className="users-list">
-                              {users &&
-                                users.map(user => (
-                                  <div
-                                    id={id}
-                                    key={user.userId}
-                                    className="card-title"
-                                  >
-                                    {user.username}
-                                  </div>
-                                ))}
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-                    </li>
-                  </ul>
                 </div>
               </li>
             </ul>

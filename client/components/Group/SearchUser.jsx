@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ReactPaginate from 'react-paginate';
 import { getAllUsers } from '../../actions/users';
-import { addMemberToGroup, getGroups } from '../../actions/groups';
+import {
+  addMemberToGroup, getGroups, listAllUsers
+} from '../../actions/groups';
 
 /**
  * @class SearchPage
@@ -19,9 +21,7 @@ export class SearchUser extends Component {
     super();
     this.state = {
       users: [],
-      offset: 0,
       pageCount: 0,
-      limit: 5,
       searchParam: ''
     };
     this.joinGroup = this.joinGroup.bind(this);
@@ -34,8 +34,10 @@ export class SearchUser extends Component {
    */
 
   componentWillMount() {
+    const id = this.props.match.params.groupId;
     this.props.getGroups();
     this.getUsers();
+    this.props.listAllUsers(id);
   }
 
   /**
@@ -61,6 +63,7 @@ export class SearchUser extends Component {
       count: nextProps.pagination.count
     });
   }
+
   /**
    *
    * Makes an action call to addMemberToGroup
@@ -80,7 +83,7 @@ export class SearchUser extends Component {
       })
       .catch(({ response }) => {
         Materialize.toast(
-          `An error occured: ${response.data.message}`,
+          `${response.data.message}`,
           5000,
           'red'
         );
@@ -114,14 +117,14 @@ export class SearchUser extends Component {
    * @param {object} data
    * @memberOf SearchPage
    */
-  handlePageClick(data) {
-    const selected = data.selected;
+  handlePageClick(pageData) {
+    const selected = pageData.selected;
     const limit = 5;
     const offset = Math.ceil(selected * limit);
     this.setState({ offset });
     this.getUsers(offset, limit);
   }
-
+  // disableJoinedUser = ()
   /**
    * Renders the SearchPage document
    * @returns SearchPage
@@ -130,12 +133,12 @@ export class SearchUser extends Component {
   render() {
     const { users } = this.state;
     const groupid = this.props.match.params.groupId;
+    console.log(this.props.groupList);
     return (
       <div className="row">
         <Link
           to={`/homepage/view-group/${groupid}`}
-          className="waves-effect waves-light red lighten-2 btn"
-        >
+          className="waves-effect waves-light red lighten-2 btn">
           {' '}
           Go Back to Group
         </Link>
@@ -179,13 +182,11 @@ export class SearchUser extends Component {
                 users.map(user => (
                   <tr key={user.id}>
                     <td>
-                      <i
-                        className="material-icons icon-pointer"
+                    <a className="btn-floating btn-space"
                         onClick={this.joinGroup}
-                        id={user.id}
-                      >
-                        add_box
-                      </i>
+                        >
+                        <i class="material-icons" id={user.id}>add</i>
+                      </a>
                       {user.username}
                     </td>
                     <td>{user.email}</td>
@@ -221,5 +222,6 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {
   getAllUsers,
   addMemberToGroup,
-  getGroups
+  getGroups,
+  listAllUsers
 })(SearchUser);

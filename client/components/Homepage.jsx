@@ -1,16 +1,16 @@
 import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import ConnectedCreateGroup from './Group/CreateGroup';
-import ConnectedSidebar from './Sidebar';
-import ConnectedListGroup from './Group/ListGroup';
-import ConnectedGroupChat from './Group/GroupChat';
-import ConnectedUsersPage from '../components/Users/UsersPage';
-import ConnectedUserProfile from '../components/Users/UserProfile';
+import CreateGroup from './Group/CreateGroup';
+import Sidebar from './Sidebar';
+import ListGroup from './Group/ListGroup';
+import GroupChat from './Group/GroupChat';
+import UsersPage from '../components/Users/UsersPage';
+import UserProfile from '../components/Users/UserProfile';
 import Welcomepage from './Welcomepage';
 import PageNotFound from './PageNotFound';
-import ConnectedSearchUser from '../components/Group/SearchUser';
-
+import SearchUser from '../components/Group/SearchUser';
+import GroupUsers from '../components/Group/GroupUsers';
 
 /**
  * @class Homepage
@@ -42,7 +42,7 @@ export class Homepage extends React.Component {
   render() {
     return (
       <div>
-        <ConnectedSidebar />
+        <Sidebar />
         <div className="homepage">
 
           <Switch>
@@ -52,27 +52,31 @@ export class Homepage extends React.Component {
             />
             <Route
               path={`${this.props.match.url}/create-group`}
-              component={ConnectedCreateGroup}
+              component={CreateGroup}
             />
             <Route
               path={`${this.props.match.url}/groups`}
-              component={ConnectedListGroup}
+              component={ListGroup}
             />
             <Route
               path={`${this.props.match.url}/view-group/:groupId`}
-              component={ConnectedGroupChat}
+              component={GroupChat}
             />
             <Route
               path={`${this.props.match.url}/search-users`}
-              component={ConnectedUsersPage}
+              component={UsersPage}
             />
             <Route
               path={`${this.props.match.url}/user-profile`}
-              component={ConnectedUserProfile}
+              component={UserProfile}
             />
             <Route
               path={`${this.props.match.url}/group/:groupId/add-user`}
-              component={ConnectedSearchUser}
+              component={SearchUser}
+            />
+            <Route
+              path={`${this.props.match.url}/group/:groupid/group-users`}
+              component={GroupUsers}
             />
             <Route component={PageNotFound}/>
           </Switch>

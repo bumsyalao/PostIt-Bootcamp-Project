@@ -6,7 +6,7 @@ import {
   getGroups, listAllUsers
 } from '../../actions/groups';
 import { allUserGroups } from '../../actions/users';
-import ConnectedGroupCard from './GroupCard';
+import GroupCard from './GroupCard';
 
 
 /**
@@ -67,7 +67,7 @@ export class ListGroup extends React.Component {
       .listAllUsers(groupId)
       .then(() => {})
       .catch((error) => {
-        Materialize.toast(`An error occured: ${error.message}`, 5000, 'red');
+        Materialize.toast(`${error.message}`, 5000, 'red');
       });
   }
 
@@ -83,7 +83,7 @@ export class ListGroup extends React.Component {
       return (
         <div className="no-group">
         <h4> You have no group </h4>
-        <Link to="/homepage/create-group"> Click Here to create your first group
+        <Link className="link-underline" to="/homepage/create-group"> Click Here to create your first group
         </Link>
         </div>
       );
@@ -93,7 +93,7 @@ export class ListGroup extends React.Component {
         <div className="row form-margin">
           <div className="col s12 m12 l12 scroll-group">
             {this.props.groupList.map(group => (
-              <ConnectedGroupCard
+              <GroupCard
                 key={group.groupId}
                 id={group.groupId}
                 onClick={() => this.onClick(group.groupId)}

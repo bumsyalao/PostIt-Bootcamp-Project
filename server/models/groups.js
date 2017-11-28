@@ -15,6 +15,14 @@ module.exports = (sequelize, DataTypes) => {
     },
   },
     {
+      hooks: {
+        beforeCreate(group) {
+          group.groupName = group.groupName.toLowerCase();
+        },
+        beforeUpdate(group) {
+          group.groupName = group.groupName.toLowerCase();
+        }
+      },
       classMethods: {
         associate: (models) => {
           Groups.belongsToMany(models.Users, { through: 'Usergroups',

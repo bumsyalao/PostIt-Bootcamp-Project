@@ -54,5 +54,5 @@ dispatch => axios.post('/api/v1/user/forgot-password', email);
  * @param {object} data
  * @return {any}
  */
-export const resetPasswordAction = data =>
-dispatch => axios.put(`/api/v1/user/update-password/${data.hash}`, data);
+export const resetPasswordAction = email =>
+dispatch => axios.put(`/api/v1/user/update-password/${email.hash}`, email);

@@ -1,4 +1,5 @@
 import React from 'react';
+import classnames from 'classnames';
 
 /**
  *
@@ -16,7 +17,7 @@ const MessageCard = (props) => {
             <span className="card-title inline-block">
               @{(props.username || props.User.username).toUpperCase()}
             </span>
-            <span className="inline-margin inline-block priority-badge black-text">
+            <span className="">
               {props.messagePriority}
             </span>
             <span className="inline-margin inline-block right">

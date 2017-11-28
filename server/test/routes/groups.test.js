@@ -34,7 +34,7 @@ describe('GROUP ROUTES', () => {
       .end((err, res) => {
         expect(res.body.savedGroup).to.have.property('groupName');
         expect(res.body.savedGroup.groupName).to.not.equal(null);
-        expect(res.body.savedGroup.groupName).to.equal('People');
+        expect(res.body.savedGroup.groupName).to.equal('people');
         groupid = res.body.savedGroup.groupid;
         done();
       });
@@ -61,11 +61,11 @@ describe('GROUP ROUTES', () => {
         });
     });
 
-    it('should return 400 when invalid group is passed', (done) => {
+    it('should return 404 when invalid group is passed', (done) => {
       api.get(`/api/v1/group/${groupid}`)
       .set('x-access-token', validToken)
         .end((err, res) => {
-          expect(res.status).to.equal(400);
+          expect(res.status).to.equal(404);
           done();
         });
     });

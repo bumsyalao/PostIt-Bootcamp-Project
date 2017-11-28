@@ -22,33 +22,33 @@ module.exports = {
     const groupId = Number(req.params.groupid);
     const userId = req.decoded.userId;
 
-  // Check if group exist
+    // Check if group exist
     Groups.findById(groupId).then((group) => {
       if (!group) {
         return res.status(404).send({ message: 'Group not found' });
       }
     }
-    );
-  // Check if user exist in group
+      );
+    // Check if user exist in group
     UserGroups.findOne({
       where: {
         userId,
         groupId
       }
     })
-    .then((record) => {
-      if (!record) {
-        return res.status(404).send({
-          message: 'Not a member, Join group to post message'
-        });
-      }
+      .then((record) => {
+        if (!record) {
+          return res.status(401).send({
+            message: 'Not a member, Join group to post message'
+          });
+        }
 
-      Messages.create({
-        userId: req.decoded.userId,
-        groupId: record.groupId,
-        message: req.body.message,
-        messagePriority: req.body.messagePriority,
-      })
+        Messages.create({
+          userId: req.decoded.userId,
+          groupId: record.groupId,
+          message: req.body.message,
+          messagePriority: req.body.messagePriority,
+        })
       .then((newMessage) => {
         UserGroups
           .findAll({
@@ -76,8 +76,8 @@ module.exports = {
           message: 'message posted succesfully'
         });
       })
-      .catch(error => res.status(400).send(error));
-    });
+      .catch(error => res.status(500).send(error));
+      });
   },
 
   /**
@@ -106,7 +106,7 @@ module.exports = {
     })
     .then((record) => {
       if (!record) {
-        return res.status(404).send({
+        return res.status(401).send({
           message: 'Not a member, Join Group to view message'
         });
       }
@@ -122,7 +122,7 @@ module.exports = {
       .then(messages => res.status(200).send({
         messages
       }))
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(500).send(error));
     });
   },
 };
