@@ -1,6 +1,6 @@
 const models = require('../models');
 
-const Usergroups = models.Usergroups;
+const UserGroups = models.UserGroups;
 const Groups = models.Groups;
 const Users = models.Users;
 
@@ -20,7 +20,7 @@ module.exports = {
     Groups.findById(groupId)
       .then((foundGroup) => {
         // check if user is already in group
-        Usergroups.findOne({
+        UserGroups.findOne({
           where: {
             $and: [{ userId }, { groupId }]
           }
@@ -33,7 +33,7 @@ module.exports = {
         // Find username from users model
         Users.findById(userId)
           .then((user) => {
-            Usergroups.create({
+            UserGroups.create({
               groupId: foundGroup.id,
               userId: req.params.userid,
               username: user.username,
@@ -63,7 +63,7 @@ module.exports = {
     const userId = req.decoded.userId;
     Groups.findById(groupId)
       .then((foundGroup) => {
-        Usergroups.findOne({
+        UserGroups.findOne({
           where: {
             $and: [{ userId }, { groupId }]
           }
@@ -71,7 +71,7 @@ module.exports = {
           if (foundUserGroup) {
             return res.status(409).send({ message: 'User already in group' });
           }
-          Usergroups.create({
+          UserGroups.create({
             groupId: foundGroup.id,
             userId: req.decoded.userId,
             username: req.decoded.username,
@@ -96,7 +96,7 @@ module.exports = {
    */
   listAllUsers(req, res) {
     const groupId = req.params.groupid;
-    Usergroups.findAll({ where: { groupId } })
+    UserGroups.findAll({ where: { groupId } })
       .then((users) => {
         if (users.length === 0) {
           res.status(404).send({ message: 'No Users Found' });

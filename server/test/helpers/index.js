@@ -2,7 +2,7 @@ import models from '../../../server/models';
 
 const Users = models.Users;
 const Groups = models.Groups;
-const UserGroups = models.Usergroups;
+const UserGroups = models.UserGroups;
 const Messages = models.Messages;
 
 module.exports = {
@@ -33,7 +33,7 @@ module.exports = {
   });
   },
 
-  clearUsergroupsDb() {
+  clearUserGroupsDb() {
     UserGroups
   .destroy({
     cascade: true,

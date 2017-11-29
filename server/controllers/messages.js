@@ -6,7 +6,7 @@ const models = require('../models');
 const Messages = models.Messages;
 const Groups = models.Groups;
 const Users = models.Users;
-const UserGroups = models.Usergroups;
+const UserGroups = models.UserGroups;
 
 
 module.exports = {
