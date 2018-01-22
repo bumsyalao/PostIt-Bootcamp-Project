@@ -8,20 +8,25 @@ import { getAllUsers } from '../../actions/users';
  * @class UsersPage
  * @extends {Component}
  */
-class UsersPage extends Component {
+export class UsersPage extends Component {
+
+  /**
+   * Creates an instance of UsersPage.
+   * Bind the function handlePageClick to the class.
+   * @memberOf UsersPage
+   */
   constructor() {
     super();
     this.state = {
       users: [],
-      offset: 0,
       pageCount: 0,
-      limit: 5,
       searchParam: ''
     };
     this.handlePageClick = this.handlePageClick.bind(this);
   }
 
   /**
+   * Makes action call to get all users
    * @memberOf UsersPage
    */
   componentWillMount() {
@@ -29,9 +34,9 @@ class UsersPage extends Component {
   }
 
   /**
+   * function to get users of the offset, limit and serach param
    * @param {int} offset
    * @param {int} limit
-   *
    * @memberOf UsersPage
    */
   getUsers(offset, limit) {
@@ -39,7 +44,8 @@ class UsersPage extends Component {
   }
 
   /**
-   * @param {any} nextProps
+   * Update the state if the props are changed
+   * @param {object} nextProps
    * @memberOf UsersPage
    */
   componentWillReceiveProps(nextProps) {
@@ -50,15 +56,19 @@ class UsersPage extends Component {
   }
 
   /**
-   * @param {any} e
+   * Sets the event value and default value to the state
+   * @function searchUsers
+   * @param {object} event
    * @memberOf UsersPage
    */
-  searchUsers = (e) => {
-    this.setState({ searchParam: e.target.value, offset: 0, limit: 5 });
+  searchUsers = (event) => {
+    this.setState({ searchParam: event.target.value, offset: 0, limit: 5 });
   }
 
 
   /**
+   * Makes an action call to search for a user
+   * @function onSearch
    * @memberOf UsersPage
    */
   onSearch = () => {
@@ -69,26 +79,21 @@ class UsersPage extends Component {
 
 
   /**
-   * @param {any} data
+   * Pagination for list of users
+   * @param {object} data
    * @memberOf UsersPage
    */
-  handlePageClick(data) {
-    const selected = data.selected;
+  handlePageClick(pageData) {
+    const selected = pageData.selected;
     const limit = 5;
     const offset = Math.ceil(selected * limit);
     this.setState({ offset });
-    this.getUsers(offset, limit).then(() => {
-      this.setState({
-        users: this.props.users.users
-      });
-    });
+    this.getUsers(offset, limit);
   }
 
   /**
-   *
-   *
-   * @returns
-   *
+   * Renders the UsersPage document
+   * @returns UsersPage
    * @memberOf UsersPage
    */
   render() {
@@ -127,10 +132,10 @@ class UsersPage extends Component {
               </tr>
             </thead>
             <tbody>
-                {users && users.map(({ email, username }) =>
-                  <tr>
-                    <td>{username}</td>
-                    <td>{email}</td>
+                {users && users.map(user =>
+                  <tr key={user.id}>
+                    <td>{user.username}</td>
+                    <td>{user.email}</td>
                   </tr>
               )}
             </tbody>
@@ -151,6 +156,7 @@ class UsersPage extends Component {
     );
   }
 }
+
 const mapStateToProps = state => ({
   users: state.users,
   pagination: state.users.pagination

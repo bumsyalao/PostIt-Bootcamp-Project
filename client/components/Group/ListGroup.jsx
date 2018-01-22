@@ -1,42 +1,49 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Switch, Route, withRouter } from 'react-router-dom';
-import addMemberToGroup from '../../actions/createGroupRequest';
+import { Link } from 'react-router-dom';
 import { getMessages } from '../../actions/messages';
-import { getGroups, listAllUsers, removeGroup } from '../../actions/groups';
+import {
+  getGroups, listAllUsers
+} from '../../actions/groups';
+import { allUserGroups } from '../../actions/users';
 import GroupCard from './GroupCard';
-import GroupChat from './GroupChat';
 
 
 /**
- *
- *
  * @class ListGroup
  * @extends {React.Component}
  */
-class ListGroup extends React.Component {
-  constructor(props) {
-    super(props);
-    this.onClick = this.onClick.bind(this);
-    this.joinGroup = this.joinGroup.bind(this);
-    this.listUsers = this.listUsers.bind(this);
-    this.deleteGroup = this.deleteGroup.bind(this);
-  }
+export class ListGroup extends React.Component {
 
   /**
-   *
-   *
+   * Creates an instance of ListGroup.
+   * Binds class methods.
+   * @param {object} props
    *
    * @memberOf ListGroup
    */
-  componentDidMount() {
-    this.props.getGroups();
+  constructor(props) {
+    super(props);
+    this.onClick = this.onClick.bind(this);
+    this.listUsers = this.listUsers.bind(this);
   }
 
   /**
+   * Makes action call to get UserId
+   * @returns userId
+   * @memberOf UserProfile
+   */
+  componentWillMount() {
+    const userid = this.props.access.user.userId;
+    this.props.getGroups(userid).catch();
+    this.props.allUserGroups(userid).catch();
+  }
+
+
+  /**
    *
-   *
-   * @param {any} id
+   * Makes an action call to push to url
+   * @param {int} id
    *
    * @memberOf ListGroup
    */
@@ -46,85 +53,52 @@ class ListGroup extends React.Component {
 
   /**
    *
-   *
-   * @param {any} event
-   *
-   * @memberOf ListGroup
-   */
-  joinGroup(event) {
-    event.preventDefault();
-    const id = event.target.id;
-    this.props
-      .addMemberToGroup(id)
-      .then(() => {
-        Materialize.toast('Member successfully added', 5000, 'green');
-      })
-      .catch(({ response }) => {
-        Materialize.toast(
-          `An error occured: ${response.data.message}`,
-          5000,
-          'red'
-        );
-      });
-  }
-
-  /**
-   *
-   *
-   * @param {any} groupId
-   * @returns
+   * Makes an action call to listAllUsers
+   * @param {int} groupId
+   * @returns users
    *
    * @memberOf ListGroup
    */
   listUsers(groupId) {
     const { users } = this.props;
     if (users && users.length > 0) return;
-    console.log(this.props.users);
     this.props
       .listAllUsers(groupId)
       .then(() => {})
       .catch((error) => {
-        Materialize.toast(`An error occured: ${error.message}`, 5000, 'red');
+        Materialize.toast(`${error.message}`, 5000, 'red');
       });
   }
 
   /**
    *
-   *
-   * @param {any} event
-   *
-   * @memberOf ListGroup
-   */
-  deleteGroup(event) {
-    this.props.removeGroup(event.target.id)
-      .then(() => {
-        console.log('HI');
-      });
-  }
-
-  /**
-   *
-   *
-   * @returns
+   * Renders ListGroup component
+   * @returns ListGroup HMTL component
    *
    * @memberOf ListGroup
    */
   render() {
+    if (this.props.groupList.length === 0) {
+      return (
+        <div className="no-group">
+        <h4> You have no group </h4>
+        <Link className="link-underline" to="/homepage/create-group"> Click Here to create your first group
+        </Link>
+        </div>
+      );
+    }
     return (
       <div>
         <div className="row form-margin">
-          <div className="col s12 m12 l12">
+          <div className="col s12 m12 l12 scroll-group">
             {this.props.groupList.map(group => (
               <GroupCard
-                key={group.id}
-                id={group.id}
-                onClick={() => this.onClick(group.id)}
-                joinGroup={this.joinGroup}
+                key={group.groupId}
+                id={group.groupId}
+                onClick={() => this.onClick(group.groupId)}
                 {...group}
                 users={group.users}
-                listUsers={this.listUsers}
-                deleteGroup={this.deleteGroup}
-              />
+                listUsers={this.listUsers}/>
             ))}
           </div>
           <div className="col s12 m12 l12">
@@ -136,6 +110,8 @@ class ListGroup extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  access: state.access,
+  user: state.users.usergroups,
   group: state.group.group,
   groupList: state.group.groupList,
   messages: state.group.groupMessages,
@@ -145,9 +121,8 @@ const mapStateToProps = state => ({
 const actions = {
   getGroups,
   getMessages,
-  addMemberToGroup,
   listAllUsers,
-  removeGroup
+  allUserGroups
 };
 
 export default connect(mapStateToProps, actions)(ListGroup);

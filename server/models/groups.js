@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const Groups = sequelize.define('Groups', {
-    groupname: {
+    groupName: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
@@ -15,9 +15,17 @@ module.exports = (sequelize, DataTypes) => {
     },
   },
     {
+      hooks: {
+        beforeCreate(group) {
+          group.groupName = group.groupName.toLowerCase();
+        },
+        beforeUpdate(group) {
+          group.groupName = group.groupName.toLowerCase();
+        }
+      },
       classMethods: {
         associate: (models) => {
-          Groups.belongsToMany(models.Users, { through: 'Usergroups',
+          Groups.belongsToMany(models.Users, { through: 'UserGroups',
             foreignKey: 'groupId',
             onDelete: 'CASCADE' });
           Groups.hasMany(models.Messages, {

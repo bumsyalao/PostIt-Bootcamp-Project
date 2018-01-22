@@ -1,32 +1,42 @@
 import React from 'react';
-import { Route, IndexRoute, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import NavigationBar from './NavigationBar';
-import Sidebar from './Sidebar';
 import CreateGroup from './Group/CreateGroup';
+import Sidebar from './Sidebar';
 import ListGroup from './Group/ListGroup';
 import GroupChat from './Group/GroupChat';
 import UsersPage from '../components/Users/UsersPage';
 import UserProfile from '../components/Users/UserProfile';
-import welcome from '../images/welcome.png';
 import Welcomepage from './Welcomepage';
-
+import PageNotFound from './PageNotFound';
+import SearchUser from '../components/Group/SearchUser';
+import GroupUsers from '../components/Group/GroupUsers';
 
 /**
  * @class Homepage
  * @extends {React.Component}
  */
-class Homepage extends React.Component {
+export class Homepage extends React.Component {
+
+  /**
+   *
+   * Check if user is authenticated
+   * Toast access message
+   * Intialize materialize collapsible
+   *
+   * @memberOf Homepage
+   */
   componentDidMount() {
+    $('.collapsible').collapsible();
     if (!this.props.access.isAuthenticated) {
       this.props.history.push('/signin');
       Materialize.toast('Please SignIn or Register', 5000, 'red');
     }
-    $('.collapsible').collapsible(); // eslint-disable-line
   }
 
   /**
-   * @returns homepage
+   * Renders Homepage
+   * @returns Homepage
    * @memberOf Homepage
    */
   render() {
@@ -34,7 +44,7 @@ class Homepage extends React.Component {
       <div>
         <Sidebar />
         <div className="homepage">
-          <NavigationBar match={this.props.match} />
+
           <Switch>
             <Route
               path={`${this.props.match.url}/welcome-page`}
@@ -60,6 +70,15 @@ class Homepage extends React.Component {
               path={`${this.props.match.url}/user-profile`}
               component={UserProfile}
             />
+            <Route
+              path={`${this.props.match.url}/group/:groupId/add-user`}
+              component={SearchUser}
+            />
+            <Route
+              path={`${this.props.match.url}/group/:groupid/group-users`}
+              component={GroupUsers}
+            />
+            <Route component={PageNotFound}/>
           </Switch>
         </div>
       </div>

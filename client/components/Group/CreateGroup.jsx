@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { addMemberToGroup } from '../../actions/createGroupRequest';
 import { connect } from 'react-redux';
-import Homepage from '../Homepage';
 import { createGroup } from '../../actions/groups';
 
-class CreateGroup extends Component {
+/**
+ *
+ * @class CreateGroup
+ * @extends {Component}
+ */
+export class CreateGroup extends Component {
 
   /**
    * Creates an instance of CreateGroup.
+   * Binds class methods
    * @param {any} props
    *
    * @memberOf CreateGroup
@@ -16,39 +19,37 @@ class CreateGroup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      groupname: '',
+      groupName: '',
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
-  componentDidMount() {
-    $('.collapsible').collapsible(); // eslint-disable-line
-  }
 
+  componentDidMount() { //eslint-disable-line
+    $('.collapsible').collapsible();
+  }
   /**
-   *
-   *
-   * @param {any} event
+   * Sets the event value to the state
+   * @param {object} event The event of the HTML component
    *
    * @memberOf CreateGroup
    */
   onChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
+    this.setState({ [event.target.id]: event.target.value });
   }
 
   /**
    *
-   *
+   * Makes an action call to createGroup
    *
    * @memberOf CreateGroup
    */
   onSubmit() {
-    this.props.createGroup(this.state.groupname)
+    this.props.createGroup(this.state.groupName)
       .then(() => {
-        Materialize.toast('created', 5000, 'green');
+        Materialize.toast('Created Group Succesfully', 5000, 'green');
         this.props.history.push('/homepage/groups');
       }).catch((err) => {
-        console.log(err.response.data);
         Materialize.toast(err.response.data, 5000, 'red');
       });
   }
@@ -56,8 +57,8 @@ class CreateGroup extends Component {
 
   /**
    *
-   *
-   * @returns
+   * Renders CreateGroup component
+   * @returns CreateGroup HTML component
    *
    * @memberOf CreateGroup
    */
@@ -67,17 +68,22 @@ class CreateGroup extends Component {
         <div className="col s12 container form-margin">
           <div className="input-field col s6 offset-s3">
             <i className="material-icons prefix">group</i>
-            <input value={this.state.groupname}
+            <input
+            id="groupName"
+            value={this.state.groupName}
             onChange={this.onChange}
-            name="groupname"
+            name="groupName"
             type="text"
             className="validate" required/>
-            <label className="active" htmlFor="groupname">Groupname</label>
+            <label className="active" htmlFor="groupName">Groupname</label>
           </div>
-            <button onClick={this.onSubmit} disabled={this.state.invalid}
+            <button
+            id="submit-group"
+            onClick={this.onSubmit}
             className=
             "btn waves-effect waves-light col s6 offset-s3 red lighten-2"
-            type="submit" name="action">Enter
+            type="submit"
+            name="action">Enter
               <i className="material-icons right">send</i>
             </button>
         </div>
@@ -90,9 +96,5 @@ const mapStateToProps = state => ({
   user: state.access.user,
 });
 
-
-CreateGroup.propTypes = {
-  createGroup: PropTypes.func.isRequired,
-};
 
 export default connect(mapStateToProps, { createGroup })(CreateGroup);

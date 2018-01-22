@@ -5,7 +5,7 @@ const secret = process.env.SECRET;
 module.exports = {
 
   /**
-   *
+   * Function to check token
    *
    * @param {any} req
    * @param {any} res
@@ -24,7 +24,7 @@ module.exports = {
         return res.status(401).send({ message: 'Token authentication failed' });
       }
       req.decoded = decoded;
-      return next();
+      next();
     });
   }
 };

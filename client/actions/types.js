@@ -1,5 +1,4 @@
 
-export const ADD_FLASH_MESSAGE = 'ADD_FLASH_MESSAGE';
 export const SIGN_IN_USER = 'SIGN_IN_USER';
 export const SIGN_UP_USER = 'SIGN_UP_USER';
 export const SIGN_OUT_USER = 'SIGN_OUT_USER';
@@ -16,3 +15,5 @@ export const GET_GROUP_USERS = 'GET_GROUP_USERS';
 export const LIST_ALL_USERS = 'LIST_ALL_USERS';
 export const LIST_GROUP = 'LIST_GROUP';
 export const ALL_USERS_GROUPS = 'ALL_USERS_GROUPS';
+export const RECOVER_PASSWORD = 'RECOVER_PASSWORD';
+export const UPDATE_PASSWORD = 'UPDATE_PASSWORD';

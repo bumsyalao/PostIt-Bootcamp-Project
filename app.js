@@ -1,10 +1,10 @@
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
-const routes = require('./server/routes/index');
+const routes = require('./server/routes');
 
 const port = parseInt(process.env.PORT, 10) || 3000;
-const homepage = `${__dirname}/client/index.html`;
+
 // Set up the express app
 const app = express();
 

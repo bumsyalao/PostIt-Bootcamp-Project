@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
     },
-    phonenumber: {
+    phoneNumber: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
@@ -50,11 +50,11 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
     },
-    forgotpasswordtoken: {
+    forgotPasswordToken: {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    expirytime: {
+    expiryTime: {
       type: DataTypes.DATE,
       allowNull: true
     },
@@ -63,39 +63,40 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       unique: true
     },
-  }, {
-    hooks: {
-      beforeCreate(user) {
-        const salt = bcrypt.genSaltSync();
-        user.password = bcrypt.hashSync(user.password, salt);
-      },
-      beforeUpdate(user) {
-        if (user.password) {
+  },
+    {
+      hooks: {
+        beforeCreate(user) {
           const salt = bcrypt.genSaltSync();
           user.password = bcrypt.hashSync(user.password, salt);
-          user.updateAt = Date.now();
+        },
+        beforeUpdate(user) {
+          if (user.password) {
+            const salt = bcrypt.genSaltSync();
+            user.password = bcrypt.hashSync(user.password, salt);
+            user.updateAt = Date.now();
+          }
+        }
+      },
+      classMethods: {
+        associate: (models) => {
+          Users.belongsToMany(models.Groups, { through: 'UserGroups',
+            foreignKey: 'userId' });
+          Users.hasMany(models.Messages, { foreignKey: 'userId' });
+        },
+      },
+      instanceMethods: {
+        verifyPassword(userPassword) {
+          return bcrypt.compareSync(userPassword, this.password);
+        },
+        filterUserDetails() {
+          const details = this.get();
+          delete details.password;
+          delete details.updatedAt;
+
+          return details;
         }
       }
-    },
-
-    classMethods: {
-      associate: (models) => {
-        Users.belongsToMany(models.Groups, { through: 'Usergroups', foreignKey: 'userId' });
-        Users.hasMany(models.Messages, { foreignKey: 'userId' });
-      },
-    },
-    instanceMethods: {
-      verifyPassword(userPassword) {
-        return bcrypt.compareSync(userPassword, this.password);
-      },
-      filterUserDetails() {
-        const details = this.get();
-        delete details.password;
-        delete details.updatedAt;
-
-        return details;
-      }
-    }
-  });
+    });
   return Users;
 };

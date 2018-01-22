@@ -3,11 +3,8 @@ import { render } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import jwt from 'jsonwebtoken';
-import thunk from 'redux-thunk';
-import { createStore, applyMiddleware, compose } from 'redux';
-import attachAuthorizationToken from '../client/utils/attachToken';
+import attachAuthorizationToken from '../client/utils/attachAuthorizationToken';
 import store from '../client/store/configureStore';
-import setCurrentUser from './actions/authAction';
 import { LOGGEDIN_USER } from './actions/types';
 import './scss/style.scss';
 import Routes from './Routes';
@@ -21,7 +18,7 @@ if (token) {
       userId: decoded.userId,
       username: decoded.username,
       email: decoded.email,
-      phonenumber: decoded.phonenumber
+      phoneNumber: decoded.phoneNumber
     };
     store.dispatch(
       { type: LOGGEDIN_USER, userInfo }

@@ -1,32 +1,42 @@
+/* global expect test */
 import access from '../../reducers/accessReducer';
-import * as types from '../../actions/types';
+import { userSigninSuccess,
+  userSignoutSuccess } from '../../actions/signInAction';
+import { setCurrentUser } from '../../actions/signupAction';
+
+const state = {};
+const message = 'You have logged in succesfully';
+const user = {
+  userId: 3,
+  username: 'michelle',
+  email: 'michelle@email.com',
+  phoneNumber: '07045454545'
+};
 
 describe('Sign in reducer', () => {
-  it('SIGN_IN_USER', () => {
-    const state = {};
-    const action = {
-      type: types.SIGN_IN_USER,
-      user: {
-        id: 21,
-        username: 'banku',
-        email: 'bunku@gmail.com',
-        phonenumber: '0908209193`0',
-        password: '$2a$10$zzPmWsXS/.CgFRpqFnKchO…K3IjcyXe2',
-        forgotpasswordtoken: null,
-        expirytime: null,
-        hash: null,
-        createdAt: '2017-09-19T10:22:27.188Z',
-        updatedAt: '2017-09-19T10:22:27.188Z' },
-      message: 'You have logged in succesfully',
-      isAuthenticated: true
-    };
-    const results = access(state, action);
-    expect(results)
-            .toEqual({
-              isAuthenticated: true,
-              message: 'You have logged in succesfully',
-              user: undefined
-            });
+  it('should sign in a user when authentictaion is succesful', () => {
+    const action = userSigninSuccess(user, message);
+    const newState = access(state, action);
+    expect(newState.user.username).toEqual('michelle');
+    expect(newState.message).toEqual('You have logged in succesfully');
+    expect(newState.user.userId).toEqual(3);
+    expect(newState.isAuthenticated).toEqual(true);
   });
-})
-;
+
+  it('should sign in a user when authentictaion is succesful', () => {
+    const action = setCurrentUser(user);
+    const newState = access(state, action);
+    expect(newState.user.username).toEqual('michelle');
+    expect(newState.user.userId).toEqual(3);
+    expect(newState.isAuthenticated).toEqual(true);
+  });
+
+  it('should signout user when the signout action is called', () => {
+    const action = userSignoutSuccess();
+    const newState = access(state, action);
+
+    expect(newState.user).toEqual({});
+    expect(newState.message).toEqual(null);
+    expect(newState.isAuthenticated).toEqual(false);
+  });
+});

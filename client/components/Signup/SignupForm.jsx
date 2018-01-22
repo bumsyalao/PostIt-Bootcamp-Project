@@ -1,34 +1,75 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Redirect } from 'react-router';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { userSignupRequest } from '../../actions/signupAction';
+
 
 /**
  * @class SignupForm
  * @extends {React.Component}
  */
-class SignupForm extends React.Component {
+export class SignupForm extends React.Component {
+
+  /**
+   * Creates an instance of SignupForm.
+   * Binds class methods.
+   * @param {object} props
+   *
+   * @memberOf SignupForm
+   */
   constructor(props) {
     super(props);
     this.state = {
       username: '',
       email: '',
       password: '',
-      phonenumber: '',
+      phoneNumber: '',
       confirmPassword: '',
-      invalid: false
+      loggedIn: false
     };
-    this.state = { loggedIn: false };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
-  onChange(event) {
-    this.setState({ [event.target.name]: event.target.value });
+ /**
+   *
+   * Check if user is authenticated
+   * Directs user to homepage if user is already signed in
+   *
+   * @memberOf Homepage
+   */
+  componentDidMount() {
+    if (this.props.access.isAuthenticated) {
+      this.props.history.push('/homepage/welcome-page');
+    }
   }
+  /**
+   * Sets the event value to the state
+   * @return {void}
+   * @param {Object} event The event of the HTML component
+   *
+   * @memberOf SignupForm
+   */
+  onChange(event) {
+    this.setState({ [event.target.id]: event.target.value });
+  }
+
+  /**
+   *
+   * Validates the SignupForm
+   * Makes an action call to sign up the user
+   * Toasts the error/success message
+   * @return {void}
+   * @param {object} event
+   *
+   * @memberOf SignupForm
+   */
   onSubmit(event) {
     event.preventDefault();
-    this.props
-      .userSignupRequest(this.state)
+    if (this.state.confirmPassword !== this.state.password) {
+      Materialize.toast('Password does not match', 5000, 'red');
+      this.props.history.push('/signup');
+    } else {
+      this.props.userSignupRequest(this.state)
       .then(() => {
         this.setState({ loggedIn: true });
         this.props.history.push('/homepage/welcome-page');
@@ -36,23 +77,25 @@ class SignupForm extends React.Component {
       .catch((error) => {
         Materialize.toast(error.response.data.message, 5000, 'red');
       });
+    }
   }
 
   /**
+   *
+   * renders signupForm component
    * @returns signupform
    * @memberOf SignupForm
    */
 
   render() {
-    {
-      this.state.loggedIn && <Redirect to="/" />;
-    }
     return (
       <div className="form-margin">
+      <div><h3 className="form-header">REGISTER</h3></div>
         <form className="col s12 container">
           <div className="input-field col s6 offset-s3">
             <i className="material-icons prefix">account_circle</i>
             <input
+              id="username"
               value={this.state.username}
               onChange={this.onChange}
               name="username"
@@ -67,6 +110,7 @@ class SignupForm extends React.Component {
           <div className="input-field col s6 offset-s3">
             <i className="material-icons prefix">email</i>
             <input
+              id="email"
               value={this.state.email}
               onChange={this.onChange}
               name="email"
@@ -81,9 +125,10 @@ class SignupForm extends React.Component {
           <div className="input-field col s6 offset-s3">
             <i className="material-icons prefix">phone</i>
             <input
-              value={this.state.phonenumber}
+              id="phoneNumber"
+              value={this.state.phoneNumber}
               onChange={this.onChange}
-              name="phonenumber"
+              name="phoneNumber"
               type="tel"
               className="validate"
               required
@@ -95,6 +140,7 @@ class SignupForm extends React.Component {
           <div className="input-field col s6 offset-s3">
             <i className="material-icons prefix">lock</i>
             <input
+              id="password"
               value={this.state.password}
               onChange={this.onChange}
               name="password"
@@ -109,6 +155,7 @@ class SignupForm extends React.Component {
           <div className="input-field col s6 offset-s3">
             <i className="material-icons prefix">lock</i>
             <input
+              id="confirmPassword"
               value={this.state.confirmPassword}
               onChange={this.onChange}
               name="confirmPassword"
@@ -122,21 +169,22 @@ class SignupForm extends React.Component {
           </div>
           <button
             onClick={this.onSubmit}
-            disabled={this.state.invalid}
-            className="btn waves-effect waves-light col s6 offset-s3 red lighten-2"
+            id="submit-signup"
+            className=
+            "btn waves-effect waves-light col s6 offset-s3 red lighten-2"
             type="submit"
             name="action"
           >
-            Register
+            Register<i className="material-icons right">send</i>
           </button>
         </form>
       </div>
     );
   }
 }
+const mapStateToProps = state => ({
+  access: state.access
+});
 
-SignupForm.propTypes = {
-  userSignupRequest: React.PropTypes.func.isRequired
-};
-
-export default withRouter(SignupForm);
+export default connect(mapStateToProps,
+  { userSignupRequest })(withRouter(SignupForm));

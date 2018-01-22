@@ -1,5 +1,15 @@
 body {
   font-family: 'Open Sans', sans-serif;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+main {
+  flex: 1 0 auto;
+}
+
+.footer-width {
+  width: 60% !important ;
 }
 
 a {
@@ -10,15 +20,19 @@ nav ul a {
   font-weight: bolder;
 }
 .message-form {
-    height: 100%;
-    position: fixed;
-    width: calc(100% - 300px) !important ;
+  height: 100%;
+  position: fixed;
 }
+
+@media (min-width: 768px) {
+  .message-form {
+    width: calc(100% - 300px) !important;
+  }
+}
+
 .message-card {
-  max-width: 600px;
-  margin: 0 auto;
-  border: 1px solid $light-gray;
-  padding: 10px;
+  width: 90%;
+  padding: 0.1rem;
 
   &.group {
     padding: 0;
@@ -50,16 +64,16 @@ nav ul a {
   }
 }
 .message-box {
-    max-width: 650px;
-    margin: 0 auto;
-    max-height: calc(100% - 340px);
-    overflow: scroll;
-    border: none;    
-    
-    > h5 {
+  max-width: 650px;
+  margin: 0 auto;
+  max-height: calc(100% - 340px);
+  overflow: scroll;
+  border: none;
+
+  > h5 {
     margin: 25px;
     font-weight: bolder;
-    }
+  }
 }
 .message-card2 {
   margin: 20px auto;
@@ -86,16 +100,16 @@ nav ul a {
   }
 }
 
-.message-holder{
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    margin: 0 auto 30px auto;
-    background: #fff;
-    width: calc(100% - 300px);
-    margin-top: 0;
-    border-top: 1px solid #aaa;
-    height: 200px;
+.message-holder {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  margin: 0 auto 30px auto;
+  background: #fff;
+  width: calc(100% - 300px);
+  margin-top: 0;
+  border-top: 1px solid #aaa;
+  height: 200px;
 }
 
 .float-right {
@@ -115,7 +129,6 @@ nav ul a {
     line-height: 16px;
     color: #8e8c8c;
     overflow: scroll;
-    // flex-direction: column;
 
     > i {
       margin-right: 10px;
@@ -125,7 +138,7 @@ nav ul a {
     }
 
     &:hover {
-      background: rgba(229, 115, 115, 0.08);      
+      background: rgba(229, 115, 115, 0.08);
     }
   }
 
@@ -152,10 +165,10 @@ nav ul a {
   }
 }
 .page-button {
-      margin-top: 50px;
-      a {
-        margin-right: 30px;
-      }
+  margin-top: 50px;
+  a {
+    margin-right: 30px;
+  }
 }
 .forgot-password {
   margin-top: 20px;
@@ -175,10 +188,70 @@ nav ul a {
   margin-top: 10%;
 }
 .collection {
-  margin-bottom: 100px !important; 
+  margin-bottom: 100px !important;
 }
 
 .profile-image {
   box-sizing: inherit;
   text-align: center;
+}
+.scroll-group {
+  overflow: scroll;
+  border: 3px solid #fff;
+  width: 150px;
+  height: 500px;
+}
+
+.card .card-title {
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+.inline-block {
+  display: inline-block !important;
+}
+
+.inline-margin {
+  margin-left: 0.5rem;
+}
+
+.priority-badge {
+  background: red;
+  color: white;
+  padding: 0.02rem 0.3rem;
+  border-radius: 0.2rem;
+}
+
+.card .card-content {
+  padding: 1px 24px;
+}
+
+.card .card-action {
+  padding: 1px 24px;
+}
+
+.message-text {
+  font-size: 1.1rem;
+}
+
+.msg-collection {
+  height: 60vh !important;
+  overflow: scroll;
+}
+.no-group{
+  text-align: center;
+}
+
+.icon-pointer {
+  cursor: pointer;
+}
+
+.urgent {
+  background: red;
+}
+.btn-space {
+  margin-right: 1rem;
+}
+.link-underline {
+  text-decoration: underline;
 }

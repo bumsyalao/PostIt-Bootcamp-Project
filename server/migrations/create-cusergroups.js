@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, Sequelize) =>
-  queryInterface.createTable('Usergroups', {
+  queryInterface.createTable('UserGroups', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -31,7 +31,7 @@ module.exports = {
       type: Sequelize.STRING
     },
 
-    groupname: {
+    groupName: {
       allowNull: false,
       type: Sequelize.STRING
     },
@@ -48,6 +48,6 @@ module.exports = {
   }),
 
   down: queryInterface =>
-  queryInterface.dropTable('Usergroups')
+  queryInterface.dropTable('UserGroups')
 };
 

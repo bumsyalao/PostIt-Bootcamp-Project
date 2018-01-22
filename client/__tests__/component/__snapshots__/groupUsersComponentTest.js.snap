@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` Search User component should match the SearchUserSnapshot 1`] = `
+<div
+  className="row"
+>
+  <Link
+    className="waves-effect waves-light red lighten-2 btn"
+    replace={false}
+    to="/homepage/view-group/1"
+  >
+     
+    Go Back to Group
+  </Link>
+  <div
+    className="container form-margin"
+  >
+    <div
+      className="col s12 m7"
+    >
+      <ul
+        className="collection"
+      >
+        <li
+          className="collection-item"
+          key="1"
+        >
+          new
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;
