@@ -10,7 +10,7 @@ import { listAllUsers } from '../../actions/groups';
  * @class GroupUsers
  * @extends {Component}
  */
-class GroupUsers extends Component {
+export class GroupUsers extends Component {
   /**
    *
    * Makes action call to list all users in group
@@ -29,12 +29,11 @@ class GroupUsers extends Component {
    * @memberOf GroupUsers
    */
   render() {
-    const groupid = this.props.match.params.groupid;
-    console.log('props, grouplist', this.props.groupList);
+    const groupId = this.props.match.params.groupid;
     return (
     <div className="row">
             <Link
-          to={`/homepage/view-group/${groupid}`}
+          to={`/homepage/view-group/${groupId}`}
           className="waves-effect waves-light red lighten-2 btn">
           {' '}
           Go Back to Group

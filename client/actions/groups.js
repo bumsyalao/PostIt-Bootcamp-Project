@@ -83,18 +83,18 @@ export const listAllUsers = groupId => dispatch =>
       throw error;
     });
 
-/**
- * api call to joinGroup
- * @param {object} groupId
- * @return {object} returns newGroup if the call is successful
- */
-export const joinGroup = groupId =>
-  dispatch => axios.post(`/api/v1/group/${groupId}/user`)
-  .then((response) => {
-    dispatch(addUser(response.data.newGroup));
-  }).catch((error) => {
-    throw (error);
-  });
+// /**
+//  * api call to joinGroup
+//  * @param {object} groupId
+//  * @return {object} returns newGroup if the call is successful
+//  */
+// export const joinGroup = groupId =>
+//   dispatch => axios.post(`/api/v1/group/${groupId}/user`)
+//   .then((response) => {
+//     dispatch(addUser(response.data.newGroup));
+//   }).catch((error) => {
+//     throw (error);
+//   });
 
 /**
  * api call to addMemberToGroup
@@ -104,6 +104,7 @@ export const joinGroup = groupId =>
 export const addMemberToGroup = (groupId, userId) =>
   dispatch => axios.post(`/api/v1/group/${groupId}/user/${userId}`)
   .then((response) => {
+    console.log('===actions', response.data);
     dispatch(addUser(response.data.newGroup));
   }).catch((error) => {
     throw (error);

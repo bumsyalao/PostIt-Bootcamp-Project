@@ -25,7 +25,6 @@ export class ListGroup extends React.Component {
   constructor(props) {
     super(props);
     this.onClick = this.onClick.bind(this);
-    // this.joinAGroup = this.joinAGroup.bind(this);
     this.listUsers = this.listUsers.bind(this);
   }
 

@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ReactPaginate from 'react-paginate';
+import classnames from 'classnames';
 import { getAllUsers } from '../../actions/users';
 import {
-  addMemberToGroup, getGroups, listAllUsers
+  addMemberToGroup,
+  getGroups,
+  listAllUsers
 } from '../../actions/groups';
 
 /**
@@ -22,7 +25,8 @@ export class SearchUser extends Component {
     this.state = {
       users: [],
       pageCount: 0,
-      searchParam: ''
+      searchParam: '',
+      groupList: []
     };
     this.joinGroup = this.joinGroup.bind(this);
     this.handlePageClick = this.handlePageClick.bind(this);
@@ -60,7 +64,10 @@ export class SearchUser extends Component {
     this.setState({
       users: nextProps.users.users,
       pageCount: nextProps.pagination.pageCount,
-      count: nextProps.pagination.count
+      count: nextProps.pagination.count,
+      groupList: nextProps.groupList
+    }, () => {
+      console.log(this.state.groupList, '==>');
     });
   }
 
@@ -82,11 +89,7 @@ export class SearchUser extends Component {
         Materialize.toast('Member successfully added', 5000, 'green');
       })
       .catch(({ response }) => {
-        Materialize.toast(
-          `${response.data.message}`,
-          5000,
-          'red'
-        );
+        Materialize.toast(`${response.data.message}`, 5000, 'red');
       });
   }
 
@@ -124,7 +127,7 @@ export class SearchUser extends Component {
     this.setState({ offset });
     this.getUsers(offset, limit);
   }
-  // disableJoinedUser = ()
+
   /**
    * Renders the SearchPage document
    * @returns SearchPage
@@ -133,12 +136,18 @@ export class SearchUser extends Component {
   render() {
     const { users } = this.state;
     const groupid = this.props.match.params.groupId;
-    console.log(this.props.groupList);
+    const groupUsers = [];
+    this.state.groupList.forEach((user) => {
+      user.users.forEach((eachUser) => {
+        groupUsers.push(eachUser.username);
+      });
+    });
     return (
       <div className="row">
         <Link
           to={`/homepage/view-group/${groupid}`}
-          className="waves-effect waves-light red lighten-2 btn">
+          className="waves-effect waves-light red lighten-2 btn"
+        >
           {' '}
           Go Back to Group
         </Link>
@@ -182,10 +191,15 @@ export class SearchUser extends Component {
                 users.map(user => (
                   <tr key={user.id}>
                     <td>
-                    <a className="btn-floating btn-space"
+                      <a
+                        className={classnames('btn-floating btn-space', {
+                          disabled: groupUsers.includes(user.username)
+                        })}
                         onClick={this.joinGroup}
-                        >
-                        <i class="material-icons" id={user.id}>add</i>
+                      >
+                        <i class="material-icons" id={user.id}>
+                          add
+                        </i>
                       </a>
                       {user.username}
                     </td>

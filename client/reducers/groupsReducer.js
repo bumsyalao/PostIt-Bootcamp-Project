@@ -12,6 +12,11 @@ export default (state = initialState, action = {}) => {
         ...state,
         groupList: action.groups
       };
+    case types.ADD_USER_TO_GROUP:
+      return {
+        ...state,
+        group: action.newGroup
+      };
     case types.LIST_GROUP:
       return {
         ...state,
